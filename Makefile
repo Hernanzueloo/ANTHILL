@@ -30,6 +30,8 @@
 
 ## AUTORES: DAVID BRENCHLEY URIOL - JAVIER SAN ANDRES - DIEGO RODRÍGUEZ - ALEJANDRO GARCÍA
 
+GAME_NAME=ANTHILL
+
 BIN_PATH= ./bin
 INC_PATH= ./include
 LIB_PATH= ./lib
@@ -46,7 +48,7 @@ CFLAGS = -ansi -pedantic -Wall -g #-DDEBUG
 
 LIBS= -lscreen  
 
-Executives = anthill
+Executives = $(GAME_NAME)
 OBJECTS = game_loop.o game_management.o graphic_engine.o game.o rule.o object.o player.o enemy.o space.o command.o set.o inventory.o link.o dialogue.o
 DIR_OBJECTS= $(patsubst %.o,$(OBJ_PATH)/%.o, $(OBJECTS))
 
@@ -69,16 +71,9 @@ all: $(Executives)
 
 tests: $(Tests)
 
-## DOX GENERATION AND CLEANING ##
-#-----------------------------------------------------------------------------------------------------------------------------
-
-dox:
-	doxygen doxyfile
-
-
 
 #--GAME--
-anthill: $(OBJECTS)
+$(GAME_NAME): $(OBJECTS)
 	@echo
 	@echo ---------CREATING anthill----------------
 	$(CC)  -o $@ $(DIR_OBJECTS) $(LDFLAGS) $(LIBS)
@@ -335,6 +330,13 @@ run_dialogue_test:
 	$(BIN_PATH)/dialogue_test
 run_dialogue_testv:
 	valgrind --leak-check=full $(BIN_PATH)/dialogue_test
+
+## DOX GENERATION AND CLEANING ##
+#-----------------------------------------------------------------------------------------------------------------------------
+
+dox:
+	doxygen doxyfile
+
 #------------------------------------------------------------------------------------------------------------------------------
 
 clean: 
