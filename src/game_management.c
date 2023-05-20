@@ -37,6 +37,15 @@ STATUS game_management_load_game_data(Game *game, char *filename);
 STATUS game_management_load_spaces(Game *game, char *filename);
 
 /**
+ * @brief given a file and a pointer to the game it sets the darks spaces in the given proportion
+ * @author Alejandro García Hernando
+ * @param game pointer to the game
+ * @param filename name to the file
+ * @return OK, if everything goes well or ERROR if there was some mistake
+ */
+STATUS game_management_set_dark_spaces(Game *game, char *filename);
+
+/**
  * @brief given a file and a pointer to the game it loads the enemy from the file onto the game
  * @author Javier San Andrés de Pedro
  * @param game pointer to the game
@@ -254,7 +263,6 @@ STATUS game_management_load_spaces(Game *game, char *filename)
   char *toks = NULL, **gdesc;
   Id id = NO_ID;
   Space *space = NULL;
-  STATUS status = OK;
   BOOL light;
   SSTATUS flooded;
 
@@ -398,19 +406,64 @@ STATUS game_management_load_spaces(Game *game, char *filename)
     }
   }
 
-  /*Error control*/
-  if (ferror(file))
-  {
-    status = ERROR;
-  }
-
   for (i = 0; i < GRAPHIC_ROWS; i++)
     free(gdesc[i]);
   free(gdesc);
 
   fclose(file);
+  
+  return game_management_set_dark_spaces(game, filename);
+}
 
-  return status;
+/**
+ * Sets the dark spaces in the given proportion
+ */
+STATUS game_management_set_dark_spaces(Game *game, char *filename)
+{
+  FILE *file = NULL;
+  char line[WORD_SIZE] = "";
+  char *toks = NULL;
+  int nSpaces, i;
+  float propSpaces;
+  Id *spacesIds;
+
+  if (game == NULL || filename == NULL)
+  {
+    return ERROR;
+  }
+
+  file = fopen(filename, "r"); /*Open file + error control*/
+  if (file == NULL)
+  {
+    return ERROR;
+  }
+
+  /*Loop that reads all the lines*/
+  while (fgets(line, WORD_SIZE, file))
+  {
+    if (strncmp("#G:", line, 3) == 0)
+    {
+      /*Proportion of dark spaces*/
+      toks = strtok(line + 3, "|");     
+      if(!(toks = strtok(NULL, "|")))
+        return OK;
+      break;
+    }
+  }
+  
+  propSpaces = atof(toks);
+
+  for(i=0; game_get_space_id_at(game, i)!=NO_ID; i++);
+  nSpaces=i*propSpaces;
+
+  spacesIds=game_get_rand_space_id(game, nSpaces);
+  for(i=0; i<nSpaces; i++){
+    (void)space_set_light(game_get_space(game, spacesIds[i]), FALSE);
+  }
+
+  fclose(file);
+
+  return OK;
 }
 
 /**
