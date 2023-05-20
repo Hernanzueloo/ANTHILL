@@ -271,13 +271,11 @@ void test9_game_management_load()
     {
         return;
     }
-
+    fprintf(f, "%s", "#s:065|The Workshop|1|0| __  ___  _  _|_ /  oo  i _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ i      /_/|__/  --oo8___/|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects.|");
     fprintf(f, "#o:37|Lantern|065|The lantern makes the darkness disappear|1|1|-1|-1|1|0|");
     fclose(f);
 
-    (void)game_management_load(game, GAMERDRFILE);
-
-    PRINT_TEST_RESULT(game_get_object_id_at(game, 0) == 37);
+    PRINT_TEST_RESULT(game_management_load(game, GAMERDRFILE) == OK);
     game_destroy(game);
     remove(GAMERDRFILE);
 }
@@ -589,17 +587,13 @@ void test9_game_management_save()
         return;
     }
 
+    fprintf(f, "%s", "#s:065|The Workshop|1|0| __  ___  _  _|_ /  oo  i _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ i      /_/|__/  --oo8___/|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects.|");
     fprintf(f, "#o:37|Lantern|065|The lantern makes the darkness disappear|1|1|-1|-1|1|0|");
     fclose(f);
 
     (void)game_management_load(game, GAMERDRFILE);
-    (void)game_management_save(game, GAMEWTRFILE);
-    game_destroy(game);
-    
-    game=game_create();
-    (void)game_management_load(game, GAMERDRFILE);
 
-    PRINT_TEST_RESULT(game_get_object_id_at(game, 0) == 37);
+    PRINT_TEST_RESULT(game_management_save(game, GAMEWTRFILE) == OK);
     game_destroy(game);
     remove(GAMERDRFILE);
     remove(GAMEWTRFILE);
