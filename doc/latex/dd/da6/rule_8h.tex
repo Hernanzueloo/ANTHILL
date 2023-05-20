@@ -1,0 +1,848 @@
+\hypertarget{rule_8h}{}\doxysection{include/rule.h File Reference}
+\label{rule_8h}\index{include/rule.h@{include/rule.h}}
+
+
+It defines the rule interface.  
+
+
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{rule_8h_a09027749176c512028b007c86284a263}{N\+\_\+\+CONDITIONS}}~10
+\item 
+\#define \mbox{\hyperlink{rule_8h_adf0aff235f4d008dba741e834dc31ecc}{N\+\_\+\+ACTIONS}}~14
+\item 
+\#define \mbox{\hyperlink{rule_8h_ab0cd711cc5dcd823de161216f3f5d313}{MAX\+\_\+\+ACTIONS}}~\mbox{\hyperlink{rule_8h_adf0aff235f4d008dba741e834dc31ecc}{N\+\_\+\+ACTIONS}}
+\item 
+\#define \mbox{\hyperlink{rule_8h_a5247f1165f9724de31336bae7238d703}{MAX\+\_\+\+CONDITIONS}}~\mbox{\hyperlink{rule_8h_a09027749176c512028b007c86284a263}{N\+\_\+\+CONDITIONS}}
+\item 
+\#define \mbox{\hyperlink{rule_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\+\_\+\+ARGS}}~3
+\item 
+\#define \mbox{\hyperlink{rule_8h_a22f38c76f50861a9c516314690927a5f}{RULE\+\_\+\+SIZE}}~1000
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}\label{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}} 
+typedef struct \mbox{\hyperlink{struct__Rule}{\+\_\+\+Rule}} \mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}}
+\begin{DoxyCompactList}\small\item\em rule structure \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rule_8h_a01c7d823f4985d5878a7fb633744c26b}\label{rule_8h_a01c7d823f4985d5878a7fb633744c26b}} 
+typedef struct \mbox{\hyperlink{struct__Action}{\+\_\+\+Action}} \mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}}
+\begin{DoxyCompactList}\small\item\em action structure \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}\label{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}} 
+typedef struct \mbox{\hyperlink{struct__Condition}{\+\_\+\+Condition}} \mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}}
+\begin{DoxyCompactList}\small\item\em condition structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} \{ \newline
+{\bfseries NO\+\_\+\+CONDITION} = -\/1
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532ad304690088e2def5a309b4ef628fc735}{IN\+\_\+\+SPACE}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a0f59b986ced240ed949d359317044ad4}{HAS\+\_\+\+OBJECT}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a4afed6358578d9c894073c1fe8f38472}{HEALTH\+\_\+\+POINTS\+\_\+P}}
+, \newline
+\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a681426f648d6e02035c2ed534e2b7efb}{HEALTH\+\_\+\+POINTS\+\_\+E}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a42e2e910d60b7622e84c11107c811e8e}{N\+\_\+\+COMANDS}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a641f8702156a5ef0fb5a2be5aa379526}{DROP\+\_\+\+OBJ}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a278dd2634317ae50ed2e297270cd20d0}{SAME\+\_\+\+OBJECT}}
+, \newline
+\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a2896481e2eb47542f85a907d5692a695}{PLAYER\+\_\+\+TYPE}}
+, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532a5c16de6a4f70575906df77072b99f02e}{HAS\+\_\+\+SUNK}}
+ \}
+\begin{DoxyCompactList}\small\item\em CONDITION data type to evaluate rules. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} \{ \newline
+{\bfseries NO\+\_\+\+ACTION} = -\/1
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca38216628f7dd6d88fa34c6d708f6415c}{ATTACK\+\_\+P}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca261ce649c98f5e9aa45dd376df73939e}{HEAL\+\_\+P}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca4212060b0e3a80f63b4338b4ac42a0d1}{ATTACK\+\_\+E}}
+, \newline
+\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca2317d6c325cc7e68f91de3c352a3d890}{HEAL\+\_\+E}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca994d13fcb2e9bdbf3c67b465b6e3074e}{OPEN\+\_\+\+LINK}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca552a98b0340ce5bc77db1818e599af6e}{CLOSE\+\_\+\+LINK}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca084193e2003df5b5f15b08ad683c8f1d}{INUNDATION}}
+, \newline
+\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf34d46a0e45d0474e22f9c1c5dee1540}{SAVE\+\_\+\+SPACE}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf16ec43765aea7aa246a27639d870901}{SPAWN\+\_\+\+GROUND}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca184ac68cada634df860ee83815c989c4}{COMBINE}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaaf566d8f368a5679097cc8284f2e591f}{SET\+\_\+\+MOVABLE}}
+, \newline
+\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaa7beb9daf9182d25c88712f1570ddb25}{VICTORY\+\_\+\+ACT}}
+, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcad61801ef5da3afb1dada0ff43621be8f}{DEFEAT\+\_\+\+ACT}}
+ \}
+\begin{DoxyCompactList}\small\item\em ACTION data type to execute rules. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$ \mbox{\hyperlink{rule_8h_ae52f28f484a144079318a5550085a588}{rule\+\_\+create}} (\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} id)
+\begin{DoxyCompactList}\small\item\em It allocates memory for a rule. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rule_8h_ae88386866f567107df47b479075959e3}{rule\+\_\+destroy}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em It frees allocated memory for a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} \mbox{\hyperlink{rule_8h_a2887d565d3a87383f6cf248e044febbd}{rule\+\_\+get\+\_\+id}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em It gets the id of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}} \mbox{\hyperlink{rule_8h_a365e66c918bde3bd564be2d2655a4b40}{rule\+\_\+get\+\_\+executed}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em It gets the bool value of execute of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{rule_8h_af3466b73be23f0aa60b5e332f8edac18}{rule\+\_\+set\+\_\+executed}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule, \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}} val)
+\begin{DoxyCompactList}\small\item\em It sets the execution to a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$ \mbox{\hyperlink{rule_8h_a6d0d4969c9391b33919cc84994ef8586}{rule\+\_\+get\+\_\+action}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule, int index)
+\begin{DoxyCompactList}\small\item\em It gets an action of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$ \mbox{\hyperlink{rule_8h_a4d13f007b8912a97a060adc633c0d319}{rule\+\_\+get\+\_\+condition}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule, int index)
+\begin{DoxyCompactList}\small\item\em It gets an condition of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_aeed3751d93ff6ee0b58dfb994ddd93a2}{rule\+\_\+get\+\_\+num\+\_\+conditions}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em It gets num of condirions of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_ad81607693de5d0a7e5730a4a32325012}{rule\+\_\+get\+\_\+num\+\_\+actions}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em It gets num of action of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$ \mbox{\hyperlink{rule_8h_acc664a59a14da0acc90fe5bf479ca8b8}{rule\+\_\+action\+\_\+get\+\_\+args\+Id}} (\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$act)
+\begin{DoxyCompactList}\small\item\em It gets the args\+Id of action of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_a56a5ba7001c0dbf3165b32e3e1a23704}{rule\+\_\+action\+\_\+get\+\_\+num\+Id}} (\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$act)
+\begin{DoxyCompactList}\small\item\em It gets the number of args\+Id of action of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_ac920c2861aa8c8fe2f96fcb922d66b0c}{rule\+\_\+action\+\_\+get\+\_\+argint}} (\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$act)
+\begin{DoxyCompactList}\small\item\em It gets the argint of action of a rule. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{rule_8h_a3855808941acbab960a97c6b2634af11}{rule\+\_\+action\+\_\+get\+\_\+argname}} (\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$act)
+\begin{DoxyCompactList}\small\item\em It gets the char argument of action of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} \mbox{\hyperlink{rule_8h_a5e99cb5502e35ee43c1f0afea3d3a5b3}{rule\+\_\+action\+\_\+get\+\_\+type}} (\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$act)
+\begin{DoxyCompactList}\small\item\em It gets the type of the action of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$ \mbox{\hyperlink{rule_8h_a5a13addad1b364056118bd4d16410700}{rule\+\_\+condition\+\_\+get\+\_\+args\+Id}} (\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$cond)
+\begin{DoxyCompactList}\small\item\em It gets the args\+Id of condition of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_acffb162398ca2e94058ebf78a726282c}{rule\+\_\+condition\+\_\+get\+\_\+num\+Id}} (\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$cond)
+\begin{DoxyCompactList}\small\item\em It gets the number of args\+Id of condition of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} \mbox{\hyperlink{rule_8h_a33174ad124742d7d11e440706b6cd868}{rule\+\_\+condition\+\_\+get\+\_\+type}} (\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$cond)
+\begin{DoxyCompactList}\small\item\em It gets the type of the condition of a rule. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rule_8h_a023d2814b3f2b29846090e3edf842bd5}{rule\+\_\+condition\+\_\+get\+\_\+argint}} (\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$condi)
+\begin{DoxyCompactList}\small\item\em It gets the argint of condition of a rule. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{rule_8h_a79b0ca9421312a665a79497be39f6506}{rule\+\_\+condition\+\_\+get\+\_\+argname}} (\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$cond)
+\begin{DoxyCompactList}\small\item\em It gets the char argument of action of a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{rule_8h_a07dd34efc35dd66f23aed48f0e7e1647}{rule\+\_\+add\+\_\+action}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule, \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} act, \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$ids, int n\+\_\+ids, int argint, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em It adds an action to a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{rule_8h_a9a8c8e8cad7f13e20eed92675f0bd2a6}{rule\+\_\+add\+\_\+condition}} (\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$rule, \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} cond, \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$ids, int n\+\_\+ids, int argint, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em It adds a condition to a rule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} \mbox{\hyperlink{rule_8h_a281d4ed0676504e247f91a1305312dbb}{rule\+\_\+translate\+\_\+action}} (char $\ast$action)
+\begin{DoxyCompactList}\small\item\em It given a string it translates it to an action. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} \mbox{\hyperlink{rule_8h_a5a2d46fd1e78f7bba1ac42726089c899}{rule\+\_\+translate\+\_\+condition}} (char $\ast$condition)
+\begin{DoxyCompactList}\small\item\em It given a string it translates it to an action. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{rule_8h_ad67b5b97ceee0b7eae4310ba54c65266}{rule\+\_\+translate\+\_\+\+Taction}} (\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} action)
+\begin{DoxyCompactList}\small\item\em It given a T actions it translates it to an string. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{rule_8h_a8891c55c319e1ea1038d0e44d0ff29f9}{rule\+\_\+translate\+\_\+\+Tcondition}} (\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} condition)
+\begin{DoxyCompactList}\small\item\em It given a T condition it translates it to an string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines the rule interface. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodriguez Ortiz 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14-\/04-\/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{rule_8h_ab0cd711cc5dcd823de161216f3f5d313}\label{rule_8h_ab0cd711cc5dcd823de161216f3f5d313}} 
+\index{rule.h@{rule.h}!MAX\_ACTIONS@{MAX\_ACTIONS}}
+\index{MAX\_ACTIONS@{MAX\_ACTIONS}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_ACTIONS}{MAX\_ACTIONS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+ACTIONS~\mbox{\hyperlink{rule_8h_adf0aff235f4d008dba741e834dc31ecc}{N\+\_\+\+ACTIONS}}}
+
+Max number of actions in a rule \mbox{\Hypertarget{rule_8h_a29b7451465deac204c5f7cb1f9c6e1fc}\label{rule_8h_a29b7451465deac204c5f7cb1f9c6e1fc}} 
+\index{rule.h@{rule.h}!MAX\_ARGS@{MAX\_ARGS}}
+\index{MAX\_ARGS@{MAX\_ARGS}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_ARGS}{MAX\_ARGS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+ARGS~3}
+
+Max number of argumements in an action or condition \mbox{\Hypertarget{rule_8h_a5247f1165f9724de31336bae7238d703}\label{rule_8h_a5247f1165f9724de31336bae7238d703}} 
+\index{rule.h@{rule.h}!MAX\_CONDITIONS@{MAX\_CONDITIONS}}
+\index{MAX\_CONDITIONS@{MAX\_CONDITIONS}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_CONDITIONS}{MAX\_CONDITIONS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+CONDITIONS~\mbox{\hyperlink{rule_8h_a09027749176c512028b007c86284a263}{N\+\_\+\+CONDITIONS}}}
+
+Max number of conditions in a rule \mbox{\Hypertarget{rule_8h_adf0aff235f4d008dba741e834dc31ecc}\label{rule_8h_adf0aff235f4d008dba741e834dc31ecc}} 
+\index{rule.h@{rule.h}!N\_ACTIONS@{N\_ACTIONS}}
+\index{N\_ACTIONS@{N\_ACTIONS}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{N\_ACTIONS}{N\_ACTIONS}}
+{\footnotesize\ttfamily \#define N\+\_\+\+ACTIONS~14}
+
+Number of possible actions \mbox{\Hypertarget{rule_8h_a09027749176c512028b007c86284a263}\label{rule_8h_a09027749176c512028b007c86284a263}} 
+\index{rule.h@{rule.h}!N\_CONDITIONS@{N\_CONDITIONS}}
+\index{N\_CONDITIONS@{N\_CONDITIONS}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{N\_CONDITIONS}{N\_CONDITIONS}}
+{\footnotesize\ttfamily \#define N\+\_\+\+CONDITIONS~10}
+
+Number of posible conditions \mbox{\Hypertarget{rule_8h_a22f38c76f50861a9c516314690927a5f}\label{rule_8h_a22f38c76f50861a9c516314690927a5f}} 
+\index{rule.h@{rule.h}!RULE\_SIZE@{RULE\_SIZE}}
+\index{RULE\_SIZE@{RULE\_SIZE}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{RULE\_SIZE}{RULE\_SIZE}}
+{\footnotesize\ttfamily \#define RULE\+\_\+\+SIZE~1000}
+
+Size of a rule description 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}} 
+\index{rule.h@{rule.h}!T\_ACTION@{T\_ACTION}}
+\index{T\_ACTION@{T\_ACTION}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{T\_ACTION}{T\_ACTION}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}}}
+
+
+
+ACTION data type to execute rules. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ATTACK\_P@{ATTACK\_P}!rule.h@{rule.h}}\index{rule.h@{rule.h}!ATTACK\_P@{ATTACK\_P}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca38216628f7dd6d88fa34c6d708f6415c}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca38216628f7dd6d88fa34c6d708f6415c}} 
+ATTACK\+\_\+P&Reduce the health of the player \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HEAL\_P@{HEAL\_P}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HEAL\_P@{HEAL\_P}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca261ce649c98f5e9aa45dd376df73939e}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca261ce649c98f5e9aa45dd376df73939e}} 
+HEAL\+\_\+P&Heal the player \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ATTACK\_E@{ATTACK\_E}!rule.h@{rule.h}}\index{rule.h@{rule.h}!ATTACK\_E@{ATTACK\_E}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca4212060b0e3a80f63b4338b4ac42a0d1}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca4212060b0e3a80f63b4338b4ac42a0d1}} 
+ATTACK\+\_\+E&Reduce the health of an enemy \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HEAL\_E@{HEAL\_E}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HEAL\_E@{HEAL\_E}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca2317d6c325cc7e68f91de3c352a3d890}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca2317d6c325cc7e68f91de3c352a3d890}} 
+HEAL\+\_\+E&Heal an enemy \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OPEN\_LINK@{OPEN\_LINK}!rule.h@{rule.h}}\index{rule.h@{rule.h}!OPEN\_LINK@{OPEN\_LINK}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca994d13fcb2e9bdbf3c67b465b6e3074e}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca994d13fcb2e9bdbf3c67b465b6e3074e}} 
+OPEN\+\_\+\+LINK&Opens a link \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLOSE\_LINK@{CLOSE\_LINK}!rule.h@{rule.h}}\index{rule.h@{rule.h}!CLOSE\_LINK@{CLOSE\_LINK}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca552a98b0340ce5bc77db1818e599af6e}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca552a98b0340ce5bc77db1818e599af6e}} 
+CLOSE\+\_\+\+LINK&Closes a link \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INUNDATION@{INUNDATION}!rule.h@{rule.h}}\index{rule.h@{rule.h}!INUNDATION@{INUNDATION}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca084193e2003df5b5f15b08ad683c8f1d}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca084193e2003df5b5f15b08ad683c8f1d}} 
+INUNDATION&Inundate N spaces \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SAVE\_SPACE@{SAVE\_SPACE}!rule.h@{rule.h}}\index{rule.h@{rule.h}!SAVE\_SPACE@{SAVE\_SPACE}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf34d46a0e45d0474e22f9c1c5dee1540}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf34d46a0e45d0474e22f9c1c5dee1540}} 
+SAVE\+\_\+\+SPACE&Saves the current space \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPAWN\_GROUND@{SPAWN\_GROUND}!rule.h@{rule.h}}\index{rule.h@{rule.h}!SPAWN\_GROUND@{SPAWN\_GROUND}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf16ec43765aea7aa246a27639d870901}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaf16ec43765aea7aa246a27639d870901}} 
+SPAWN\+\_\+\+GROUND&It creates N ground objects \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COMBINE@{COMBINE}!rule.h@{rule.h}}\index{rule.h@{rule.h}!COMBINE@{COMBINE}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca184ac68cada634df860ee83815c989c4}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbca184ac68cada634df860ee83815c989c4}} 
+COMBINE&It combines N objects into a special one \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SET\_MOVABLE@{SET\_MOVABLE}!rule.h@{rule.h}}\index{rule.h@{rule.h}!SET\_MOVABLE@{SET\_MOVABLE}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaaf566d8f368a5679097cc8284f2e591f}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaaf566d8f368a5679097cc8284f2e591f}} 
+SET\+\_\+\+MOVABLE&It set movable all object in a space to hidden \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VICTORY\_ACT@{VICTORY\_ACT}!rule.h@{rule.h}}\index{rule.h@{rule.h}!VICTORY\_ACT@{VICTORY\_ACT}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaa7beb9daf9182d25c88712f1570ddb25}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcaa7beb9daf9182d25c88712f1570ddb25}} 
+VICTORY\+\_\+\+ACT&Terminate game victoriously \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEFEAT\_ACT@{DEFEAT\_ACT}!rule.h@{rule.h}}\index{rule.h@{rule.h}!DEFEAT\_ACT@{DEFEAT\_ACT}}}\mbox{\Hypertarget{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcad61801ef5da3afb1dada0ff43621be8f}\label{rule_8h_aca54eabcbb5c1abe380cb96389d92cbcad61801ef5da3afb1dada0ff43621be8f}} 
+DEFEAT\+\_\+\+ACT&Terminate game in defeat \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532}} 
+\index{rule.h@{rule.h}!T\_CONDITION@{T\_CONDITION}}
+\index{T\_CONDITION@{T\_CONDITION}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{T\_CONDITION}{T\_CONDITION}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}}}
+
+
+
+CONDITION data type to evaluate rules. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IN\_SPACE@{IN\_SPACE}!rule.h@{rule.h}}\index{rule.h@{rule.h}!IN\_SPACE@{IN\_SPACE}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532ad304690088e2def5a309b4ef628fc735}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532ad304690088e2def5a309b4ef628fc735}} 
+IN\+\_\+\+SPACE&If the player is in a Space \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HAS\_OBJECT@{HAS\_OBJECT}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HAS\_OBJECT@{HAS\_OBJECT}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a0f59b986ced240ed949d359317044ad4}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a0f59b986ced240ed949d359317044ad4}} 
+HAS\+\_\+\+OBJECT&If the player has an Object \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HEALTH\_POINTS\_P@{HEALTH\_POINTS\_P}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HEALTH\_POINTS\_P@{HEALTH\_POINTS\_P}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a4afed6358578d9c894073c1fe8f38472}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a4afed6358578d9c894073c1fe8f38472}} 
+HEALTH\+\_\+\+POINTS\+\_\+P&If the Player have a given number of health points \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HEALTH\_POINTS\_E@{HEALTH\_POINTS\_E}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HEALTH\_POINTS\_E@{HEALTH\_POINTS\_E}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a681426f648d6e02035c2ed534e2b7efb}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a681426f648d6e02035c2ed534e2b7efb}} 
+HEALTH\+\_\+\+POINTS\+\_\+E&If a given enemy have a given number of health points \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\_COMANDS@{N\_COMANDS}!rule.h@{rule.h}}\index{rule.h@{rule.h}!N\_COMANDS@{N\_COMANDS}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a42e2e910d60b7622e84c11107c811e8e}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a42e2e910d60b7622e84c11107c811e8e}} 
+N\+\_\+\+COMANDS&It evaluates true every N spaces \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DROP\_OBJ@{DROP\_OBJ}!rule.h@{rule.h}}\index{rule.h@{rule.h}!DROP\_OBJ@{DROP\_OBJ}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a641f8702156a5ef0fb5a2be5aa379526}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a641f8702156a5ef0fb5a2be5aa379526}} 
+DROP\+\_\+\+OBJ&It evlauates if the last comand was droping a object \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SAME\_OBJECT@{SAME\_OBJECT}!rule.h@{rule.h}}\index{rule.h@{rule.h}!SAME\_OBJECT@{SAME\_OBJECT}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a278dd2634317ae50ed2e297270cd20d0}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a278dd2634317ae50ed2e297270cd20d0}} 
+SAME\+\_\+\+OBJECT&It evaluates if the player has N objects with the same first n letters \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAYER\_TYPE@{PLAYER\_TYPE}!rule.h@{rule.h}}\index{rule.h@{rule.h}!PLAYER\_TYPE@{PLAYER\_TYPE}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a2896481e2eb47542f85a907d5692a695}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a2896481e2eb47542f85a907d5692a695}} 
+PLAYER\+\_\+\+TYPE&It evaluates if the player is of a given type \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HAS\_SUNK@{HAS\_SUNK}!rule.h@{rule.h}}\index{rule.h@{rule.h}!HAS\_SUNK@{HAS\_SUNK}}}\mbox{\Hypertarget{rule_8h_a1eb1330ccf674ad91b84a91b31845532a5c16de6a4f70575906df77072b99f02e}\label{rule_8h_a1eb1330ccf674ad91b84a91b31845532a5c16de6a4f70575906df77072b99f02e}} 
+HAS\+\_\+\+SUNK&It evaluates if a space has sunk i \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rule_8h_ac920c2861aa8c8fe2f96fcb922d66b0c}\label{rule_8h_ac920c2861aa8c8fe2f96fcb922d66b0c}} 
+\index{rule.h@{rule.h}!rule\_action\_get\_argint@{rule\_action\_get\_argint}}
+\index{rule\_action\_get\_argint@{rule\_action\_get\_argint}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_action\_get\_argint()}{rule\_action\_get\_argint()}}
+{\footnotesize\ttfamily int rule\+\_\+action\+\_\+get\+\_\+argint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$}]{act }\end{DoxyParamCaption})}
+
+
+
+It gets the argint of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em act} & Pointer to an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integer argument 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a3855808941acbab960a97c6b2634af11}\label{rule_8h_a3855808941acbab960a97c6b2634af11}} 
+\index{rule.h@{rule.h}!rule\_action\_get\_argname@{rule\_action\_get\_argname}}
+\index{rule\_action\_get\_argname@{rule\_action\_get\_argname}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_action\_get\_argname()}{rule\_action\_get\_argname()}}
+{\footnotesize\ttfamily char$\ast$ rule\+\_\+action\+\_\+get\+\_\+argname (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$}]{act }\end{DoxyParamCaption})}
+
+
+
+It gets the char argument of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em act} & Pointer to an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The char argument 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_acc664a59a14da0acc90fe5bf479ca8b8}\label{rule_8h_acc664a59a14da0acc90fe5bf479ca8b8}} 
+\index{rule.h@{rule.h}!rule\_action\_get\_argsId@{rule\_action\_get\_argsId}}
+\index{rule\_action\_get\_argsId@{rule\_action\_get\_argsId}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_action\_get\_argsId()}{rule\_action\_get\_argsId()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}$\ast$ rule\+\_\+action\+\_\+get\+\_\+args\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$}]{act }\end{DoxyParamCaption})}
+
+
+
+It gets the args\+Id of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em act} & Pointer to an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of Ids with the arguments 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a56a5ba7001c0dbf3165b32e3e1a23704}\label{rule_8h_a56a5ba7001c0dbf3165b32e3e1a23704}} 
+\index{rule.h@{rule.h}!rule\_action\_get\_numId@{rule\_action\_get\_numId}}
+\index{rule\_action\_get\_numId@{rule\_action\_get\_numId}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_action\_get\_numId()}{rule\_action\_get\_numId()}}
+{\footnotesize\ttfamily int rule\+\_\+action\+\_\+get\+\_\+num\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$}]{act }\end{DoxyParamCaption})}
+
+
+
+It gets the number of args\+Id of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em act} & Pointer to an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A number of arguments in Ids 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a5e99cb5502e35ee43c1f0afea3d3a5b3}\label{rule_8h_a5e99cb5502e35ee43c1f0afea3d3a5b3}} 
+\index{rule.h@{rule.h}!rule\_action\_get\_type@{rule\_action\_get\_type}}
+\index{rule\_action\_get\_type@{rule\_action\_get\_type}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_action\_get\_type()}{rule\_action\_get\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} rule\+\_\+action\+\_\+get\+\_\+type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}} $\ast$}]{act }\end{DoxyParamCaption})}
+
+
+
+It gets the type of the action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em act} & Pointer to an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The type of action 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a07dd34efc35dd66f23aed48f0e7e1647}\label{rule_8h_a07dd34efc35dd66f23aed48f0e7e1647}} 
+\index{rule.h@{rule.h}!rule\_add\_action@{rule\_add\_action}}
+\index{rule\_add\_action@{rule\_add\_action}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_add\_action()}{rule\_add\_action()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} rule\+\_\+add\+\_\+action (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule,  }\item[{\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}}}]{act,  }\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$}]{ids,  }\item[{int}]{n\+\_\+ids,  }\item[{int}]{argint,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+It adds an action to a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to an rule \\
+\hline
+{\em act} & Type of action \\
+\hline
+{\em ids} & Pointer to an array of Ids \\
+\hline
+{\em n\+\_\+ids} & number of ids \\
+\hline
+{\em argint} & integer argument of the action \\
+\hline
+{\em name} & char argument of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a9a8c8e8cad7f13e20eed92675f0bd2a6}\label{rule_8h_a9a8c8e8cad7f13e20eed92675f0bd2a6}} 
+\index{rule.h@{rule.h}!rule\_add\_condition@{rule\_add\_condition}}
+\index{rule\_add\_condition@{rule\_add\_condition}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_add\_condition()}{rule\_add\_condition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} rule\+\_\+add\+\_\+condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule,  }\item[{\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}}}]{cond,  }\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} $\ast$}]{ids,  }\item[{int}]{n\+\_\+ids,  }\item[{int}]{argint,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+It adds a condition to a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to an rule \\
+\hline
+{\em cond} & Type of condition \\
+\hline
+{\em ids} & Pointer to an array of Ids \\
+\hline
+{\em n\+\_\+ids} & number of ids \\
+\hline
+{\em argint} & integer argument of the condition \\
+\hline
+{\em name} & char argument of the condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a023d2814b3f2b29846090e3edf842bd5}\label{rule_8h_a023d2814b3f2b29846090e3edf842bd5}} 
+\index{rule.h@{rule.h}!rule\_condition\_get\_argint@{rule\_condition\_get\_argint}}
+\index{rule\_condition\_get\_argint@{rule\_condition\_get\_argint}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_condition\_get\_argint()}{rule\_condition\_get\_argint()}}
+{\footnotesize\ttfamily int rule\+\_\+condition\+\_\+get\+\_\+argint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$}]{condi }\end{DoxyParamCaption})}
+
+
+
+It gets the argint of condition of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em condi} & Pointer to an condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integer argument 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a79b0ca9421312a665a79497be39f6506}\label{rule_8h_a79b0ca9421312a665a79497be39f6506}} 
+\index{rule.h@{rule.h}!rule\_condition\_get\_argname@{rule\_condition\_get\_argname}}
+\index{rule\_condition\_get\_argname@{rule\_condition\_get\_argname}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_condition\_get\_argname()}{rule\_condition\_get\_argname()}}
+{\footnotesize\ttfamily char$\ast$ rule\+\_\+condition\+\_\+get\+\_\+argname (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$}]{cond }\end{DoxyParamCaption})}
+
+
+
+It gets the char argument of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em cond} & Pointer to an condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The char argument 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a5a13addad1b364056118bd4d16410700}\label{rule_8h_a5a13addad1b364056118bd4d16410700}} 
+\index{rule.h@{rule.h}!rule\_condition\_get\_argsId@{rule\_condition\_get\_argsId}}
+\index{rule\_condition\_get\_argsId@{rule\_condition\_get\_argsId}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_condition\_get\_argsId()}{rule\_condition\_get\_argsId()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}$\ast$ rule\+\_\+condition\+\_\+get\+\_\+args\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$}]{cond }\end{DoxyParamCaption})}
+
+
+
+It gets the args\+Id of condition of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em cond} & Pointer to an condtition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of Ids with the arguments 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_acffb162398ca2e94058ebf78a726282c}\label{rule_8h_acffb162398ca2e94058ebf78a726282c}} 
+\index{rule.h@{rule.h}!rule\_condition\_get\_numId@{rule\_condition\_get\_numId}}
+\index{rule\_condition\_get\_numId@{rule\_condition\_get\_numId}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_condition\_get\_numId()}{rule\_condition\_get\_numId()}}
+{\footnotesize\ttfamily int rule\+\_\+condition\+\_\+get\+\_\+num\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$}]{cond }\end{DoxyParamCaption})}
+
+
+
+It gets the number of args\+Id of condition of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em cond} & Pointer to an condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A number of arguments in Ids 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a33174ad124742d7d11e440706b6cd868}\label{rule_8h_a33174ad124742d7d11e440706b6cd868}} 
+\index{rule.h@{rule.h}!rule\_condition\_get\_type@{rule\_condition\_get\_type}}
+\index{rule\_condition\_get\_type@{rule\_condition\_get\_type}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_condition\_get\_type()}{rule\_condition\_get\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} rule\+\_\+condition\+\_\+get\+\_\+type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}} $\ast$}]{cond }\end{DoxyParamCaption})}
+
+
+
+It gets the type of the condition of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em cond} & Pointer to an condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The type of action 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_ae52f28f484a144079318a5550085a588}\label{rule_8h_ae52f28f484a144079318a5550085a588}} 
+\index{rule.h@{rule.h}!rule\_create@{rule\_create}}
+\index{rule\_create@{rule\_create}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_create()}{rule\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}}$\ast$ rule\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}}]{id }\end{DoxyParamCaption})}
+
+
+
+It allocates memory for a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the if of the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A rule pointer or a NULL pointer if error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_ae88386866f567107df47b479075959e3}\label{rule_8h_ae88386866f567107df47b479075959e3}} 
+\index{rule.h@{rule.h}!rule\_destroy@{rule\_destroy}}
+\index{rule\_destroy@{rule\_destroy}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_destroy()}{rule\_destroy()}}
+{\footnotesize\ttfamily void rule\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+It frees allocated memory for a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rule_8h_a6d0d4969c9391b33919cc84994ef8586}\label{rule_8h_a6d0d4969c9391b33919cc84994ef8586}} 
+\index{rule.h@{rule.h}!rule\_get\_action@{rule\_get\_action}}
+\index{rule\_get\_action@{rule\_get\_action}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_action()}{rule\_get\_action()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a01c7d823f4985d5878a7fb633744c26b}{Action}}$\ast$ rule\+\_\+get\+\_\+action (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+It gets an action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+{\em index} & the index-\/th action of the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index-\/th action 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a4d13f007b8912a97a060adc633c0d319}\label{rule_8h_a4d13f007b8912a97a060adc633c0d319}} 
+\index{rule.h@{rule.h}!rule\_get\_condition@{rule\_get\_condition}}
+\index{rule\_get\_condition@{rule\_get\_condition}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_condition()}{rule\_get\_condition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a4cb12d485df12e6b04f2224a339a88c3}{Condition}}$\ast$ rule\+\_\+get\+\_\+condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+It gets an condition of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+{\em index} & the index-\/th action of the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index-\/th condition 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a365e66c918bde3bd564be2d2655a4b40}\label{rule_8h_a365e66c918bde3bd564be2d2655a4b40}} 
+\index{rule.h@{rule.h}!rule\_get\_executed@{rule\_get\_executed}}
+\index{rule\_get\_executed@{rule\_get\_executed}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_executed()}{rule\_get\_executed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}} rule\+\_\+get\+\_\+executed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+It gets the bool value of execute of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The bool value of execute 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a2887d565d3a87383f6cf248e044febbd}\label{rule_8h_a2887d565d3a87383f6cf248e044febbd}} 
+\index{rule.h@{rule.h}!rule\_get\_id@{rule\_get\_id}}
+\index{rule\_get\_id@{rule\_get\_id}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_id()}{rule\_get\_id()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} rule\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+It gets the id of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Id of the rule 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_ad81607693de5d0a7e5730a4a32325012}\label{rule_8h_ad81607693de5d0a7e5730a4a32325012}} 
+\index{rule.h@{rule.h}!rule\_get\_num\_actions@{rule\_get\_num\_actions}}
+\index{rule\_get\_num\_actions@{rule\_get\_num\_actions}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_num\_actions()}{rule\_get\_num\_actions()}}
+{\footnotesize\ttfamily int rule\+\_\+get\+\_\+num\+\_\+actions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+It gets num of action of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of condition condition 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_aeed3751d93ff6ee0b58dfb994ddd93a2}\label{rule_8h_aeed3751d93ff6ee0b58dfb994ddd93a2}} 
+\index{rule.h@{rule.h}!rule\_get\_num\_conditions@{rule\_get\_num\_conditions}}
+\index{rule\_get\_num\_conditions@{rule\_get\_num\_conditions}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_get\_num\_conditions()}{rule\_get\_num\_conditions()}}
+{\footnotesize\ttfamily int rule\+\_\+get\+\_\+num\+\_\+conditions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+It gets num of condirions of a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of condition condition 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_af3466b73be23f0aa60b5e332f8edac18}\label{rule_8h_af3466b73be23f0aa60b5e332f8edac18}} 
+\index{rule.h@{rule.h}!rule\_set\_executed@{rule\_set\_executed}}
+\index{rule\_set\_executed@{rule\_set\_executed}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_set\_executed()}{rule\_set\_executed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} rule\+\_\+set\+\_\+executed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$}]{rule,  }\item[{\mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}}}]{val }\end{DoxyParamCaption})}
+
+
+
+It sets the execution to a rule. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & Pointer to the rule \\
+\hline
+{\em val} & the Boolean value to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a281d4ed0676504e247f91a1305312dbb}\label{rule_8h_a281d4ed0676504e247f91a1305312dbb}} 
+\index{rule.h@{rule.h}!rule\_translate\_action@{rule\_translate\_action}}
+\index{rule\_translate\_action@{rule\_translate\_action}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_translate\_action()}{rule\_translate\_action()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}} rule\+\_\+translate\+\_\+action (\begin{DoxyParamCaption}\item[{char $\ast$}]{action }\end{DoxyParamCaption})}
+
+
+
+It given a string it translates it to an action. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em action} & a string with the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Type of action if ok and NO\+\_\+\+ACTION if error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a5a2d46fd1e78f7bba1ac42726089c899}\label{rule_8h_a5a2d46fd1e78f7bba1ac42726089c899}} 
+\index{rule.h@{rule.h}!rule\_translate\_condition@{rule\_translate\_condition}}
+\index{rule\_translate\_condition@{rule\_translate\_condition}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_translate\_condition()}{rule\_translate\_condition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}} rule\+\_\+translate\+\_\+condition (\begin{DoxyParamCaption}\item[{char $\ast$}]{condition }\end{DoxyParamCaption})}
+
+
+
+It given a string it translates it to an action. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em condition} & a string with the condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A type of condition if ok and NO\+\_\+\+CONDITION if error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_ad67b5b97ceee0b7eae4310ba54c65266}\label{rule_8h_ad67b5b97ceee0b7eae4310ba54c65266}} 
+\index{rule.h@{rule.h}!rule\_translate\_Taction@{rule\_translate\_Taction}}
+\index{rule\_translate\_Taction@{rule\_translate\_Taction}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_translate\_Taction()}{rule\_translate\_Taction()}}
+{\footnotesize\ttfamily char$\ast$ rule\+\_\+translate\+\_\+\+Taction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_aca54eabcbb5c1abe380cb96389d92cbc}{T\+\_\+\+ACTION}}}]{action }\end{DoxyParamCaption})}
+
+
+
+It given a T actions it translates it to an string. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em action} & a T action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a string with the condition or NULL 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rule_8h_a8891c55c319e1ea1038d0e44d0ff29f9}\label{rule_8h_a8891c55c319e1ea1038d0e44d0ff29f9}} 
+\index{rule.h@{rule.h}!rule\_translate\_Tcondition@{rule\_translate\_Tcondition}}
+\index{rule\_translate\_Tcondition@{rule\_translate\_Tcondition}!rule.h@{rule.h}}
+\doxysubsubsection{\texorpdfstring{rule\_translate\_Tcondition()}{rule\_translate\_Tcondition()}}
+{\footnotesize\ttfamily char$\ast$ rule\+\_\+translate\+\_\+\+Tcondition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rule_8h_a1eb1330ccf674ad91b84a91b31845532}{T\+\_\+\+CONDITION}}}]{condition }\end{DoxyParamCaption})}
+
+
+
+It given a T condition it translates it to an string. 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em condition} & a T condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a string with the condition or NULL 
+\end{DoxyReturn}

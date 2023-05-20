@@ -1,0 +1,16 @@
+save commands_test_progress: OK
+move south: ERROR
+move north: OK
+move east: OK
+move west: OK
+move west: OK
+move down: ERROR
+move east: OK
+move east: OK
+move down: ERROR
+move down: ERROR
+move south: OK
+move down: OK
+move down: OK
+load commands_test_progress: OK
+load pepe: ERROR

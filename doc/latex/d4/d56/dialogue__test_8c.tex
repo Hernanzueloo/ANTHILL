@@ -1,0 +1,950 @@
+\hypertarget{dialogue__test_8c}{}\doxysection{src/dialogue\+\_\+test.c File Reference}
+\label{dialogue__test_8c}\index{src/dialogue\_test.c@{src/dialogue\_test.c}}
+
+
+It tests dialogue module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}dialogue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dialogue\+\_\+test.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}test.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a2a77d2f2c5b698c69c19e1f8782bf709}{MAX\+\_\+\+TESTS}}~52
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a77ceac8d6af195fe72f95f6afd87c45e}{ID}}~1
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_ac2f06b3729559aefeb2c260309ccdb30}{RULE}}~\char`\"{}opps, sorry\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a269ca581a399c53e753e68acddb0681f}{RULE\+\_\+\+W\+\_\+\+ARG}}~\char`\"{}you made $<$something$>$\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a010c88238739a4476da84343a98153c9}{RULE\+\_\+\+W\+\_\+\+ARGS}}~\char`\"{}you made $<$something$>$ and also picked $<$that other thing$>$. Good luck.\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a6e9f80720a3b58c16d87ad9fed8147f3}{ARG1}}~\char`\"{}the right decission\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a0f928d4a2f0889f390fdd9efab797dad}{ARG2}}~\char`\"{}enemies\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dialogue__test_8c_a670aa0d2a292c64c857101c908513fac}{DIALFILE}}~\char`\"{}dialogue\+\_\+test.\+txt\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{dialogue__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function for dialogue unit tests. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dialogue__test_8c_ade1598101fb1b7e43f97c43525fcd7db}{test1\+\_\+dialogue\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ae8d40aea4149ebac0405882532e55cb0}{test2\+\_\+dialogue\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a9fe56633efb56e386d6ea753f56cfb67}{test3\+\_\+dialogue\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a45e4303aefe4a7d563d44f793b1687cf}{test1\+\_\+dialogue\+\_\+get\+\_\+id}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a4f145be5023096ba4c4363b4dc6d48e2}{test2\+\_\+dialogue\+\_\+get\+\_\+id}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_aa306f88d86a668bc3967e4f8721b2dd3}{test1\+\_\+dialogue\+\_\+set\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a18e53fc6735187cf57aafd31afb3f09b}{test2\+\_\+dialogue\+\_\+set\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a60bf126988c505cedca0cfac6737b805}{test3\+\_\+dialogue\+\_\+set\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ade09fcadf2fed54a711fb156188e132c}{test4\+\_\+dialogue\+\_\+set\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a415cb1e519e18bea4c0c636687b5790f}{test1\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ab64afa1a529d03bb3b292b5217b33ee7}{test2\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_acaa6654092ec4fbc5d1c1f455fe03c99}{test3\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_aba1bf8f6dccbf79b8e686172c2cdb09a}{test1\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a9d97064502a4007445aade5f70126684}{test2\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a82b285c94b51242b1419f7293bfc8ae2}{test3\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a355f6ed374ce5e7a61ac49edbee2a1e8}{test1\+\_\+dialogue\+\_\+get\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ada425cb3f3f83028c721fdeffdb3b325}{test2\+\_\+dialogue\+\_\+get\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ab4737ebdfcbf899c1eb248a53a897cec}{test3\+\_\+dialogue\+\_\+get\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a2cba80c5592bf823bfd8ba5a9bc9a7a1}{test4\+\_\+dialogue\+\_\+get\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_aa88afab8f981e9652c15929a60fd6e67}{test1\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a3f82fbf0365291edf72f979baf80aa67}{test2\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a2c3c7ad2a44aa83971767fb5b7a87dd7}{test3\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ac55253f49f93d76d07cceab5db243ad7}{test4\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a9c474fe53f306f0ff6b22910f9b74c86}{test1\+\_\+dialogue\+\_\+increase\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ae5b130a5e57c2b38d862a45b418016f2}{test2\+\_\+dialogue\+\_\+increase\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a53ef652925cd0211249c6bca09b468f0}{test1\+\_\+dialogue\+\_\+decrease\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ad2fcf6cc841df4575a929405d2614ac2}{test2\+\_\+dialogue\+\_\+decrease\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ab9f76455183c002545a18cf2d7bd3af7}{test1\+\_\+dialogue\+\_\+get\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a2b0cb8bea2de7f29c9048fc978a87a3d}{test2\+\_\+dialogue\+\_\+get\+\_\+executed}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a6868906aa140938351d006f8bd93606b}{test1\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_aec645c0a64503478a9077cf89480bd01}{test2\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a812ca5b6a1e4d66fec039f12cfa2ee8c}{test3\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a304867110bb20ab2802609d486f8aa02}{test4\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ab9232e35b82373d7bce807b822638676}{test5\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a0b3c81ee9b28fdee61ec881443a81aa6}{test6\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ac915f413c01b6441fbb2237af8f0d935}{test7\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_ae80db6c409c7f7bd7e359614600108ed}{test8\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a3750a89269cc9601330ee081d83e77a4}{test9\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a2d1f7e8aeff323c89817dff813c14a8f}{test10\+\_\+dialogue\+\_\+print\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a63e6d01db1b229553dba02b3db971548}{test1\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a60dca038ffe43c4392ea0784f72dbbb2}{test2\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a40a1c366172ef7e7c1c857602dbb4b33}{test3\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a9e6a772d26de16ffb44a813e08403b59}{test4\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a4d719a67a4303667266cc33c9569385c}{test5\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_affdda78e7abaa544c57a51e1ae47be87}{test6\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a77b136a2e465c11487ffa13d65340a9f}{test7\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_af7fb65af1016049ea732c66b17792a18}{test8\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_aee0910deeaee572173420f646c56a292}{test9\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a6c090196a53826f1929f562f03023337}{test10\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a2f869b9a9ae05ecf2d16134c8996659a}{test1\+\_\+dialogue\+\_\+print}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a5fb7de7cac8eb6df8bcac03ba95973c4}{test2\+\_\+dialogue\+\_\+print}} ()
+\item 
+void \mbox{\hyperlink{dialogue__test_8c_a0072d091a875e77dbd599054b9b40d79}{test3\+\_\+dialogue\+\_\+print}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It tests dialogue module. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andres 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+09/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{dialogue__test_8c_a6e9f80720a3b58c16d87ad9fed8147f3}\label{dialogue__test_8c_a6e9f80720a3b58c16d87ad9fed8147f3}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!ARG1@{ARG1}}
+\index{ARG1@{ARG1}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{ARG1}{ARG1}}
+{\footnotesize\ttfamily \#define ARG1~\char`\"{}the right decission\char`\"{}}
+
+Argument for the rules \mbox{\Hypertarget{dialogue__test_8c_a0f928d4a2f0889f390fdd9efab797dad}\label{dialogue__test_8c_a0f928d4a2f0889f390fdd9efab797dad}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!ARG2@{ARG2}}
+\index{ARG2@{ARG2}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{ARG2}{ARG2}}
+{\footnotesize\ttfamily \#define ARG2~\char`\"{}enemies\char`\"{}}
+
+Argument for the rules \mbox{\Hypertarget{dialogue__test_8c_a670aa0d2a292c64c857101c908513fac}\label{dialogue__test_8c_a670aa0d2a292c64c857101c908513fac}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!DIALFILE@{DIALFILE}}
+\index{DIALFILE@{DIALFILE}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{DIALFILE}{DIALFILE}}
+{\footnotesize\ttfamily \#define DIALFILE~\char`\"{}dialogue\+\_\+test.\+txt\char`\"{}}
+
+Name to an auxiliary file for testing \mbox{\Hypertarget{dialogue__test_8c_a77ceac8d6af195fe72f95f6afd87c45e}\label{dialogue__test_8c_a77ceac8d6af195fe72f95f6afd87c45e}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!ID@{ID}}
+\index{ID@{ID}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{ID}{ID}}
+{\footnotesize\ttfamily \#define ID~1}
+
+Id for initializing a dialogue \mbox{\Hypertarget{dialogue__test_8c_a2a77d2f2c5b698c69c19e1f8782bf709}\label{dialogue__test_8c_a2a77d2f2c5b698c69c19e1f8782bf709}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!MAX\_TESTS@{MAX\_TESTS}}
+\index{MAX\_TESTS@{MAX\_TESTS}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_TESTS}{MAX\_TESTS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+TESTS~52}
+
+Maximum number of test to be executed \mbox{\Hypertarget{dialogue__test_8c_ac2f06b3729559aefeb2c260309ccdb30}\label{dialogue__test_8c_ac2f06b3729559aefeb2c260309ccdb30}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!RULE@{RULE}}
+\index{RULE@{RULE}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{RULE}{RULE}}
+{\footnotesize\ttfamily \#define RULE~\char`\"{}opps, sorry\char`\"{}}
+
+Rule to be set to a dialogue \mbox{\Hypertarget{dialogue__test_8c_a269ca581a399c53e753e68acddb0681f}\label{dialogue__test_8c_a269ca581a399c53e753e68acddb0681f}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!RULE\_W\_ARG@{RULE\_W\_ARG}}
+\index{RULE\_W\_ARG@{RULE\_W\_ARG}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{RULE\_W\_ARG}{RULE\_W\_ARG}}
+{\footnotesize\ttfamily \#define RULE\+\_\+\+W\+\_\+\+ARG~\char`\"{}you made $<$something$>$\char`\"{}}
+
+Rule with an argument to be substituted \mbox{\Hypertarget{dialogue__test_8c_a010c88238739a4476da84343a98153c9}\label{dialogue__test_8c_a010c88238739a4476da84343a98153c9}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!RULE\_W\_ARGS@{RULE\_W\_ARGS}}
+\index{RULE\_W\_ARGS@{RULE\_W\_ARGS}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{RULE\_W\_ARGS}{RULE\_W\_ARGS}}
+{\footnotesize\ttfamily \#define RULE\+\_\+\+W\+\_\+\+ARGS~\char`\"{}you made $<$something$>$ and also picked $<$that other thing$>$. Good luck.\char`\"{}}
+
+Rule with two arguments to be substituted 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{dialogue__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{dialogue__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!main@{main}}
+\index{main@{main}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Main function for dialogue unit tests. 
+
+You may execute ALL or a SINGLE test 1.-\/ No parameter -\/$>$ ALL test are executed 2.-\/ A number means a particular test (the one identified by that number) is executed \mbox{\Hypertarget{dialogue__test_8c_a6c090196a53826f1929f562f03023337}\label{dialogue__test_8c_a6c090196a53826f1929f562f03023337}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test10\_dialogue\_get\_printed\_rule@{test10\_dialogue\_get\_printed\_rule}}
+\index{test10\_dialogue\_get\_printed\_rule@{test10\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test10\_dialogue\_get\_printed\_rule()}{test10\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test10\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000076}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a2d1f7e8aeff323c89817dff813c14a8f}\label{dialogue__test_8c_a2d1f7e8aeff323c89817dff813c14a8f}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test10\_dialogue\_print\_rule@{test10\_dialogue\_print\_rule}}
+\index{test10\_dialogue\_print\_rule@{test10\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test10\_dialogue\_print\_rule()}{test10\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test10\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000066}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL, pointer to file NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ade1598101fb1b7e43f97c43525fcd7db}\label{dialogue__test_8c_ade1598101fb1b7e43f97c43525fcd7db}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_create@{test1\_dialogue\_create}}
+\index{test1\_dialogue\_create@{test1\_dialogue\_create}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_create()}{test1\_dialogue\_create()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000028}{Test}}]Test dialogue creation \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+id != NO\+\_\+\+ID 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Non NULL pointer to dialogue 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a53ef652925cd0211249c6bca09b468f0}\label{dialogue__test_8c_a53ef652925cd0211249c6bca09b468f0}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_decrease\_executed@{test1\_dialogue\_decrease\_executed}}
+\index{test1\_dialogue\_decrease\_executed@{test1\_dialogue\_decrease\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_decrease\_executed()}{test1\_dialogue\_decrease\_executed()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+decrease\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000053}{Test}}]Test function for dialogue\+\_\+executed decreasing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_aa88afab8f981e9652c15929a60fd6e67}\label{dialogue__test_8c_aa88afab8f981e9652c15929a60fd6e67}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_error\_rule@{test1\_dialogue\_get\_error\_rule}}
+\index{test1\_dialogue\_get\_error\_rule@{test1\_dialogue\_get\_error\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_error\_rule()}{test1\_dialogue\_get\_error\_rule()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000047}{Test}}]Test function for dialogue\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, non\+\_\+empty rule array 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput!= NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ab9f76455183c002545a18cf2d7bd3af7}\label{dialogue__test_8c_ab9f76455183c002545a18cf2d7bd3af7}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_executed@{test1\_dialogue\_get\_executed}}
+\index{test1\_dialogue\_get\_executed@{test1\_dialogue\_get\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_executed()}{test1\_dialogue\_get\_executed()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000055}{Test}}]Test function for dialogue\+\_\+executed getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a45e4303aefe4a7d563d44f793b1687cf}\label{dialogue__test_8c_a45e4303aefe4a7d563d44f793b1687cf}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_id@{test1\_dialogue\_get\_id}}
+\index{test1\_dialogue\_get\_id@{test1\_dialogue\_get\_id}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_id()}{test1\_dialogue\_get\_id()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000031}{Test}}]Test function for dialogue\+\_\+command getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, dialogue ID != NO\+\_\+\+ID 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+dialogue\+\_\+\+ID == Supplied dialogue Id 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_aba1bf8f6dccbf79b8e686172c2cdb09a}\label{dialogue__test_8c_aba1bf8f6dccbf79b8e686172c2cdb09a}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_last\_error\_rule\_position@{test1\_dialogue\_get\_last\_error\_rule\_position}}
+\index{test1\_dialogue\_get\_last\_error\_rule\_position@{test1\_dialogue\_get\_last\_error\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_last\_error\_rule\_position()}{test1\_dialogue\_get\_last\_error\_rule\_position()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000040}{Test}}]Test function for dialogue\+\_\+last\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, empty array of error rules 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==0 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a415cb1e519e18bea4c0c636687b5790f}\label{dialogue__test_8c_a415cb1e519e18bea4c0c636687b5790f}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_last\_rule\_position@{test1\_dialogue\_get\_last\_rule\_position}}
+\index{test1\_dialogue\_get\_last\_rule\_position@{test1\_dialogue\_get\_last\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_last\_rule\_position()}{test1\_dialogue\_get\_last\_rule\_position()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000037}{Test}}]Test function for dialogue\+\_\+last\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, empty array of success rules 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==-\/1 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a63e6d01db1b229553dba02b3db971548}\label{dialogue__test_8c_a63e6d01db1b229553dba02b3db971548}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_printed\_rule@{test1\_dialogue\_get\_printed\_rule}}
+\index{test1\_dialogue\_get\_printed\_rule@{test1\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_printed\_rule()}{test1\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000067}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, no arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a355f6ed374ce5e7a61ac49edbee2a1e8}\label{dialogue__test_8c_a355f6ed374ce5e7a61ac49edbee2a1e8}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_get\_rule@{test1\_dialogue\_get\_rule}}
+\index{test1\_dialogue\_get\_rule@{test1\_dialogue\_get\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_get\_rule()}{test1\_dialogue\_get\_rule()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+get\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000043}{Test}}]Test function for dialogue\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, non\+\_\+empty rule array 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput!= NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a9c474fe53f306f0ff6b22910f9b74c86}\label{dialogue__test_8c_a9c474fe53f306f0ff6b22910f9b74c86}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_increase\_executed@{test1\_dialogue\_increase\_executed}}
+\index{test1\_dialogue\_increase\_executed@{test1\_dialogue\_increase\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_increase\_executed()}{test1\_dialogue\_increase\_executed()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+increase\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000051}{Test}}]Test function for dialogue\+\_\+executed increasing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a2f869b9a9ae05ecf2d16134c8996659a}\label{dialogue__test_8c_a2f869b9a9ae05ecf2d16134c8996659a}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_print@{test1\_dialogue\_print}}
+\index{test1\_dialogue\_print@{test1\_dialogue\_print}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_print()}{test1\_dialogue\_print()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000077}{Test}}]Test function for dialogue printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a6868906aa140938351d006f8bd93606b}\label{dialogue__test_8c_a6868906aa140938351d006f8bd93606b}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_print\_rule@{test1\_dialogue\_print\_rule}}
+\index{test1\_dialogue\_print\_rule@{test1\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_print\_rule()}{test1\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000057}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, no arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_aa306f88d86a668bc3967e4f8721b2dd3}\label{dialogue__test_8c_aa306f88d86a668bc3967e4f8721b2dd3}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test1\_dialogue\_set\_rule@{test1\_dialogue\_set\_rule}}
+\index{test1\_dialogue\_set\_rule@{test1\_dialogue\_set\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_dialogue\_set\_rule()}{test1\_dialogue\_set\_rule()}}
+{\footnotesize\ttfamily void test1\+\_\+dialogue\+\_\+set\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000033}{Test}}]Test function for dialogue\+\_\+rule setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue, pointer to rule non NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ae8d40aea4149ebac0405882532e55cb0}\label{dialogue__test_8c_ae8d40aea4149ebac0405882532e55cb0}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_create@{test2\_dialogue\_create}}
+\index{test2\_dialogue\_create@{test2\_dialogue\_create}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_create()}{test2\_dialogue\_create()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000029}{Test}}]Test dialogue creation \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+Dialogue\+\_\+id 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+dialogue\+\_\+id == Supplied dialogue id 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ad2fcf6cc841df4575a929405d2614ac2}\label{dialogue__test_8c_ad2fcf6cc841df4575a929405d2614ac2}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_decrease\_executed@{test2\_dialogue\_decrease\_executed}}
+\index{test2\_dialogue\_decrease\_executed@{test2\_dialogue\_decrease\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_decrease\_executed()}{test2\_dialogue\_decrease\_executed()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+decrease\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000054}{Test}}]Test function for dialogue\+\_\+executed decreasing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a3f82fbf0365291edf72f979baf80aa67}\label{dialogue__test_8c_a3f82fbf0365291edf72f979baf80aa67}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_error\_rule@{test2\_dialogue\_get\_error\_rule}}
+\index{test2\_dialogue\_get\_error\_rule@{test2\_dialogue\_get\_error\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_error\_rule()}{test2\_dialogue\_get\_error\_rule()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000048}{Test}}]Test function for dialogue\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, empty rule array 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a2b0cb8bea2de7f29c9048fc978a87a3d}\label{dialogue__test_8c_a2b0cb8bea2de7f29c9048fc978a87a3d}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_executed@{test2\_dialogue\_get\_executed}}
+\index{test2\_dialogue\_get\_executed@{test2\_dialogue\_get\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_executed()}{test2\_dialogue\_get\_executed()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000056}{Test}}]Test function for dialogue\+\_\+executed getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a4f145be5023096ba4c4363b4dc6d48e2}\label{dialogue__test_8c_a4f145be5023096ba4c4363b4dc6d48e2}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_id@{test2\_dialogue\_get\_id}}
+\index{test2\_dialogue\_get\_id@{test2\_dialogue\_get\_id}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_id()}{test2\_dialogue\_get\_id()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000032}{Test}}]Test function for dialogue\+\_\+id getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+dialogue\+\_\+\+ID == NO\+\_\+\+ID 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a9d97064502a4007445aade5f70126684}\label{dialogue__test_8c_a9d97064502a4007445aade5f70126684}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_last\_error\_rule\_position@{test2\_dialogue\_get\_last\_error\_rule\_position}}
+\index{test2\_dialogue\_get\_last\_error\_rule\_position@{test2\_dialogue\_get\_last\_error\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_last\_error\_rule\_position()}{test2\_dialogue\_get\_last\_error\_rule\_position()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000041}{Test}}]Test function for dialogue\+\_\+last\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, non-\/empty array of error rules 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==1 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ab64afa1a529d03bb3b292b5217b33ee7}\label{dialogue__test_8c_ab64afa1a529d03bb3b292b5217b33ee7}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_last\_rule\_position@{test2\_dialogue\_get\_last\_rule\_position}}
+\index{test2\_dialogue\_get\_last\_rule\_position@{test2\_dialogue\_get\_last\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_last\_rule\_position()}{test2\_dialogue\_get\_last\_rule\_position()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000038}{Test}}]Test function for dialogue\+\_\+last\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, non-\/empty array of success rules 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==0 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a60dca038ffe43c4392ea0784f72dbbb2}\label{dialogue__test_8c_a60dca038ffe43c4392ea0784f72dbbb2}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_printed\_rule@{test2\_dialogue\_get\_printed\_rule}}
+\index{test2\_dialogue\_get\_printed\_rule@{test2\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_printed\_rule()}{test2\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000068}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, no arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ada425cb3f3f83028c721fdeffdb3b325}\label{dialogue__test_8c_ada425cb3f3f83028c721fdeffdb3b325}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_get\_rule@{test2\_dialogue\_get\_rule}}
+\index{test2\_dialogue\_get\_rule@{test2\_dialogue\_get\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_get\_rule()}{test2\_dialogue\_get\_rule()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+get\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000044}{Test}}]Test function for dialogue\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, empty rule array 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ae5b130a5e57c2b38d862a45b418016f2}\label{dialogue__test_8c_ae5b130a5e57c2b38d862a45b418016f2}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_increase\_executed@{test2\_dialogue\_increase\_executed}}
+\index{test2\_dialogue\_increase\_executed@{test2\_dialogue\_increase\_executed}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_increase\_executed()}{test2\_dialogue\_increase\_executed()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+increase\+\_\+executed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000052}{Test}}]Test function for dialogue\+\_\+executed increasing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a5fb7de7cac8eb6df8bcac03ba95973c4}\label{dialogue__test_8c_a5fb7de7cac8eb6df8bcac03ba95973c4}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_print@{test2\_dialogue\_print}}
+\index{test2\_dialogue\_print@{test2\_dialogue\_print}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_print()}{test2\_dialogue\_print()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000078}{Test}}]Test function for dialogue printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_aec645c0a64503478a9077cf89480bd01}\label{dialogue__test_8c_aec645c0a64503478a9077cf89480bd01}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_print\_rule@{test2\_dialogue\_print\_rule}}
+\index{test2\_dialogue\_print\_rule@{test2\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_print\_rule()}{test2\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000058}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, no arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a18e53fc6735187cf57aafd31afb3f09b}\label{dialogue__test_8c_a18e53fc6735187cf57aafd31afb3f09b}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test2\_dialogue\_set\_rule@{test2\_dialogue\_set\_rule}}
+\index{test2\_dialogue\_set\_rule@{test2\_dialogue\_set\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_dialogue\_set\_rule()}{test2\_dialogue\_set\_rule()}}
+{\footnotesize\ttfamily void test2\+\_\+dialogue\+\_\+set\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000034}{Test}}]Test function for dialogue\+\_\+rule setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, pointer to rule non NULL, full rule\+\_\+space 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a9fe56633efb56e386d6ea753f56cfb67}\label{dialogue__test_8c_a9fe56633efb56e386d6ea753f56cfb67}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_create@{test3\_dialogue\_create}}
+\index{test3\_dialogue\_create@{test3\_dialogue\_create}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_create()}{test3\_dialogue\_create()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000030}{Test}}]Test dialogue creation \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+id == NO\+\_\+\+ID 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+NULL pointer to dialogue 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a2c3c7ad2a44aa83971767fb5b7a87dd7}\label{dialogue__test_8c_a2c3c7ad2a44aa83971767fb5b7a87dd7}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_get\_error\_rule@{test3\_dialogue\_get\_error\_rule}}
+\index{test3\_dialogue\_get\_error\_rule@{test3\_dialogue\_get\_error\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_get\_error\_rule()}{test3\_dialogue\_get\_error\_rule()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000049}{Test}}]Test function for dialogue\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position $>$ last\+\_\+error\+\_\+rule\+\_\+index 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a82b285c94b51242b1419f7293bfc8ae2}\label{dialogue__test_8c_a82b285c94b51242b1419f7293bfc8ae2}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_get\_last\_error\_rule\_position@{test3\_dialogue\_get\_last\_error\_rule\_position}}
+\index{test3\_dialogue\_get\_last\_error\_rule\_position@{test3\_dialogue\_get\_last\_error\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_get\_last\_error\_rule\_position()}{test3\_dialogue\_get\_last\_error\_rule\_position()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000042}{Test}}]Test function for dialogue\+\_\+last\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==-\/2 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_acaa6654092ec4fbc5d1c1f455fe03c99}\label{dialogue__test_8c_acaa6654092ec4fbc5d1c1f455fe03c99}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_get\_last\_rule\_position@{test3\_dialogue\_get\_last\_rule\_position}}
+\index{test3\_dialogue\_get\_last\_rule\_position@{test3\_dialogue\_get\_last\_rule\_position}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_get\_last\_rule\_position()}{test3\_dialogue\_get\_last\_rule\_position()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000039}{Test}}]Test function for dialogue\+\_\+last\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==-\/2 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a40a1c366172ef7e7c1c857602dbb4b33}\label{dialogue__test_8c_a40a1c366172ef7e7c1c857602dbb4b33}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_get\_printed\_rule@{test3\_dialogue\_get\_printed\_rule}}
+\index{test3\_dialogue\_get\_printed\_rule@{test3\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_get\_printed\_rule()}{test3\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000069}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, one argument, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ab4737ebdfcbf899c1eb248a53a897cec}\label{dialogue__test_8c_ab4737ebdfcbf899c1eb248a53a897cec}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_get\_rule@{test3\_dialogue\_get\_rule}}
+\index{test3\_dialogue\_get\_rule@{test3\_dialogue\_get\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_get\_rule()}{test3\_dialogue\_get\_rule()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+get\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000045}{Test}}]Test function for dialogue\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position $>$ last\+\_\+rule\+\_\+index 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a0072d091a875e77dbd599054b9b40d79}\label{dialogue__test_8c_a0072d091a875e77dbd599054b9b40d79}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_print@{test3\_dialogue\_print}}
+\index{test3\_dialogue\_print@{test3\_dialogue\_print}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_print()}{test3\_dialogue\_print()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000079}{Test}}]Test function for dialogue printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, file NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a812ca5b6a1e4d66fec039f12cfa2ee8c}\label{dialogue__test_8c_a812ca5b6a1e4d66fec039f12cfa2ee8c}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_print\_rule@{test3\_dialogue\_print\_rule}}
+\index{test3\_dialogue\_print\_rule@{test3\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_print\_rule()}{test3\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000059}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, one argument, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a60bf126988c505cedca0cfac6737b805}\label{dialogue__test_8c_a60bf126988c505cedca0cfac6737b805}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test3\_dialogue\_set\_rule@{test3\_dialogue\_set\_rule}}
+\index{test3\_dialogue\_set\_rule@{test3\_dialogue\_set\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_dialogue\_set\_rule()}{test3\_dialogue\_set\_rule()}}
+{\footnotesize\ttfamily void test3\+\_\+dialogue\+\_\+set\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000035}{Test}}]Test function for dialogue\+\_\+rule setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue, pointer to rule NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ac55253f49f93d76d07cceab5db243ad7}\label{dialogue__test_8c_ac55253f49f93d76d07cceab5db243ad7}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test4\_dialogue\_get\_error\_rule@{test4\_dialogue\_get\_error\_rule}}
+\index{test4\_dialogue\_get\_error\_rule@{test4\_dialogue\_get\_error\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test4\_dialogue\_get\_error\_rule()}{test4\_dialogue\_get\_error\_rule()}}
+{\footnotesize\ttfamily void test4\+\_\+dialogue\+\_\+get\+\_\+error\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000050}{Test}}]Test function for dialogue\+\_\+error\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a9e6a772d26de16ffb44a813e08403b59}\label{dialogue__test_8c_a9e6a772d26de16ffb44a813e08403b59}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test4\_dialogue\_get\_printed\_rule@{test4\_dialogue\_get\_printed\_rule}}
+\index{test4\_dialogue\_get\_printed\_rule@{test4\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test4\_dialogue\_get\_printed\_rule()}{test4\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test4\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000070}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, one argument, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a2cba80c5592bf823bfd8ba5a9bc9a7a1}\label{dialogue__test_8c_a2cba80c5592bf823bfd8ba5a9bc9a7a1}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test4\_dialogue\_get\_rule@{test4\_dialogue\_get\_rule}}
+\index{test4\_dialogue\_get\_rule@{test4\_dialogue\_get\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test4\_dialogue\_get\_rule()}{test4\_dialogue\_get\_rule()}}
+{\footnotesize\ttfamily void test4\+\_\+dialogue\+\_\+get\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000046}{Test}}]Test function for dialogue\+\_\+success\+\_\+rule getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a304867110bb20ab2802609d486f8aa02}\label{dialogue__test_8c_a304867110bb20ab2802609d486f8aa02}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test4\_dialogue\_print\_rule@{test4\_dialogue\_print\_rule}}
+\index{test4\_dialogue\_print\_rule@{test4\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test4\_dialogue\_print\_rule()}{test4\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test4\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000060}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, one argument, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ade09fcadf2fed54a711fb156188e132c}\label{dialogue__test_8c_ade09fcadf2fed54a711fb156188e132c}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test4\_dialogue\_set\_rule@{test4\_dialogue\_set\_rule}}
+\index{test4\_dialogue\_set\_rule@{test4\_dialogue\_set\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test4\_dialogue\_set\_rule()}{test4\_dialogue\_set\_rule()}}
+{\footnotesize\ttfamily void test4\+\_\+dialogue\+\_\+set\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000036}{Test}}]Test function for dialogue\+\_\+rule setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NULL, pointer to rule NON NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a4d719a67a4303667266cc33c9569385c}\label{dialogue__test_8c_a4d719a67a4303667266cc33c9569385c}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test5\_dialogue\_get\_printed\_rule@{test5\_dialogue\_get\_printed\_rule}}
+\index{test5\_dialogue\_get\_printed\_rule@{test5\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test5\_dialogue\_get\_printed\_rule()}{test5\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test5\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000071}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, several arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ab9232e35b82373d7bce807b822638676}\label{dialogue__test_8c_ab9232e35b82373d7bce807b822638676}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test5\_dialogue\_print\_rule@{test5\_dialogue\_print\_rule}}
+\index{test5\_dialogue\_print\_rule@{test5\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test5\_dialogue\_print\_rule()}{test5\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test5\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000061}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, several arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_affdda78e7abaa544c57a51e1ae47be87}\label{dialogue__test_8c_affdda78e7abaa544c57a51e1ae47be87}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test6\_dialogue\_get\_printed\_rule@{test6\_dialogue\_get\_printed\_rule}}
+\index{test6\_dialogue\_get\_printed\_rule@{test6\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test6\_dialogue\_get\_printed\_rule()}{test6\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test6\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000072}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, several arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput != NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a0b3c81ee9b28fdee61ec881443a81aa6}\label{dialogue__test_8c_a0b3c81ee9b28fdee61ec881443a81aa6}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test6\_dialogue\_print\_rule@{test6\_dialogue\_print\_rule}}
+\index{test6\_dialogue\_print\_rule@{test6\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test6\_dialogue\_print\_rule()}{test6\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test6\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000062}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position = existing\+\_\+position, several arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a77b136a2e465c11487ffa13d65340a9f}\label{dialogue__test_8c_a77b136a2e465c11487ffa13d65340a9f}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test7\_dialogue\_get\_printed\_rule@{test7\_dialogue\_get\_printed\_rule}}
+\index{test7\_dialogue\_get\_printed\_rule@{test7\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test7\_dialogue\_get\_printed\_rule()}{test7\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test7\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000073}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position != existing\+\_\+position, no arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ac915f413c01b6441fbb2237af8f0d935}\label{dialogue__test_8c_ac915f413c01b6441fbb2237af8f0d935}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test7\_dialogue\_print\_rule@{test7\_dialogue\_print\_rule}}
+\index{test7\_dialogue\_print\_rule@{test7\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test7\_dialogue\_print\_rule()}{test7\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test7\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000063}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position != existing\+\_\+position, no arguments, success type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_af7fb65af1016049ea732c66b17792a18}\label{dialogue__test_8c_af7fb65af1016049ea732c66b17792a18}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test8\_dialogue\_get\_printed\_rule@{test8\_dialogue\_get\_printed\_rule}}
+\index{test8\_dialogue\_get\_printed\_rule@{test8\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test8\_dialogue\_get\_printed\_rule()}{test8\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test8\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000074}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position != existing\+\_\+position, no arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_ae80db6c409c7f7bd7e359614600108ed}\label{dialogue__test_8c_ae80db6c409c7f7bd7e359614600108ed}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test8\_dialogue\_print\_rule@{test8\_dialogue\_print\_rule}}
+\index{test8\_dialogue\_print\_rule@{test8\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test8\_dialogue\_print\_rule()}{test8\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test8\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000064}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position != existing\+\_\+position, no arguments, error type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_aee0910deeaee572173420f646c56a292}\label{dialogue__test_8c_aee0910deeaee572173420f646c56a292}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test9\_dialogue\_get\_printed\_rule@{test9\_dialogue\_get\_printed\_rule}}
+\index{test9\_dialogue\_get\_printed\_rule@{test9\_dialogue\_get\_printed\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test9\_dialogue\_get\_printed\_rule()}{test9\_dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily void test9\+\_\+dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000075}{Test}}]Test function for dialogue\+\_\+rule in printed format getting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, position != existing\+\_\+position 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == NULL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{dialogue__test_8c_a3750a89269cc9601330ee081d83e77a4}\label{dialogue__test_8c_a3750a89269cc9601330ee081d83e77a4}} 
+\index{dialogue\_test.c@{dialogue\_test.c}!test9\_dialogue\_print\_rule@{test9\_dialogue\_print\_rule}}
+\index{test9\_dialogue\_print\_rule@{test9\_dialogue\_print\_rule}!dialogue\_test.c@{dialogue\_test.c}}
+\doxysubsubsection{\texorpdfstring{test9\_dialogue\_print\_rule()}{test9\_dialogue\_print\_rule()}}
+{\footnotesize\ttfamily void test9\+\_\+dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000065}{Test}}]Test function for dialogue\+\_\+rule printing \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to dialogue NON NULL, pointer to file NULL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput == ERROR 
+\end{DoxyPostcond}

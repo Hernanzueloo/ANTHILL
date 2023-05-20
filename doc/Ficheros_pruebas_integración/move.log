@@ -1,0 +1,9 @@
+move east: ERROR
+move north: ERROR
+move south: ERROR
+move down: ERROR
+move west: OK
+move west: OK
+move east: OK
+move east: OK
+move up: ERROR

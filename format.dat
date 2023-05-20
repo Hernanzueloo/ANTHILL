@@ -1,0 +1,6 @@
+#p:Id|Name|Location|Health|InventorySize|PlayerType
+#s:Id|Name|Iluminacion|Flooded|Descr Graphic|Description Small|Description inspect
+#o:Id|Name|Location|Description|Hidden|movable|dependency|get_open|iluminate|turnon
+#e:Id|Name|Location|Health|Descr
+#l:ID|name|Origen|Dest|Dir|LStatus|
+#r:ID|n_act|name action|n_ids|Id1|Id2|...|argint|argname|ncond|name cond|n_ids|Id1|Id2|...|argint|argname

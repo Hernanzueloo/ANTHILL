@@ -1,0 +1,433 @@
+\hypertarget{types_8h}{}\doxysection{include/types.h File Reference}
+\label{types_8h}\index{include/types.h@{include/types.h}}
+
+
+It defines common types for the whole project.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{types_8h_a92ed8507d1cd2331ad09275c5c4c1c89}{WORD\+\_\+\+SIZE}}~1000
+\item 
+\#define \mbox{\hyperlink{types_8h_a642e16f35aa1e585c25e405ede76e115}{NO\+\_\+\+ID}}~-\/1
+\item 
+\#define \mbox{\hyperlink{types_8h_a4159b53da9c6fe869517755161b5b3bc}{NO\+\_\+\+TYPE}}~-\/1
+\item 
+\#define \mbox{\hyperlink{types_8h_a0c2c793a842735c78070ca2a6e953e08}{ON\+\_\+\+PLAYER}}~-\/2
+\item 
+\#define \mbox{\hyperlink{types_8h_a73c3856a81fc3bf2d0d3849bb1c19625}{NO\+\_\+\+HEALTH}}~-\/1
+\item 
+\#define \mbox{\hyperlink{types_8h_a6956422f18a9e34d87237f74d3aa6fe3}{INITIAL\+\_\+\+LP}}~2
+\item 
+\#define \mbox{\hyperlink{types_8h_acdc7844fbd4d45737d4aa56834d37829}{MAX\+\_\+\+OBJECTS}}~100
+\item 
+\#define \mbox{\hyperlink{types_8h_a660ed1ec8604982002a0d6eced0e0367}{MAX\+\_\+\+LINKS}}~100
+\item 
+\#define \mbox{\hyperlink{types_8h_a5f54fd55f983a2e33ce076cd9f587e82}{MAX\+\_\+\+SPACES}}~100
+\item 
+\#define \mbox{\hyperlink{types_8h_a544651f3405cff79c40d898a8e54f507}{MAX\+\_\+\+ENEMIES}}~20
+\item 
+\#define \mbox{\hyperlink{types_8h_afcd3f2212725d2cc0d74135e7d25eb34}{MAX\+\_\+\+RULES}}~600
+\item 
+\#define \mbox{\hyperlink{types_8h_a0f3f5f7d4d9b807bb98112298f9562ca}{MAX\+\_\+\+DIALOGUES}}~50
+\item 
+\#define \mbox{\hyperlink{types_8h_a1cdad8b6dffc526962c1c0d3138cd982}{GRAPHIC\+\_\+\+ROWS}}~6
+\item 
+\#define \mbox{\hyperlink{types_8h_a0af6c32be5b596c243e50ee2ac8110ed}{GRAPHIC\+\_\+\+COLS}}~14
+\item 
+\#define \mbox{\hyperlink{types_8h_a9cd30ccc504eeb07f7ce0a76269acf33}{REPEATED\+\_\+\+ERROR\+\_\+\+ID}}~14
+\item 
+\#define \mbox{\hyperlink{types_8h_aa5109b7484893febdf204af9312ffef1}{GROUND}}~\char`\"{}Ground\char`\"{}
+\item 
+\#define \mbox{\hyperlink{types_8h_a4246541ee828dd1946d97efb51f6c570}{N\+\_\+\+UPGRADES}}~2
+\item 
+\#define \mbox{\hyperlink{types_8h_a4ecd7efdc09f555000dff36466e951dd}{NOT\+\_\+\+UPGRADED}}~0
+\item 
+\#define \mbox{\hyperlink{types_8h_a98dd43bd56b8ced4f3a1eca667a6ba0d}{UPGRADED}}~1
+\item 
+\#define \mbox{\hyperlink{types_8h_a5c9c90482e6bbd6d2277c1bd1fe88fcd}{N\+\_\+\+UPGRADEABLE\+\_\+\+OBJ}}~5
+\item 
+\#define \mbox{\hyperlink{types_8h_a348334585e0e04b416cdbc990ec1d38c}{WORKSHOP}}~\char`\"{}The Workshop\char`\"{}
+\item 
+\#define \mbox{\hyperlink{types_8h_aae4fe9936f060b652d8d5e5eeb0d687b}{BOAT}}~\char`\"{}ANTBOAT\char`\"{}
+\item 
+\#define \mbox{\hyperlink{types_8h_a46478de046c14a9f4eb99eec8310d0e5}{HARBOUR}}~\char`\"{}Harbour\char`\"{}
+\item 
+\#define \mbox{\hyperlink{types_8h_a60e4800033666dbe9068a617cb7f4bc0}{PROB\+\_\+\+VICT\+\_\+\+ATACK}}~7
+\item 
+\#define \mbox{\hyperlink{types_8h_a537071b875973a908ea7e300c29b5cca}{MAX\+\_\+\+GROUND}}~10
+\item 
+\#define \mbox{\hyperlink{types_8h_a76d262b22ddf59a65d520ecc3588b23e}{VICTORY}}~-\/100
+\item 
+\#define \mbox{\hyperlink{types_8h_ac399e7ca1eb5dfad85ead4d82ec3ba98}{DEFEAT}}~-\/200
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{types_8h_a845e604fb28f7e3d97549da3448149d3}\label{types_8h_a845e604fb28f7e3d97549da3448149d3}} 
+typedef long \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}
+\begin{DoxyCompactList}\small\item\em Id data type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}} \{ \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}}
+, \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa82764c3079aea4e60c80e45befbb839}{TRUE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Bool data type False-\/\+True. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \{ \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2fd6f336d08340583bd620a7f5694c90}{ERROR}}
+, \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}}
+ \}
+\begin{DoxyCompactList}\small\item\em Status data type Error-\/\+OK. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{types_8h_a8587459e2e1496440ec29bc15b8cf170}{SSTATUS}} \{ \mbox{\hyperlink{types_8h_a8587459e2e1496440ec29bc15b8cf170aa3a9adacc85c180950255762543c88ac}{SAFE}}
+, \mbox{\hyperlink{types_8h_a8587459e2e1496440ec29bc15b8cf170a3379210b750435c1bbc3c9f568fb4f7c}{FLOODED}}
+, \mbox{\hyperlink{types_8h_a8587459e2e1496440ec29bc15b8cf170a62e3db9035966f0253975cb482c1969d}{SUNK}}
+ \}
+\begin{DoxyCompactList}\small\item\em State data type Error-\/\+OK. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}} \{ \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0a685f73194ad125cbc784c3210cdb3449}{CLOSE}}
+, \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0a0e0143636c29971736eab47415868eae}{OPEN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Status data type OPEN-\/\+CLOSE. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}{DTYPE}} \{ \mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eaa5571864412c8275a2e18a931fddcaa6}{FAILURE}}
+, \mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eac7f69f7c9e5aea9b8f54cf02870e2bf8}{SUCCESS}}
+ \}
+\begin{DoxyCompactList}\small\item\em Status data type SUCCESS-\/\+FAILURE. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}} \{ \newline
+{\bfseries NO\+\_\+\+DIR} = -\/1
+, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0ad0611de6f28d4a9c9eac959f5344698e}{NORTH}}
+, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0a8ef5c0bce69283a9986011a63eea8a6b}{SOUTH}}
+, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0ab5b3793b961949c817c7c0d99c05dad7}{EAST}}
+, \newline
+\mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0ae9449e8683a8199dad36b07a63b2f523}{WEST}}
+, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0aba595d8bca8bc5e67c37c0a9d89becfa}{UP}}
+, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0a9b0b4a95b99523966e0e34ffdadac9da}{DOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Cardinality directions N,S,E,W,U,D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines common types for the whole project. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley -\/ Javier San Andrés 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+30/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{types_8h_aae4fe9936f060b652d8d5e5eeb0d687b}\label{types_8h_aae4fe9936f060b652d8d5e5eeb0d687b}} 
+\index{types.h@{types.h}!BOAT@{BOAT}}
+\index{BOAT@{BOAT}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{BOAT}{BOAT}}
+{\footnotesize\ttfamily \#define BOAT~\char`\"{}ANTBOAT\char`\"{}}
+
+Name of the boat \mbox{\Hypertarget{types_8h_ac399e7ca1eb5dfad85ead4d82ec3ba98}\label{types_8h_ac399e7ca1eb5dfad85ead4d82ec3ba98}} 
+\index{types.h@{types.h}!DEFEAT@{DEFEAT}}
+\index{DEFEAT@{DEFEAT}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{DEFEAT}{DEFEAT}}
+{\footnotesize\ttfamily \#define DEFEAT~-\/200}
+
+Defeat number \mbox{\Hypertarget{types_8h_a0af6c32be5b596c243e50ee2ac8110ed}\label{types_8h_a0af6c32be5b596c243e50ee2ac8110ed}} 
+\index{types.h@{types.h}!GRAPHIC\_COLS@{GRAPHIC\_COLS}}
+\index{GRAPHIC\_COLS@{GRAPHIC\_COLS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{GRAPHIC\_COLS}{GRAPHIC\_COLS}}
+{\footnotesize\ttfamily \#define GRAPHIC\+\_\+\+COLS~14}
+
+Number of columns of the space\textquotesingle{}s graphical descriptor \mbox{\Hypertarget{types_8h_a1cdad8b6dffc526962c1c0d3138cd982}\label{types_8h_a1cdad8b6dffc526962c1c0d3138cd982}} 
+\index{types.h@{types.h}!GRAPHIC\_ROWS@{GRAPHIC\_ROWS}}
+\index{GRAPHIC\_ROWS@{GRAPHIC\_ROWS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{GRAPHIC\_ROWS}{GRAPHIC\_ROWS}}
+{\footnotesize\ttfamily \#define GRAPHIC\+\_\+\+ROWS~6}
+
+Number of rows of the space\textquotesingle{}s graphical descriptor \mbox{\Hypertarget{types_8h_aa5109b7484893febdf204af9312ffef1}\label{types_8h_aa5109b7484893febdf204af9312ffef1}} 
+\index{types.h@{types.h}!GROUND@{GROUND}}
+\index{GROUND@{GROUND}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{GROUND}{GROUND}}
+{\footnotesize\ttfamily \#define GROUND~\char`\"{}Ground\char`\"{}}
+
+Name of the objects that represent gorund \mbox{\Hypertarget{types_8h_a46478de046c14a9f4eb99eec8310d0e5}\label{types_8h_a46478de046c14a9f4eb99eec8310d0e5}} 
+\index{types.h@{types.h}!HARBOUR@{HARBOUR}}
+\index{HARBOUR@{HARBOUR}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{HARBOUR}{HARBOUR}}
+{\footnotesize\ttfamily \#define HARBOUR~\char`\"{}Harbour\char`\"{}}
+
+Name of the harbour \mbox{\Hypertarget{types_8h_a6956422f18a9e34d87237f74d3aa6fe3}\label{types_8h_a6956422f18a9e34d87237f74d3aa6fe3}} 
+\index{types.h@{types.h}!INITIAL\_LP@{INITIAL\_LP}}
+\index{INITIAL\_LP@{INITIAL\_LP}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{INITIAL\_LP}{INITIAL\_LP}}
+{\footnotesize\ttfamily \#define INITIAL\+\_\+\+LP~2}
+
+Initial number of Life Points of any player and enemy \mbox{\Hypertarget{types_8h_a0f3f5f7d4d9b807bb98112298f9562ca}\label{types_8h_a0f3f5f7d4d9b807bb98112298f9562ca}} 
+\index{types.h@{types.h}!MAX\_DIALOGUES@{MAX\_DIALOGUES}}
+\index{MAX\_DIALOGUES@{MAX\_DIALOGUES}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_DIALOGUES}{MAX\_DIALOGUES}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+DIALOGUES~50}
+
+Maximum number of game dialogues \mbox{\Hypertarget{types_8h_a544651f3405cff79c40d898a8e54f507}\label{types_8h_a544651f3405cff79c40d898a8e54f507}} 
+\index{types.h@{types.h}!MAX\_ENEMIES@{MAX\_ENEMIES}}
+\index{MAX\_ENEMIES@{MAX\_ENEMIES}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_ENEMIES}{MAX\_ENEMIES}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+ENEMIES~20}
+
+Maximum number of game enemies \mbox{\Hypertarget{types_8h_a537071b875973a908ea7e300c29b5cca}\label{types_8h_a537071b875973a908ea7e300c29b5cca}} 
+\index{types.h@{types.h}!MAX\_GROUND@{MAX\_GROUND}}
+\index{MAX\_GROUND@{MAX\_GROUND}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_GROUND}{MAX\_GROUND}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+GROUND~10}
+
+Maximum number of grounds to be spawned \mbox{\Hypertarget{types_8h_a660ed1ec8604982002a0d6eced0e0367}\label{types_8h_a660ed1ec8604982002a0d6eced0e0367}} 
+\index{types.h@{types.h}!MAX\_LINKS@{MAX\_LINKS}}
+\index{MAX\_LINKS@{MAX\_LINKS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_LINKS}{MAX\_LINKS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+LINKS~100}
+
+Maximum number of links in a game \mbox{\Hypertarget{types_8h_acdc7844fbd4d45737d4aa56834d37829}\label{types_8h_acdc7844fbd4d45737d4aa56834d37829}} 
+\index{types.h@{types.h}!MAX\_OBJECTS@{MAX\_OBJECTS}}
+\index{MAX\_OBJECTS@{MAX\_OBJECTS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_OBJECTS}{MAX\_OBJECTS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+OBJECTS~100}
+
+Maximum number of objects that a can be in a game \mbox{\Hypertarget{types_8h_afcd3f2212725d2cc0d74135e7d25eb34}\label{types_8h_afcd3f2212725d2cc0d74135e7d25eb34}} 
+\index{types.h@{types.h}!MAX\_RULES@{MAX\_RULES}}
+\index{MAX\_RULES@{MAX\_RULES}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_RULES}{MAX\_RULES}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+RULES~600}
+
+Maximum number of game rules \mbox{\Hypertarget{types_8h_a5f54fd55f983a2e33ce076cd9f587e82}\label{types_8h_a5f54fd55f983a2e33ce076cd9f587e82}} 
+\index{types.h@{types.h}!MAX\_SPACES@{MAX\_SPACES}}
+\index{MAX\_SPACES@{MAX\_SPACES}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_SPACES}{MAX\_SPACES}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+SPACES~100}
+
+Maximum number of game spaces \mbox{\Hypertarget{types_8h_a5c9c90482e6bbd6d2277c1bd1fe88fcd}\label{types_8h_a5c9c90482e6bbd6d2277c1bd1fe88fcd}} 
+\index{types.h@{types.h}!N\_UPGRADEABLE\_OBJ@{N\_UPGRADEABLE\_OBJ}}
+\index{N\_UPGRADEABLE\_OBJ@{N\_UPGRADEABLE\_OBJ}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{N\_UPGRADEABLE\_OBJ}{N\_UPGRADEABLE\_OBJ}}
+{\footnotesize\ttfamily \#define N\+\_\+\+UPGRADEABLE\+\_\+\+OBJ~5}
+
+Number of upgradeable objects \mbox{\Hypertarget{types_8h_a4246541ee828dd1946d97efb51f6c570}\label{types_8h_a4246541ee828dd1946d97efb51f6c570}} 
+\index{types.h@{types.h}!N\_UPGRADES@{N\_UPGRADES}}
+\index{N\_UPGRADES@{N\_UPGRADES}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{N\_UPGRADES}{N\_UPGRADES}}
+{\footnotesize\ttfamily \#define N\+\_\+\+UPGRADES~2}
+
+Number of upgrades a object can have \mbox{\Hypertarget{types_8h_a73c3856a81fc3bf2d0d3849bb1c19625}\label{types_8h_a73c3856a81fc3bf2d0d3849bb1c19625}} 
+\index{types.h@{types.h}!NO\_HEALTH@{NO\_HEALTH}}
+\index{NO\_HEALTH@{NO\_HEALTH}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{NO\_HEALTH}{NO\_HEALTH}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+HEALTH~-\/1}
+
+NO\+\_\+\+HEALTH value \mbox{\Hypertarget{types_8h_a642e16f35aa1e585c25e405ede76e115}\label{types_8h_a642e16f35aa1e585c25e405ede76e115}} 
+\index{types.h@{types.h}!NO\_ID@{NO\_ID}}
+\index{NO\_ID@{NO\_ID}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{NO\_ID}{NO\_ID}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+ID~-\/1}
+
+NO\+\_\+\+ID values \mbox{\Hypertarget{types_8h_a4159b53da9c6fe869517755161b5b3bc}\label{types_8h_a4159b53da9c6fe869517755161b5b3bc}} 
+\index{types.h@{types.h}!NO\_TYPE@{NO\_TYPE}}
+\index{NO\_TYPE@{NO\_TYPE}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{NO\_TYPE}{NO\_TYPE}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+TYPE~-\/1}
+
+value for no\+\_\+type player \mbox{\Hypertarget{types_8h_a4ecd7efdc09f555000dff36466e951dd}\label{types_8h_a4ecd7efdc09f555000dff36466e951dd}} 
+\index{types.h@{types.h}!NOT\_UPGRADED@{NOT\_UPGRADED}}
+\index{NOT\_UPGRADED@{NOT\_UPGRADED}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{NOT\_UPGRADED}{NOT\_UPGRADED}}
+{\footnotesize\ttfamily \#define NOT\+\_\+\+UPGRADED~0}
+
+Number that indicates that an object has not been upgraded \mbox{\Hypertarget{types_8h_a0c2c793a842735c78070ca2a6e953e08}\label{types_8h_a0c2c793a842735c78070ca2a6e953e08}} 
+\index{types.h@{types.h}!ON\_PLAYER@{ON\_PLAYER}}
+\index{ON\_PLAYER@{ON\_PLAYER}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{ON\_PLAYER}{ON\_PLAYER}}
+{\footnotesize\ttfamily \#define ON\+\_\+\+PLAYER~-\/2}
+
+ID for when an object is on a player \mbox{\Hypertarget{types_8h_a60e4800033666dbe9068a617cb7f4bc0}\label{types_8h_a60e4800033666dbe9068a617cb7f4bc0}} 
+\index{types.h@{types.h}!PROB\_VICT\_ATACK@{PROB\_VICT\_ATACK}}
+\index{PROB\_VICT\_ATACK@{PROB\_VICT\_ATACK}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{PROB\_VICT\_ATACK}{PROB\_VICT\_ATACK}}
+{\footnotesize\ttfamily \#define PROB\+\_\+\+VICT\+\_\+\+ATACK~7}
+
+Probability of attacking an enemy succesfully (1 to 10) \mbox{\Hypertarget{types_8h_a9cd30ccc504eeb07f7ce0a76269acf33}\label{types_8h_a9cd30ccc504eeb07f7ce0a76269acf33}} 
+\index{types.h@{types.h}!REPEATED\_ERROR\_ID@{REPEATED\_ERROR\_ID}}
+\index{REPEATED\_ERROR\_ID@{REPEATED\_ERROR\_ID}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{REPEATED\_ERROR\_ID}{REPEATED\_ERROR\_ID}}
+{\footnotesize\ttfamily \#define REPEATED\+\_\+\+ERROR\+\_\+\+ID~14}
+
+Id for the dialogue with the rules in case of repeated errors \mbox{\Hypertarget{types_8h_a98dd43bd56b8ced4f3a1eca667a6ba0d}\label{types_8h_a98dd43bd56b8ced4f3a1eca667a6ba0d}} 
+\index{types.h@{types.h}!UPGRADED@{UPGRADED}}
+\index{UPGRADED@{UPGRADED}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{UPGRADED}{UPGRADED}}
+{\footnotesize\ttfamily \#define UPGRADED~1}
+
+Number that indicates that an object has been upgraded \mbox{\Hypertarget{types_8h_a76d262b22ddf59a65d520ecc3588b23e}\label{types_8h_a76d262b22ddf59a65d520ecc3588b23e}} 
+\index{types.h@{types.h}!VICTORY@{VICTORY}}
+\index{VICTORY@{VICTORY}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{VICTORY}{VICTORY}}
+{\footnotesize\ttfamily \#define VICTORY~-\/100}
+
+Victory number \mbox{\Hypertarget{types_8h_a92ed8507d1cd2331ad09275c5c4c1c89}\label{types_8h_a92ed8507d1cd2331ad09275c5c4c1c89}} 
+\index{types.h@{types.h}!WORD\_SIZE@{WORD\_SIZE}}
+\index{WORD\_SIZE@{WORD\_SIZE}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{WORD\_SIZE}{WORD\_SIZE}}
+{\footnotesize\ttfamily \#define WORD\+\_\+\+SIZE~1000}
+
+Maximum word size for strings \mbox{\Hypertarget{types_8h_a348334585e0e04b416cdbc990ec1d38c}\label{types_8h_a348334585e0e04b416cdbc990ec1d38c}} 
+\index{types.h@{types.h}!WORKSHOP@{WORKSHOP}}
+\index{WORKSHOP@{WORKSHOP}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{WORKSHOP}{WORKSHOP}}
+{\footnotesize\ttfamily \#define WORKSHOP~\char`\"{}The Workshop\char`\"{}}
+
+Name of the workshop 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}\label{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}} 
+\index{types.h@{types.h}!BOOL@{BOOL}}
+\index{BOOL@{BOOL}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{BOOL}{BOOL}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_a3e5b8192e7d9ffaf3542f1210aec18dd}{BOOL}}}
+
+
+
+Bool data type False-\/\+True. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FALSE@{FALSE}!types.h@{types.h}}\index{types.h@{types.h}!FALSE@{FALSE}}}\mbox{\Hypertarget{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa1e095cc966dbecf6a0d8aad75348d1a}\label{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa1e095cc966dbecf6a0d8aad75348d1a}} 
+FALSE&False value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TRUE@{TRUE}!types.h@{types.h}}\index{types.h@{types.h}!TRUE@{TRUE}}}\mbox{\Hypertarget{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa82764c3079aea4e60c80e45befbb839}\label{types_8h_a3e5b8192e7d9ffaf3542f1210aec18ddaa82764c3079aea4e60c80e45befbb839}} 
+TRUE&True value \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0}\label{types_8h_aa268a41a13430b18e933ed40207178d0}} 
+\index{types.h@{types.h}!DIRECTION@{DIRECTION}}
+\index{DIRECTION@{DIRECTION}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{DIRECTION}{DIRECTION}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}}}
+
+
+
+Cardinality directions N,S,E,W,U,D. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORTH@{NORTH}!types.h@{types.h}}\index{types.h@{types.h}!NORTH@{NORTH}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0ad0611de6f28d4a9c9eac959f5344698e}\label{types_8h_aa268a41a13430b18e933ed40207178d0ad0611de6f28d4a9c9eac959f5344698e}} 
+NORTH&North value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SOUTH@{SOUTH}!types.h@{types.h}}\index{types.h@{types.h}!SOUTH@{SOUTH}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0a8ef5c0bce69283a9986011a63eea8a6b}\label{types_8h_aa268a41a13430b18e933ed40207178d0a8ef5c0bce69283a9986011a63eea8a6b}} 
+SOUTH&South value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EAST@{EAST}!types.h@{types.h}}\index{types.h@{types.h}!EAST@{EAST}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0ab5b3793b961949c817c7c0d99c05dad7}\label{types_8h_aa268a41a13430b18e933ed40207178d0ab5b3793b961949c817c7c0d99c05dad7}} 
+EAST&East value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WEST@{WEST}!types.h@{types.h}}\index{types.h@{types.h}!WEST@{WEST}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0ae9449e8683a8199dad36b07a63b2f523}\label{types_8h_aa268a41a13430b18e933ed40207178d0ae9449e8683a8199dad36b07a63b2f523}} 
+WEST&West value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UP@{UP}!types.h@{types.h}}\index{types.h@{types.h}!UP@{UP}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0aba595d8bca8bc5e67c37c0a9d89becfa}\label{types_8h_aa268a41a13430b18e933ed40207178d0aba595d8bca8bc5e67c37c0a9d89becfa}} 
+UP&Up value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOWN@{DOWN}!types.h@{types.h}}\index{types.h@{types.h}!DOWN@{DOWN}}}\mbox{\Hypertarget{types_8h_aa268a41a13430b18e933ed40207178d0a9b0b4a95b99523966e0e34ffdadac9da}\label{types_8h_aa268a41a13430b18e933ed40207178d0a9b0b4a95b99523966e0e34ffdadac9da}} 
+DOWN&Down value \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}\label{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}} 
+\index{types.h@{types.h}!DTYPE@{DTYPE}}
+\index{DTYPE@{DTYPE}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{DTYPE}{DTYPE}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}{DTYPE}}}
+
+
+
+Status data type SUCCESS-\/\+FAILURE. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAILURE@{FAILURE}!types.h@{types.h}}\index{types.h@{types.h}!FAILURE@{FAILURE}}}\mbox{\Hypertarget{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eaa5571864412c8275a2e18a931fddcaa6}\label{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eaa5571864412c8275a2e18a931fddcaa6}} 
+FAILURE&Value for an error dialogue rule \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUCCESS@{SUCCESS}!types.h@{types.h}}\index{types.h@{types.h}!SUCCESS@{SUCCESS}}}\mbox{\Hypertarget{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eac7f69f7c9e5aea9b8f54cf02870e2bf8}\label{types_8h_a153784cd913ed8ebe0f28373c1e2ff6eac7f69f7c9e5aea9b8f54cf02870e2bf8}} 
+SUCCESS&Value for a success dialogue rule \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{types_8h_a205ac365a83ed2cd756fbd747ea814c0}\label{types_8h_a205ac365a83ed2cd756fbd747ea814c0}} 
+\index{types.h@{types.h}!LSTATUS@{LSTATUS}}
+\index{LSTATUS@{LSTATUS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{LSTATUS}{LSTATUS}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}}}
+
+
+
+Status data type OPEN-\/\+CLOSE. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLOSE@{CLOSE}!types.h@{types.h}}\index{types.h@{types.h}!CLOSE@{CLOSE}}}\mbox{\Hypertarget{types_8h_a205ac365a83ed2cd756fbd747ea814c0a685f73194ad125cbc784c3210cdb3449}\label{types_8h_a205ac365a83ed2cd756fbd747ea814c0a685f73194ad125cbc784c3210cdb3449}} 
+CLOSE&Value for a close link \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OPEN@{OPEN}!types.h@{types.h}}\index{types.h@{types.h}!OPEN@{OPEN}}}\mbox{\Hypertarget{types_8h_a205ac365a83ed2cd756fbd747ea814c0a0e0143636c29971736eab47415868eae}\label{types_8h_a205ac365a83ed2cd756fbd747ea814c0a0e0143636c29971736eab47415868eae}} 
+OPEN&Value for an open link \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{types_8h_a8587459e2e1496440ec29bc15b8cf170}\label{types_8h_a8587459e2e1496440ec29bc15b8cf170}} 
+\index{types.h@{types.h}!SSTATUS@{SSTATUS}}
+\index{SSTATUS@{SSTATUS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{SSTATUS}{SSTATUS}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_a8587459e2e1496440ec29bc15b8cf170}{SSTATUS}}}
+
+
+
+State data type Error-\/\+OK. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SAFE@{SAFE}!types.h@{types.h}}\index{types.h@{types.h}!SAFE@{SAFE}}}\mbox{\Hypertarget{types_8h_a8587459e2e1496440ec29bc15b8cf170aa3a9adacc85c180950255762543c88ac}\label{types_8h_a8587459e2e1496440ec29bc15b8cf170aa3a9adacc85c180950255762543c88ac}} 
+SAFE&Space is safe \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLOODED@{FLOODED}!types.h@{types.h}}\index{types.h@{types.h}!FLOODED@{FLOODED}}}\mbox{\Hypertarget{types_8h_a8587459e2e1496440ec29bc15b8cf170a3379210b750435c1bbc3c9f568fb4f7c}\label{types_8h_a8587459e2e1496440ec29bc15b8cf170a3379210b750435c1bbc3c9f568fb4f7c}} 
+FLOODED&Space is flooded \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUNK@{SUNK}!types.h@{types.h}}\index{types.h@{types.h}!SUNK@{SUNK}}}\mbox{\Hypertarget{types_8h_a8587459e2e1496440ec29bc15b8cf170a62e3db9035966f0253975cb482c1969d}\label{types_8h_a8587459e2e1496440ec29bc15b8cf170a62e3db9035966f0253975cb482c1969d}} 
+SUNK&Space is sunk \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{types_8h_a32c27cc471df37f4fc818d65de0a56c4}\label{types_8h_a32c27cc471df37f4fc818d65de0a56c4}} 
+\index{types.h@{types.h}!STATUS@{STATUS}}
+\index{STATUS@{STATUS}!types.h@{types.h}}
+\doxysubsubsection{\texorpdfstring{STATUS}{STATUS}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}}}
+
+
+
+Status data type Error-\/\+OK. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR@{ERROR}!types.h@{types.h}}\index{types.h@{types.h}!ERROR@{ERROR}}}\mbox{\Hypertarget{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2fd6f336d08340583bd620a7f5694c90}\label{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2fd6f336d08340583bd620a7f5694c90}} 
+ERROR&Error value \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OK@{OK}!types.h@{types.h}}\index{types.h@{types.h}!OK@{OK}}}\mbox{\Hypertarget{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2bc49ec37d6a5715dd23e85f1ff5bb59}\label{types_8h_a32c27cc471df37f4fc818d65de0a56c4a2bc49ec37d6a5715dd23e85f1ff5bb59}} 
+OK&OK value \\
+\hline
+
+\end{DoxyEnumFields}

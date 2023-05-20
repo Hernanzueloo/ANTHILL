@@ -1,0 +1,167 @@
+\hypertarget{graphic__engine_8h}{}\doxysection{include/graphic\+\_\+engine.h File Reference}
+\label{graphic__engine_8h}\index{include/graphic\_engine.h@{include/graphic\_engine.h}}
+
+
+It defines the textual graphic engine interface.  
+
+
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}command.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}space.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}libscreen.\+h\char`\"{}}\newline
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}\label{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}} 
+typedef struct \mbox{\hyperlink{struct__Graphic__engine}{\+\_\+\+Graphic\+\_\+engine}} \mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}}
+\begin{DoxyCompactList}\small\item\em Graphic\+\_\+engine struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ \mbox{\hyperlink{graphic__engine_8h_a8c3d9abe7282bee1d77d23ea80a4bdec}{graphic\+\_\+engine\+\_\+create}} ()
+\begin{DoxyCompactList}\small\item\em Creates the graphic engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphic__engine_8h_a5a5eac4ef2033c5ad71aa6895f362f79}{graphic\+\_\+engine\+\_\+destroy}} (\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ge)
+\begin{DoxyCompactList}\small\item\em Destroys the graphic engine adn frees it\`{}s resources. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphic__engine_8h_a0e275aa477d5fa59e903da33a2a40a5d}{graphic\+\_\+engine\+\_\+paint\+\_\+game}} (\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ge, \mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Paints the game to the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphic__engine_8h_a136236b294de710234edebe6a0f8d8e2}{graphic\+\_\+engine\+\_\+paint\+\_\+init}} (\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ge, \mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Paints the beggining of the game to the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphic__engine_8h_ae9df8ac28e8b4e99a36e7de0a442abd2}{graphic\+\_\+engine\+\_\+paint\+\_\+win}} (\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ge, \mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Paints the game to the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphic__engine_8h_a4b386ce0a2c58f330b6384c5c172f833}{graphic\+\_\+engine\+\_\+paint\+\_\+lose}} (\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$ge, \mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Paints the game to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines the textual graphic engine interface. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+30/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{graphic__engine_8h_a8c3d9abe7282bee1d77d23ea80a4bdec}\label{graphic__engine_8h_a8c3d9abe7282bee1d77d23ea80a4bdec}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_create@{graphic\_engine\_create}}
+\index{graphic\_engine\_create@{graphic\_engine\_create}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_create()}{graphic\_engine\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}}$\ast$ graphic\+\_\+engine\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates the graphic engine. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+Pointer to the graphic engine or NULL if an error occurs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphic__engine_8h_a5a5eac4ef2033c5ad71aa6895f362f79}\label{graphic__engine_8h_a5a5eac4ef2033c5ad71aa6895f362f79}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_destroy@{graphic\_engine\_destroy}}
+\index{graphic\_engine\_destroy@{graphic\_engine\_destroy}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_destroy()}{graphic\_engine\_destroy()}}
+{\footnotesize\ttfamily void graphic\+\_\+engine\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$}]{ge }\end{DoxyParamCaption})}
+
+
+
+Destroys the graphic engine adn frees it\`{}s resources. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em ge} & Pointer to the grahics engine \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graphic__engine_8h_a0e275aa477d5fa59e903da33a2a40a5d}\label{graphic__engine_8h_a0e275aa477d5fa59e903da33a2a40a5d}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_paint\_game@{graphic\_engine\_paint\_game}}
+\index{graphic\_engine\_paint\_game@{graphic\_engine\_paint\_game}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_paint\_game()}{graphic\_engine\_paint\_game()}}
+{\footnotesize\ttfamily void graphic\+\_\+engine\+\_\+paint\+\_\+game (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$}]{ge,  }\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Paints the game to the screen. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em ge} & Pointer to the grahics engine \\
+\hline
+{\em game} & Pointer to the game \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graphic__engine_8h_a136236b294de710234edebe6a0f8d8e2}\label{graphic__engine_8h_a136236b294de710234edebe6a0f8d8e2}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_paint\_init@{graphic\_engine\_paint\_init}}
+\index{graphic\_engine\_paint\_init@{graphic\_engine\_paint\_init}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_paint\_init()}{graphic\_engine\_paint\_init()}}
+{\footnotesize\ttfamily void graphic\+\_\+engine\+\_\+paint\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$}]{ge,  }\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Paints the beggining of the game to the screen. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em ge} & Pointer to the grahics engine \\
+\hline
+{\em game} & Pointer to the game \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graphic__engine_8h_a4b386ce0a2c58f330b6384c5c172f833}\label{graphic__engine_8h_a4b386ce0a2c58f330b6384c5c172f833}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_paint\_lose@{graphic\_engine\_paint\_lose}}
+\index{graphic\_engine\_paint\_lose@{graphic\_engine\_paint\_lose}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_paint\_lose()}{graphic\_engine\_paint\_lose()}}
+{\footnotesize\ttfamily void graphic\+\_\+engine\+\_\+paint\+\_\+lose (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$}]{ge,  }\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Paints the game to the screen. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em ge} & Pointer to the grahics engine \\
+\hline
+{\em game} & Pointer to the game \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{graphic__engine_8h_ae9df8ac28e8b4e99a36e7de0a442abd2}\label{graphic__engine_8h_ae9df8ac28e8b4e99a36e7de0a442abd2}} 
+\index{graphic\_engine.h@{graphic\_engine.h}!graphic\_engine\_paint\_win@{graphic\_engine\_paint\_win}}
+\index{graphic\_engine\_paint\_win@{graphic\_engine\_paint\_win}!graphic\_engine.h@{graphic\_engine.h}}
+\doxysubsubsection{\texorpdfstring{graphic\_engine\_paint\_win()}{graphic\_engine\_paint\_win()}}
+{\footnotesize\ttfamily void graphic\+\_\+engine\+\_\+paint\+\_\+win (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{graphic__engine_8h_ae1bc5cdbfce93098f066274fdea49af1}{Graphic\+\_\+engine}} $\ast$}]{ge,  }\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Paints the game to the screen. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em ge} & Pointer to the grahics engine \\
+\hline
+{\em game} & Pointer to the game \\
+\hline
+\end{DoxyParams}

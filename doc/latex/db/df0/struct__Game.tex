@@ -1,0 +1,111 @@
+\hypertarget{struct__Game}{}\doxysection{\+\_\+\+Game Struct Reference}
+\label{struct__Game}\index{\_Game@{\_Game}}
+
+
+Game.  
+
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{player_8h_af30e2030635a69690f85e48bc6ef202f}{Player}} $\ast$ \mbox{\hyperlink{struct__Game_a31406605782d71ec00c4bf258ea76267}{player}}
+\item 
+\mbox{\hyperlink{enemy_8h_ab72816316237b83a76b2e43d681befb9}{Enemy}} $\ast$ \mbox{\hyperlink{struct__Game_aea207f5ab01e67c18670f463896fe2fc}{enemies}} \mbox{[}\mbox{\hyperlink{types_8h_a544651f3405cff79c40d898a8e54f507}{MAX\+\_\+\+ENEMIES}}\mbox{]}
+\item 
+\mbox{\hyperlink{command_8h_a5eec324cb99708066fdb354f4225ba18}{Commands}} $\ast$ \mbox{\hyperlink{struct__Game_a36237e651b78a4f374f22465acc5cacf}{last\+\_\+cmd}}
+\item 
+\mbox{\hyperlink{object_8h_a7f8bbcda919b65ce67f92fba08e0212f}{Object}} $\ast$ \mbox{\hyperlink{struct__Game_ad45bf5645a26e546d0060a2e61f9cf81}{objects}} \mbox{[}\mbox{\hyperlink{types_8h_acdc7844fbd4d45737d4aa56834d37829}{MAX\+\_\+\+OBJECTS}}\mbox{]}
+\item 
+\mbox{\hyperlink{space_8h_a67533ffc2b70463baecc38fb0629bbfc}{Space}} $\ast$ \mbox{\hyperlink{struct__Game_ad5f218aa97ec196cf2c13d4832f6bc77}{spaces}} \mbox{[}\mbox{\hyperlink{types_8h_a5f54fd55f983a2e33ce076cd9f587e82}{MAX\+\_\+\+SPACES}}\mbox{]}
+\item 
+\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$ \mbox{\hyperlink{struct__Game_a2b766f0814f66dcf437600a9c526142e}{links}} \mbox{[}\mbox{\hyperlink{types_8h_a660ed1ec8604982002a0d6eced0e0367}{MAX\+\_\+\+LINKS}}\mbox{]}
+\item 
+\mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}} $\ast$ \mbox{\hyperlink{struct__Game_a97b565e0599272b767fb460e06e8bda8}{rules}} \mbox{[}\mbox{\hyperlink{types_8h_afcd3f2212725d2cc0d74135e7d25eb34}{MAX\+\_\+\+RULES}}\mbox{]}
+\item 
+\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$ \mbox{\hyperlink{struct__Game_aa415f8d97261b9c843c6224a7c9799c0}{dialogues}} \mbox{[}\mbox{\hyperlink{types_8h_a0f3f5f7d4d9b807bb98112298f9562ca}{MAX\+\_\+\+DIALOGUES}}\mbox{]}
+\item 
+char $\ast$ \mbox{\hyperlink{struct__Game_a7481715b1416bc850f61428d5f95c030}{last\+\_\+tdesc}}
+\item 
+char $\ast$ \mbox{\hyperlink{struct__Game_aa68e63f50a54d21f1c9e9810c7b6746f}{last\+\_\+idesc}}
+\item 
+int \mbox{\hyperlink{struct__Game_a62ecff53e8a16b39108dc24d5342b9fc}{num\+\_\+executed\+\_\+commands}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Game. 
+
+This struct stores all the information of a game. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{struct__Game_aa415f8d97261b9c843c6224a7c9799c0}\label{struct__Game_aa415f8d97261b9c843c6224a7c9799c0}} 
+\index{\_Game@{\_Game}!dialogues@{dialogues}}
+\index{dialogues@{dialogues}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{dialogues}{dialogues}}
+{\footnotesize\ttfamily \mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}}$\ast$ \+\_\+\+Game\+::dialogues\mbox{[}\mbox{\hyperlink{types_8h_a0f3f5f7d4d9b807bb98112298f9562ca}{MAX\+\_\+\+DIALOGUES}}\mbox{]}}
+
+Array of pointer to dialogues structures \mbox{\Hypertarget{struct__Game_aea207f5ab01e67c18670f463896fe2fc}\label{struct__Game_aea207f5ab01e67c18670f463896fe2fc}} 
+\index{\_Game@{\_Game}!enemies@{enemies}}
+\index{enemies@{enemies}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{enemies}{enemies}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enemy_8h_ab72816316237b83a76b2e43d681befb9}{Enemy}}$\ast$ \+\_\+\+Game\+::enemies\mbox{[}\mbox{\hyperlink{types_8h_a544651f3405cff79c40d898a8e54f507}{MAX\+\_\+\+ENEMIES}}\mbox{]}}
+
+Array of pointers to the enemy structure \mbox{\Hypertarget{struct__Game_a36237e651b78a4f374f22465acc5cacf}\label{struct__Game_a36237e651b78a4f374f22465acc5cacf}} 
+\index{\_Game@{\_Game}!last\_cmd@{last\_cmd}}
+\index{last\_cmd@{last\_cmd}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{last\_cmd}{last\_cmd}}
+{\footnotesize\ttfamily \mbox{\hyperlink{command_8h_a5eec324cb99708066fdb354f4225ba18}{Commands}}$\ast$ \+\_\+\+Game\+::last\+\_\+cmd}
+
+Pointer to last command structure \mbox{\Hypertarget{struct__Game_aa68e63f50a54d21f1c9e9810c7b6746f}\label{struct__Game_aa68e63f50a54d21f1c9e9810c7b6746f}} 
+\index{\_Game@{\_Game}!last\_idesc@{last\_idesc}}
+\index{last\_idesc@{last\_idesc}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{last\_idesc}{last\_idesc}}
+{\footnotesize\ttfamily char$\ast$ \+\_\+\+Game\+::last\+\_\+idesc}
+
+Pointer to latest inspected description \mbox{\Hypertarget{struct__Game_a7481715b1416bc850f61428d5f95c030}\label{struct__Game_a7481715b1416bc850f61428d5f95c030}} 
+\index{\_Game@{\_Game}!last\_tdesc@{last\_tdesc}}
+\index{last\_tdesc@{last\_tdesc}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{last\_tdesc}{last\_tdesc}}
+{\footnotesize\ttfamily char$\ast$ \+\_\+\+Game\+::last\+\_\+tdesc}
+
+Pointer to main description of the space \mbox{\Hypertarget{struct__Game_a2b766f0814f66dcf437600a9c526142e}\label{struct__Game_a2b766f0814f66dcf437600a9c526142e}} 
+\index{\_Game@{\_Game}!links@{links}}
+\index{links@{links}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{links}{links}}
+{\footnotesize\ttfamily \mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}}$\ast$ \+\_\+\+Game\+::links\mbox{[}\mbox{\hyperlink{types_8h_a660ed1ec8604982002a0d6eced0e0367}{MAX\+\_\+\+LINKS}}\mbox{]}}
+
+Array of pointers to link structures \mbox{\Hypertarget{struct__Game_a62ecff53e8a16b39108dc24d5342b9fc}\label{struct__Game_a62ecff53e8a16b39108dc24d5342b9fc}} 
+\index{\_Game@{\_Game}!num\_executed\_commands@{num\_executed\_commands}}
+\index{num\_executed\_commands@{num\_executed\_commands}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{num\_executed\_commands}{num\_executed\_commands}}
+{\footnotesize\ttfamily int \+\_\+\+Game\+::num\+\_\+executed\+\_\+commands}
+
+Number of executed commands \mbox{\Hypertarget{struct__Game_ad45bf5645a26e546d0060a2e61f9cf81}\label{struct__Game_ad45bf5645a26e546d0060a2e61f9cf81}} 
+\index{\_Game@{\_Game}!objects@{objects}}
+\index{objects@{objects}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{objects}{objects}}
+{\footnotesize\ttfamily \mbox{\hyperlink{object_8h_a7f8bbcda919b65ce67f92fba08e0212f}{Object}}$\ast$ \+\_\+\+Game\+::objects\mbox{[}\mbox{\hyperlink{types_8h_acdc7844fbd4d45737d4aa56834d37829}{MAX\+\_\+\+OBJECTS}}\mbox{]}}
+
+Array of pointers to object structures \mbox{\Hypertarget{struct__Game_a31406605782d71ec00c4bf258ea76267}\label{struct__Game_a31406605782d71ec00c4bf258ea76267}} 
+\index{\_Game@{\_Game}!player@{player}}
+\index{player@{player}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{player}{player}}
+{\footnotesize\ttfamily \mbox{\hyperlink{player_8h_af30e2030635a69690f85e48bc6ef202f}{Player}}$\ast$ \+\_\+\+Game\+::player}
+
+Pointer to the player structure \mbox{\Hypertarget{struct__Game_a97b565e0599272b767fb460e06e8bda8}\label{struct__Game_a97b565e0599272b767fb460e06e8bda8}} 
+\index{\_Game@{\_Game}!rules@{rules}}
+\index{rules@{rules}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{rules}{rules}}
+{\footnotesize\ttfamily \mbox{\hyperlink{rule_8h_a7feb7efbc58c00994d4c633ef22eae8a}{Rule}}$\ast$ \+\_\+\+Game\+::rules\mbox{[}\mbox{\hyperlink{types_8h_afcd3f2212725d2cc0d74135e7d25eb34}{MAX\+\_\+\+RULES}}\mbox{]}}
+
+Array of pointer to rule structures \mbox{\Hypertarget{struct__Game_ad5f218aa97ec196cf2c13d4832f6bc77}\label{struct__Game_ad5f218aa97ec196cf2c13d4832f6bc77}} 
+\index{\_Game@{\_Game}!spaces@{spaces}}
+\index{spaces@{spaces}!\_Game@{\_Game}}
+\doxysubsubsection{\texorpdfstring{spaces}{spaces}}
+{\footnotesize\ttfamily \mbox{\hyperlink{space_8h_a67533ffc2b70463baecc38fb0629bbfc}{Space}}$\ast$ \+\_\+\+Game\+::spaces\mbox{[}\mbox{\hyperlink{types_8h_a5f54fd55f983a2e33ce076cd9f587e82}{MAX\+\_\+\+SPACES}}\mbox{]}}
+
+Arrau of pointers to space structures 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{game_8c}{game.\+c}}\end{DoxyCompactItemize}

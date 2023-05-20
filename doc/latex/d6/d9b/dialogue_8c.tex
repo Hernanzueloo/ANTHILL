@@ -1,0 +1,383 @@
+\hypertarget{dialogue_8c}{}\doxysection{src/dialogue.c File Reference}
+\label{dialogue_8c}\index{src/dialogue.c@{src/dialogue.c}}
+
+
+It implements the dialogue module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}dialogue.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__Dialogue}{\+\_\+\+Dialogue}}
+\begin{DoxyCompactList}\small\item\em Dialogue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$ \mbox{\hyperlink{dialogue_8c_a618369a488d01f0c6f4977a826f19632}{dialogue\+\_\+create}} (\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} id)
+\begin{DoxyCompactList}\small\item\em Initializes the dialog structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dialogue_8c_a687b0bbf3fb541f0b42b6a4154cd378c}{dialogue\+\_\+destroy}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It destroys a dialogue structure. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} \mbox{\hyperlink{dialogue_8c_a244d65e0513511b633954c4e7bdcf953}{dialogue\+\_\+get\+\_\+id}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It gets the command type of a dialog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{dialogue_8c_ab5a26e362c24187d6e74cb6e2fe2ea0d}{dialogue\+\_\+set\+\_\+rule}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, char $\ast$rule, \mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}{DTYPE}} rule\+\_\+type)
+\begin{DoxyCompactList}\small\item\em It sets a new rule for a command. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dialogue_8c_a85823ace7952a4333e6273409e02a57f}{dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It gets the last position occupied in the array of success rules. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dialogue_8c_a947ffb2452d9e4e3123caec631f20670}{dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It gets the last position occupied in the array of error rules. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{dialogue_8c_a4bd9fed5cadab84af869b67f01033210}{dialogue\+\_\+get\+\_\+rule}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, int position)
+\begin{DoxyCompactList}\small\item\em It gets the dialogue rule in that position in the success array. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{dialogue_8c_aee301f6f0284b513940076811bd0c19c}{dialogue\+\_\+get\+\_\+error\+\_\+rule}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, int position)
+\begin{DoxyCompactList}\small\item\em It gets the dialogue rule in that position in the error array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{dialogue_8c_afcacdc7923e7005f44fd90d48e31ffeb}{dialogue\+\_\+increase\+\_\+executed}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It increases in one the number of error executions for an specific command. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{dialogue_8c_ae536c283f4bc4163a8fd2b8fe5ae24b7}{dialogue\+\_\+decrease\+\_\+executed}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It decreases in one the number of error executions for an specific dialogue. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{dialogue_8c_a9ab1c46b6dd554ca8a9afd0c215e7fcb}{dialogue\+\_\+get\+\_\+executed}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue)
+\begin{DoxyCompactList}\small\item\em It gets the number of error executions for an specific dialogue. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{dialogue_8c_a83c96d8b3d9696bd770aca1ad5c213e9}{dialogue\+\_\+print\+\_\+rule}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, FILE $\ast$file, int position, char $\ast$args, \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} command\+\_\+status)
+\begin{DoxyCompactList}\small\item\em It prints the dialog rule whose index coincides with that position in the array. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{dialogue_8c_a59927d464f574c3fda8a71ca28d20d93}{dialogue\+\_\+get\+\_\+printed\+\_\+rule}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, int position, char $\ast$args, \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} command\+\_\+status)
+\begin{DoxyCompactList}\small\item\em It gives the dialog rule with the printed format. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{dialogue_8c_a1a994f227bd34d10e60cd70a83a3e93a}{dialogue\+\_\+print}} (\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$dialogue, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em It prints a dialogue information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It implements the dialogue module. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+10/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{dialogue_8c_a618369a488d01f0c6f4977a826f19632}\label{dialogue_8c_a618369a488d01f0c6f4977a826f19632}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_create@{dialogue\_create}}
+\index{dialogue\_create@{dialogue\_create}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_create()}{dialogue\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}}$\ast$ dialogue\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}}]{id }\end{DoxyParamCaption})}
+
+
+
+Initializes the dialog structure. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Id of the dialog to be created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to Dialog or NULL in case of error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_ae536c283f4bc4163a8fd2b8fe5ae24b7}\label{dialogue_8c_ae536c283f4bc4163a8fd2b8fe5ae24b7}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_decrease\_executed@{dialogue\_decrease\_executed}}
+\index{dialogue\_decrease\_executed@{dialogue\_decrease\_executed}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_decrease\_executed()}{dialogue\_decrease\_executed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} dialogue\+\_\+decrease\+\_\+executed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It decreases in one the number of error executions for an specific dialogue. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a687b0bbf3fb541f0b42b6a4154cd378c}\label{dialogue_8c_a687b0bbf3fb541f0b42b6a4154cd378c}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_destroy@{dialogue\_destroy}}
+\index{dialogue\_destroy@{dialogue\_destroy}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_destroy()}{dialogue\_destroy()}}
+{\footnotesize\ttfamily void dialogue\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It destroys a dialogue structure. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & pointer to the dialog structure \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{dialogue_8c_aee301f6f0284b513940076811bd0c19c}\label{dialogue_8c_aee301f6f0284b513940076811bd0c19c}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_error\_rule@{dialogue\_get\_error\_rule}}
+\index{dialogue\_get\_error\_rule@{dialogue\_get\_error\_rule}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_error\_rule()}{dialogue\_get\_error\_rule()}}
+{\footnotesize\ttfamily char$\ast$ dialogue\+\_\+get\+\_\+error\+\_\+rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{int}]{position }\end{DoxyParamCaption})}
+
+
+
+It gets the dialogue rule in that position in the error array. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em position} & index of the rule to be got \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String wiht the dialogue rule or NULL if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a9ab1c46b6dd554ca8a9afd0c215e7fcb}\label{dialogue_8c_a9ab1c46b6dd554ca8a9afd0c215e7fcb}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_executed@{dialogue\_get\_executed}}
+\index{dialogue\_get\_executed@{dialogue\_get\_executed}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_executed()}{dialogue\_get\_executed()}}
+{\footnotesize\ttfamily int dialogue\+\_\+get\+\_\+executed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It gets the number of error executions for an specific dialogue. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of executions or 0 if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a244d65e0513511b633954c4e7bdcf953}\label{dialogue_8c_a244d65e0513511b633954c4e7bdcf953}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_id@{dialogue\_get\_id}}
+\index{dialogue\_get\_id@{dialogue\_get\_id}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_id()}{dialogue\_get\_id()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} dialogue\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It gets the command type of a dialog. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Id of the dialog or NO\+\_\+\+ID if it failes 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a947ffb2452d9e4e3123caec631f20670}\label{dialogue_8c_a947ffb2452d9e4e3123caec631f20670}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_last\_error\_rule\_position@{dialogue\_get\_last\_error\_rule\_position}}
+\index{dialogue\_get\_last\_error\_rule\_position@{dialogue\_get\_last\_error\_rule\_position}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_last\_error\_rule\_position()}{dialogue\_get\_last\_error\_rule\_position()}}
+{\footnotesize\ttfamily int dialogue\+\_\+get\+\_\+last\+\_\+error\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It gets the last position occupied in the array of error rules. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+last occupied index or -\/2 in case of error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a85823ace7952a4333e6273409e02a57f}\label{dialogue_8c_a85823ace7952a4333e6273409e02a57f}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_last\_rule\_position@{dialogue\_get\_last\_rule\_position}}
+\index{dialogue\_get\_last\_rule\_position@{dialogue\_get\_last\_rule\_position}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_last\_rule\_position()}{dialogue\_get\_last\_rule\_position()}}
+{\footnotesize\ttfamily int dialogue\+\_\+get\+\_\+last\+\_\+rule\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It gets the last position occupied in the array of success rules. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+last occupied index or -\/2 in case of error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a59927d464f574c3fda8a71ca28d20d93}\label{dialogue_8c_a59927d464f574c3fda8a71ca28d20d93}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_printed\_rule@{dialogue\_get\_printed\_rule}}
+\index{dialogue\_get\_printed\_rule@{dialogue\_get\_printed\_rule}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_printed\_rule()}{dialogue\_get\_printed\_rule()}}
+{\footnotesize\ttfamily char$\ast$ dialogue\+\_\+get\+\_\+printed\+\_\+rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{int}]{position,  }\item[{char $\ast$}]{args,  }\item[{\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}}}]{command\+\_\+status }\end{DoxyParamCaption})}
+
+
+
+It gives the dialog rule with the printed format. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em position} & index in the array of the rule to be printed \\
+\hline
+{\em args} & arguments of the command executed and for which the dialog response is \\
+\hline
+{\em command\+\_\+status} & Status of the command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the string or NULL in case of ERROR. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a4bd9fed5cadab84af869b67f01033210}\label{dialogue_8c_a4bd9fed5cadab84af869b67f01033210}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_get\_rule@{dialogue\_get\_rule}}
+\index{dialogue\_get\_rule@{dialogue\_get\_rule}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_get\_rule()}{dialogue\_get\_rule()}}
+{\footnotesize\ttfamily char$\ast$ dialogue\+\_\+get\+\_\+rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{int}]{position }\end{DoxyParamCaption})}
+
+
+
+It gets the dialogue rule in that position in the success array. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em position} & index of the rule to be got \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String wiht the dialogue rule or NULL if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_afcacdc7923e7005f44fd90d48e31ffeb}\label{dialogue_8c_afcacdc7923e7005f44fd90d48e31ffeb}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_increase\_executed@{dialogue\_increase\_executed}}
+\index{dialogue\_increase\_executed@{dialogue\_increase\_executed}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_increase\_executed()}{dialogue\_increase\_executed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} dialogue\+\_\+increase\+\_\+executed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue }\end{DoxyParamCaption})}
+
+
+
+It increases in one the number of error executions for an specific command. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a1a994f227bd34d10e60cd70a83a3e93a}\label{dialogue_8c_a1a994f227bd34d10e60cd70a83a3e93a}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_print@{dialogue\_print}}
+\index{dialogue\_print@{dialogue\_print}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_print()}{dialogue\_print()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} dialogue\+\_\+print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+It prints a dialogue information. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em file} & Pointer to file in which the message will be printed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_a83c96d8b3d9696bd770aca1ad5c213e9}\label{dialogue_8c_a83c96d8b3d9696bd770aca1ad5c213e9}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_print\_rule@{dialogue\_print\_rule}}
+\index{dialogue\_print\_rule@{dialogue\_print\_rule}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_print\_rule()}{dialogue\_print\_rule()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} dialogue\+\_\+print\+\_\+rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{FILE $\ast$}]{file,  }\item[{int}]{position,  }\item[{char $\ast$}]{args,  }\item[{\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}}}]{command\+\_\+status }\end{DoxyParamCaption})}
+
+
+
+It prints the dialog rule whose index coincides with that position in the array. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em file} & Pointer to file in which the message will be printed \\
+\hline
+{\em position} & index in the array of the rule to be printed \\
+\hline
+{\em args} & arguments of the command executed and for which the dialog response is \\
+\hline
+{\em command\+\_\+status} & Status of the command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{dialogue_8c_ab5a26e362c24187d6e74cb6e2fe2ea0d}\label{dialogue_8c_ab5a26e362c24187d6e74cb6e2fe2ea0d}} 
+\index{dialogue.c@{dialogue.c}!dialogue\_set\_rule@{dialogue\_set\_rule}}
+\index{dialogue\_set\_rule@{dialogue\_set\_rule}!dialogue.c@{dialogue.c}}
+\doxysubsubsection{\texorpdfstring{dialogue\_set\_rule()}{dialogue\_set\_rule()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} dialogue\+\_\+set\+\_\+rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dialogue_8h_ad25e8d75177dc0ecfaaf97610765d318}{Dialogue}} $\ast$}]{dialogue,  }\item[{char $\ast$}]{rule,  }\item[{\mbox{\hyperlink{types_8h_a153784cd913ed8ebe0f28373c1e2ff6e}{DTYPE}}}]{rule\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+It sets a new rule for a command. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em dialogue} & Pointer to dialogue \\
+\hline
+{\em rule} & string containing the new rule \\
+\hline
+{\em rule\+\_\+type} & type of rule to be implemented \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}

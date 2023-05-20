@@ -1,0 +1,282 @@
+                GAMEDATA
+#G:1|
+
+                PLAYER
+#p:1|Segismundo Eduardo de todos los Santos|54|10|6|4|
+
+                SPACES
+#s:24|Wooden Stairs|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[             |The sturdy wooden stairs|These wooden stairs, built with durable wood, connect different levels of the building, providing safe and comfortable access between floors.|
+#s:25|Forgotten Passages|1|0| __   \___/ o | / /  ___/    |o__ o \____   |o8o ___/ mo'  |\  o8o  \___/ |/_/ o o   / o8|Mysterious hidden corridors|These forgotten passages are hidden corridors within the building, shrouded in mystery and possibly containing long-lost secrets or treasures.|
+#s:33|Spiders Lair|1|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|A dark, web-filled space|The spiders lair is a dark and eerie space inhabited by numerous spiders, where they spin their intricate webs and catch unsuspecting prey.|
+#s:34|Glass Throne|1|0| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|An elegant, transparent throne|The glass throne is an exquisite piece of craftsmanship, made entirely of transparent glass, symbolizing power, elegance, and fragility.|
+#s:35|Queens Chamber|1|0|     o  o     |    o    o    |   o------o   |   o------o   |    o    o    |     o  o     |Suspicious, the regal queens chamber|The queens chamber is an opulent room adorned with luxurious decorations, reflecting the elegance and power of the reigning queen.|
+#s:36|Ancestors Rest|1|0|_/  /_  _/  /_| /__/     /__/|_   /_  _   /_| /__/     /__/|_   /_  _   /_|_/  /_  _/  /_|A sacred resting place|Ancestors rest is a sacred space dedicated to honoring and commemorating the deceased ancestors, filled with memorials and symbolic artifacts.|
+#s:44|Iron Mines|1|0|    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |Dark, industrial mines|The iron mines are vast, industrial spaces where valuable iron ore is extracted, featuring dark tunnels and heavy machinery.|
+#s:45|Stone Quarry|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[             |Massive rock excavation|The stone quarry is a massive excavation site where large quantities of stone are extracted, leaving behind impressive rock formations and deep pits.|
+#s:46|Cave of Embers|0|0| ____________ |/            \|l a  o       l|l bc  __  o  l|l de [ ]  o8 l|\____________/|Glowing, fiery cave|The Cave of Embers is a mysterious cavern filled with a warm, fiery glow from flickering embers, providing an enchanting yet dangerous atmosphere. |
+#s:54|The Crossroads|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[             |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
+#s:55|Cave of Shadows|1|0| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
+#s:65|The Workshop|1|0|  __________  | /    o     \ |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|Suspicious, a place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
+#s:123|Dunes of Deception|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[             |Suspicious and shifting, misleading dunes|The Dunes of Deception are vast, seemingly endless sand dunes that shift and change, making navigation and finding the way out a challenging endeavor.|
+#s:124|Haze Gardens|1|0|             _|          __[ |       __[    |    __[       | __[     down |[             |Misty, mysterious garden|The Haze Gardens is an ethereal, mist-filled garden where plants thrive in the damp environment, and the ever-present haze creates an air of mystery.|
+#s:133|Black Tree|1|0| ____________ |l  ______  __l|l_/  lo \/o  l|l__/ l___\_  l|l  ________/ l|\____________/|Dark, imposing tree|The Black Tree is an enigmatic and towering tree with dark bark, which seems to absorb all light around it, giving off an eerie and ominous presence.|
+#s:134|Phantom Rock|0|0| ____________ |/  ______  __\|l /  lo8 \/  l|l/___l___\_  l|l  ________/ l|l /  o    \  l|Suspicious and ghostly, shifting rock|Phantom Rock is an elusive and ghostly rock formation that seems to appear and disappear, creating a sense of unease and mystery in those who encounter it.|
+#s:135|Stone Stairs|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[             |Ancient, steep staircase|The Stone Stairs is an ancient, steep staircase carved into stone, leading to unknown destinations and requiring agility and strength to climb.|
+#s:143|Lost Chamber|0|0|  _______     | /       \    |/         \__ |l   _  _     l|l  (_) (_)   l|\____________/|Hidden, forgotten room|The Lost Chamber is a hidden, forgotten room that holds untold secrets and treasures, waiting to be discovered by those who dare to enter.|
+#s:144|Worms Have|1|0|       ()     |:()    ()     | ()    ()()   | ()      ()   | ()      ()   | ()()    ())):|Infested, wriggling area|Worms Have is an area teeming with various worms, squirming and writhing in the soil, creating an environment both rich in nutrients and unsettling to some.|
+#s:145|Enchanted Forest|1|0|             _|          __[ |       __[    |    __[       | __[     down |[             |Magical, captivating woods|The Enchanted Forest is a magical and captivating woodland filled with fantastical creatures, ancient trees, and mysterious forces at play.|
+#s:154|Old Mines|1|0|             _|   up     __[ |       __[    |    __[       | __[     down |[             |Abandoned, cavernous mines|The Old Mines are abandoned, cavernous mines that hold the remnants of a once-thriving industry, now left to darkness and the echoes of the past.|
+#s:155|Dark Swamps|0|0| ____________ |/  >  o8  <  \|\____________/|  ___________ | /  o  <  o  \|/_____________|Murky, treacherous wetlands|The Dark Swamps are murky, treacherous wetlands filled with hidden dangers, where travelers must navigate the unstable terrain with caution.|
+#s:223|Whispering Garden|1|0|             _|          __[ |       __[    |    __[       | __[     down |[             |Serene, secretive garden|The Whispering Garden is a serene, secretive garden where gentle breezes carry hushed whispers, inviting visitors to contemplate it.|
+#s:233|Harbour|1|0|~~~~~~~~~~~~~~|~~~~~~~_/\__~~|~~~~~~\____/~~|~~__/\__~~~~~~|~~\____/~~~~~~|~~~~~~~~~~~~~~|Busy, bustling port|The Harbour is a busy, bustling area where ships come and go, carrying goods and people from distant lands, full of life and commerce.|
+#s:234|Observatory|1|0| ____________ |/  ______  __\|l /  lo8 \/  l|l/___l___\_  l|l  ________/ l|l /  o    \  l|Stargazing, celestial study|The Observatory is a place dedicated to the study of celestial bodies, where astronomers gaze at the stars and unravel the mysteries of the universe.|
+#s:235|Watchtower|1|0|             _|          __[ |       __[    |    __[       | __[     down |[             |Vigilant, strategic lookout|The Watchtower is a vigilant, strategic lookout point from which guardians can observe the surrounding landscape, keeping an eye out for any threats.|
+#s:243|Misty Marshes|1|0| ____________ |l  ______  __l|l_/  lo \/o  l|l__/ l___\_  l|l  ________/ l|\____________/|Foggy, mysterious marshland|The Misty Marshes are foggy, mysterious marshlands with an air of enchantment, where travelers may encounter strange creatures and hidden secrets.|
+#s:244|Temple of the Moon|0|0|    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |Ancient, lunar worship site|The Temple of the Moon is an ancient site dedicated to lunar worship, where followers gather to honor the moon and seek its mystical powers.|
+#s:253|Breakers Bridge|1|0| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|Turbulent, crossing bridge|Breakers Bridge is a turbulent crossing over rough waters, where travelers must maintain their balance and courage to safely reach the other side.|
+#s:254|Cliffs of Abandon|1|0|             _|          __[ |       __[    |    __[       | __[     down |[             |Steep, treacherous cliffs|The Cliffs of Abandon are steep, treacherous cliffs that loom over the landscape, presenting a formidable challenge to those who dare to climb them.|
+
+                ENEMIES
+#e:2|Evil Spider|35|4|/\oo/\|
+#e:3|Malevolent Bee|124|3|-oBo:|
+#e:4|Merciless Mosquito|155|2|[}vv{]|
+#e:5|Cruel Centipede|234|3|mmmmo:|
+
+                LINKS
+#l:24025|gravel_path|24|25|1|1|
+#l:24034|wooden_door|24|34|2|1|
+#l:25024|paved_path|25|24|0|1|
+#l:25035|paved_path|25|35|2|1|
+#l:33034|spiral_staircase|33|34|1|1|
+#l:34024|metal_door|34|24|3|1|
+#l:34033|upward_stairs|34|33|0|1|
+#l:34035|spiral_staircase|34|35|1|1|
+#l:34044|long_corridor|34|44|2|1|
+#l:35025|gravel_path|35|25|3|1|
+#l:35034|iron_stairs|35|34|0|1|
+#l:35036|rope_ladder|35|36|1|1|
+#l:35045|secret_tunnel|35|45|2|1|
+#l:36035|metal_ladder|36|35|0|1|
+#l:36046|descending_ramp|36|46|2|1|
+#l:44034|short_corridor|44|34|3|1|
+#l:44045|stone_bridge|44|45|1|1|
+#l:44054|wooden_hallway|44|54|2|1|
+#l:45035|underground_tunnel|45|35|3|1|
+#l:45044|rope_bridge|45|44|0|1|
+#l:45046|underground_tunnel|45|46|1|1|
+#l:45055|rope_bridge|45|55|2|1|
+#l:46036|ascending_ramp|46|36|3|1|
+#l:46045|secret_tunnel|46|45|0|1|
+#l:54044|stone_hallway|54|44|3|1|
+#l:54055|hidden_passage|54|55|1|1|
+#l:55045|suspension_bridge|55|45|3|1|
+#l:55054|dark_passage|55|54|0|1|
+#l:55065|dark_passage|55|65|2|1|
+#l:65055|hidden_passage|65|55|3|1|
+#l:123124|stone_stairway|123|124|1|1|
+#l:123133|cave_passage|123|133|2|1|
+#l:124123|wooden_stairway|124|123|0|1|
+#l:124134|narrow_passage|124|134|2|1|
+#l:133123|rocky_path|133|123|3|1|
+#l:133134|underground_tunnel|133|134|1|1|
+#l:133143|underground_tunnel|133|143|2|1|
+#l:134124|tight_passage|134|124|3|1|
+#l:134133|secret_tunnel|134|133|0|1|
+#l:134135|secret_tunnel|134|135|1|1|
+#l:134144|winding_stairs|134|144|2|1|
+#l:135134|stone_stairway|135|134|0|1|
+#l:135145|rocky_passage|135|145|2|1|
+#l:143133|creepy_corridor|143|133|3|1|
+#l:143144|creepy_corridor|143|144|1|1|
+#l:144134|spiral_stairs|144|134|3|1|
+#l:144143|spooky_corridor|144|143|0|1|
+#l:144145|broken_bridge|144|145|1|1|
+#l:144154|short_staircase|144|154|2|1|
+#l:145135|dirt_path|145|135|3|1|
+#l:145144|crumbling_bridge|145|144|0|1|
+#l:145155|long_staircase|145|155|2|1|
+#l:154144|coal_tunnel|154|144|3|1|
+#l:154155|golden_tunnel|154|155|1|1|
+#l:155145|short_staircase|155|145|3|1|
+#l:155154|wooden_stairway|155|154|0|1|
+#l:223233|seaside_path|223|233|2|1|
+#l:233223|coastal_trail|233|223|3|1|
+#l:233234|harbor_gate|233|234|1|1|
+#l:233243|beach_walkway|233|243|2|1|
+#l:234233|port_gate|234|233|0|1|
+#l:234235|metal_walkway|234|235|1|1|
+#l:234244|muddy_path|234|244|2|1|
+#l:235234|rocky_climb|235|234|0|1|
+#l:243233|foggy_path|243|233|3|1|
+#l:243244|hidden_passage|243|244|1|1|
+#l:243253|rocky_descent|243|253|2|1|
+#l:244234|iron_bridge|244|234|3|1|
+#l:244243|secret_passage|244|243|0|1|
+#l:244254|rocky_path|244|254|2|1|
+#l:253243|mountain_path|253|243|3|1|
+#l:253254|boardwalk|253|254|1|1|
+#l:254244|grassy_path|254|244|3|1|
+#l:254253|cliffside_path|254|253|0|1|
+#l:24124|wooden_door|24|124|4|1|
+#l:45145|quarry_staircase|45|145|4|1|
+#l:54154|crossroads_gate|54|154|4|1|
+#l:123223|ancient_stairway|123|223|4|1|
+#l:124024|wooden_gate|124|24|5|1|
+#l:135235|dark_cave|135|235|4|1|
+#l:145045|quarry_pathway|145|45|5|1|
+#l:154054|crossroads_door|154|54|5|1|
+#l:154254|cliffside_bridge|154|254|4|1|
+#l:223123|stone_pathway|223|123|5|1|
+#l:235135|shadowy_path|235|135|5|1|
+#l:254154|bridge_crossing|254|154|5|1|
+#l:65233|magical_path|65|233|4|0|
+#l:25044|Secret_passage|25|44|3|0|
+#l:44025|Secret_passage|44|25|0|1|
+#l:124143|Hidden_staircase_close|124|143|3|0|
+#l:143124|Hidden_staircase|143|124|0|1|
+
+                OBJECTS
+#o:21|Stick1|24|Sticks are useful for building ship masts.|0|1|-1|0|0|0|
+#o:22|Stick2|123|Sticks are useful for building ship masts.|1|1|-1|-1|0|0|
+#o:23|Stick3|35|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:24|Stick4|155|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:24|Stick4|155|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
+#o:25|Leaf1|44|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:26|Leaf2|35|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:27|Leaf3|135|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:28|Leaf4|143|leafs can be used to propel yourself through the water.|1|1|-1|-1|0|0|
+#o:28|Leaf4|143|leafs can be used to propel yourself through the water.|1|1|-1|-1|0|0|
+#o:201|Boat_Sail|-1|Sails are essential for building ships!|0|1|-1|-1|0|0|
+#o:29|Walnut1|65|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:30|Walnut2|144|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:31|Walnut3|134|Walnut shells can float!|1|1|-1|-1|0|0|
+#o:32|Walnut4|234|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:32|Walnut4|234|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
+#o:203|ANTBOAT|-1|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
+#o:37|Lantern1|65|The lantern makes the darkness disappear|1|1|-1|-1|1|0|
+#o:38|Lantern2|123|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
+#o:39|Lantern3|243|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
+#o:40|Key1|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
+#o:41|Key2|24|This key opens the door between 025 and 044|0|1|-1|25044|0|0|
+#o:51|Goldkey1|35|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
+#o:52|Goldkey2|124|Goldkeys can be combined to get the a magical key.|0|1|51|-1|0|0|
+#o:53|Goldkey3|234|Goldkeys can be combined to get the a magical key.|0|1|52|-1|0|0|
+#o:204|Magicalkey|-1|The Magicalkey opens the magical entrance!|0|1|-1|65233|0|0|
+#o:60|Rock1|45|An unmovable object|0|0|-1|-1|1|0|
+#o:61|Rock2|123|An unmovable object|0|0|-1|-1|1|0|
+#o:62|Rock3|233|An unmovable object|0|0|-1|-1|1|0|
+#o:1|Ground1|235|(null)|0|1|-1|-1|0|0|
+#o:2|Ground2|33|(null)|0|1|-1|-1|0|0|
+#o:3|Ground3|45|(null)|0|1|-1|-1|0|0|
+#o:4|Ground4|133|(null)|0|1|-1|-1|0|0|
+#o:5|Ground5|134|(null)|0|1|-1|-1|0|0|
+
+                RULES
+#r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
+#r:9|1|victory act|0|0|-|2|drop object|0|0|ANTBOAT|in space|0|0|Harbour|
+#r:10|1|save space|0|0|-|1|drop object|0|0|Ground|
+#r:11|1|inundation|0|3|-|1|N comands|0|8|-|
+#r:12|1|spawn ground|0|1|-|1|N comands|0|4|-|
+#r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
+#r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|
+#r:15|1|combine|0|3|Walnut|1|same object|0|3|Walnut|
+#r:16|1|combine|0|3|Boat|1|same object|0|3|Boat|
+#r:17|1|combine|0|3|Goldkey|1|same object|0|3|Goldkey|
+#r:18|1|set movable|0|0|-|1|health enemy|0|10000|-|
+#r:19|1|set movable|0|1|-|1|health enemy|0|0|-|
+
+                DIALOGUE
+#d:0|0|This is not a valid action. Try again.|
+#d:0|0|You didn't insert a valid command. Read the menu first.|
+#d:1|1|We'll miss you. See you next time|
+#d:1|0|Sorry, exit call was unsuccessfully completed.|
+#d:2|1|You've moved <direction>. Now you're in <space_name>|
+#d:2|1|You've gone <direction>. Be careful in <space_name>, you're in <enemy_name>'s lair|
+#d:2|1|You've moved <direction>. There's no light in this space.|
+#d:2|1|You've gone <direction>. There's no light in this space. Be careful with <enemy_name>|
+#d:2|0|You cannot move <direction>. Try another action.|
+#d:2|0|Oops, it seems this link is closed|
+#d:2|0|Error while using the move command. You must specify a direction. Syntax: move <direction>|
+#d:2|0|You must specify a valid direction: north, south, east, west, up, down|
+#d:3|1|Your attack was effective.You've hurt <enemy_name>, now he is crying! Keep on trying!|
+#d:3|1|You've lost one point of life while attacking <enemy_name>. Nevermind, keep on trying!|
+#d:3|1|You killed <enemy_name>! Good job!|
+#d:3|1|You were killed by <enemy_name>. God gives the worst battles to his best warriors. Good luck, soldier.|
+#d:3|0|Couldn't attack. Check if there's really an enemy on that space|
+#d:4|1|You've taken <object_name>. See its utilities in the description or use the inspect command for more information|
+#d:4|0|You cannot take <object_name>. Object not in your current space|
+#d:4|0|You cannot take <object_name>. Your inventory is already full. Please drop one object|
+#d:4|0|You cannot take <object_name>. There's no light in the current space|
+#d:4|0|You cannot take <object_name>. The object is not movable|
+#d:4|0|You cannot take <object_name>. You need <object_dependency> first in orther to take it|
+#d:4|0|You cannot take <object_name>. The object is already on your bag|
+#d:4|0|You cannot take <object_name>. The object doesn't exist|
+#d:4|0|Error while using the take command. You must specify the object you take. Syntax: take <object_name>|
+#d:5|1|You dropped <object_name>, it will remain in <space_name> waiting for you to take it again|
+#d:5|1|You dropped <object_name>. As a result, <object_name> has also been dropped|
+#d:5|1|You dropped <object_name>. As a result, <object_names> have also been dropped|
+#d:5|1|You dropped ground. As a result, <name_space> is now safe|
+#d:5|1|You dropped ground in a safe space. You just lost it with no effect|
+#d:5|0|You cannot drop <object_name>. Your inventory is empty. Go grab some objects|
+#d:5|0|You cannot drop <object_name>. You don't have <object_name> in the inventory|
+#d:5|0|You cannot drop <object_name>. That object doesn't exist in this game|
+#d:5|0|Error while using the drop command. You must specify the object you drop. Syntax: drop <object_name>|
+#d:6|1|So you're a curious player. Inspecting the object: <object_name>|
+#d:6|1|So you're a curious player. Inspecting the space: <space_name>|
+#d:6|0|Sorry, <willing_inspect_name> doesn't exist or isn't in the current space or in your inventory|
+#d:6|0|Error while using the inspect command. You must specify the object to be inspected or use space or s to inspect the space you're in|
+#d:7|1|Turning <object_name> on|
+#d:7|0|Sorry, you cannot illuminate with <object_name>|
+#d:7|0|Sorry, couldn't turn on <object_name>: you have no light and the space has no light|
+#d:7|0|The object doesn't exist|
+#d:7|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:7|0|Error while using the turn-on command. You must specify the object you're illuminating. Syntax: turnon <object_name>|
+#d:8|1|Turning <object_name> off|
+#d:8|0|Sorry, you cannot turn the light off with <object_name>|
+#d:8|0|Sorry, couldn't turn off <object_name>: you have no light and the space has no light|
+#d:8|0|The object doesn't exist|
+#d:8|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:8|0|Error while using the turn-off command. You must specify the object you're turning-off. Syntax: turnoff <object_name>|
+#d:9|1|You opened <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:9|0|You cannot open <link_name> with <object_name>|
+#d:9|0|There's no link with that name whose origin is in this space|
+#d:9|0|The object doesn't exist|
+#d:9|0|The link doesn't exist|
+#d:9|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:9|0|Error while using the open_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:9|0|Error while using the open_link command. You forgot to specify the object you're using|
+#d:9|0|Error while using the open_link command. You forgot to specify the link you're opening|
+#d:9|0|Error while using the open_link command. Syntax: open/op <link_name> with <object_name>|
+#d:9|0|There is no link from this space in that direction|
+#d:10|1|You closed <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:10|0|You cannot close <link_name> with <object_name>|
+#d:10|0|There's no link with that name whose origin is in this space|
+#d:10|0|The object doesn't exist|
+#d:10|0|The link doesn't exist|
+#d:10|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:10|0|Error while using the close_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:10|0|Error while using the close_link command. You forgot to specify the object you're using|
+#d:10|0|Error while using the close_link command. You forgot to specify the link you're closing|
+#d:10|0|Error while using the close_link command. Syntax: close/cl <link_name> with <object_name>|
+#d:10|0|There is no link from this space in that direction|
+#d:11|1|Loading saved game. Hope you did better in that one.|
+#d:11|1|Loading game. Good luck!|
+#d:11|0|Sorry, error file while loading your game|
+#d:11|0|Error while using the load command. You must specify a file to save progress. Syntax: load <file_name>|
+#d:12|1|Saving your current progress. Pretty well done.|
+#d:12|0|Sorry, error file while saving current progress|
+#d:12|0|Error while using the save command. You must specify a file to save progress. Syntax: save <file_name>|
+#d:13|1|Showing the game information. Scroll up to see it|
+#d:13|0|Sorry, there was an error while showing the game information|
+#d:14|0|You have done this once before without success.|
+#d:14|0|You have done this twice before without success.|
+#d:14|0|You have done this <num_times> times before without success. Don't you get tired?|
+#d:15|1|The spaces <spaces_name> have flooded|
+#d:15|1|The spaces <space_name, id> have flooded and <space_name, id> have sunk|
+#d:15|1|The spaces <spaces_name, id> has flooded and <space_name, id> have sunk|
+#d:15|1|The spaces <space_name, id> have flooded and <space_name, id> has sunk|
+#d:15|1|The spaces <spaces_name, id> have sunk|
+#d:15|1|You are in a space that has sunk. That's a game over|
+#d:16|1|You have combined <int> <argname> into one <upgradedname>|

@@ -1,0 +1,494 @@
+\hypertarget{game__management_8c}{}\doxysection{src/game\+\_\+management.c File Reference}
+\label{game__management_8c}\index{src/game\_management.c@{src/game\_management.c}}
+
+
+It defines the game management interface.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}game\+\_\+management.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{game__management_8c_a3e937c42922f7601edb17b747602c471}{MAXLINE}}~10000
+\item 
+\#define \mbox{\hyperlink{game__management_8c_ac3146f1e9227301bb4aa518f4d336cee}{BUFFERSIZE}}~1000
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a97a1c5ff98af5508678515465806de58}{game\+\_\+management\+\_\+load\+\_\+game\+\_\+data}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the data from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a51753ca919dffdc97f2249bd5edc4fa5}{game\+\_\+management\+\_\+load\+\_\+spaces}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the space from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a387100178d82d9ce33d76224c915b8a8}{game\+\_\+management\+\_\+load\+\_\+enemy}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the enemy from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a59fad5fbf3d2f209ff5ab55060ad6974}{game\+\_\+management\+\_\+load\+\_\+objects}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the objects from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a553c81b2a7a508f33822e7d653d01309}{game\+\_\+management\+\_\+load\+\_\+link}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the links from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a6fa460f5ea017afa8c31b6eaffd57907}{game\+\_\+management\+\_\+load\+\_\+player}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the player from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a1f001525d2168176f0bff8d805aa1377}{game\+\_\+management\+\_\+save\+\_\+game\+\_\+data}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the data into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_afc05b140f96b76a0b75bb900cdd82006}{game\+\_\+management\+\_\+save\+\_\+spaces}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the spaces into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a2f8ad9018875d0449c7fbf61e4781e7a}{game\+\_\+management\+\_\+save\+\_\+player}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the player into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_aecbe1eade806427ad1a3466fb1f9021c}{game\+\_\+management\+\_\+save\+\_\+enemies}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the enemies into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a4918fcf918f2e4c8bd96685b751a8dfa}{game\+\_\+management\+\_\+save\+\_\+objects}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the objects into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a2c88c5138b6e9dac188d7965f55a230b}{game\+\_\+management\+\_\+save\+\_\+links}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the links into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a1d82eb49c186da1c8a8413bfa931051d}{game\+\_\+management\+\_\+save\+\_\+dialogues}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the links into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a6f2e8f89b41a61a2d406c5ff19a013ff}{game\+\_\+management\+\_\+load\+\_\+rules}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the game rules from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_ad9f21ff9e12e7f8b0a82d03ca9f819b5}{game\+\_\+management\+\_\+load\+\_\+dialogues}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em given a file and a pointer to the game it loads the game dialogues from the file onto the game \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_a4d03083429188a025d576e4a9ba7e2a3}{game\+\_\+management\+\_\+save\+\_\+game\+\_\+rules}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the rules into a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_afec68c063a60726a1429d20740dcb9ef}{game\+\_\+management\+\_\+load}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Given a game it loads the game from a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8c_aa8c1688b52d1433de45138a9e44856fb}{game\+\_\+management\+\_\+save}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the game into a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines the game management interface. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés -\/ Alejandro García Hernando 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+29/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{game__management_8c_ac3146f1e9227301bb4aa518f4d336cee}\label{game__management_8c_ac3146f1e9227301bb4aa518f4d336cee}} 
+\index{game\_management.c@{game\_management.c}!BUFFERSIZE@{BUFFERSIZE}}
+\index{BUFFERSIZE@{BUFFERSIZE}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{BUFFERSIZE}{BUFFERSIZE}}
+{\footnotesize\ttfamily \#define BUFFERSIZE~1000}
+
+The size of the buffer \mbox{\Hypertarget{game__management_8c_a3e937c42922f7601edb17b747602c471}\label{game__management_8c_a3e937c42922f7601edb17b747602c471}} 
+\index{game\_management.c@{game\_management.c}!MAXLINE@{MAXLINE}}
+\index{MAXLINE@{MAXLINE}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{MAXLINE}{MAXLINE}}
+{\footnotesize\ttfamily \#define MAXLINE~10000}
+
+MAX number of lines needed to load and save a game 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game__management_8c_afec68c063a60726a1429d20740dcb9ef}\label{game__management_8c_afec68c063a60726a1429d20740dcb9ef}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load@{game\_management\_load}}
+\index{game\_management\_load@{game\_management\_load}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load()}{game\_management\_load()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Given a game it loads the game from a file. 
+
+Loads all the game on the file onto the game \mbox{\Hypertarget{game__management_8c_ad9f21ff9e12e7f8b0a82d03ca9f819b5}\label{game__management_8c_ad9f21ff9e12e7f8b0a82d03ca9f819b5}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_dialogues@{game\_management\_load\_dialogues}}
+\index{game\_management\_load\_dialogues@{game\_management\_load\_dialogues}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_dialogues()}{game\_management\_load\_dialogues()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+dialogues (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the game dialogues from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a387100178d82d9ce33d76224c915b8a8}\label{game__management_8c_a387100178d82d9ce33d76224c915b8a8}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_enemy@{game\_management\_load\_enemy}}
+\index{game\_management\_load\_enemy@{game\_management\_load\_enemy}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_enemy()}{game\_management\_load\_enemy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+enemy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the enemy from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés de Pedro 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the enemy on the file onto the game \mbox{\Hypertarget{game__management_8c_a97a1c5ff98af5508678515465806de58}\label{game__management_8c_a97a1c5ff98af5508678515465806de58}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_game\_data@{game\_management\_load\_game\_data}}
+\index{game\_management\_load\_game\_data@{game\_management\_load\_game\_data}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_game\_data()}{game\_management\_load\_game\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+game\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the data from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García Hernando 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the game data on the file onto the game \mbox{\Hypertarget{game__management_8c_a553c81b2a7a508f33822e7d653d01309}\label{game__management_8c_a553c81b2a7a508f33822e7d653d01309}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_link@{game\_management\_load\_link}}
+\index{game\_management\_load\_link@{game\_management\_load\_link}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_link()}{game\_management\_load\_link()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the links from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García Hernando 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the links on the file onto the game \mbox{\Hypertarget{game__management_8c_a59fad5fbf3d2f209ff5ab55060ad6974}\label{game__management_8c_a59fad5fbf3d2f209ff5ab55060ad6974}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_objects@{game\_management\_load\_objects}}
+\index{game\_management\_load\_objects@{game\_management\_load\_objects}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_objects()}{game\_management\_load\_objects()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the objects from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García Hernando 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the objects on the file onto the game \mbox{\Hypertarget{game__management_8c_a6fa460f5ea017afa8c31b6eaffd57907}\label{game__management_8c_a6fa460f5ea017afa8c31b6eaffd57907}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_player@{game\_management\_load\_player}}
+\index{game\_management\_load\_player@{game\_management\_load\_player}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_player()}{game\_management\_load\_player()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the player from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the player on the file onto the game \mbox{\Hypertarget{game__management_8c_a6f2e8f89b41a61a2d406c5ff19a013ff}\label{game__management_8c_a6f2e8f89b41a61a2d406c5ff19a013ff}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_rules@{game\_management\_load\_rules}}
+\index{game\_management\_load\_rules@{game\_management\_load\_rules}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_rules()}{game\_management\_load\_rules()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the game rules from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Diego Rodríguez Ortiz 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a51753ca919dffdc97f2249bd5edc4fa5}\label{game__management_8c_a51753ca919dffdc97f2249bd5edc4fa5}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_load\_spaces@{game\_management\_load\_spaces}}
+\index{game\_management\_load\_spaces@{game\_management\_load\_spaces}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load\_spaces()}{game\_management\_load\_spaces()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load\+\_\+spaces (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+given a file and a pointer to the game it loads the space from the file onto the game 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés de Pedro 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads the spaces on the file onto the game \mbox{\Hypertarget{game__management_8c_aa8c1688b52d1433de45138a9e44856fb}\label{game__management_8c_aa8c1688b52d1433de45138a9e44856fb}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save@{game\_management\_save}}
+\index{game\_management\_save@{game\_management\_save}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save()}{game\_management\_save()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the game into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a1d82eb49c186da1c8a8413bfa931051d}\label{game__management_8c_a1d82eb49c186da1c8a8413bfa931051d}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_dialogues@{game\_management\_save\_dialogues}}
+\index{game\_management\_save\_dialogues@{game\_management\_save\_dialogues}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_dialogues()}{game\_management\_save\_dialogues()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+dialogues (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the links into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_aecbe1eade806427ad1a3466fb1f9021c}\label{game__management_8c_aecbe1eade806427ad1a3466fb1f9021c}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_enemies@{game\_management\_save\_enemies}}
+\index{game\_management\_save\_enemies@{game\_management\_save\_enemies}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_enemies()}{game\_management\_save\_enemies()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+enemies (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the enemies into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a1f001525d2168176f0bff8d805aa1377}\label{game__management_8c_a1f001525d2168176f0bff8d805aa1377}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_game\_data@{game\_management\_save\_game\_data}}
+\index{game\_management\_save\_game\_data@{game\_management\_save\_game\_data}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_game\_data()}{game\_management\_save\_game\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+game\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the data into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a4d03083429188a025d576e4a9ba7e2a3}\label{game__management_8c_a4d03083429188a025d576e4a9ba7e2a3}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_game\_rules@{game\_management\_save\_game\_rules}}
+\index{game\_management\_save\_game\_rules@{game\_management\_save\_game\_rules}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_game\_rules()}{game\_management\_save\_game\_rules()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+game\+\_\+rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the rules into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a2c88c5138b6e9dac188d7965f55a230b}\label{game__management_8c_a2c88c5138b6e9dac188d7965f55a230b}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_links@{game\_management\_save\_links}}
+\index{game\_management\_save\_links@{game\_management\_save\_links}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_links()}{game\_management\_save\_links()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+links (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the links into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a4918fcf918f2e4c8bd96685b751a8dfa}\label{game__management_8c_a4918fcf918f2e4c8bd96685b751a8dfa}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_objects@{game\_management\_save\_objects}}
+\index{game\_management\_save\_objects@{game\_management\_save\_objects}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_objects()}{game\_management\_save\_objects()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the objects into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_a2f8ad9018875d0449c7fbf61e4781e7a}\label{game__management_8c_a2f8ad9018875d0449c7fbf61e4781e7a}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_player@{game\_management\_save\_player}}
+\index{game\_management\_save\_player@{game\_management\_save\_player}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_player()}{game\_management\_save\_player()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the player into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game__management_8c_afc05b140f96b76a0b75bb900cdd82006}\label{game__management_8c_afc05b140f96b76a0b75bb900cdd82006}} 
+\index{game\_management.c@{game\_management.c}!game\_management\_save\_spaces@{game\_management\_save\_spaces}}
+\index{game\_management\_save\_spaces@{game\_management\_save\_spaces}!game\_management.c@{game\_management.c}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save\_spaces()}{game\_management\_save\_spaces()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save\+\_\+spaces (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the spaces into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em file} & pointer to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}

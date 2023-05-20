@@ -1,0 +1,229 @@
+                GAMEDATA
+#G:0|
+
+
+                PLAYER
+#p:1|Segismundo Eduardo de todos los Santos|065|100|100|1|
+
+
+                SPACES
+#s:044|Iron Mines|1|0|    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |Dark, industrial mines|The iron mines are vast, industrial spaces where valuable iron ore is extracted, featuring dark tunnels and heavy machinery.|
+#s:045|Stone Quarry|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Massive rock excavation|The stone quarry is a massive excavation site where large quantities of stone are extracted, leaving behind impressive rock formations and deep pits.|
+#s:046|Cave of Embers|1|0| ____________ |/            \|l a  o       l|l bc  __  o  l|l de [ ]  o8 l|\____________/  |Suspicious and glowing, fiery cave|The Cave of Embers is a mysterious cavern filled with a warm, fiery glow from flickering embers, providing an enchanting yet dangerous atmosphere. |
+#s:054|The Crossroads|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
+#s:055|Cave of Shadows|1|0| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
+#s:065|The Workshop|1|0|  __________  | /    o     \ |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
+
+#s:144|Worms Have|1|0|       ()     |:()    ()     | ()    ()()   | ()      ()   | ()      ()   | ()()    ())):|Infested, wriggling area|Worms Have is an area teeming with various worms, squirming and writhing in the soil, creating an environment both rich in nutrients and unsettling to some.|
+#s:145|Enchanted Forest|1|0|             _|          __[ |       __[    |    __[       | __[     down |[              |Magical, captivating woods|The Enchanted Forest is a magical and captivating woodland filled with fantastical creatures, ancient trees, and mysterious forces at play.|
+#s:154|Old Mines|1|0|             _|   up     __[ |       __[    |    __[       | __[     down |[              |Abandoned, cavernous mines|The Old Mines are abandoned, cavernous mines that hold the remnants of a once-thriving industry, now left to darkness and the echoes of the past.|
+#s:155|Dark Swamps|0|0| ____________ |/  >  o8  <  \|\____________/|  ___________ | /  o  <  o  \|/_____________\|Murky, treacherous wetlands|The Dark Swamps are murky, treacherous wetlands filled with hidden dangers, where travelers must navigate the unstable terrain with caution.|
+
+#s:233|Harbour|1|0|~~~~~~~~~~~~~~|~~~~~~~_/\__~~|~~~~~~\____/~~|~~__/\__~~~~~~|~~\____/~~~~~~|~~~~~~~~~~~~~~|Busy, bustling port|The Harbour is a busy, bustling area where ships come and go, carrying goods and people from distant lands, full of life and commerce.|
+#s:243|Misty Marshes|1|0| ____________ |l  ______  __l|l_/  lo \/o  l|l__/ l___\_  l|l  ________/ l|\____________/|Foggy, mysterious marshland|The Misty Marshes are foggy, mysterious marshlands with an air of enchantment, where travelers may encounter strange creatures and hidden secrets.|
+#s:244|Temple of the Moon|0|0|    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |Ancient, lunar worship site|The Temple of the Moon is an ancient site dedicated to lunar worship, where followers gather to honor the moon and seek its mystical powers.|
+#s:253|Breakers Bridge|1|0| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|Turbulent, crossing bridge|Breakers Bridge is a turbulent crossing over rough waters, where travelers must maintain their balance and courage to safely reach the other side.|
+#s:254|Cliffs of Abandon|0|0|             _|          __[ |       __[    |    __[       | __[     down |[              |Steep, treacherous cliffs|The Cliffs of Abandon are steep, treacherous cliffs that loom over the landscape, presenting a formidable challenge to those who dare to climb them.|
+
+
+                ENEMIES
+#e:2|Evil Spider|055|4|/\oo/\|
+#e:3|Cruel Centipede|144|3|mmmmo:|
+
+
+                LINKS
+        FLOOR 0
+#l:044045|stone_bridge|044|045|1|1|
+#l:044054|wooden_hallway|044|054|2|1|
+
+#l:045044|rope_bridge|045|044|0|1|
+#l:045046|underground_tunnel|045|046|1|1|
+#l:045055|rope_bridge|045|055|2|1|
+
+#l:046045|secret_tunnel|046|045|0|1|
+
+#l:054044|stone_hallway|054|044|3|1|
+#l:054055|hidden_passage|054|055|1|1|
+
+#l:055045|suspension_bridge|055|045|3|1|
+#l:055054|dark_passage|055|054|0|1|
+#l:055065|dark_passage|055|065|2|1|
+#l:065055|hidden_passage|065|055|3|1|
+
+
+        FLOOR 1
+#l:144145|broken_bridge|144|145|1|1|
+#l:144154|short_staircase|144|154|2|1|
+
+#l:145144|crumbling_bridge|145|144|0|1|
+#l:145155|long_staircase|145|155|2|1|
+
+#l:154144|coal_tunnel|154|144|3|1|
+#l:154155|golden_tunnel|154|155|1|1|
+
+#l:155145|short_staircase|155|145|3|1|
+#l:155154|wooden_stairway|155|154|0|1|
+
+
+        FLOOR 2
+#l:233243|beach_walkway|233|243|2|1|
+
+#l:243233|foggy_path|243|233|3|1|
+#l:243244|hidden_passage|243|244|1|1|
+#l:243253|rocky_descent|243|253|2|1|
+
+#l:244243|secret_passage|244|243|0|1|
+#l:244254|rocky_path|244|254|2|1|
+
+#l:253243|mountain_path|253|243|3|1|
+#l:253254|boardwalk|253|254|1|1|
+
+#l:254244|grassy_path|254|244|3|1|
+#l:254253|cliffside_path|254|253|0|1|
+
+        ELEVATORS
+#l:045145|quarry_staircase|045|145|4|1|
+#l:054154|crossroads_gate|054|154|4|1|
+
+#l:145045|quarry_pathway|145|045|5|1|
+#l:154054|crossroads_door|154|054|5|1|
+#l:154254|cliffside_bridge|154|254|4|1|
+
+#l:254154|bridge_crossing|254|154|5|1|
+
+#l:065233|magical_path|065|233|4|0|
+
+                 OBJECTS
+#o:21|Stick1|046|Sticks are useful for building ship masts.|1|1|-1|0|
+#o:22|Stick2|046|Sticks are useful for building ship masts.|1|1|-1|-1|0|0|
+#o:23|Stick3|046|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
+
+#o:26|Leaf1|254|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:27|Leaf2|254|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:28|Leaf3|254|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:201|Boat_Sail|-1|Sails are essential for building ships!|0|1|-1|-1|0|0|
+
+#o:31|Walnut1|144|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:32|Walnut2|144|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:33|Walnut3|144|Walnut shells can float!|1|1|-1|-1|0|0|
+#o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
+
+#o:203|ANTBOAT|-1|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
+
+#o:37|Lantern1|045|The lantern makes the darkness disappear|1|1|-1|-1|1|0|
+
+#o:51|Goldkey1|145|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
+#o:52|Goldkey2|145|Goldkeys can be combined to get the a magical key.|0|1|51|-1|0|0|
+#o:53|Goldkey3|145|Goldkeys can be combined to get the a magical key.|0|1|52|-1|0|0|
+#o:204|Magicalkey|-1|The Magicalkey opens the magical entrance between the Workshop and the Harbour!|0|1|-1|065233|0|0|
+
+#o:60|Rock1|045|An unmovable object|0|0|-1|-1|1|0|
+#o:61|Rock2|154|An unmovable object|0|0|-1|-1|1|0|
+#o:62|Rock3|233|An unmovable object|0|0|-1|-1|1|0|
+
+                RULES
+#r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
+#r:9|1|victory act|0|0|-|2|Drop object|0|0|ANTBOAT|in space|0|0|Harbour|
+#r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
+#r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|
+#r:15|1|combine|0|3|Walnut|1|same object|0|3|Walnut|
+#r:16|1|combine|0|3|Boat|1|same object|0|3|Boat|
+#r:17|1|combine|0|3|Goldkey|1|same object|0|3|Goldkey|
+#r:18|1|set movable|0|0|-|1|health enemy|0|10000|-|
+#r:19|1|set movable|0|1|-|1|health enemy|0|0|-|
+
+
+                DIALOGUE
+#d:0|0|This is not a valid action. Try again.|
+#d:0|0|You didn't insert a valid command. Read the menu first.|
+#d:1|1|We'll miss you. See you next time|
+#d:1|0|Sorry, exit call was unsuccessfully completed.|
+#d:2|1|You've moved <direction>. Now you're in <space_name>|
+#d:2|1|You've gone <direction>. Be careful in <space_name>, you're in <enemy_name>'s lair|
+#d:2|1|You've moved <direction>. There's no light in this space.|
+#d:2|1|You've gone <direction>. There's no light in this space. Be careful with <enemy_name>|
+#d:2|0|You cannot move <direction>. Try another action.|
+#d:2|0|Oops, it seems this link is closed|
+#d:2|0|Error while using the move command. You must specify a direction. Syntax: move <direction>|
+#d:2|0|You must specify a valid direction: north, south, east, west, up, down|
+#d:3|1|Your attack was effective. You've hurt <enemy_name>, now he is crying! Keep on trying!|
+#d:3|1|You've lost one point of life while attacking <enemy_name>. Nevermind, keep on trying!|
+#d:3|1|You killed <enemy_name>! Good job!|
+#d:3|1|You were killed by <enemy_name>. God gives the worst battles to his best warriors. Good luck, soldier.|
+#d:3|0|Couldn't attack. Check if there's really an enemy on that space|
+#d:4|1|You've taken <object_name>. See its utilities in the description or use the inspect command for more information|
+#d:4|0|You cannot take <object_name>. Object not in your current space|
+#d:4|0|You cannot take <object_name>. Your inventory is already full. Please drop one object|
+#d:4|0|You cannot take <object_name>. There's no light in the current space|
+#d:4|0|You cannot take <object_name>. The object is not movable|
+#d:4|0|You cannot take <object_name>. You need <object_dependency> first in orther to take it|
+#d:4|0|You cannot take <object_name>. The object is already on your bag|
+#d:4|0|You cannot take <object_name>. The object doesn't exist|
+#d:4|0|Error while using the take command. You must specify the object you take. Syntax: take <object_name>|
+#d:5|1|You dropped <object_name>, it will remain in <space_name> waiting for you to take it again|
+#d:5|1|You dropped <object_name>. As a result, <object_name> has also been dropped|
+#d:5|1|You dropped <object_name>. As a result, <object_names> have also been dropped|
+#d:5|1|You dropped ground. <name_space> is safe|
+#d:5|1|You dropped ground in a safe space. You just lost it with no effect|
+#d:5|0|You cannot drop <object_name>. Your inventory is empty. Go grab some objects|
+#d:5|0|You cannot drop <object_name>. You don't have <object_name> in the inventory|
+#d:5|0|You cannot drop <object_name>. That object doesn't exist in this game|
+#d:5|0|Error while using the drop command. You must specify the object you drop. Syntax: drop <object_name>|
+#d:6|1|So you're a curious player. Inspecting the object: <object_name>|
+#d:6|1|So you're a curious player. Inspecting the space: <space_name>|
+#d:6|0|Sorry, <willing_inspect_name> doesn't exist or isn't in the current space or in your inventory|
+#d:6|0|Error while using the inspect command. You must specify the object to be inspected or use space or s to inspect the space you're in|
+#d:7|1|Turning <object_name> on|
+#d:7|0|Sorry, you cannot illuminate with <object_name>|
+#d:7|0|Sorry, couldn't turn on <object_name>: you have no light and the space has no light|
+#d:7|0|The object doesn't exist|
+#d:7|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:7|0|Error while using the turn-on command. You must specify the object you're illuminating. Syntax: turnon <object_name>|
+#d:8|1|Turning <object_name> off|
+#d:8|0|Sorry, you cannot turn the light off with <object_name>|
+#d:8|0|Sorry, couldn't turn off <object_name>: you have no light and the space has no light|
+#d:8|0|The object doesn't exist|
+#d:8|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:8|0|Error while using the turn-off command. You must specify the object you're turning-off. Syntax: turnoff <object_name>|
+#d:9|1|You opened <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:9|0|You cannot open <link_name> with <object_name>|
+#d:9|0|There's no link with that name whose origin is in this space|
+#d:9|0|The object doesn't exist|
+#d:9|0|The link doesn't exist|
+#d:9|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:9|0|Error while using the open_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:9|0|Error while using the open_link command. You forgot to specify the object you're using|
+#d:9|0|Error while using the open_link command. You forgot to specify the link you're opening|
+#d:9|0|Error while using the open_link command. Syntax: open/op <link_name> with <object_name>|
+#d:9|0|There is no link from this space in that direction|
+#d:10|1|You closed <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:10|0|You cannot close <link_name> with <object_name>|
+#d:10|0|There's no link with that name whose origin is in this space|
+#d:10|0|The object doesn't exist|
+#d:10|0|The link doesn't exist|
+#d:10|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:10|0|Error while using the close_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:10|0|Error while using the close_link command. You forgot to specify the object you're using|
+#d:10|0|Error while using the close_link command. You forgot to specify the link you're closing|
+#d:10|0|Error while using the close_link command. Syntax: close/cl <link_name> with <object_name>|
+#d:10|0|There is no link from this space in that direction|
+#d:11|1|Loading saved game. Hope you did better in that one.|
+#d:11|1|Loading game. Good luck!|
+#d:11|0|Sorry, error file while loading your game|
+#d:11|0|Error while using the load command. You must specify a file to save progress. Syntax: load <file_name>|
+#d:12|1|Saving your current progress. Pretty well done.|
+#d:12|0|Sorry, error file while saving current progress|
+#d:12|0|Error while using the save command. You must specify a file to save progress. Syntax: save <file_name>|
+#d:13|1|Showing the game information. Scroll up to see it|
+#d:13|0|Sorry, there was an error while showing the game information|
+#d:14|0|You have done this once before without success.|
+#d:14|0|You have done this twice before without success.|
+#d:14|0|You have done this <num_times> times before without success. Don't you get tired?|
+#d:15|1|The spaces <spaces_name> have flooded|
+#d:15|1|The spaces <space_name, id> have flooded and <space_name, id> have sunk|
+#d:15|1|The spaces <spaces_name, id> has flooded and <space_name, id> have sunk|
+#d:15|1|The spaces <space_name, id> have flooded and <space_name, id> has sunk|
+#d:15|1|The spaces <spaces_name, id> have sunk|
+#d:15|1|You are in a space that has sunk. That's a game over|
+#d:16|1|You have combined <int> <argname> into one <upgradedname>|

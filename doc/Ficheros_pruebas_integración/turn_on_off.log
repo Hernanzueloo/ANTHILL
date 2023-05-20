@@ -1,0 +1,16 @@
+turnon Stick3: ERROR
+move east: ERROR
+move west: OK
+turnon Stick3: ERROR
+turnoff Stick3: ERROR
+move down: OK
+take Lantern: ERROR
+inspect s: OK
+take Lantern1: OK
+turnoff Lantern1: OK
+move up: OK
+move east: OK
+turnon lantern1: OK
+turnoff Lantern1: OK
+move north: OK
+turnoff Lantern1: OK

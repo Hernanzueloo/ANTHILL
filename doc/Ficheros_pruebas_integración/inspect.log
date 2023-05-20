@@ -1,0 +1,12 @@
+inspect Walnut1: OK
+take walnut1: ERROR
+inspect walnut1: OK
+inspect rock2: OK
+drop walnut1: ERROR
+move down: ERROR
+move south: OK
+inspect walnut1: ERROR
+inspect pepe: ERROR
+move down: OK
+move south: OK
+inspect s: OK

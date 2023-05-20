@@ -1,0 +1,366 @@
+\hypertarget{link_8h}{}\doxysection{include/link.h File Reference}
+\label{link_8h}\index{include/link.h@{include/link.h}}
+
+
+It defines the link interface.  
+
+
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{link_8h_ae3b299941e67be6971bfd64a25505eff}\label{link_8h_ae3b299941e67be6971bfd64a25505eff}} 
+typedef struct \mbox{\hyperlink{struct__Link}{\+\_\+\+Link}} \mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}}
+\begin{DoxyCompactList}\small\item\em Link struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$ \mbox{\hyperlink{link_8h_a8090d7f529cfd6a2fc5df3dd379fe514}{link\+\_\+create}} (\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} id)
+\begin{DoxyCompactList}\small\item\em It creates a new link, initializing its members. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{link_8h_a117e4e5a82b23b805052d1eace34d068}{link\+\_\+destroy}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It destroys a link. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} \mbox{\hyperlink{link_8h_a2bbd320f995a72b2ea7ea639b1c81892}{link\+\_\+get\+\_\+id}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s id. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_a6c7a3bd7a856288c377edbcd045912e6}{link\+\_\+set\+\_\+name}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em It sets the link\textquotesingle{}s name. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{link_8h_a9747ee8201a323e112e67bdeacbc90d8}{link\+\_\+get\+\_\+name}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_a7f946d55b08a10e2d4ab6f2169171a24}{link\+\_\+set\+\_\+origin}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} origin)
+\begin{DoxyCompactList}\small\item\em It sets a link\textquotesingle{}s origin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_ac4a8a5363ff952f30ff54a76f7290a0a}{link\+\_\+set\+\_\+destination}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} destination)
+\begin{DoxyCompactList}\small\item\em It sets a link\textquotesingle{}s destination. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_a3b07d83540835fe4add75826eaa72305}{link\+\_\+set\+\_\+direction}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}} direction)
+\begin{DoxyCompactList}\small\item\em It sets a link\textquotesingle{}s direction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_a68130341874ebc902bbb47b251ee0cbe}{link\+\_\+set\+\_\+status}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}} status)
+\begin{DoxyCompactList}\small\item\em It sets a status to the link. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} \mbox{\hyperlink{link_8h_a07dbaa47c78e51d9d70e42611725eaae}{link\+\_\+get\+\_\+origin}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s origin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} \mbox{\hyperlink{link_8h_a4a010cecfbeb45a964a4a10bac0e1904}{link\+\_\+get\+\_\+destination}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s destination. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}} \mbox{\hyperlink{link_8h_a7340f1400ff1cf890a3d2dad242cc276}{link\+\_\+get\+\_\+direction}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s direction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}} \mbox{\hyperlink{link_8h_a66a399a19a412d6b072fb052f8f918d3}{link\+\_\+get\+\_\+status}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link)
+\begin{DoxyCompactList}\small\item\em It gets the link\textquotesingle{}s status. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{link_8h_a396f1918aa6910bec81bf58842bf18ac}{link\+\_\+print}} (\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$link, FILE $\ast$file)
+\begin{DoxyCompactList}\small\item\em It prints the link\textquotesingle{}s information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines the link interface. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17/03/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{link_8h_a8090d7f529cfd6a2fc5df3dd379fe514}\label{link_8h_a8090d7f529cfd6a2fc5df3dd379fe514}} 
+\index{link.h@{link.h}!link\_create@{link\_create}}
+\index{link\_create@{link\_create}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_create()}{link\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}}$\ast$ link\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}}]{id }\end{DoxyParamCaption})}
+
+
+
+It creates a new link, initializing its members. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Id of the link to be created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new link, initialized 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a117e4e5a82b23b805052d1eace34d068}\label{link_8h_a117e4e5a82b23b805052d1eace34d068}} 
+\index{link.h@{link.h}!link\_destroy@{link\_destroy}}
+\index{link\_destroy@{link\_destroy}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_destroy()}{link\_destroy()}}
+{\footnotesize\ttfamily void link\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It destroys a link. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+\begin{DoxyReturn}{Returns}
+A new link, initialized 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a4a010cecfbeb45a964a4a10bac0e1904}\label{link_8h_a4a010cecfbeb45a964a4a10bac0e1904}} 
+\index{link.h@{link.h}!link\_get\_destination@{link\_get\_destination}}
+\index{link\_get\_destination@{link\_get\_destination}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_destination()}{link\_get\_destination()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} link\+\_\+get\+\_\+destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s destination. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Id of the link\textquotesingle{}s destination 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a7340f1400ff1cf890a3d2dad242cc276}\label{link_8h_a7340f1400ff1cf890a3d2dad242cc276}} 
+\index{link.h@{link.h}!link\_get\_direction@{link\_get\_direction}}
+\index{link\_get\_direction@{link\_get\_direction}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_direction()}{link\_get\_direction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}} link\+\_\+get\+\_\+direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s direction. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+direction of the link 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a2bbd320f995a72b2ea7ea639b1c81892}\label{link_8h_a2bbd320f995a72b2ea7ea639b1c81892}} 
+\index{link.h@{link.h}!link\_get\_id@{link\_get\_id}}
+\index{link\_get\_id@{link\_get\_id}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_id()}{link\_get\_id()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} link\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s id. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+id of the link 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a9747ee8201a323e112e67bdeacbc90d8}\label{link_8h_a9747ee8201a323e112e67bdeacbc90d8}} 
+\index{link.h@{link.h}!link\_get\_name@{link\_get\_name}}
+\index{link\_get\_name@{link\_get\_name}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_name()}{link\_get\_name()}}
+{\footnotesize\ttfamily char$\ast$ link\+\_\+get\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s name. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the string of the link\textquotesingle{}s name 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a07dbaa47c78e51d9d70e42611725eaae}\label{link_8h_a07dbaa47c78e51d9d70e42611725eaae}} 
+\index{link.h@{link.h}!link\_get\_origin@{link\_get\_origin}}
+\index{link\_get\_origin@{link\_get\_origin}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_origin()}{link\_get\_origin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}} link\+\_\+get\+\_\+origin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s origin. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Id of the link\textquotesingle{}s origin 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a66a399a19a412d6b072fb052f8f918d3}\label{link_8h_a66a399a19a412d6b072fb052f8f918d3}} 
+\index{link.h@{link.h}!link\_get\_status@{link\_get\_status}}
+\index{link\_get\_status@{link\_get\_status}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_get\_status()}{link\_get\_status()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}} link\+\_\+get\+\_\+status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+It gets the link\textquotesingle{}s status. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+status of the link 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a396f1918aa6910bec81bf58842bf18ac}\label{link_8h_a396f1918aa6910bec81bf58842bf18ac}} 
+\index{link.h@{link.h}!link\_print@{link\_print}}
+\index{link\_print@{link\_print}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_print()}{link\_print()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+It prints the link\textquotesingle{}s information. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andres This function shows the link\textquotesingle{}s id, name, origin, destination, direction and status 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & A pointer to the link \\
+\hline
+{\em file} & Output file where it will be printed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_ac4a8a5363ff952f30ff54a76f7290a0a}\label{link_8h_ac4a8a5363ff952f30ff54a76f7290a0a}} 
+\index{link.h@{link.h}!link\_set\_destination@{link\_set\_destination}}
+\index{link\_set\_destination@{link\_set\_destination}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_set\_destination()}{link\_set\_destination()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+set\+\_\+destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}}]{destination }\end{DoxyParamCaption})}
+
+
+
+It sets a link\textquotesingle{}s destination. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+{\em destination} & id of the destination to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a3b07d83540835fe4add75826eaa72305}\label{link_8h_a3b07d83540835fe4add75826eaa72305}} 
+\index{link.h@{link.h}!link\_set\_direction@{link\_set\_direction}}
+\index{link\_set\_direction@{link\_set\_direction}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_set\_direction()}{link\_set\_direction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+set\+\_\+direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{\mbox{\hyperlink{types_8h_aa268a41a13430b18e933ed40207178d0}{DIRECTION}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+It sets a link\textquotesingle{}s direction. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+{\em direction} & direction to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a6c7a3bd7a856288c377edbcd045912e6}\label{link_8h_a6c7a3bd7a856288c377edbcd045912e6}} 
+\index{link.h@{link.h}!link\_set\_name@{link\_set\_name}}
+\index{link\_set\_name@{link\_set\_name}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_set\_name()}{link\_set\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+set\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+It sets the link\textquotesingle{}s name. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+{\em name} & pointer to the string name to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a7f946d55b08a10e2d4ab6f2169171a24}\label{link_8h_a7f946d55b08a10e2d4ab6f2169171a24}} 
+\index{link.h@{link.h}!link\_set\_origin@{link\_set\_origin}}
+\index{link\_set\_origin@{link\_set\_origin}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_set\_origin()}{link\_set\_origin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+set\+\_\+origin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{\mbox{\hyperlink{types_8h_a845e604fb28f7e3d97549da3448149d3}{Id}}}]{origin }\end{DoxyParamCaption})}
+
+
+
+It sets a link\textquotesingle{}s origin. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+{\em origin} & id of the origin to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}
+\mbox{\Hypertarget{link_8h_a68130341874ebc902bbb47b251ee0cbe}\label{link_8h_a68130341874ebc902bbb47b251ee0cbe}} 
+\index{link.h@{link.h}!link\_set\_status@{link\_set\_status}}
+\index{link\_set\_status@{link\_set\_status}!link.h@{link.h}}
+\doxysubsubsection{\texorpdfstring{link\_set\_status()}{link\_set\_status()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} link\+\_\+set\+\_\+status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{link_8h_ae3b299941e67be6971bfd64a25505eff}{Link}} $\ast$}]{link,  }\item[{\mbox{\hyperlink{types_8h_a205ac365a83ed2cd756fbd747ea814c0}{LSTATUS}}}]{status }\end{DoxyParamCaption})}
+
+
+
+It sets a status to the link. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em link} & pointer to the link \\
+\hline
+{\em status} & status of the link to be set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}

@@ -1,0 +1,27 @@
+open up with Stick3: ERROR
+close up with Stick3: ERROR
+close east with Stick3: ERROR
+open east with Stick3: ERROR
+close pepe with STick1: ERROR
+open south with pepe: ERROR
+move south: OK
+open north with STick3: ERROR
+move up: ERROR
+move north: OK
+take Golkey1: ERROR
+take GOldkey1: OK
+take goldkey2: OK
+take goldkey3: OK
+move down: OK
+move south: OK
+move east: OK
+open up with Magicalkey: OK
+close up with Magicalkey: OK
+close west with Magicalkey: ERROR
+move east: ERROR
+open up with magical_key: ERROR
+open up with magicalkey: OK
+move up: OK
+move east: OK
+move south: OK
+open north with magicalkey: ERROR

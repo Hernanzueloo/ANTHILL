@@ -1,0 +1,106 @@
+#G:0|
+#s:100|Entry|1|0| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|The entry is the entrance to the nest|The entry, which is typically a small and inconspicuous opening, serves as the primary means of access for the inhabitants of the nest, allowing them to come and go as needed to gather food, care for their young, and carry out other essential tasks.|
+#s:101|Corridor 1|0|0| __   \___/ o | / /  ___/    |o__ o \____   |o8o ___/ mo'  |\  o8o  \___/ |/_/ o o   / o8|The first corridor|The first corridor, which is a passageway or pathway that connects different areas or rooms within a building or structure, can have a variety of features depending on the context in which it is located, such as its width, height, shape, and purpose.|
+#s:102|Corridor 2|0|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|The entry is the entrance to the nest|Within the entryway of the nest, the resident insects, birds, or animals may construct a variety of mechanisms or barriers to help protect the interior of the nest from unwanted intruders, such as leafs or twigs, sticky or slippery substances, or even spines or thorns.|
+#s:103|Corridor 3|1|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|The devil's lair|In many cultures and religions, the devil's lair represents a place of darkness and evil, serving as a symbol of temptation, sin, and eternal punishment.|
+#s:104|Corridor 4|1|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|The second corridor|The second corridor in this is a perilous path filled with traps and obstacles, requiring players to use their wits and agility to navigate through it safely.|
+#s:105|Pantry|1|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|In the pantry you can store your yummy yummy food|The pantry is a convenient storage space in your home where you can keep your favorite snacks, canned goods, and other food items, ensuring that they remain fresh and easily accessible whenever you need them.|
+#o:21|Stick1|100|Sticks are useful for building ship masts.|0|1|-1|0|0|
+#o:22|Stick2|100|Sticks are useful for building ship masts.|0|1|21|-1|0|0|
+#o:23|Stick3|100|Sticks are useful for building ship masts.|0|1|21|-1|0|0|
+#o:24|leaf1|102|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:25|leaf2|100|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:26|leaf3|100|leafs can be used to propel yourself through the water.|0|0|-1|-1|1|1|
+#o:27|Rope|100|You can use a rope to tie different objects together|0|1|-1|-1|0|0|
+#o:28|Rope|101|You can use a rope to tie different objects together|0|1|-1|32|0|0|
+#l:31|Corridor1|100|101|1|1|
+#l:32|Corridor1_r|101|100|0|0|
+#l:33|Corridor2|100|102|0|1|
+#l:34|Corridor2_r|102|100|1|1|
+#l:35|Corridor3|100|103|2|1|
+#l:36|Corridor3_r|103|100|3|1|
+#l:37|Corridor4|100|104|3|1|
+#l:38|Corridor4_r|104|100|2|1|
+#p:1|Bug|100|10|3|0|
+#e:2|James|103|100|/\oo/\|
+#e:3|Jamie|102|2|/\--/\|
+#d:0|0|This is not a valid action. Try again.|
+#d:0|0|You didn't insert a valid command. Read the menu first.|
+#d:1|1|We'll miss you. See you next time|
+#d:1|0|Sorry, exit call was unsuccessfully completed.|
+#d:2|1|You've moved <direction>. Now you're in <space_name>|
+#d:2|1|You've gone <direction>. Be careful in <space_name>, you're in <enemy_name>'s lair|
+#d:2|1|You've moved <direction>. There's no light in this space.|
+#d:2|1|You've gone <direction>. There's no light in this space. Be careful with <enemy_name>|
+#d:2|0|You cannot move <direction>. Try another action.|
+#d:2|0|Oops, it seems this link is closed|
+#d:2|0|Error while using the move command. You must specify a direction. Syntax: move <direction>|
+#d:3|1|You've made <enemy_name> lost one point of life, but it's still alive! Nevermind, keep on trying!|
+#d:3|1|You've lost one point of life while attacking <enemy_name>. Nevermind, keep on trying!|
+#d:3|1|You killed <enemy_name>! Good job!|
+#d:3|1|You were killed by <enemy_name>. God gives the worst battles to his best warriors. Good luck, soldier.|
+#d:3|0|Couldn't attack. Check if there's really an enemy on that space|
+#d:4|1|You've taken <object_name>. See its utilities in the description or use the inspect command for more information|
+#d:4|0|You cannot take <object_name>. Object not in your current space|
+#d:4|0|You cannot take <object_name>. Your inventory is already full. Please drop one object|
+#d:4|0|You cannot take <object_name>. There's no light in the current space|
+#d:4|0|You cannot take <object_name>. The object is not movable|
+#d:4|0|You cannot take <object_name>. You need <object_dependency> first in orther to take it|
+#d:4|0|You cannot take <object_name>. The object is already on your bag|
+#d:4|0|You cannot take <object_name>. The object doesn't exist|
+#d:4|0|Error while using the take command. You must specify the object you take. Syntax: take <object_name>|
+#d:5|1|You dropped <object_name>, it will remain in <space_name> waiting for you to take it again|
+#d:5|1|You dropped <object_name>. As a result, <object_name> has also been dropped|
+#d:5|1|You dropped <object_name>. As a result, <object_names> have also been dropped|
+#d:5|0|You cannot drop <object_name>. Your inventory is empty. Go grab some objects|
+#d:5|0|You cannot drop <object_name>. You don't have <object_name> in the inventory|
+#d:5|0|You cannot drop <object_name>. That object doesn't exist in this game|
+#d:5|0|Error while using the drop command. You must specify the object you drop. Syntax: drop <object_name>|
+#d:6|1|So you're a curious player. Inspecting the object: <object_name>|
+#d:6|1|So you're a curious player. Inspecting the space: <space_name>|
+#d:6|0|Sorry, <willing_inspect_name> doesn't exist or isn't in the current space or in your inventory|
+#d:6|0|Error while using the inspect command. You must specify the object to be inspected or use space or s to inspect the space you're in|
+#d:7|1|Turning <object_name> on|
+#d:7|0|Sorry, you cannot illuminate with <object_name>|
+#d:7|0|Sorry, couldn't turn on <object_name>: you have no light and the space has no light|
+#d:7|0|The object doesn't exist|
+#d:7|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:7|0|Error while using the turn-on command. You must specify the object you're illuminating. Syntax: turnon <object_name>|
+#d:8|1|Turning <object_name> off|
+#d:8|0|Sorry, you cannot turn the light off with <object_name>|
+#d:8|0|Sorry, couldn't turn off <object_name>: you have no light and the space has no light|
+#d:8|0|The object doesn't exist|
+#d:8|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:8|0|Error while using the turn-off command. You must specify the object you're turning-off. Syntax: turnoff <object_name>|
+#d:9|1|You opened <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:9|0|You cannot open <link_name> with <object_name>|
+#d:9|0|There's no link with that name whose origin is in this space|
+#d:9|0|The object doesn't exist|
+#d:9|0|The link doesn't exist|
+#d:9|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:9|0|Error while using the open_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:9|0|Error while using the open_link command. You forgot to specify the object you're using|
+#d:9|0|Error while using the open_link command. You forgot to specify the link you're opening|
+#d:9|0|Error while using the open_link command. Syntax: open/op <link_name> with <object_name>|
+#d:10|1|You closed <link_name> with <object_name> from <origin_space_name> to <destination_space_name>|
+#d:10|0|You cannot close <link_name> with <object_name>|
+#d:10|0|There's no link with that name whose origin is in this space|
+#d:10|0|The object doesn't exist|
+#d:10|0|The link doesn't exist|
+#d:10|0|You don't have <object_name> in your inventory and the object is not in this space|
+#d:10|0|Error while using the close_link command. You must write "with" in between of <link_name> and <object_name>|
+#d:10|0|Error while using the close_link command. You forgot to specify the object you're using|
+#d:10|0|Error while using the close_link command. You forgot to specify the link you're closing|
+#d:10|0|Error while using the close_link command. Syntax: close/cl <link_name> with <object_name>|
+#d:11|1|Loading saved game. Hope you did better in that one.|
+#d:11|1|Loading game. Good luck!|
+#d:11|0|Sorry, error file while loading your game|
+#d:11|0|Error while using the load command. You must specify a file to save progress. Syntax: load <file_name>|
+#d:12|1|Saving your current progress. Pretty well done.|
+#d:12|0|Sorry, error file while saving current progress|
+#d:12|0|Error while using the save command. You must specify a file to save progress. Syntax: save <file_name>|
+#d:13|1|Showing the game information. Scroll up to see it|
+#d:13|0|Sorry, there was an error while showing the game information|
+#d:14|0|You have done this once before without success.|
+#d:14|0|You have done this twice before without success.|
+#d:14|0|You have done this <num_times> times before without success. Don't you get tired?|

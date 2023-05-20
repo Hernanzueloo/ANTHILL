@@ -1,0 +1,87 @@
+\hypertarget{game__management_8h}{}\doxysection{include/game\+\_\+management.h File Reference}
+\label{game__management_8h}\index{include/game\_management.h@{include/game\_management.h}}
+
+
+It defines the game management interface.  
+
+
+{\ttfamily \#include \char`\"{}command.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}space.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rule.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}enemy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dialogue.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8h_afec68c063a60726a1429d20740dcb9ef}{game\+\_\+management\+\_\+load}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Given a game it loads the game from a file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} \mbox{\hyperlink{game__management_8h_aa8c1688b52d1433de45138a9e44856fb}{game\+\_\+management\+\_\+save}} (\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$game, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Given a game it saves the game into a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It defines the game management interface. 
+
+\begin{DoxyAuthor}{Author}
+Javier San Andrés -\/ Alejandro García Hernando -\/Diego Rodriguez -\/David Brenchley 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+04-\/04-\/2023 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+GNU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game__management_8h_afec68c063a60726a1429d20740dcb9ef}\label{game__management_8h_afec68c063a60726a1429d20740dcb9ef}} 
+\index{game\_management.h@{game\_management.h}!game\_management\_load@{game\_management\_load}}
+\index{game\_management\_load@{game\_management\_load}!game\_management.h@{game\_management.h}}
+\doxysubsubsection{\texorpdfstring{game\_management\_load()}{game\_management\_load()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Given a game it loads the game from a file. 
+
+\begin{DoxyAuthor}{Author}
+David Brenchley Uriol 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake
+\end{DoxyReturn}
+Loads all the game on the file onto the game \mbox{\Hypertarget{game__management_8h_aa8c1688b52d1433de45138a9e44856fb}\label{game__management_8h_aa8c1688b52d1433de45138a9e44856fb}} 
+\index{game\_management.h@{game\_management.h}!game\_management\_save@{game\_management\_save}}
+\index{game\_management\_save@{game\_management\_save}!game\_management.h@{game\_management.h}}
+\doxysubsubsection{\texorpdfstring{game\_management\_save()}{game\_management\_save()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a32c27cc471df37f4fc818d65de0a56c4}{STATUS}} game\+\_\+management\+\_\+save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{game_8h_a57156d39c530aec3fba3a9dad8c2dc6a}{Game}} $\ast$}]{game,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Given a game it saves the game into a file. 
+
+\begin{DoxyAuthor}{Author}
+Alejandro García 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer to the game \\
+\hline
+{\em filename} & name to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, if everything goes well or ERROR if there was some mistake 
+\end{DoxyReturn}

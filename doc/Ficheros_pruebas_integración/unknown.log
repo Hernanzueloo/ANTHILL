@@ -1,0 +1,18 @@
+Para probar comandos aleatorios, es decir que no tienen sentido sintacticamente, se han realizado las siguientes pruebas:
+Primero se ha procedido a meter palabras alaetorias como "bonkers" y ver que el commando unknown fucnionaba correctamente. 
+También se han introducido palabras aleatorias con argumentos aleatorias como "newargumentforyou".
+A continuación se han introducido comandos existentes pero con argumentos erroneos para ver que devolvian ERROR. 
+
+unknown: ERROR
+unknown: ERROR
+move somewhere: ERROR
+unknown newargumentforyou: ERROR
+unknown: ERROR
+take popo: ERROR
+drop hi: ERROR
+move into: ERROR
+attack aksdas: ERROR
+attack nextspace: ERROR
+unknown: ERROR
+inspect hello: OK
+exit: OK

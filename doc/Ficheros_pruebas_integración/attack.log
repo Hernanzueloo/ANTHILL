@@ -1,0 +1,12 @@
+attack: ERROR
+move east: ERROR
+move west: OK
+attack: OK
+attack: ERROR
+attack pepe: ERROR
+move east: OK
+move west: OK
+move west: OK
+move up: OK
+move north: OK
+attack pepe: OK
