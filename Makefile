@@ -30,12 +30,11 @@
 
 ## AUTORES: DAVID BRENCHLEY URIOL - JAVIER SAN ANDRES - DIEGO RODRÍGUEZ - ALEJANDRO GARCÍA
 
+BIN_PATH= ./bin
 INC_PATH= ./include
 LIB_PATH= ./lib
-SRC_PATH= ./src
 OBJ_PATH= ./obj
-BIN_PATH= ./bin
-TEST_PATH= ./test
+SRC_PATH= ./src | ./tests
 
 VPATH = %.h $(INC_PATH): %.c $(SRC_PATH): %.o $(OBJ_PATH) #Automatically adds directories in which to look for dependencies
 IFLAGS=-I$(INC_PATH) 
