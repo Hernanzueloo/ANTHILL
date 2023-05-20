@@ -457,10 +457,10 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename)
   nSpaces=i*propSpaces;
 
   spacesIds=game_get_rand_space_id(game, nSpaces);
-  for(i=0; i<nSpaces; i++){
+  for(i=0; i<nSpaces; i++)
     (void)space_set_light(game_get_space(game, spacesIds[i]), FALSE);
-  }
 
+  free(spacesIds);
   fclose(file);
 
   return OK;

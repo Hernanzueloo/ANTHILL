@@ -319,7 +319,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, " ");
 
   /* Paint in the banner area */
-  screen_area_puts(ge->banner, "    The anthill game ");
+  screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
 
   /* Paint in the help area */
   screen_area_clear(ge->help);
@@ -352,7 +352,7 @@ void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
   _paint_description_init(ge, game);
 
   /* Paint in the banner area */
-  screen_area_puts(ge->banner, "    The anthill game ");
+  screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
 
   /* Paint in the help area */
   screen_area_clear(ge->help);
@@ -384,7 +384,7 @@ void graphic_engine_paint_win(Graphic_engine *ge, Game *game)
   _paint_description_end(ge, game);
 
   /* Paint in the banner area */
-  screen_area_puts(ge->banner, "    The anthill game ");
+  screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
 
   /* Paint in the help area */
   screen_area_clear(ge->help);
@@ -414,7 +414,7 @@ void graphic_engine_paint_lose(Graphic_engine *ge, Game *game)
   _paint_description_end(ge, game);
 
   /* Paint in the banner area */
-  screen_area_puts(ge->banner, "    The anthill game ");
+  screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
 
   /* Paint in the help area */
   screen_area_clear(ge->help);
