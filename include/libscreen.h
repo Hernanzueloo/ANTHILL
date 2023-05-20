@@ -1,94 +1,126 @@
 /**
- * @brief It defines the screen interface
- *
- * @file libscreen.h
- * @author David Brenchley-Javier San Andres  
- * @version 3.0
- * @date 30/03/2023
- * @copyright GNU Public License
- */
+  * @brief It defines the screen interface
+  *
+  * @file libscreen.h
+  * @author Profesores PPROG
+  * @version 2.0
+  * @date 07-02-2021
+  * @copyright GNU Public License
+  */
 
 #ifndef __LIBSCREEN_H_
 #define __LIBSCREEN_H_
 
+
+#define BACKGROUND(r,g,b) "\x1B[48;2;" #r ";" #g ";" #b "m"
+#define FOREGROUND(r,g,b) "\x1B[38;2;" #r ";" #g ";" #b "m"
+#define RESET FOREGROUND(0,0,0) BACKGROUND(0,0,0)
+
 /**
- * @brief Area struct 
- */
+  * @brief Screen area for displaying information
+  * @author Pablo Fernández y Pablo Pérez
+  */
 typedef struct _Area Area;
 
 /**
- * @brief It creates a new screen
- *
- * This function should be called at the beginning of the program,
- *  so the complete screen is allocated before starting defining areas.
- * @param rows the number of rows that will have the full screen
- * @param columns the number of columns that will have the full screen
- */
+  * @brief It creates a new screen
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function should be called at the beginning of the program, 
+  *  so the complete screen is allocated before starting defining areas.
+  * @param rows the number of rows that will have the full screen
+  * @param columns the number of columns that will have the full screen
+  */
 void screen_init(int rows, int columns);
 
 /**
- * @brief It destroys a new screen area
- *
- * As it frees the screen, it must be called at the end of the program,
- *  once the areas created have been freed.
- */
+  * @brief It destroys a new screen area
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * As it frees the screen, it must be called at the end of the program, 
+  *  once the areas created have been freed.
+  */
 void screen_destroy();
 
 /**
- * @brief It paints in the terminal the actual screen composition
- *
- * This function should be called when some updates
- *  in the screen want to be shown.
- */
+  * @brief It paints in the terminal the actual screen composition 
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function should be called when some updates 
+  *  in the screen want to be shown. 
+  */
 void screen_paint();
 
 /**
- * @brief It creates a new area inside a screen
- *
- * screen_area_init allocates memory for a new area
- *  and initializes its members.
- * @param x the x-coordinate of the up-left corner of the area
- * @param y the x-coordinate of the up-left corner of the area
- * @param width the width of the area
- * @param height the height of the area
- * @return a new area, initialized
- */
+  * @brief It creates a new area inside a screen
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * screen_area_init allocates memory for a new area
+  *  and initializes its members.
+  * @param x the x-coordinate of the up-left corner of the area
+  * @param y the x-coordinate of the up-left corner of the area
+  * @param width the width of the area
+  * @param height the height of the area
+  * @return a new area, initialized
+  */
 Area *screen_area_init(int x, int y, int width, int height);
 
 /**
- * @brief It destroys a new screen area
- *
- * This function should be called once the area is not needed anymore,
- *  before ending the programme.
- * @param area the area to be freed
- */
+  * @brief It destroys a new screen area
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function should be called once the area is not needed anymore, 
+  *  before ending the programm.
+  * @param area the area to be freed
+  */
 void screen_area_destroy(Area *area);
 
 /**
- * @brief It cleares an area, eraising all its content
- *
- * This function should be called for earaising all the information in an area,
- *  before introducing a new state of it.
- * @param area the area to be cleared
- */
+  * @brief It cleares an area, eraising all its content
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function should be called for earaising all the information in an area, 
+  *  before introducing a new state of it.
+  * @param area the area to be cleared
+  */
 void screen_area_clear(Area *area);
 
 /**
- * @brief It resets the cursor of an area
- *
- * This function reset the cursor to the up-left corner of the area.
- * @param area the involved area
- */
+  * @brief It resets the cursor of an area
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function reset the cursor to the up-left corner of the area.
+  * @param area the involved area
+  */
 void screen_area_reset_cursor(Area *area);
 
 /**
- * @brief It introduces some information inside an area
- *
- * This function sets the string that will be shown in an area.
- *  Each string introduced will be a line in the specified area.
- * @param area the area to be modified
- * @param str a string that contains the information to be included in a particular area
- */
+  * @brief It introduces some information inside an area
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * This function sets the string that will be shown in an area. 
+  *  Each string introduced will be a line in the specified area.
+  * @param area the area to be modified
+  * @param str a string that contains the information to be included in a particular area
+  */
 void screen_area_puts(Area *area, char *str);
+
+/**
+  * @brief It counts the length of the string (characters). Compatible with UTF-8. It ignores color scape codes (\033[ ... m)
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param str the string to count
+  * @return the length of the string
+  */
+int screen_multibyte_strlen(char *str);
+
+/**
+  * @brief It counts the size (bytes) of moving x positions in the array. Compatible with UTF-8. It ignores color scape codes (\033[ ... m)
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param str the string to count
+  * @return the size (bytes) of moving x positions in the array
+  */
+int screen_multibyte_move(char *str, int x);
 
 #endif

@@ -36,14 +36,14 @@ BIN_PATH= ./bin
 INC_PATH= ./include
 LIB_PATH= ./lib
 OBJ_PATH= ./obj
-SRC_PATH= ./src | ./tests
+SRC_PATH= ./src || ./tests
 
-VPATH = %.h $(INC_PATH): %.c $(SRC_PATH): %.o $(OBJ_PATH) #Automatically adds directories in which to look for dependencies
-IFLAGS=-I$(INC_PATH) 
-LDFLAGS=-L$(LIB_PATH) 
+VPATH = %.h $(INC_PATH): %.c $(SRC_PATH): %.o $(OBJ_PATH): %.a $(LIB_PATH) #Automatically adds directories in which to look for dependencies
+IFLAGS=-I$(INC_PATH)
+LDFLAGS=-L$(LIB_PATH)
 
 CC=gcc 
-CFLAGS = -ansi -pedantic -Wall -g #-DDEBUG 
+CFLAGS = -std=c17 -pedantic -Wall -g #-DDEBUG 
 #CFLAGS = -Wall -g -DNDEBUG #-O3 
 
 LIBS= -lscreen  
@@ -72,12 +72,23 @@ all: $(Executives)
 tests: $(Tests)
 
 
+#----------------------------------------------------------------------------------------------------------------------------
+
 #--GAME--
-$(GAME_NAME): $(OBJECTS)
+$(GAME_NAME): $(OBJECTS) libscreen.a
 	@echo
 	@echo ---------CREATING anthill----------------
 	$(CC)  -o $@ $(DIR_OBJECTS) $(LDFLAGS) $(LIBS)
 	@echo -----------------------------------------
+
+
+#--LIBSCREEN CREATION--
+libscreen.a: libscreen.c libscreen.h
+	@echo ---------CREATING libscreen----------------
+	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $(LIB_PATH)/libscreen.o
+	ar rcs $(LIB_PATH)/libscreen.a $(LIB_PATH)/libscreen.o
+	rm $(LIB_PATH)/libscreen.o
+
 
 #--TESTS--
 game_test: $(game_test_objs)
@@ -350,3 +361,6 @@ clear:
 
 clean_dox:
 	rm -rf doc/html doc/latex
+
+clean_lib:
+	rm -v $(LIB_PATH)/*.a
