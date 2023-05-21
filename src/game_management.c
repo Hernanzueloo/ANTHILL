@@ -554,7 +554,10 @@ STATUS game_management_load_enemy(Game *game, char *filename)
 
   fclose(file);
 
-  return game_management_set_random_enemies(game);
+  if (game_management_set_random_enemies(game) == ERROR)
+    return ERROR;
+
+  return OK;
 }
 
 /**
@@ -564,6 +567,8 @@ STATUS game_management_set_random_enemies(Game *game)
 {
   int i, nEn;
   Id *spacesIds;
+  Object *obj;
+  char name[WORD_SIZE];
 
   if (game == NULL)
     return ERROR;
@@ -574,8 +579,49 @@ STATUS game_management_set_random_enemies(Game *game)
   spacesIds = game_get_rand_space_id(game, nEn);
 
   for (i = 0; i < nEn; i++)
+  {
     if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, i))) == RANDLOC)
       (void)enemy_set_location(game_get_enemy(game, game_get_enemy_id_at(game, i)), spacesIds[i]);
+
+    obj = object_create(game_get_unique_object_id(game));
+
+    if (game_add_object(game, obj) == ERROR)
+    {
+      object_destroy(obj);
+      free(spacesIds);
+      return ERROR;
+    }
+    
+    sprintf(name, "%s", enemy_get_name(game_get_enemy(game, game_get_enemy_id_at(game, i))));
+    if(strstr(name, "walnut") != NULL)
+      strcpy(name, "WalnutE");
+    if(strstr(name, "leaf") != NULL)
+      strcpy(name, "LeafE");
+    if(strstr(name, "stick") != NULL)
+      strcpy(name, "StickE");
+    if(strstr(name, "lantern") != NULL)
+      strcpy(name, "LanternE");
+    
+    (void)object_set_name(obj, name);
+    
+    object_set_location(obj, spacesIds[i]);
+    object_set_hidden(obj, FALSE);
+    object_set_movable(obj, TRUE);
+    object_set_dependency(obj, NO_ID);
+    object_set_open(obj, NO_ID);
+    if(strcmp(name, "LanternE")==0)
+      object_set_illuminate(obj, TRUE);
+    else
+      object_set_illuminate(obj, FALSE);
+    object_set_turnedon(obj, FALSE);
+
+    if (space_add_object(game_get_space(game, spacesIds[i]), object_get_id(obj)) == ERROR)
+    {
+      object_destroy(obj);
+      free(spacesIds);
+      return ERROR;
+    }
+  }
 
   free(spacesIds);
 

@@ -1760,7 +1760,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
   Loc = player_get_location(game_get_player(game));
   screen_area_clear(ge->minimap);
 
-  sprintf(buffer, "          MINIMAP  ");
+  sprintf(buffer, "            MINIMAP  ");
   screen_area_puts(ge->minimap, buffer);
 
   for (i = 2; i >= 0; i--)

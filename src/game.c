@@ -210,14 +210,6 @@ STATUS game_copy(Game *dest_game, Game *org_game);
 /*PRIVATE AUXILIARY FUNCTIONS*/
 
 /**
- * @brief It gets the a unique Id for a new object
- * @author Diego Rodríguez Ortiz
- * @param game Pointer to the game that will be used
- * @return The id generated
- */
-Id game_get_unique_object_id(Game *game);
-
-/**
  * @brief It gets the Id of a link if exist from the space in a given direction
  * @author Diego Rodríguez Ortiz
  * @param game Pointer to the game that will be used

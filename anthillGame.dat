@@ -44,7 +44,7 @@
                 ENEMIES
 #e:2|Evil Spiderstick|-3|2|/\oo/\|
 #e:3|Malevolent Beeleaf|-3|3|-oBo:|
-#e:4|Merciless Mosquiwallnut|-3|3|[}vv{]|
+#e:4|Merciless Mosquiwalnut|-3|3|[}vv{]|
 #e:5|Cruel Centipelantern|-3|1|mmmmo:|
 
 
@@ -188,7 +188,6 @@
 #o:22|Stick2|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:23|Stick3|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:24|Stick4|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
-#o:25|Stick5|033|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
 
 
@@ -196,7 +195,6 @@
 #o:27|Leaf2|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
 #o:28|Leaf3|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
 #o:29|Leaf4|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:30|Leaf5|124|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
 #o:201|Boat_Sail|-1|Sails are essential for building ships!|0|1|-1|-1|0|0|
 
 
@@ -204,7 +202,6 @@
 #o:32|Walnut2|-3|Walnut shells can float!|0|1|-1|-1|0|0|
 #o:33|Walnut3|-3|Walnut shells can float!|0|1|-1|-1|0|0|
 #o:34|Walnut4|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:35|Walnut5|155|Walnut shells can float!|0|1|-1|-1|0|0|
 #o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
 
 
@@ -213,7 +210,6 @@
 
 #o:37|Lantern1|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 #o:38|Lantern2|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
-#o:39|Lantern3|234|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 
 #o:40|Key124-143|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
 #o:41|Key25-44|024|This key opens the door between 025 and 044|0|1|-1|025044|0|0|

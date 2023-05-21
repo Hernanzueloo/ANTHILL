@@ -763,6 +763,14 @@ int game_get_num_rules(Game *game);
 STATUS game_add_rule(Game *game, Rule *rule);
 
 /**
+ * @brief It gets the a unique Id for a new object
+ * @author Diego Rodríguez Ortiz
+ * @param game Pointer to the game that will be used
+ * @return The id generated
+ */
+Id game_get_unique_object_id(Game *game);
+
+/**
  * @brief It spawns random grounds
  * @author Diego Rodríguez Ortiz
  * @param game Pointer to the game that will be used
