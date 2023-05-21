@@ -335,7 +335,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Dump to the terminal */
   screen_paint();
-  printf("Write a command:> ");
+  printf("\033[0;37mWrite a command:> ");
 }
 
 void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
@@ -367,7 +367,7 @@ void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
   /* Dump to the terminal */
   screen_paint();
 
-  printf("Introduce the number:> ");
+  printf("\033[0;37mIntroduce the number:> ");
 }
 
 void graphic_engine_paint_win(Graphic_engine *ge, Game *game)
@@ -1792,9 +1792,9 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             strcat(buffer, "~ ");
           else if (m != game_get_num_enemies(game))
             strcat(buffer, "X ");
-          else if (!strcmp("Harbour", space_get_name(space)))
+          else if (!strcmp(HARBOUR, space_get_name(space)))
             strcat(buffer, "H ");
-          else if (!strcmp("The Workshop", space_get_name(space)))
+          else if (!strcmp(WORKSHOP, space_get_name(space)))
             strcat(buffer, "W ");
           else
             strcat(buffer, "* ");
