@@ -14,7 +14,7 @@
 #include "libscreen.h"
 
 #define MAX_AREAS 10
-#define LIB_SIZE 8
+#define LIB_SIZE 1000
 
 #define BLANK "                                                                                                                                                                                                        "
 

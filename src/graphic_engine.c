@@ -948,8 +948,8 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
 }
 void _paint_map_init(Graphic_engine *ge, Game *game)
 {
-  char buffer[WORD_SIZE];
-  int i;
+  char aux[WORD_SIZE], buffer[WORD_SIZE];
+  int i, j;
   char ascii_map[MAP_HEIGHT][MAP_WIDTH + 1] = {
       "     ",
       "     ",
@@ -992,7 +992,15 @@ void _paint_map_init(Graphic_engine *ge, Game *game)
 
   for (i = 0; i < MAP_HEIGHT; i++)
   {
-    sprintf(buffer, "%s", ascii_map[i]);
+    buffer[0] = '\0';
+    for (j = 0; j < strlen(ascii_map[i]); j++)
+    {
+      if (ascii_map[i][j] == '~')
+        sprintf(aux, "~");
+      else
+        sprintf(aux, "%c", ascii_map[i][j]);
+      strcat(buffer, aux);
+    }
     screen_area_puts(ge->map, buffer);
   }
 }
@@ -1750,7 +1758,7 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
 void _paint_minimap(Graphic_engine *ge, Game *game)
 {
   int i, j, k, m;
-  char buffer[WORD_SIZE];
+  char buffer[WORD_SIZE], aux[WORD_SIZE];
   Id Loc;
   Space *space;
 
@@ -1783,25 +1791,34 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
         if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
         {
           if (Loc == i * 100 + k * 10 + j)
-            strcat(buffer, "O ");
+            sprintf(aux, "O ");
           else if (space_get_flooded(space) == SUNK)
-            strcat(buffer, "  ");
+            sprintf(aux, "  ");
           else if (space_get_light(space) == FALSE)
-            strcat(buffer, FOREGROUND(74,0,255) BACKGROUND(50,50,50)"?"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
+          {
+            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50) "?");
+            strcat(buffer, aux);
+            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
+          }
           else if (space_get_flooded(space) == FLOODED)
-            strcat(buffer, FOREGROUND(74,0,255) BACKGROUND(0,150,255)"~"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
+          {
+            sprintf(aux, FOREGROUND(74, 0, 255) BACKGROUND(0, 150, 255) "~");
+            strcat(buffer, aux);
+            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
+          }
           else if (m != game_get_num_enemies(game))
-            strcat(buffer, FOREGROUND(255,50,50)"X"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
+            sprintf(aux, FOREGROUND(255, 50, 50) "X" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (!strcmp(HARBOUR, space_get_name(space)))
-            strcat(buffer, "H ");
+            sprintf(aux, "H ");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
-            strcat(buffer, "W ");
+            sprintf(aux, "W ");
           else
-            strcat(buffer, "* ");
+            sprintf(aux, "* ");
+          strcat(buffer, aux);
         }
         else
           strcat(buffer, "  ");
-          /*strcat(buffer, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"  "FOREGROUND(0,0,0) BACKGROUND(253,253,252));*/
+        /*strcat(buffer, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"  "FOREGROUND(0,0,0) BACKGROUND(253,253,252));*/
       }
       strcat(buffer, "|");
       screen_area_puts(ge->minimap, buffer);
