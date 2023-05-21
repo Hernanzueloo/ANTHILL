@@ -55,6 +55,15 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename);
 STATUS game_management_load_enemy(Game *game, char *filename);
 
 /**
+ * @brief given a file and a pointer to the game it sets a random location to the enemies
+ * @author Alejandro García Hernando
+ * @param game pointer to the game
+ * @param filename name to the file
+ * @return OK, if everything goes well or ERROR if there was some mistake
+ */
+STATUS game_management_set_random_enemies(Game *game);
+
+/**
  * @brief given a file and a pointer to the game it loads the objects from the file onto the game
  * @author Alejandro García Hernando
  * @param game pointer to the game
@@ -411,7 +420,7 @@ STATUS game_management_load_spaces(Game *game, char *filename)
   free(gdesc);
 
   fclose(file);
-  
+
   return game_management_set_dark_spaces(game, filename);
 }
 
@@ -444,20 +453,21 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename)
     if (strncmp("#G:", line, 3) == 0)
     {
       /*Proportion of dark spaces*/
-      toks = strtok(line + 3, "|");     
-      if(!(toks = strtok(NULL, "|")))
+      toks = strtok(line + 3, "|");
+      if (!(toks = strtok(NULL, "|")))
         return OK;
       break;
     }
   }
-  
+
   propSpaces = atof(toks);
 
-  for(i=0; game_get_space_id_at(game, i)!=NO_ID; i++);
-  nSpaces=i*propSpaces;
+  for (i = 0; game_get_space_id_at(game, i) != NO_ID; i++)
+    ;
+  nSpaces = i * propSpaces;
 
-  spacesIds=game_get_rand_space_id(game, nSpaces);
-  for(i=0; i<nSpaces; i++)
+  spacesIds = game_get_rand_space_id(game, nSpaces);
+  for (i = 0; i < nSpaces; i++)
     (void)space_set_light(game_get_space(game, spacesIds[i]), FALSE);
 
   free(spacesIds);
@@ -477,7 +487,6 @@ STATUS game_management_load_enemy(Game *game, char *filename)
   char *toks = NULL, edesc[WORD_SIZE];
   Id id = NO_ID, location = NO_ID, health = NO_ID;
   Enemy *enemy = NULL;
-  STATUS status = OK;
 
   if (game == NULL || filename == NULL)
   { /*Error control*/
@@ -543,14 +552,34 @@ STATUS game_management_load_enemy(Game *game, char *filename)
     }
   }
 
-  if (ferror(file))
-  {
-    status = ERROR;
-  }
-
   fclose(file);
 
-  return status;
+  return game_management_set_random_enemies(game);
+}
+
+/**
+ * Sets the dark spaces in the given proportion
+ */
+STATUS game_management_set_random_enemies(Game *game)
+{
+  int i, nEn;
+  Id *spacesIds;
+
+  if (game == NULL)
+    return ERROR;
+
+  for (nEn = 0; game_get_enemy_id_at(game, nEn) != NO_ID; nEn++)
+    ;
+
+  spacesIds = game_get_rand_space_id(game, nEn);
+
+  for (i = 0; i < nEn; i++)
+    if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, i))) == RANDLOC)
+      (void)enemy_set_location(game_get_enemy(game, game_get_enemy_id_at(game, i)), spacesIds[i]);
+
+  free(spacesIds);
+
+  return OK;
 }
 
 /**

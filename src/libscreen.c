@@ -184,7 +184,7 @@ int screen_multibyte_move(char *str, int x){
 }
 
 void screen_paint(){
-  int i, j, k, i_area, n_char;
+  int i, j, i_area, n_char;
 
   for (i = 0; i < screen.rows; i++){
     for (j = 0; j < screen.columns; j++){
@@ -193,20 +193,12 @@ void screen_paint(){
         if (screen.area[i_area]->x == j && i >= screen.area[i_area]->y && i < screen.area[i_area]->y + screen.area[i_area]->height){
           printf(FOREGROUND(0,0,0) BACKGROUND(253,253,252));
           n_char = screen_multibyte_strlen(screen.area[i_area]->character_array[i - screen.area[i_area]->y]);
-          for (k=0; k<strlen(screen.area[i_area]->character_array[i - screen.area[i_area]->y]); k++){
-            if(screen.area[i_area]->character_array[i - screen.area[i_area]->y][k]=='~')
-              printf(FOREGROUND(74,0,255) BACKGROUND(0,150,255) "%c", screen.area[i_area]->character_array[i - screen.area[i_area]->y][k]);
-            else if(screen.area[i_area]->character_array[i - screen.area[i_area]->y][k]=='?')
-              printf(FOREGROUND(74,0,255) BACKGROUND(50,50,50) "%c", screen.area[i_area]->character_array[i - screen.area[i_area]->y][k]);
-            else
-              printf(FOREGROUND(0,0,0) BACKGROUND(255,255,255)"%c", screen.area[i_area]->character_array[i - screen.area[i_area]->y][k]);
-          }
-          printf(FOREGROUND(0,0,0) "%.*s" RESET, screen.area[i_area]->width - n_char, BLANK);
+          printf(FOREGROUND(0,0,0) "%.*s%.*s" RESET, (int) strlen(screen.area[i_area]->character_array[i - screen.area[i_area]->y]), screen.area[i_area]->character_array[i - screen.area[i_area]->y],screen.area[i_area]->width - n_char, BLANK);
           j = j + screen.area[i_area]->width - 1;
           break;
         }
       }
-      /*Fondo*/ 
+      /* Caso no area      azul : 28,152,243 rosa sus: 250,164,189*/ 
       if (i_area == screen.n_areas){
         printf(BACKGROUND(104,104,104));
         printf(" ");

@@ -289,7 +289,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Paint in the description area */
   screen_area_clear(ge->descript);
-  sprintf(str, "                 DESCRIPTION:  ");
+  sprintf(str, "                 DESCRIPTION  ");
   screen_area_puts(ge->descript, str);
   screen_area_puts(ge->descript, " ");
   if (game_get_num_commands_till_flood(game) != -1)
@@ -1760,7 +1760,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
   Loc = player_get_location(game_get_player(game));
   screen_area_clear(ge->minimap);
 
-  sprintf(buffer, "          MINIMAP:  ");
+  sprintf(buffer, "          MINIMAP  ");
   screen_area_puts(ge->minimap, buffer);
 
   for (i = 2; i >= 0; i--)
@@ -1787,11 +1787,11 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
           else if (space_get_flooded(space) == SUNK)
             strcat(buffer, "  ");
           else if (space_get_light(space) == FALSE)
-            strcat(buffer, "? ");
+            strcat(buffer, FOREGROUND(74,0,255) BACKGROUND(50,50,50)"?"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
           else if (space_get_flooded(space) == FLOODED)
-            strcat(buffer, "~ ");
+            strcat(buffer, FOREGROUND(74,0,255) BACKGROUND(0,150,255)"~"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
           else if (m != game_get_num_enemies(game))
-            strcat(buffer, "X ");
+            strcat(buffer, FOREGROUND(255,50,50)"X"FOREGROUND(0,0,0) BACKGROUND(253,253,252)" ");
           else if (!strcmp(HARBOUR, space_get_name(space)))
             strcat(buffer, "H ");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
@@ -1801,6 +1801,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
         }
         else
           strcat(buffer, "  ");
+          /*strcat(buffer, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"  "FOREGROUND(0,0,0) BACKGROUND(253,253,252));*/
       }
       strcat(buffer, "|");
       screen_area_puts(ge->minimap, buffer);
