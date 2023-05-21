@@ -19,6 +19,23 @@
  */
 typedef struct _Object Object;
 
+#define N_OBJ_TYPES 7 /*!< Number of object types*/
+
+/**
+ * @brief Object types
+ */
+typedef enum enum_ObjectType
+{
+    NO_OTYPE=-1,
+    STICK,          /*!<Stick type */
+    LEAF,          /*!<Leaf type */
+    WALNUT,        /*!<Walnut type */
+    KEY,            /*!<Key type */
+    GOLDKEY,        /*!<Goldkey type */
+    LANTERN,        /*!<Lantern type */
+    SPECIAL         /*!<Special type */
+} T_ObjectType;
+
 /**
  * @brief It creates a new object, allocating memory and initializing its members
  * @author David Brenchley Uriol
@@ -149,6 +166,23 @@ STATUS object_set_open(Object *obj, Id open);
 Id object_get_open(Object *obj);
 
 /**
+ * @brief  It dets the type of the object
+ * @author Alejandro García
+ * @param object A pointer to the object
+ * @param type A object type
+ * @return OK, if everything goes well or ERROR if there was some mistake
+ */
+STATUS object_set_type(Object *object, T_ObjectType type);
+
+/**
+ * @brief  It gets the type of the object
+ * @author Alejandro García
+ * @param object A pointer to the object
+ * @return The object type
+ */
+T_ObjectType object_get_type(Object *object);
+
+/**
  * @brief It sets if the object can illuminate
  * @author Alejandro García
  * @param obj A pointer to the object
@@ -208,5 +242,13 @@ STATUS object_set_tdesc(Object *obj, char * tdescr);
  * @return OK, if everything goes well or ERROR if there was some mistake
  */
 STATUS object_print(Object *obj, FILE *file);
+
+/**
+ * @brief It translates the object type
+ * @author Diego Rodriguez
+ * @param obj object type
+ * @return a string with the object name
+ */
+char* object_translate_object_type_to_string(T_ObjectType obj);
 
 #endif

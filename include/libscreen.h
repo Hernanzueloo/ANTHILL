@@ -11,10 +11,19 @@
 #ifndef __LIBSCREEN_H_
 #define __LIBSCREEN_H_
 
-
 #define BACKGROUND(r,g,b) "\x1B[48;2;" #r ";" #g ";" #b "m"
 #define FOREGROUND(r,g,b) "\x1B[38;2;" #r ";" #g ";" #b "m"
-#define RESET FOREGROUND(0,0,0) BACKGROUND(0,0,0)
+/*#define RESET FOREGROUND(0,0,0) BACKGROUND(253,253,252)*/
+
+/**
+ * @brief Color structure
+ *
+ * This struct stores all the information of an color.
+ */
+typedef struct {
+  int r, g, b;    /*!< Color represented in RGB format */
+                        
+} Color;
 
 /**
   * @brief Screen area for displaying information
@@ -30,8 +39,11 @@ typedef struct _Area Area;
   *  so the complete screen is allocated before starting defining areas.
   * @param rows the number of rows that will have the full screen
   * @param columns the number of columns that will have the full screen
+  * @param area_foreground foreground color of the areas
+  * @param area_background background color of the areas
+  * @param screen_background background color of the screen
   */
-void screen_init(int rows, int columns);
+void screen_init(int rows, int columns, Color area_foreground, Color area_background, Color screen_background);
 
 /**
   * @brief It destroys a new screen area
@@ -76,6 +88,29 @@ Area *screen_area_init(int x, int y, int width, int height);
 void screen_area_destroy(Area *area);
 
 /**
+  * @brief It sets the foreground color of the areas
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param color the color to set
+  */
+void screen_set_area_foreground_color(Color color);
+
+/**
+  * @brief It sets the background color of the areas
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param color the color to set
+  */
+void screen_set_area_background_color(Color color);
+
+/**
+  * @brief It sets the background color of the screen
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param color the color to set
+  */
+void screen_set_screen_background_color(Color color);
+/**
   * @brief It cleares an area, eraising all its content
   * @author Pablo Fernández y Pablo Pérez
   *
@@ -86,13 +121,14 @@ void screen_area_destroy(Area *area);
 void screen_area_clear(Area *area);
 
 /**
-  * @brief It resets the cursor of an area
+  * @brief It sets the cursor of an area
   * @author Pablo Fernández y Pablo Pérez
   *
   * This function reset the cursor to the up-left corner of the area.
   * @param area the involved area
+  * @param new_cursor an integer indicating the new cursor
   */
-void screen_area_reset_cursor(Area *area);
+void screen_area_set_cursor(Area *area, int new_cursor);
 
 /**
   * @brief It introduces some information inside an area
@@ -122,5 +158,23 @@ int screen_multibyte_strlen(char *str);
   * @return the size (bytes) of moving x positions in the array
   */
 int screen_multibyte_move(char *str, int x);
+
+/**
+  * @brief It prints a background color code into a string 
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param color the color to print
+  * @return the bytes/characters printed or -1 if an error ocurred
+  */
+int screen_sprint_background_color_code(char *str, Color color);
+
+/**
+  * @brief It prints a foreground color code into a string 
+  * @author Pablo Fernández y Pablo Pérez
+  *
+  * @param color the color to print
+  * @return the bytes/characters printed or -1 if an error ocurred
+  */
+int screen_sprint_foreground_color_code(char *str, Color color);
 
 #endif

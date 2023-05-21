@@ -28,10 +28,32 @@ struct _Object
     BOOL movable;             /*!< Boolean that states if the object is movable or not*/
     Id dependency;            /*!< Id of the pointer it dependson*/
     Id open;                  /*!< Boolean that states if the object can open links or not*/
+    T_ObjectType type;         /*!< Object type*/
     BOOL illuminate;          /*!< Boolean that states if the object can light up spaces or not*/
     BOOL turnedon;            /*!< Boolean that states if the object is turned on or not*/
     char *tdescr;             /*!< Pointer that will hold textual description*/
 };
+
+
+/**
+ * @brief Array of possible object types
+ */
+char *object_type_to_str[N_OBJ_TYPES+1] = {"no object type",
+                                  "Stick",
+                                  "Leaf",
+                                  "Walnut",
+                                  "Key",
+                                  "Goldkey",
+                                  "Lantern",
+                                  "Special"};
+
+/**
+ * @brief It yranslates a sting into a object type
+ * @author Diego Rodríguez
+ * @param object_name a string to the object type name
+ * @return The object type
+ */
+T_ObjectType object_translate_object_type(char *object_name);
 
 Object *object_create(Id id)
 {
@@ -83,7 +105,7 @@ STATUS object_set_name(Object *obj, char *name)
     if (strcpy(obj->name, name) == 0)
         return ERROR;
 
-    return OK;
+    return object_set_type(obj,object_translate_object_type(name));
 }
 
 char *object_get_name(Object *obj)
@@ -180,6 +202,24 @@ Id object_get_open(Object *object)
     return object->open;
 }
 
+STATUS object_set_type(Object *object, T_ObjectType type)
+{
+    if (object == NULL)
+        return ERROR;
+
+    object->type = type;
+
+    return OK;
+}
+
+T_ObjectType object_get_type(Object *object)
+{
+    if (object == NULL)
+        return NO_ID;
+
+    return object->type;
+}
+
 STATUS object_set_illuminate(Object *object, BOOL illuminate)
 {
     if (object == NULL)
@@ -262,4 +302,32 @@ STATUS object_print(Object *obj, FILE *file)
     }
 
     return OK;
+}
+
+T_ObjectType object_translate_object_type(char *object_name)
+{
+    T_ObjectType otype = NO_OTYPE;
+    int i = 0;
+    if (!object_name)
+        return otype;
+
+    while (otype == NO_OTYPE && i < N_OBJ_TYPES)
+    {
+        if (!strncasecmp(object_name, object_type_to_str[i], strlen(object_name)))
+            otype = i - NO_OTYPE;
+        i++;
+    }
+
+    if(!strncasecmp(BOAT, object_type_to_str[i],strlen(BOAT))){
+        otype = SPECIAL;
+    }else if(!strncasecmp("Boat", object_type_to_str[i],4)){
+         otype = SPECIAL;
+    }
+
+    return otype;
+}
+
+
+char * object_translate_object_type_to_string(T_ObjectType obj){
+    return object_type_to_str[obj+NO_OTYPE];
 }

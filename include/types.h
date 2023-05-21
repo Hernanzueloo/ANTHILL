@@ -58,7 +58,7 @@
 
 #define HARBOUR "Harbour"    /*!<Name of the harbour*/
 
-#define PROB_VICT_ATACK 7 /*!<Probability of attacking an enemy succesfully (1 to 10)*/
+#define PROB_VICT_ATACK 6 /*!<Probability of attacking an enemy succesfully (1 to 10)*/
 
 #define MAX_GROUND 10  /*!<Maximum number of grounds to be spawned*/
 

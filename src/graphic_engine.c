@@ -33,7 +33,7 @@
 
 #define MAP_X AREA_WALL_V /*!<x coordinates of the upper left part of the map area*/
 #define MAP_Y AREA_WALL_H /*!<y coordinates of the upper left part of the map area*/
-#define MAP_WIDTH 75      /*!<Width of the map area*/
+#define MAP_WIDTH 76      /*!<Width of the map area*/
 #define MAP_HEIGHT 36     /*!<Hight of the map area*/
 
 #define DESCRIPT_X (MAP_X + MAP_WIDTH + 2 * AREA_WALL_V)                       /*!<x coordinates of the upper left part of the descript area*/
@@ -60,6 +60,43 @@
 #define MINIMAP_Y DESCRIPT_Y                                                                             /*!<y coordinates of the upper left part of the minimap area*/
 #define MINIMAP_WIDTH 30                                                                                 /*!<Width of the minimap area*/
 #define MINIMAP_HEIGHT DESCRIPT_HEIGHT + BANNER_HEIGHT + HELP_HEIGHT + FEEDBACK_HEIGHT + 2 * AREA_WALL_H /*!<Hight of the minimap area*/
+
+/* NEW LIBSCREEN MACROS */
+#define MULTIBYTE 16
+#define SPACES_TO_PRINT 20
+#define TAMENEMY 6
+
+#define LINK_WIDTH 1    /*!< Width (in characters) of a link frame */
+#define LINK_HEIGHT 1   /*!< Height (in characters) of a link frame */
+#define VLINK_WIDTH 4   /*!< Width (in characters) of a vertical (north and south) link */
+#define H_LINK_HEIGHT 3 /*!< Width (in characters) of a horizontal (east and west) link */
+
+/* Characters */
+
+#define BLANK "                                                                                                    "  /*!< Blank character */
+#define H_LINE "────────────────────────────────────────────────────────────────────────────────────────────────────" /*!< Horizontal line character */
+#define DIAG "╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱"   /*!< Diagonal line character */
+
+#define V_LINE "│"      /*!< Vertical line character */
+#define UP_R_CORNER "┌" /*!< Upper-right corner character */
+#define UP_L_CORNER "┐" /*!< Upper-left corner character */
+#define DW_R_CORNER "└" /*!< Down-right corner character */
+#define DW_L_CORNER "┘" /*!< Down-left corner character */
+#define UP_ARROW "^"    /*!< Up arrow character */
+#define DW_ARROW "v"    /*!< Down arrow character */
+#define CROSS "X"       /*!< Cross character */
+#define UP_T "┴"        /*!< Up-pointing T character */
+#define DW_T "┬"        /*!< Down-pointing T character */
+#define LF_T "┤"        /*!< Left-pointing T character */
+#define RG_T "├"        /*!< Right-pointing T character */
+#define ONE_H_LINE "─"  /*!< Single horizontal line character */
+#define ONE_BLANK " "   /*!< Silgle blank character */
+
+/* COLORS */
+#define B_BLACK BACKGROUND(0, 0, 0)       /*!< Black background color */
+#define F_BLACK FOREGROUND(0, 0, 0)       /*!< Black foreground color */
+#define B_WHITE BACKGROUND(253, 253, 252) /*!< White background color */
+#define F_WHITE FOREGROUND(253, 253, 252) /*!< White foreground color */
 
 static char **black;
 static char **flooded;
@@ -183,6 +220,14 @@ void _paint_minimap(Graphic_engine *ge, Game *game);
 void _paint_feedback_dialogue(Graphic_engine *ge, Game *game);
 
 /**
+ * @brief Paints the inventory
+ * @author Diego Rodriguez
+ * @param ge Pointer to graphical descriptor
+ * @param game Pointer to game
+ */
+void _paint_inventory(Graphic_engine *ge, Game *game);
+
+/**
  * @brief Graphic_engine
  *
  * This struct stores all the information of the graphics engine.
@@ -238,7 +283,11 @@ Graphic_engine *graphic_engine_create()
     flooded[i][GRAPHIC_COLS] = '\0';
   }
 
-  screen_init(ROWS, COLUMNS);
+  Color area_background = {255, 255, 255};
+  Color area_foreground = {0, 0, 0};
+  Color screen_foreground = {104, 104, 104};
+
+  screen_init(ROWS, COLUMNS, area_foreground, area_background, screen_foreground);
   ge = (Graphic_engine *)malloc(sizeof(Graphic_engine));
   if (ge == NULL)
     return NULL;
@@ -558,13 +607,17 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
     screen_area_puts(ge->descript, str);
 
     sprintf(str, " - Player objects:");
+    screen_area_puts(ge->descript, str);
+    _paint_inventory(ge, game);
+
+    /*
     if ((objs_ids = game_get_player_objects(game, &num_objs)) != NULL)
     {
 
       for (i = 0; i < num_objs; i++)
       {
         obj_id = objs_ids[i];
-        if ((obj_loc = game_get_object_location(game, obj_id)) == ON_PLAYER) /*Comprobación redundante*/
+        if ((obj_loc = game_get_object_location(game, obj_id)) == ON_PLAYER)
         {
           obj_name = game_get_object_name(game, obj_id);
           sprintf(aux, " %s", obj_name);
@@ -584,7 +637,7 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
       sprintf(aux, " NONE");
       strcat(str, aux);
     }
-    screen_area_puts(ge->descript, str);
+    screen_area_puts(ge->descript, str);*/
   }
 
   sprintf(str, " ");
@@ -950,58 +1003,91 @@ void _paint_map_init(Graphic_engine *ge, Game *game)
 {
   char aux[WORD_SIZE], buffer[WORD_SIZE];
   int i, j;
-  char ascii_map[MAP_HEIGHT][MAP_WIDTH + 1] = {
-      "     ",
-      "     ",
-      "                         _______              ______  ",
-      "       //\\\\   ||\\\\  ||     ||      ||    ||     ||    ||      ||",
-      "      //__\\\\  || \\\\ ||     ||      ||____||     ||    ||      ||",
-      "     //    \\\\ ||  \\\\||     ||      ||    ||   __||__  ||____  ||___",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "                   |>              ",
-      "                   |               ",
-      "                  /|\\              ",
-      "                 /.| \\             ",
-      "                /^^|^^\\            ",
-      "        _______/___|___\\_mmo^__    ",
-      "~~~~~~~~\\...................../~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+  char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "                         _______              ______  ",
+      BACKGROUND(140, 231, 250) "       //\\\\   ||\\\\  ||     ||      ||    ||     ||    ||      ||",
+      BACKGROUND(140, 231, 250) "      //__\\\\  || \\\\ ||     ||      ||____||     ||    ||      ||",
+      BACKGROUND(140, 231, 250) "     //    \\\\ ||  \\\\||     ||      ||    ||   __||__  ||____  ||___",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "     ",
+      BACKGROUND(140, 231, 250) "                   |>              ",
+      BACKGROUND(140, 231, 250) "                   |               ",
+      BACKGROUND(140, 231, 250) "                  " BACKGROUND(255, 255, 255) "/|\\" BACKGROUND(140, 231, 250) "              ",
+      BACKGROUND(140, 231, 250) "                 " BACKGROUND(255, 255, 255) "/.| \\" BACKGROUND(140, 231, 250) "             ",
+      BACKGROUND(140, 231, 250) "                " BACKGROUND(255, 255, 255) "/^^|^^\\" BACKGROUND(140, 231, 250) "            ",
+      BACKGROUND(140, 231, 250) "        _______" BACKGROUND(255, 255, 255) "/___|___\\" BACKGROUND(140, 231, 250) "_mmo^__    ",
+      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
 
   screen_area_clear(ge->map);
 
   for (i = 0; i < MAP_HEIGHT; i++)
+    screen_area_puts(ge->map, ascii_map[i]);
+}
+
+void _paint_inventory(Graphic_engine *ge, Game *game)
+{
+  int i, f = 0, n, count[N_OBJ_TYPES + 1] = {0};
+  char aux[WORD_SIZE] = "";
+  Id *objs;
+  Object *obj;
+
+  if (!ge || !game)
   {
-    buffer[0] = '\0';
-    for (j = 0; j < strlen(ascii_map[i]); j++)
+    return;
+  }
+  objs = game_get_player_objects(game, &n);
+
+  for (i = 0; i < n; i++)
+  {
+    obj = game_get_object(game, objs[i]);
+
+    if (object_get_type(obj) == SPECIAL)
     {
-      if (ascii_map[i][j] == '~')
-        sprintf(aux, "~");
-      else
-        sprintf(aux, "%c", ascii_map[i][j]);
-      strcat(buffer, aux);
+      sprintf(aux, "-%s ", object_get_name(obj));
+      screen_area_puts(ge->descript, aux);
     }
-    screen_area_puts(ge->map, buffer);
+    else
+    {
+      count[object_get_type(obj)]++;
+    }
+  }
+
+  for (i = 0; i < N_OBJ_TYPES+2; i++)
+  {
+    if (count[i] != 0)
+    {
+      f = 1;
+      sprintf(aux, "-%s: %d ", object_translate_object_type_to_string(i), count[i]);
+      screen_area_puts(ge->descript, aux);
+    }
+  }
+  if (f == 0)
+  {
+    sprintf(aux, " NONE");
+    screen_area_puts(ge->descript, aux);
   }
 }
 
@@ -1110,6 +1196,29 @@ void _paint_map_lose(Graphic_engine *ge, Game *game)
     else
       sprintf(buffer, "%s", ascii_map[i]);
     screen_area_puts(ge->map, buffer);
+  }
+}
+
+void graphic_engine_sprint_empty(char (*str_array)[MAP_WIDTH * MULTIBYTE + 1], int height, int width)
+{
+  int i, j;
+  /* Error control */
+  if (str_array == NULL || width <= 0 || height <= 0)
+  {
+#ifdef DEBUG
+    fprintf(stderr, "Error in graphic engine sprint empty: invalid parameters\n");
+#endif
+    return;
+  }
+
+  /* Sprints spaces into an string array */
+  for (i = 0; i < height; i++)
+  {
+    for (j = 0; j < width - 1; j++)
+    {
+      str_array[i][j] = ' ';
+    }
+    str_array[i][j] = '\0';
   }
 }
 
@@ -1505,7 +1614,6 @@ void _paint_map(Graphic_engine *ge, Game *game)
 
         if (enmy_id == NO_ID || i == MAX_ENEMIES)
         {
-
           for (i = 0; i < enum_objs; i++)
           {
             if (space_get_light(space_east) && !object_get_hidden(game_get_object(game, eobjs_ids[i])))
@@ -1802,7 +1910,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
           }
           else if (space_get_flooded(space) == FLOODED)
           {
-            sprintf(aux, FOREGROUND(74, 0, 255) BACKGROUND(0, 150, 255) "~");
+            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~");
             strcat(buffer, aux);
             sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           }

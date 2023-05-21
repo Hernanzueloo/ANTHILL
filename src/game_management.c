@@ -594,13 +594,13 @@ STATUS game_management_set_random_enemies(Game *game)
     
     sprintf(name, "%s", enemy_get_name(game_get_enemy(game, game_get_enemy_id_at(game, i))));
     if(strstr(name, "walnut") != NULL)
-      strcpy(name, "WalnutE");
+      strcpy(name, "Walnut");
     if(strstr(name, "leaf") != NULL)
-      strcpy(name, "LeafE");
+      strcpy(name, "Leaf");
     if(strstr(name, "stick") != NULL)
-      strcpy(name, "StickE");
+      strcpy(name, "Stick");
     if(strstr(name, "lantern") != NULL)
-      strcpy(name, "LanternE");
+      strcpy(name, "Lantern");
     
     (void)object_set_name(obj, name);
     

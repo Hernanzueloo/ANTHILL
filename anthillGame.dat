@@ -3,7 +3,7 @@
 
 
                 PLAYER
-#p:1|Segismundo Eduardo de todos los Santos|065|6|6|0|
+#p:1|Segismundo Eduardo de todos los Santos|065|60|60|0|
 
 
                 SPACES
@@ -18,8 +18,8 @@
 #s:046|Cave of Embers|1|0| ____________ |/            \|l a  o       l|l bc  __  o  l|l de [ ]  o8 l|\____________/  |Glowing, fiery cave|The Cave of Embers is a mysterious cavern filled with a warm, fiery glow from flickering embers, providing an enchanting yet dangerous atmosphere. |
 #s:054|The Crossroads|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
 #s:055|Cave of Shadows|1|0| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
-#s:065|The Workshop|1|0|  __________  | /    o     \ |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
-
+#s:065|The Workshop|1|0|  __________  | /     o     \  |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
+ʕ•́ᴥ•̀ʔ
 #s:123|Dunes of Deception|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Suspicious and shifting, misleading dunes|The Dunes of Deception are vast, seemingly endless sand dunes that shift and change, making navigation and finding the way out a challenging endeavor.|
 #s:124|Haze Gardens|1|0|             _|          __[ |       __[    |    __[       | __[     down |[              |Misty, mysterious garden|The Haze Gardens is an ethereal, mist-filled garden where plants thrive in the damp environment, and the ever-present haze creates an air of mystery.|
 #s:133|Black Tree|1|0| ____________ |l  ______  __l|l_/  lo \/o  l|l__/ l___\_  l|l  ________/ l|\____________/|Dark, imposing tree|The Black Tree is an enigmatic and towering tree with dark bark, which seems to absorb all light around it, giving off an eerie and ominous presence.|
@@ -184,44 +184,44 @@
 #l:143124|Hidden_staircase|143|124|0|1|
 
                  OBJECTS
-#o:21|Stick1|-3|Sticks are useful for building ship masts.|0|1|-1|0|
-#o:22|Stick2|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
-#o:23|Stick3|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
-#o:24|Stick4|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:21|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|0|
+#o:22|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:23|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:24|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:26|Leaf1|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:27|Leaf2|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:28|Leaf3|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:29|Leaf4|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:26|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:27|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:28|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:29|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
 #o:201|Boat_Sail|-1|Sails are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:31|Walnut1|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:32|Walnut2|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:33|Walnut3|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:34|Walnut4|-3|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:31|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:32|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:33|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:34|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
 #o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
 
 
 #o:203|ANTBOAT|-1|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
 
 
-#o:37|Lantern1|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
-#o:38|Lantern2|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
+#o:37|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
+#o:38|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 
 #o:40|Key124-143|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
 #o:41|Key25-44|024|This key opens the door between 025 and 044|0|1|-1|025044|0|0|
 
-#o:51|Goldkey1|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
-#o:52|Goldkey2|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
-#o:53|Goldkey3|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
+#o:51|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
+#o:52|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
+#o:53|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
 #o:204|Magicalkey|-1|The Magicalkey opens the magical entrance between the Workshop and the Harbour!|0|1|-1|065233|0|0|
 
-#o:60|Rock1|045|An unmovable object|0|0|-1|-1|1|0|
-#o:61|Rock2|123|An unmovable object|0|0|-1|-1|1|0|
-#o:62|Rock3|233|An unmovable object|0|0|-1|-1|1|0|
+#o:60|Rock|045|An unmovable object|0|0|-1|-1|1|0|
+#o:61|Rock|123|An unmovable object|0|0|-1|-1|1|0|
+#o:62|Rock|233|An unmovable object|0|0|-1|-1|1|0|
 
                 RULES
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
