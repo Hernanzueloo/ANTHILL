@@ -14,7 +14,7 @@
 
 /*To change the map's sizes you only need to modify COLUMNS, ROWS,  BOX_COLS, BOX_ROWS, MAP_WIDTH,MAP_HEIGHT and MINIMAP_WIDTH accordingly and in unison*/
 
-#define COLUMNS 170 /*!< Number of screen colums for the game*/
+#define COLUMNS 172 /*!< Number of screen colums for the game*/
 #define ROWS 47     /*!< Number of screen rows for the game*/
 
 #define BOX_COLS 23 /*!< Number of columns for each representation of a space*/
@@ -58,7 +58,7 @@
 
 #define MINIMAP_X DESCRIPT_X + DESCRIPT_WIDTH + 2 * AREA_WALL_V                                          /*!<x coordinates of the upper left part of the minimap area*/
 #define MINIMAP_Y DESCRIPT_Y                                                                             /*!<y coordinates of the upper left part of the minimap area*/
-#define MINIMAP_WIDTH 30                                                                                 /*!<Width of the minimap area*/
+#define MINIMAP_WIDTH 32                                                                                 /*!<Width of the minimap area*/
 #define MINIMAP_HEIGHT DESCRIPT_HEIGHT + BANNER_HEIGHT + HELP_HEIGHT + FEEDBACK_HEIGHT + 2 * AREA_WALL_H /*!<Hight of the minimap area*/
 
 /* NEW LIBSCREEN MACROS */
@@ -1075,7 +1075,7 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     }
   }
 
-  for (i = 0; i < N_OBJ_TYPES+2; i++)
+  for (i = 0; i < N_OBJ_TYPES + 2; i++)
   {
     if (count[i] != 0)
     {
@@ -1881,6 +1881,78 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
 
   for (i = 2; i >= 0; i--)
   {
+    sprintf(buffer, "          ");
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, " ");
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, "           Floor %d", i);
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, "          ");
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, "          ");
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, "    +----------------------+");
+    screen_area_puts(ge->minimap, buffer);
+    for (j = 1; j < 8; j++)
+    {
+      sprintf(buffer, "    | ");
+      for (k = 1; k < 8; k++)
+      {
+        for (m = 0; m < game_get_num_enemies(game); m++)
+          if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, m))) == (Id)i * 100 + k * 10 + j)
+            break;
+
+        if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
+        {
+          if (Loc == i * 100 + k * 10 + j)
+            sprintf(aux, FOREGROUND(50, 255, 50) BACKGROUND(0, 150, 0) " O ");
+          else if (space_get_flooded(space) == SUNK)
+            sprintf(aux, "  ");
+          else if (space_get_light(space) == FALSE)
+            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50) " ? ");
+          else if (space_get_flooded(space) == FLOODED)
+            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) " ~ ");
+          else if (m != game_get_num_enemies(game))
+            sprintf(aux, FOREGROUND(255, 50, 50) BACKGROUND(180, 0, 0) " X ");
+          else if (!strcmp(HARBOUR, space_get_name(space)))
+            sprintf(aux, FOREGROUND(128, 64, 0) BACKGROUND(0, 205, 255) " H ");
+          else if (!strcmp(WORKSHOP, space_get_name(space)))
+            sprintf(aux, FOREGROUND(108, 49, 52) BACKGROUND(128, 64, 0) " W ");
+          else
+            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(93, 64, 55) " * ");
+          strcat(buffer, aux);
+        }
+        else
+          strcat(buffer, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "   ");
+      }
+      strcat(buffer, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "|");
+      screen_area_puts(ge->minimap, buffer);
+    }
+    sprintf(buffer, "    +----------------------+");
+    screen_area_puts(ge->minimap, buffer);
+  }
+}
+
+/*
+
+void _paint_minimap(Graphic_engine *ge, Game *game)
+{
+  int i, j, k, m;
+  char buffer[WORD_SIZE], aux[WORD_SIZE];
+  Id Loc;
+  Space *space;
+
+  if (ge == NULL || game == NULL)
+    return;
+
+  Loc = player_get_location(game_get_player(game));
+  screen_area_clear(ge->minimap);
+
+  sprintf(buffer, "            MINIMAP  ");
+  screen_area_puts(ge->minimap, buffer);
+
+  for (i = 2; i >= 0; i--)
+  {
     sprintf(buffer, " ");
     screen_area_puts(ge->minimap, buffer);
     sprintf(buffer, "           Floor %d", i);
@@ -1899,34 +1971,25 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
         if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
         {
           if (Loc == i * 100 + k * 10 + j)
-            sprintf(aux, "O ");
+            sprintf(aux, FOREGROUND(50, 255, 50) BACKGROUND(0, 150, 0)"O" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (space_get_flooded(space) == SUNK)
             sprintf(aux, "  ");
           else if (space_get_light(space) == FALSE)
-          {
-            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50) "?");
-            strcat(buffer, aux);
-            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          }
+            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50)"?" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (space_get_flooded(space) == FLOODED)
-          {
-            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~");
-            strcat(buffer, aux);
-            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          }
+            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (m != game_get_num_enemies(game))
-            sprintf(aux, FOREGROUND(255, 50, 50) "X" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
+            sprintf(aux, FOREGROUND(255, 50, 50) BACKGROUND(180, 0, 0)"X" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (!strcmp(HARBOUR, space_get_name(space)))
-            sprintf(aux, "H ");
+            sprintf(aux, FOREGROUND(128, 64, 0) BACKGROUND(0, 205, 255)"H" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
-            sprintf(aux, "W ");
+            sprintf(aux, FOREGROUND(108, 49, 52) BACKGROUND(128, 64, 0)"W" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           else
-            sprintf(aux, "* ");
+            sprintf(aux, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"*" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
           strcat(buffer, aux);
         }
         else
           strcat(buffer, "  ");
-        /*strcat(buffer, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"  "FOREGROUND(0,0,0) BACKGROUND(253,253,252));*/
       }
       strcat(buffer, "|");
       screen_area_puts(ge->minimap, buffer);
@@ -1935,3 +1998,5 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
     screen_area_puts(ge->minimap, buffer);
   }
 }
+
+*/

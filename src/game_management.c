@@ -644,9 +644,7 @@ STATUS game_management_load_objects(Game *game, char *filename)
   BOOL hidden, movable, illuminate, turnedon;
 
   if (game == NULL || filename == NULL)
-  { /*Error control*/
     return ERROR;
-  }
 
   file = fopen(filename, "r");
   if (file == NULL)
