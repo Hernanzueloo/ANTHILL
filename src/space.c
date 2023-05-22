@@ -27,7 +27,7 @@ struct _Space
   char *idescr;             /*!< Pointer that will hold the detailed textual description*/
   char **gdesc;             /*!< Pointer of the array that will store the graphical descriptor*/
   BOOL light;               /*!< Boolean that states if the space has its on light or not*/
-  SSTATUS flooded;               /*!< SSTATUS that states if the space has its safe, flooded or sunk*/
+  SSTATUS flooded;          /*!< SSTATUS that states if the space has its safe, flooded or sunk*/
 };
 
 /*PRIVATE FUNCTION*/

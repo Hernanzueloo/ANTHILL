@@ -1431,7 +1431,9 @@ void _paint_map(Graphic_engine *ge, Game *game)
 
         if (id_west != NO_ID)
         {
-          if (wgdesc != NULL)
+          /*if (space_get_flooded(space_west) == FLOODED)
+            sprintf(aux, "|" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252)"%*c|", flooded[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
+          else*/ if (wgdesc != NULL)
             sprintf(aux, "|%s%*c|", wgdesc[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
           else
             sprintf(aux, "|%*c|", BOX_COLS - 2, ' ');
@@ -1719,8 +1721,6 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
     if (space_get_light(space_act))
     {
       gdesc = space_get_gdesc(space_act);
-      if (space_get_flooded(space_act) == FLOODED)
-        gdesc = flooded;
     }
     else
       gdesc = black;
@@ -1766,7 +1766,16 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
     }
 
     /*gdesc*/
-    if (gdesc != NULL)
+    /*if (space_get_flooded(space_act) == FLOODED)
+    {
+      gdesc = flooded;
+      for (i = 0; i < GRAPHIC_ROWS; i++)
+      {
+        sprintf(str, "%*c  |" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "%*c|", BOX_COLS, ' ', gdesc[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
+        screen_area_puts(ge->map, str);
+      }
+    }
+    else*/ if (gdesc != NULL)
     {
       for (i = 0; i < GRAPHIC_ROWS; i++)
       {
@@ -1932,71 +1941,3 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
     screen_area_puts(ge->minimap, buffer);
   }
 }
-
-/*
-
-void _paint_minimap(Graphic_engine *ge, Game *game)
-{
-  int i, j, k, m;
-  char buffer[WORD_SIZE], aux[WORD_SIZE];
-  Id Loc;
-  Space *space;
-
-  if (ge == NULL || game == NULL)
-    return;
-
-  Loc = player_get_location(game_get_player(game));
-  screen_area_clear(ge->minimap);
-
-  sprintf(buffer, "            MINIMAP  ");
-  screen_area_puts(ge->minimap, buffer);
-
-  for (i = 2; i >= 0; i--)
-  {
-    sprintf(buffer, " ");
-    screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, "           Floor %d", i);
-    screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, "    +---------------------+");
-    screen_area_puts(ge->minimap, buffer);
-    for (j = 0; j < 10; j++)
-    {
-      sprintf(buffer, "    | ");
-      for (k = 0; k < 10; k++)
-      {
-        for (m = 0; m < game_get_num_enemies(game); m++)
-          if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, m))) == (Id)i * 100 + k * 10 + j)
-            break;
-
-        if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
-        {
-          if (Loc == i * 100 + k * 10 + j)
-            sprintf(aux, FOREGROUND(50, 255, 50) BACKGROUND(0, 150, 0)"O" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else if (space_get_flooded(space) == SUNK)
-            sprintf(aux, "  ");
-          else if (space_get_light(space) == FALSE)
-            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50)"?" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else if (space_get_flooded(space) == FLOODED)
-            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else if (m != game_get_num_enemies(game))
-            sprintf(aux, FOREGROUND(255, 50, 50) BACKGROUND(180, 0, 0)"X" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else if (!strcmp(HARBOUR, space_get_name(space)))
-            sprintf(aux, FOREGROUND(128, 64, 0) BACKGROUND(0, 205, 255)"H" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else if (!strcmp(WORKSHOP, space_get_name(space)))
-            sprintf(aux, FOREGROUND(108, 49, 52) BACKGROUND(128, 64, 0)"W" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          else
-            sprintf(aux, FOREGROUND(0,0,0) BACKGROUND(93,64,55)"*" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) " ");
-          strcat(buffer, aux);
-        }
-        else
-          strcat(buffer, "  ");
-      }
-      strcat(buffer, "|");
-      screen_area_puts(ge->minimap, buffer);
-    }
-    sprintf(buffer, "    +---------------------+");
-    screen_area_puts(ge->minimap, buffer);
-  }
-}
-
-*/
