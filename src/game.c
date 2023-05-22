@@ -1172,6 +1172,22 @@ Id *game_get_rand_space_id(Game *game, int nids)
   return randids;
 }
 
+
+BOOL game_space_has_object(Game *game, Id id,T_ObjectType type){
+  int i,n;
+  Id *ido;
+  Space *space;
+  if(!game||id == NO_ID ||type == NO_OTYPE){
+    return FALSE;
+  }
+  space =game_get_space(game ,id);
+  ido=space_get_objects(space,&n);
+  for(i= 0;i<n;i++){
+    if(object_get_type(game_get_object(game,ido[i])) == type)
+      return TRUE;
+  }
+  return FALSE;
+}
 /* Link functions */
 
 STATUS game_delete_link(Game *game, Id linkid)
@@ -1884,7 +1900,7 @@ char *game_get_drop_dialogue_rule(Game *game, DTYPE type)
       }
     }
 
-    if (strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND, strlen(GROUND)) == 0)
+    if (strncasecmp(commands_get_args(game_get_last_command(game), 0),GROUND_NAME, strlen(GROUND_NAME)) == 0)
     {
       if (drop_ground == SUCCESS)
         return game_get_printed_dialogue_rule(game, 3, (char *)space_get_name(game_get_space(game, game_get_player_location(game))), DROP, SUCCESS);
@@ -2674,7 +2690,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     {
       eval = TRUE;
     }
-    else if (commands_get_cmd(game_get_last_command(game)) == DROP && strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND, strlen(GROUND)) == 0 && space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) == FLOODED)
+    else if (commands_get_cmd(game_get_last_command(game)) == DROP && strncasecmp(commands_get_args(game_get_last_command(game), 0),GROUND_NAME, strlen(GROUND_NAME)) == 0 && space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) == FLOODED)
     {
       eval = TRUE;
       objs = space_get_objects(game_get_space(game, game_get_player_location(game)), &n_objs);
@@ -2903,14 +2919,12 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 STATUS game_rule_spawn_ground(Game *game, int argint)
 {
   int i, ant = 0;
-  char word[WORD_SIZE];
   STATUS st = OK;
   Id *idsspace;
   Object *obj;
 
   if (player_get_type(game_get_player(game)) == ANT)
     ant = 1;
-
   if (number_of_grounds + argint <= MAX_GROUND + ant * EXTRASANT)
   {
     if ((idsspace = game_get_rand_space_id(game, argint)) == NULL)
@@ -2929,15 +2943,15 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
         return ERROR;
       }
 
-      sprintf(word, "%s%d", GROUND, number_of_grounds);
-
-      st = object_set_name(obj, word);
+      st = object_set_name(obj, GROUND_NAME);
       if (st == ERROR)
       {
+
         object_destroy(obj);
         free(idsspace);
         return ERROR;
       }
+
       object_set_location(obj, idsspace[i]);
       object_set_hidden(obj, FALSE);
       object_set_movable(obj, TRUE);

@@ -338,6 +338,16 @@ Id game_get_space_id_at(Game *game, int position);
  */
 int game_get_num_of_spaces(Game *game);
 
+/**
+ * @brief It evaluates if a space has a given type of object in it  
+ * @author Diego Rodríguez Ortiz
+ * @param game Pointer to the game
+ * @param id Id of the sapce looking into
+ * @param type of the object looking for
+ * @return TRUE it the space has an object of that type, FALSE in other cases
+ */
+BOOL game_space_has_object(Game *game, Id id,T_ObjectType type);
+
 
 /*GAME LINK FUNCTIONS*/
 

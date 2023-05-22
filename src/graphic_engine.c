@@ -93,10 +93,49 @@
 #define ONE_BLANK " "   /*!< Silgle blank character */
 
 /* COLORS */
-#define B_BLACK BACKGROUND(0, 0, 0)       /*!< Black background color */
-#define F_BLACK FOREGROUND(0, 0, 0)       /*!< Black foreground color */
+/*Black*/
+#define B_BLACK BACKGROUND(0, 0, 0) /*!< Black background color */
+#define F_BLACK FOREGROUND(0, 0, 0) /*!< Black foreground color */
+/*Grey*/
+#define B_GREY BACKGROUND(90, 90, 90)         /*!< Grey background color */
+#define F_GREY FOREGROUND(90, 90, 90)         /*!< Black foreground color */
+#define B_LIGHTGREY BACKGROUND(140, 140, 140) /*!< Grey background color */
+#define F_LIGHTGREY FOREGROUND(140, 140, 140) /*!< Black foreground color */
+/*White*/
 #define B_WHITE BACKGROUND(253, 253, 252) /*!< White background color */
 #define F_WHITE FOREGROUND(253, 253, 252) /*!< White foreground color */
+/*Blues*/
+#define B_DARKBLUE BACKGROUND(0, 0, 200)
+#define F_DARKBLUE FOREGROUND(0, 0, 200)
+#define B_BLUE BACKGROUND(0, 150, 255)
+#define F_BLUE FOREGROUND(0, 150, 255)
+#define B_LIGHTBLUE BACKGROUND(110, 231, 255)
+#define F_LIGHTBLUE FOREGROUND(110, 231, 255)
+/*Greens*/
+#define B_GREEN BACKGROUND(0, 150, 0)
+#define F_GREEN FOREGROUND(0, 150, 0)
+#define B_LIGHTGREEN BACKGROUND(50, 255, 50)
+#define F_LIGHTGREEN FOREGROUND(50, 255, 50)
+/*Browns*/
+#define B_BROWN BACKGROUND(79, 36, 2)
+#define F_BROWN FOREGROUND(79, 36, 2)
+#define B_LIGHTBROWN BACKGROUND(157, 83, 23)
+#define F_LIGHTBROWN FOREGROUND(157, 83, 23)
+/*Purple*/
+#define B_PURPLE BACKGROUND(74, 0, 55)
+#define F_PURPLE FOREGROUND(74, 0, 55)
+#define B_LIGHTPURPLE BACKGROUND(203, 86, 246)
+#define F_LIGHTPURPLE FOREGROUND(203, 86, 246)
+/*Reds*/
+#define B_RED BACKGROUND(180, 0, 0)
+#define F_RED FOREGROUND(180, 0, 0)
+#define B_LIGHTRED BACKGROUND(255, 124, 124)
+#define F_LIGHTRED FOREGROUND(255, 124, 124)
+/*ORANGES*/
+#define B_ORANGE BACKGROUND(200, 71, 12)
+#define F_ORANGE FOREGROUND(200, 71, 12)
+#define B_LIGHTORANGE BACKGROUND(255, 126, 67)
+#define F_LIGHTORANGE FOREGROUND(255, 126, 67)
 
 static char **black;
 static char **flooded;
@@ -575,12 +614,7 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
 
 void _paint_player_description(Graphic_engine *ge, Game *game)
 {
-  Id ply_loc = NO_ID, obj_id = NO_ID, obj_loc = NO_ID;
-  Id *objs_ids = NULL;
-
-  int i, num_objs;
-  char *obj_name;
-
+  Id ply_loc = NO_ID, obj_loc = NO_ID;
   char str[WORD_SIZE], aux[WORD_SIZE];
 
   sprintf(str, " ");
@@ -1004,42 +1038,42 @@ void _paint_map_init(Graphic_engine *ge, Game *game)
   char aux[WORD_SIZE], buffer[WORD_SIZE];
   int i, j;
   char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "                         _______              ______  ",
-      BACKGROUND(140, 231, 250) "       //\\\\   ||\\\\  ||     ||      ||    ||     ||    ||      ||",
-      BACKGROUND(140, 231, 250) "      //__\\\\  || \\\\ ||     ||      ||____||     ||    ||      ||",
-      BACKGROUND(140, 231, 250) "     //    \\\\ ||  \\\\||     ||      ||    ||   __||__  ||____  ||___",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "     ",
-      BACKGROUND(140, 231, 250) "                   |>              ",
-      BACKGROUND(140, 231, 250) "                   |               ",
-      BACKGROUND(140, 231, 250) "                  " BACKGROUND(255, 255, 255) "/|\\" BACKGROUND(140, 231, 250) "              ",
-      BACKGROUND(140, 231, 250) "                 " BACKGROUND(255, 255, 255) "/.| \\" BACKGROUND(140, 231, 250) "             ",
-      BACKGROUND(140, 231, 250) "                " BACKGROUND(255, 255, 255) "/^^|^^\\" BACKGROUND(140, 231, 250) "            ",
-      BACKGROUND(140, 231, 250) "        _______" BACKGROUND(255, 255, 255) "/___|___\\" BACKGROUND(140, 231, 250) "_mmo^__    ",
-      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "                         _______              ______  ",
+      B_LIGHTBLUE "       //\\\\   ||\\\\  ||     ||      ||    ||     ||    ||      ||",
+      B_LIGHTBLUE "      //__\\\\  || \\\\ ||     ||      ||____||     ||    ||      ||",
+      B_LIGHTBLUE "     //    \\\\ ||  \\\\||     ||      ||    ||   __||__  ||____  ||___",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "     ",
+      B_LIGHTBLUE "                   |>              ",
+      B_LIGHTBLUE "                   |               ",
+      B_LIGHTBLUE "                  " B_WHITE "/|\\" B_LIGHTBLUE "              ",
+      B_LIGHTBLUE "                 " B_WHITE "/.| \\" B_LIGHTBLUE "             ",
+      B_LIGHTBLUE "                " B_WHITE "/^^|^^\\" B_LIGHTBLUE "            ",
+      B_LIGHTBLUE "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_mmo^__    ",
+      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
 
   screen_area_clear(ge->map);
 
@@ -1064,7 +1098,7 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
   {
     obj = game_get_object(game, objs[i]);
 
-    if (object_get_type(obj) == SPECIAL)
+    if (object_get_type(obj) == SPECIAL || object_get_type(obj) == NO_OTYPE)
     {
       sprintf(aux, "-%s ", object_get_name(obj));
       screen_area_puts(ge->descript, aux);
@@ -1432,8 +1466,9 @@ void _paint_map(Graphic_engine *ge, Game *game)
         if (id_west != NO_ID)
         {
           /*if (space_get_flooded(space_west) == FLOODED)
-            sprintf(aux, "|" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252)"%*c|", flooded[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
-          else*/ if (wgdesc != NULL)
+            sprintf(aux, "|" F_DARKBLUE BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252)"%*c|", flooded[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
+          else*/
+          if (wgdesc != NULL)
             sprintf(aux, "|%s%*c|", wgdesc[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
           else
             sprintf(aux, "|%*c|", BOX_COLS - 2, ' ');
@@ -1771,11 +1806,12 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
       gdesc = flooded;
       for (i = 0; i < GRAPHIC_ROWS; i++)
       {
-        sprintf(str, "%*c  |" FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "%*c|", BOX_COLS, ' ', gdesc[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
+        sprintf(str, "%*c  |" F_DARKBLUE BACKGROUND(0, 150, 255) "%s" FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "%*c|", BOX_COLS, ' ', gdesc[i], BOX_COLS - GRAPHIC_COLS - 2, ' ');
         screen_area_puts(ge->map, str);
       }
     }
-    else*/ if (gdesc != NULL)
+    else*/
+    if (gdesc != NULL)
     {
       for (i = 0; i < GRAPHIC_ROWS; i++)
       {
@@ -1875,7 +1911,7 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
 void _paint_minimap(Graphic_engine *ge, Game *game)
 {
   int i, j, k, m;
-  char buffer[WORD_SIZE], aux[WORD_SIZE];
+  char buffer[2*WORD_SIZE], aux[WORD_SIZE], aux2[2*WORD_SIZE];
   Id Loc;
   Space *space;
 
@@ -1908,36 +1944,44 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
       for (k = 1; k < 8; k++)
       {
         for (m = 0; m < game_get_num_enemies(game); m++)
-          if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, m))) == (Id)i * 100 + k * 10 + j)
+          if ((enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, m))) == (Id)i * 100 + k * 10 + j) && enemy_get_health(game_get_enemy(game, game_get_enemy_id_at(game, m))) > 0)
             break;
 
         if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
         {
           if (Loc == i * 100 + k * 10 + j)
-            sprintf(aux, FOREGROUND(50, 255, 50) BACKGROUND(0, 150, 0) " O ");
+            sprintf(aux, F_LIGHTGREEN B_GREEN " O ");
           else if (space_get_flooded(space) == SUNK)
             sprintf(aux, "  ");
           else if (space_get_light(space) == FALSE)
-            sprintf(aux, FOREGROUND(74, 0, 55) BACKGROUND(50, 50, 50) " ? ");
+            sprintf(aux, F_PURPLE B_GREY "|?|");
           else if (space_get_flooded(space) == FLOODED)
-            sprintf(aux, FOREGROUND(0, 0, 200) BACKGROUND(0, 150, 255) " ~ ");
+            sprintf(aux, F_LIGHTBLUE B_BLUE " ~ ");
           else if (m != game_get_num_enemies(game))
-            sprintf(aux, FOREGROUND(255, 50, 50) BACKGROUND(180, 0, 0) " X ");
+            sprintf(aux, F_LIGHTRED B_RED "|X|");
           else if (!strcmp(HARBOUR, space_get_name(space)))
-            sprintf(aux, FOREGROUND(128, 64, 0) BACKGROUND(0, 205, 255) " H ");
+            sprintf(aux, F_BROWN B_LIGHTBLUE "|H|");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
-            sprintf(aux, FOREGROUND(108, 49, 52) BACKGROUND(128, 64, 0) " W ");
+            sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
+          else if (game_space_has_object(game, space_get_id(space), GROUND))
+            sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
           else
-            sprintf(aux, FOREGROUND(0, 0, 0) BACKGROUND(93, 64, 55) " * ");
-          strcat(buffer, aux);
+            sprintf(aux, F_BROWN B_LIGHTBROWN "|   |");
+
+          sprintf(aux2, "%s", buffer);
+          snprintf(buffer, 2*WORD_SIZE, "%s%s", aux2, aux);
         }
         else
-          strcat(buffer, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "   ");
+        {
+          sprintf(aux2, "%s", buffer);
+          snprintf(buffer,2*WORD_SIZE, "%s" F_BLACK B_WHITE "   ", aux2);
+        }
       }
-      strcat(buffer, FOREGROUND(0, 0, 0) BACKGROUND(253, 253, 252) "|");
+      sprintf(aux2, "%s", buffer);
+      snprintf(buffer, "","%s" F_BLACK B_WHITE "|", aux2);
       screen_area_puts(ge->minimap, buffer);
     }
-    sprintf(buffer, "    +----------------------+");
+    sprintf(buffer, F_BLACK B_WHITE "    +----------------------+");
     screen_area_puts(ge->minimap, buffer);
   }
 }

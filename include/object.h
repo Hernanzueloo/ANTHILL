@@ -19,7 +19,7 @@
  */
 typedef struct _Object Object;
 
-#define N_OBJ_TYPES 7 /*!< Number of object types*/
+#define N_OBJ_TYPES 8 /*!< Number of object types*/
 
 /**
  * @brief Object types
@@ -33,6 +33,7 @@ typedef enum enum_ObjectType
     KEY,            /*!<Key type */
     GOLDKEY,        /*!<Goldkey type */
     LANTERN,        /*!<Lantern type */
+    GROUND,          /*!<Ground type */
     SPECIAL         /*!<Special type */
 } T_ObjectType;
 

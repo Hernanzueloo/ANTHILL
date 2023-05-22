@@ -42,7 +42,7 @@
 
 #define REPEATED_ERROR_ID 14  /*!< Id for the dialogue with the rules in case of repeated errors */
 
-#define GROUND "Ground"  /*!< Name of the objects that represent gorund*/
+#define GROUND_NAME "Ground"  /*!< Name of the objects that represent gorund*/
 
 #define N_UPGRADES 2 /*!< Number of upgrades a object can have*/
 

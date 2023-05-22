@@ -253,6 +253,9 @@ dialogue_test.o: dialogue_test.c dialogue_test.h dialogue.h types.h test.h
 run:
 	./$(Executives) anthillGame.dat
 
+run_debug:
+	./$(Executives) anthillGame.dat 2> error.log
+
 run_log:
 	./$(Executives) anthillGame.dat -l "fchdatos.log"
 

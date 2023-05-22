@@ -45,6 +45,7 @@ char *object_type_to_str[N_OBJ_TYPES+1] = {"no object type",
                                   "Key",
                                   "Goldkey",
                                   "Lantern",
+                                  "Ground",
                                   "Special"};
 
 /**
@@ -307,21 +308,19 @@ STATUS object_print(Object *obj, FILE *file)
 T_ObjectType object_translate_object_type(char *object_name)
 {
     T_ObjectType otype = NO_OTYPE;
-    int i = 0;
+    int i = NO_OTYPE;
     if (!object_name)
         return otype;
 
     while (otype == NO_OTYPE && i < N_OBJ_TYPES)
     {
-        if (!strncasecmp(object_name, object_type_to_str[i], strlen(object_name)))
-            otype = i - NO_OTYPE;
+        if (!strncasecmp(object_name, object_type_to_str[i-NO_OTYPE], strlen(object_name)))
+            otype = i;
         i++;
     }
 
-    if(!strncasecmp(BOAT, object_type_to_str[i],strlen(BOAT))){
+    if(!strncasecmp(BOAT, object_name,strlen(BOAT)) || !strncasecmp("Boat", object_name,4) ||!strcasecmp("Magicalkey", object_name)){
         otype = SPECIAL;
-    }else if(!strncasecmp("Boat", object_type_to_str[i],4)){
-         otype = SPECIAL;
     }
 
     return otype;

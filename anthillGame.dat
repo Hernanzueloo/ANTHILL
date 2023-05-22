@@ -1,6 +1,6 @@
                 GAMEDATA
-#G:0|0.3|
-
+#G:0|0|
+Porcentaje de espacios oscuros
 
                 PLAYER
 #p:1|Segismundo Eduardo de todos los Santos|065|60|60|0|
@@ -8,16 +8,16 @@
 
                 SPACES
 #s:024|Wooden Stairs|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |The sturdy wooden stairs|These wooden stairs, built with durable wood, connect different levels of the building, providing safe and comfortable access between floors.|
-#s:025|Forgotten Passages|1|1| __   \___/ o | / /  ___/    |o__ o \____   |o8o ___/ mo'  |\  o8o  \___/ |/_/ o o   / o8|Mysterious hidden corridors|These forgotten passages are hidden corridors within the building, shrouded in mystery and possibly containing long-lost secrets or treasures.| 
-#s:033|Spiders Lair|1|1| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|A dark, web-filled space|The spiders lair is a dark and eerie space inhabited by numerous spiders, where they spin their intricate webs and catch unsuspecting prey.|
-#s:034|Glass Throne|1|1| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|An elegant, transparent throne|The glass throne is an exquisite piece of craftsmanship, made entirely of transparent glass, symbolizing power, elegance, and fragility.|
+#s:025|Forgotten Passages|1|0| __   \___/ o | / /  ___/    |o__ o \____   |o8o ___/ mo'  |\  o8o  \___/ |/_/ o o   / o8|Mysterious hidden corridors|These forgotten passages are hidden corridors within the building, shrouded in mystery and possibly containing long-lost secrets or treasures.| 
+#s:033|Spiders Lair|1|0| ___ o   __/  |  /  \___/    | mo'_ o  o_   | \___\  _o8o  | \___\    oo  |/_/ oo    / o8|A dark, web-filled space|The spiders lair is a dark and eerie space inhabited by numerous spiders, where they spin their intricate webs and catch unsuspecting prey.|
+#s:034|Glass Throne|1|0| __  ___  _  _|_ /  oo  \ _/ |   _ /    o 0 |mo'__ 0 o8o  '|__/ \      /_/|__/  --oo8___/|An elegant, transparent throne|The glass throne is an exquisite piece of craftsmanship, made entirely of transparent glass, symbolizing power, elegance, and fragility.|
 #s:035|Queens Chamber|1|0|     o  o     |    o    o    |   o------o   |   o------o   |    o    o    |     o  o     |Suspicious, the regal queens chamber|The queens chamber is an opulent room adorned with luxurious decorations, reflecting the elegance and power of the reigning queen.|
 #s:036|Ancestors Rest|1|0|_/  /_  _/  /_| /__/     /__/|_   /_  _   /_| /__/     /__/|_   /_  _   /_|_/  /_  _/  /_|A sacred resting place|Ancestors rest is a sacred space dedicated to honoring and commemorating the deceased ancestors, filled with memorials and symbolic artifacts.|
 #s:044|Iron Mines|1|0|    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |    /\  /\    |    \/__\/    |Dark, industrial mines|The iron mines are vast, industrial spaces where valuable iron ore is extracted, featuring dark tunnels and heavy machinery.|
 #s:045|Stone Quarry|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Massive rock excavation|The stone quarry is a massive excavation site where large quantities of stone are extracted, leaving behind impressive rock formations and deep pits.|
 #s:046|Cave of Embers|1|0| ____________ |/            \|l a  o       l|l bc  __  o  l|l de [ ]  o8 l|\____________/  |Glowing, fiery cave|The Cave of Embers is a mysterious cavern filled with a warm, fiery glow from flickering embers, providing an enchanting yet dangerous atmosphere. |
-#s:054|The Crossroads|1|1|             _|   up     __[ |       __[    |    __[       | __[          |[              |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
-#s:055|Cave of Shadows|1|1| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
+#s:054|The Crossroads|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
+#s:055|Cave of Shadows|1|0| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
 #s:065|The Workshop|1|0|  __________  | /     o     \  |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
 
 #s:123|Dunes of Deception|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Suspicious and shifting, misleading dunes|The Dunes of Deception are vast, seemingly endless sand dunes that shift and change, making navigation and finding the way out a challenging endeavor.|
