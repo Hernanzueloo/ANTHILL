@@ -1057,7 +1057,7 @@ Space *game_get_space(Game *game, Id id)
   {
     return NULL;
   }
-  
+
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
   {
     if (id == space_get_id(game->spaces[i]))
@@ -1172,20 +1172,27 @@ Id *game_get_rand_space_id(Game *game, int nids)
   return randids;
 }
 
-
-BOOL game_space_has_object(Game *game, Id id,T_ObjectType type){
-  int i,n;
+BOOL game_space_has_object(Game *game, Id id, T_ObjectType type)
+{
+  int i, n;
   Id *ido;
   Space *space;
-  if(!game||id == NO_ID ||type == NO_OTYPE){
+  if (!game || id == NO_ID || type == NO_OTYPE)
+  {
     return FALSE;
   }
-  space =game_get_space(game ,id);
-  ido=space_get_objects(space,&n);
-  for(i= 0;i<n;i++){
-    if(object_get_type(game_get_object(game,ido[i])) == type)
+  space = game_get_space(game, id);
+  ido = space_get_objects(space, &n);
+  for (i = 0; i < n; i++)
+  {
+    if (object_get_type(game_get_object(game, ido[i])) == type)
+    {
+      free(ido);
       return TRUE;
+    }
   }
+  free(ido);
+
   return FALSE;
 }
 /* Link functions */
@@ -1900,7 +1907,7 @@ char *game_get_drop_dialogue_rule(Game *game, DTYPE type)
       }
     }
 
-    if (strncasecmp(commands_get_args(game_get_last_command(game), 0),GROUND_NAME, strlen(GROUND_NAME)) == 0)
+    if (strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND_NAME, strlen(GROUND_NAME)) == 0)
     {
       if (drop_ground == SUCCESS)
         return game_get_printed_dialogue_rule(game, 3, (char *)space_get_name(game_get_space(game, game_get_player_location(game))), DROP, SUCCESS);
@@ -2458,7 +2465,7 @@ int game_get_num_commands_till_flood(Game *game)
 {
   int n;
 
-  if((n = game_get_num_commands_per_flood(game))==-1)
+  if ((n = game_get_num_commands_per_flood(game)) == -1)
     return -1;
 
   return n - game_get_num_executed_commands(game) % n;
@@ -2690,7 +2697,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     {
       eval = TRUE;
     }
-    else if (commands_get_cmd(game_get_last_command(game)) == DROP && strncasecmp(commands_get_args(game_get_last_command(game), 0),GROUND_NAME, strlen(GROUND_NAME)) == 0 && space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) == FLOODED)
+    else if (commands_get_cmd(game_get_last_command(game)) == DROP && strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND_NAME, strlen(GROUND_NAME)) == 0 && space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) == FLOODED)
     {
       eval = TRUE;
       objs = space_get_objects(game_get_space(game, game_get_player_location(game)), &n_objs);

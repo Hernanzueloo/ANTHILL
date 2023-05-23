@@ -211,8 +211,8 @@ Porcentaje de espacios oscuros
 #o:37|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 #o:38|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 
-#o:40|Key124-143|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
-#o:41|Key25-44|024|This key opens the door between 025 and 044|0|1|-1|025044|0|0|
+#o:40|Key|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
+#o:41|Key|024|This key opens the door between 025 and 044|0|1|-1|025044|0|0|
 
 #o:51|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
 #o:52|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|

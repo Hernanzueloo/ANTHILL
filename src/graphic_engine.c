@@ -1083,7 +1083,7 @@ void _paint_map_init(Graphic_engine *ge, Game *game)
 
 void _paint_inventory(Graphic_engine *ge, Game *game)
 {
-  int i, f = 0, n, count[N_OBJ_TYPES + 1] = {0};
+  int i, f = 0, n, count[N_OBJ_TYPES];
   char aux[WORD_SIZE] = "";
   Id *objs;
   Object *obj;
@@ -1093,13 +1093,17 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     return;
   }
   objs = game_get_player_objects(game, &n);
-
+  for(i=0;i<N_OBJ_TYPES;i++)
+    count[i]=0;
   for (i = 0; i < n; i++)
   {
     obj = game_get_object(game, objs[i]);
 
     if (object_get_type(obj) == SPECIAL || object_get_type(obj) == NO_OTYPE)
     {
+      f = 1;
+      fprintf(stderr,"%d %s\n",object_get_type(obj), object_get_name(obj));
+
       sprintf(aux, "-%s ", object_get_name(obj));
       screen_area_puts(ge->descript, aux);
     }
@@ -1109,11 +1113,12 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     }
   }
 
-  for (i = 0; i < N_OBJ_TYPES + 2; i++)
+  for (i = 0; i < N_OBJ_TYPES; i++)
   {
     if (count[i] != 0)
     {
       f = 1;
+      fprintf(stderr,"%d %s\n",i,object_translate_object_type_to_string(i));
       sprintf(aux, "-%s: %d ", object_translate_object_type_to_string(i), count[i]);
       screen_area_puts(ge->descript, aux);
     }
@@ -1123,6 +1128,7 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     sprintf(aux, " NONE");
     screen_area_puts(ge->descript, aux);
   }
+  free(objs);
 }
 
 void _paint_map_win(Graphic_engine *ge, Game *game)
@@ -1963,10 +1969,16 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_BROWN B_LIGHTBLUE "|H|");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
             sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
+          else if (game_space_has_object(game, space_get_id(space), STICK)||game_space_has_object(game, space_get_id(space), LEAF)||game_space_has_object(game, space_get_id(space), WALNUT))
+            sprintf(aux, F_BROWN B_LIGHTBROWN "|!|");
           else if (game_space_has_object(game, space_get_id(space), GROUND))
+            sprintf(aux, F_BROWN B_LIGHTBROWN "|.|");
+          else if (game_space_has_object(game, space_get_id(space), LANTERN))
             sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
+          else if (game_space_has_object(game, space_get_id(space), KEY)||game_space_has_object(game, space_get_id(space), GOLDKEY))
+            sprintf(aux, F_BROWN B_LIGHTBROWN "|¬|");
           else
-            sprintf(aux, F_BROWN B_LIGHTBROWN "|   |");
+            sprintf(aux, F_BROWN B_LIGHTBROWN "| |");
 
           sprintf(aux2, "%s", buffer);
           snprintf(buffer, 2*WORD_SIZE, "%s%s", aux2, aux);
@@ -1978,7 +1990,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
         }
       }
       sprintf(aux2, "%s", buffer);
-      snprintf(buffer, "","%s" F_BLACK B_WHITE "|", aux2);
+      snprintf(buffer,2*WORD_SIZE,"%s" F_BLACK B_WHITE "|", aux2);
       screen_area_puts(ge->minimap, buffer);
     }
     sprintf(buffer, F_BLACK B_WHITE "    +----------------------+");

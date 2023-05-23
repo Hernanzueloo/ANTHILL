@@ -38,7 +38,7 @@ struct _Object
 /**
  * @brief Array of possible object types
  */
-char *object_type_to_str[N_OBJ_TYPES+1] = {"no object type",
+char *object_type_to_str[N_OBJ_TYPES-NO_OTYPE] = {"no object type",
                                   "Stick",
                                   "Leaf",
                                   "Walnut",
@@ -312,7 +312,7 @@ T_ObjectType object_translate_object_type(char *object_name)
     if (!object_name)
         return otype;
 
-    while (otype == NO_OTYPE && i < N_OBJ_TYPES)
+    while (otype == NO_OTYPE && i < N_OBJ_TYPES+NO_OTYPE)
     {
         if (!strncasecmp(object_name, object_type_to_str[i-NO_OTYPE], strlen(object_name)))
             otype = i;
@@ -328,5 +328,5 @@ T_ObjectType object_translate_object_type(char *object_name)
 
 
 char * object_translate_object_type_to_string(T_ObjectType obj){
-    return object_type_to_str[obj+NO_OTYPE];
+    return object_type_to_str[obj-NO_OTYPE];
 }
