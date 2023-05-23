@@ -66,16 +66,17 @@
 #define SPACES_TO_PRINT 20
 #define TAMENEMY 6
 
-#define LINK_WIDTH 1    /*!< Width (in characters) of a link frame */
-#define LINK_HEIGHT 1   /*!< Height (in characters) of a link frame */
-#define VLINK_WIDTH 4   /*!< Width (in characters) of a vertical (north and south) link */
-#define H_LINK_HEIGHT 3 /*!< Width (in characters) of a horizontal (east and west) link */
+#define LINK_WIDTH                2     /*!< Width (in characters) of a link frame */
+#define LINK_HEIGHT               2     /*!< Height (in characters) of a link frame */
+#define VLINK_WIDTH               5     /*!< Width (in characters) of a vertical (north and south) link */
+#define H_LINK_HEIGHT             3     /*!< Width (in characters) of a horizontal (east and west) link */
 
 /* Characters */
 
-#define BLANK "                                                                                                    "  /*!< Blank character */
-#define H_LINE "────────────────────────────────────────────────────────────────────────────────────────────────────" /*!< Horizontal line character */
-#define DIAG "╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱"   /*!< Diagonal line character */
+#define BLANK           "                                                                                                    "         /*!< Blank character */
+#define H_LINE          "────────────────────────────────────────────────────────────────────────────────────────────────────"         /*!< Horizontal line character */
+#define Q_MARK          "????????????????????????????????????????????????????????????????????????????????????????????????????"         /*!< Question mark line character */
+#define WAVE            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"         /*!< Wave line character */
 
 #define V_LINE "│"      /*!< Vertical line character */
 #define UP_R_CORNER "┌" /*!< Upper-right corner character */
@@ -268,6 +269,24 @@ void paint_n_enters(Area *area, int n);
  */
 Id get_enemy_id_in_space(Game *game, Id space);
 
+void graphic_engine_sprint_objects(Game * game, Space *space, char *str);
+
+void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str);
+
+void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west);
+
+void graphic_engine_sprint_space_not_illuminated(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west);
+
+void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west);
+
+void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y);
+
+void graphic_engine_space_frame_put(Area *area, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int height);
+
+void graphic_engine_sprint_empty(char (*str_array)[MAP_WIDTH * MULTIBYTE + 1], int height, int width);
+
+void _paint_map_new(Graphic_engine *ge, Game *game); 
+
 /**
  * @brief Graphic_engine
  *
@@ -376,6 +395,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Paint in the map area */
   _paint_map(ge, game);
+  /*_paint_map_new(ge, game);*/
 
   /* Paint in the description area */
   screen_area_clear(ge->descript);
@@ -613,7 +633,7 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
 
 void _paint_player_description(Graphic_engine *ge, Game *game)
 {
-  Id ply_loc = NO_ID, obj_loc = NO_ID;
+  Id ply_loc = NO_ID;
   char str[WORD_SIZE], aux[WORD_SIZE];
 
   sprintf(str, " ");
@@ -1016,10 +1036,10 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
     free(game_rules_dialogues);
   }
 }
+
 void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 {
-  char aux[WORD_SIZE], buffer[WORD_SIZE];
-  int i, j;
+  int i;
 
   char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
       B_LIGHTBLUE "     ",
@@ -1150,26 +1170,489 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
   free(objs);
 }
 
-void graphic_engine_sprint_empty(char (*str_array)[MAP_WIDTH * MULTIBYTE + 1], int height, int width)
-{
+void graphic_engine_sprint_objects(Game * game, Space *space, char *str) {
+  int j_c_len, c_len, i_objects, n_objects, bytes;
+  Id *object_ids;
+  Object *object;
+
+  /* Error control */
+  if (game == NULL || space == NULL || str == NULL) {
+    return;
+  }
+
+  /* Gets the objects from the space*/
+  object_ids = space_get_objects(space, &n_objects);
+
+  /* if there are objects, it prints them in the string*/
+  if (n_objects > 0) {
+
+    for (bytes = 0, j_c_len = 0; i_objects < n_objects; i_objects++) {
+
+      /* Gets the object */
+      object = game_get_object(game, object_ids[i_objects]);
+      if (object == NULL) {
+        #ifdef DEBUG
+          fprintf(stderr, "Error graphic engine sprint objects: error while getting the object n: %d\n",i_objects);
+        #endif
+        return;
+      }
+
+      /* Checks that is not hidden */
+      if (object_get_hidden(object) == TRUE) {
+        continue;
+      }
+
+      c_len = screen_multibyte_strlen(object_get_name(object));
+      if (j_c_len + c_len + 1 <= BOX_COLS - 2) {
+        bytes += sprintf(str + bytes, " %s", object_get_name(object));
+        j_c_len +=  c_len + 1;
+      } else {
+        break;
+      }
+    }
+    /* Fills the remaining space */
+    sprintf(str + bytes, "%.*s", BOX_COLS - 2 - j_c_len, BLANK);
+  } else {
+    /* No object case */
+    sprintf(str, "%.*s", BOX_COLS - 2, BLANK);
+    
+  }  
+}
+
+void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str) {
+  Enemy *enemy;
+  int i;
+
+  /* Error control */
+  if (game == NULL || str == NULL || space_loc == NO_ID || i < 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint enemy: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  /* Gets enemy (SUSUSUSUSUS) */
+  for (i = 0; i < MAX_ENEMIES; i++) {
+    enemy = game_get_enemy(game, game_get_enemy_id_at(game, i));
+    if (enemy == NULL || enemy_get_location(enemy) == space_loc){
+      break;
+    }
+  }
+  if (enemy != NULL && enemy_get_health(enemy) > 0){
+    /* Prints enemy */
+    sprintf(str, "%s", enemy_get_edesc(enemy));
+  } else {
+    /* prints blank */
+    sprintf(str, "%.*s", TAMENEMY, BLANK);
+  }  
+}
+
+void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west) {
+  Space *space;
+  int i, east_link_picker = 0, west_link_picker = 0;
+  char **space_gdesc;
+  char str_enemy[TAMENEMY * MULTIBYTE + 1];
+  char str_objects[BOX_COLS * MULTIBYTE + 1];
+  char west_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_L_CORNER, ONE_BLANK, UP_L_CORNER};
+  char east_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_R_CORNER, ONE_BLANK, UP_R_CORNER};
+
+  /* Error control */
+  if ( game == NULL || space_id == NO_ID || space_frame == NULL || offset < 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint space illuminated: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  /* Gets space*/
+  space = game_get_space(game, space_id);
+  if (space == NULL) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint space illuminated: could not get space\n");
+    #endif
+    return;
+  }
+
+  /* Gets space graphic description */
+  space_gdesc = space_get_gdesc(space);
+  if (space_gdesc == NULL) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint space illuminated: could not get space graphic description\n");
+    #endif
+    return;
+  }
+
+  /* Gets enemy gdesc */
+  graphic_engine_sprint_enemy(game, space_id, str_enemy);
+
+  /* Get object names */
+  graphic_engine_sprint_objects(game, space, str_objects);
+
+  /* Top border */
+  if (north)
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), UP_R_CORNER "%.*s" UP_L_CORNER, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
+
+  /* Player, enemy and id line */
+  if (game_get_player_location(game) == space_id){
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%s %s%.*s%.3ld" V_LINE, pSkins[(int)player_get_type(game_get_player(game))], str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER, BLANK, space_id);
+  } else {
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%.*s %s%.*s%.3ld", TAMPLAYER, BLANK, str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER, BLANK, space_id);
+  }
+
+  /* Blank line */
+  sprintf(space_frame[2] + screen_multibyte_move(space_frame[2], offset), V_LINE "%.*s" V_LINE, BOX_COLS - 2, BLANK);
+  
+  /* Space Gdesc lines */
+  for (i = 0; i < GRAPHIC_ROWS; i++){
+    if (west && i >= 2 && i <= 4)
+      west_link_picker++;
+    else 
+      west_link_picker = 0;
+    if (east && i >= 2 && i <= 4)
+      east_link_picker++;
+    else 
+      east_link_picker = 0;  
+    sprintf(space_frame[3 + i] + screen_multibyte_move(space_frame[3 + i], offset), "%s%s%.*s%s", west_link[west_link_picker], space_gdesc[i], BOX_COLS - GRAPHIC_COLS - 2, BLANK, east_link[east_link_picker]);
+  }
+
+  /* Blank line */
+  sprintf(space_frame[2 + GRAPHIC_ROWS + 1] + screen_multibyte_move(space_frame[2 + GRAPHIC_ROWS + 1], offset), V_LINE "%.*s" V_LINE, BOX_COLS - 2, BLANK);
+
+  /* Objects line */
+  sprintf(space_frame[2 + GRAPHIC_ROWS + 1] + screen_multibyte_move(space_frame[2 + GRAPHIC_ROWS + 1], offset), V_LINE "%s", str_objects);
+
+  /* Bottom border */
+  if (south)
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset), DW_R_CORNER "%.*s" UP_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK UP_R_CORNER "%.*s" DW_L_CORNER, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset), DW_R_CORNER "%.*s" DW_L_CORNER, screen_multibyte_move(H_LINE, BOX_COLS - 2) , H_LINE);
+
+  for (i = 0; i < BOX_ROWS; i++) {
+    space_frame[i][strlen(space_frame[i])] = ' ';
+  }
+}
+
+void graphic_engine_sprint_space_not_illuminated(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west) {
+  int i, east_link_picker = 0, west_link_picker = 0;
+  char west_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_L_CORNER, ONE_BLANK, UP_L_CORNER};
+  char east_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_R_CORNER, ONE_BLANK, UP_R_CORNER};
+
+  /* Error control */
+  if ( game == NULL || space_id == NO_ID || space_frame == NULL || offset < 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint space illuminated: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  /* Top border */
+  if (north)
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), B_BLACK F_WHITE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), B_BLACK F_WHITE UP_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
+
+  /* Player and id line */
+  if (game_get_player_location(game) == space_id){
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_BLACK F_WHITE V_LINE "%s %.*s %.3ld" V_LINE F_BLACK B_WHITE, pSkins[(int)player_get_type(game_get_player(game))], BOX_COLS - 2 - TAMPLAYER - 3 - 2, Q_MARK, space_id);
+  } else {
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_BLACK F_WHITE V_LINE "%.*s %.*s %.3ld" V_LINE F_BLACK B_WHITE, TAMPLAYER, BLANK, BOX_COLS - 2 - TAMPLAYER - 3 - 2,Q_MARK, space_id);
+  }
+
+  /* In Between lines */
+  for (i = 0; i < BOX_ROWS - 3; i++){
+    if (west && i >= 2 && i <= 4)
+      west_link_picker++;
+    else 
+      west_link_picker = 0;
+    if (east && i >= 2 && i <= 4)
+      east_link_picker++;
+    else 
+      east_link_picker = 0;  
+    sprintf(space_frame[2 + i] + screen_multibyte_move(space_frame[2 + i], offset), B_BLACK F_WHITE "%s%.*s%s" F_BLACK B_WHITE, west_link[west_link_picker], BOX_COLS - 2, Q_MARK, east_link[east_link_picker]);
+  }
+
+  /* Bottom border */
+  if (south)
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset), B_BLACK F_WHITE DW_R_CORNER "%.*s" UP_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK UP_R_CORNER "%.*s" DW_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset), B_BLACK F_WHITE DW_R_CORNER "%.*s" DW_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2) , H_LINE);
+
+  for (i = 0; i < BOX_ROWS; i++) {
+    space_frame[i][strlen(space_frame[i])] = ' ';
+  }
+}
+
+void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west) {
+  int i, east_link_picker = 0, west_link_picker = 0;
+  char west_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_L_CORNER, ONE_BLANK, UP_L_CORNER};
+  char east_link[H_LINK_HEIGHT + 1][MULTIBYTE + 1] = {V_LINE, DW_R_CORNER, ONE_BLANK, UP_R_CORNER};
+
+  /* Error control */
+  if ( game == NULL || space_id == NO_ID || space_frame == NULL || offset < 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error graphic engine sprint space illuminated: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  /* Top border */
+  if (north)
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), F_BLACK B_BLUE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), F_BLACK B_BLUE UP_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
+
+  /* Player and id line */
+  if (game_get_player_location(game) == space_id){
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE F_LIGHTBLUE "%s %.*s" F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE, pSkins[(int)player_get_type(game_get_player(game))], BOX_COLS - 2 - TAMPLAYER - 3 - 2, Q_MARK, space_id);
+  } else {
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE F_LIGHTBLUE "%.*s %.*s " F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE, TAMPLAYER, BLANK, BOX_COLS - 2 - TAMPLAYER - 3 - 2,Q_MARK, space_id);
+  }
+
+  /* In Between lines */
+  for (i = 0; i < BOX_ROWS - 3; i++){
+    if (west && i >= 2 && i <= 4)
+      west_link_picker++;
+    else 
+      west_link_picker = 0;
+    if (east && i >= 2 && i <= 4)
+      east_link_picker++;
+    else 
+      east_link_picker = 0;  
+    sprintf(space_frame[2 + i] + screen_multibyte_move(space_frame[2 + i], offset),F_BLACK B_BLUE "%s" F_LIGHTBLUE "%.*s" F_BLACK "%s" F_BLACK B_WHITE, west_link[west_link_picker], BOX_COLS - 2, Q_MARK, east_link[east_link_picker]);
+  }
+
+  /* Bottom border */
+  if (south)
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset),F_BLACK B_BLUE DW_R_CORNER "%.*s" UP_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK UP_R_CORNER "%.*s" DW_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+  else
+    sprintf(space_frame[BOX_ROWS - 1] + screen_multibyte_move(space_frame[BOX_ROWS - 1], offset),F_BLACK B_BLUE DW_R_CORNER "%.*s" DW_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2) , H_LINE);
+
+  for (i = 0; i < BOX_ROWS; i++) {
+    space_frame[i][strlen(space_frame[i])] = ' ';
+  }
+}
+
+void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y) {
+
+  /* Error control */
+  if (dir == NO_DIR || space_frame == NULL ||x < 0 ||y < 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error in graphic engine space frame put: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  if (dir == NORTH || dir == SOUTH) {
+    if (status == OPEN) {
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), V_LINE ONE_BLANK ONE_BLANK ONE_BLANK V_LINE);
+    } else {
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), RG_T ONE_H_LINE ONE_H_LINE ONE_H_LINE LF_T);
+    }
+    
+  } else {
+    if (status == OPEN) {
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), ONE_H_LINE);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), ONE_BLANK);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), ONE_H_LINE);
+    } else {
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), DW_T);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), V_LINE);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), UP_T);
+    }
+  }
+
+}
+
+void graphic_engine_space_frame_put(Area *area, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int height) {
+  int i;
+  
+  /* Error control */
+  if (space_frame == NULL || area == NULL || height <= 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error in graphic engine space frame put: invalid parameters\n");
+    #endif
+    return;
+  }
+
+  /* Displays the space frame */
+  for (i = 0; i < height; i++) {
+    space_frame[i][screen_multibyte_move(space_frame[i], MAP_WIDTH)] = '\0';
+    screen_area_puts(area, space_frame[i]);
+  }
+}
+
+void graphic_engine_sprint_empty(char (*str_array)[MAP_WIDTH * MULTIBYTE + 1], int height, int width) {
   int i, j;
   /* Error control */
-  if (str_array == NULL || width <= 0 || height <= 0)
-  {
-#ifdef DEBUG
-    fprintf(stderr, "Error in graphic engine sprint empty: invalid parameters\n");
-#endif
+  if (str_array == NULL || width <= 0 || height <= 0) {
+    #ifdef DEBUG
+      fprintf(stderr, "Error in graphic engine sprint empty: invalid parameters\n");
+    #endif
     return;
   }
 
   /* Sprints spaces into an string array */
-  for (i = 0; i < height; i++)
-  {
-    for (j = 0; j < width - 1; j++)
-    {
+  for (i = 0; i < height; i++) {
+    for (j = 0; j < width - 1; j++) {
       str_array[i][j] = ' ';
+      
     }
     str_array[i][j] = '\0';
+  }
+}
+
+void _paint_map_new(Graphic_engine *ge, Game *game){
+  int i;
+  char space_frame[BOX_ROWS][MAP_WIDTH * MULTIBYTE + 1];
+  Id id_centre = NO_ID, id_north = NO_ID, id_south = NO_ID, id_east = NO_ID, id_west = NO_ID;
+  Space *space;
+
+  /* Error control */
+  if (ge == NULL || game == NULL) {
+    return;
+  }
+
+  /* Clears the screen */
+  screen_area_clear(ge->map);
+
+  /* Print spaces */
+  for (i = 0; i < SPACES_TO_PRINT; i++){
+    fprintf(stdout, "\n");
+  }
+
+  /* Gets the space where the player is */
+  if ((id_centre = game_get_player_location(game)) == NO_ID) {
+    return;
+  }
+
+  /* Gets the adjacent spaces */
+  id_north = game_get_connection(game, id_centre, NORTH);
+  id_south = game_get_connection(game, id_centre, SOUTH);
+  id_east = game_get_connection(game, id_centre, EAST);
+  id_west = game_get_connection(game, id_centre, WEST);
+
+  /* Empties the strings*/
+  graphic_engine_sprint_empty(space_frame, BOX_ROWS, MAP_WIDTH * MULTIBYTE + 1);
+
+  /* Puts the first line blank */
+  graphic_engine_space_frame_put(ge->map, space_frame, 1);
+
+  if (id_north != NO_ID) {
+    /* Prints north space */
+
+    /* Gets north space */
+    space = game_get_space(game, id_north);
+    if (space_get_flooded(space) == FLOODED){
+      graphic_engine_sprint_space_flooded(game, id_north, space_frame, 1 + BOX_COLS + LINK_WIDTH, FALSE, TRUE, FALSE, FALSE);
+    } else {
+      if (space_get_light(space)){
+        graphic_engine_sprint_space_illuminated(game, id_north, space_frame, 1 + BOX_COLS + LINK_WIDTH, FALSE, TRUE, FALSE, FALSE);
+      } else {
+        graphic_engine_sprint_space_not_illuminated(game, id_north, space_frame, 1 + BOX_COLS + LINK_WIDTH, FALSE, TRUE, FALSE, FALSE);
+      }
+    }
+    graphic_engine_space_frame_put(ge->map, space_frame, BOX_ROWS);
+
+    /* Prints north link */
+    graphic_engine_sprint_empty( space_frame, LINK_HEIGHT, MAP_WIDTH * MULTIBYTE + 1);
+    graphic_engine_sprint_link(NORTH, game_get_connection_status(game, id_centre, NORTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0);
+    graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT); 
+
+  } else {
+    /* Print blank space */
+    graphic_engine_space_frame_put(ge->map, space_frame, BOX_ROWS);
+    graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT);
+  }
+
+  /* Empties the strings*/
+  graphic_engine_sprint_empty(space_frame, BOX_ROWS, MAP_WIDTH * MULTIBYTE + 1);
+
+  if (id_west != NO_ID) {
+    /* Prints west space */
+
+    /* Gets west space */
+    space = game_get_space(game, id_west);
+    if (space_get_flooded(space) == FLOODED){
+      graphic_engine_sprint_space_flooded(game, id_west, space_frame, 1, FALSE, FALSE, TRUE, FALSE);
+    } else {
+      if (space_get_light(space)){
+        graphic_engine_sprint_space_illuminated(game, id_west, space_frame, 1, FALSE, FALSE, TRUE, FALSE);
+      } else {
+        graphic_engine_sprint_space_not_illuminated(game, id_west, space_frame, 1, FALSE, FALSE, TRUE, FALSE);
+      }
+    }
+
+    /* Prints west link */
+    graphic_engine_sprint_link(WEST, game_get_connection_status(game, id_centre, WEST), space_frame, 1 + BOX_COLS, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1);
+  }
+
+  /* Prints central space */
+  space = game_get_space(game, id_centre);
+  if (space_get_flooded(space) == FLOODED){
+    graphic_engine_sprint_space_flooded(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+  } else {
+    if (space_get_light(space)){
+      graphic_engine_sprint_space_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+    } else {
+      graphic_engine_sprint_space_not_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+    }
+  }
+
+  if (id_east != NO_ID) {
+    /* Prints east link */
+    graphic_engine_sprint_link(EAST, game_get_connection_status(game, id_centre, EAST), space_frame, 2 + 2 * BOX_COLS, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1);
+
+    /* Prints east space */
+
+    /* Gets east space */
+    space = game_get_space(game, id_east);
+    if (space_get_flooded(space) == FLOODED){
+      graphic_engine_sprint_space_flooded(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+    } else {
+      if (space_get_light(space)){
+        graphic_engine_sprint_space_illuminated(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+      } else {
+        graphic_engine_sprint_space_not_illuminated(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+      }
+    }
+  }
+
+  /* Puts central frame */
+  graphic_engine_space_frame_put(ge->map,  space_frame, BOX_ROWS);
+
+  /* Empties the strings*/
+  graphic_engine_sprint_empty(space_frame, BOX_ROWS, MAP_WIDTH * MULTIBYTE + 1);
+
+  if (id_south != NO_ID) {
+
+    /* Prints south link */
+    graphic_engine_sprint_empty(space_frame, LINK_HEIGHT, MAP_WIDTH * MULTIBYTE + 1);
+    graphic_engine_sprint_link(SOUTH, game_get_connection_status(game, id_centre, SOUTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0);
+    graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT); 
+
+    /* Prints south space */
+
+    /* Gets north space */
+    space = game_get_space(game, id_south);
+    if (space_get_flooded(space) == FLOODED){
+      graphic_engine_sprint_space_flooded(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
+    } else {
+      if (space_get_light(space)){
+        graphic_engine_sprint_space_illuminated(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
+      } else {
+        graphic_engine_sprint_space_not_illuminated(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
+      }
+    }
+    graphic_engine_space_frame_put(ge->map, space_frame, BOX_ROWS);
+
+    
+
+  } else {
+    /* Print blank space */
+    graphic_engine_space_frame_put(ge->map, space_frame, BOX_ROWS);
+    graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT);
   }
 }
 
