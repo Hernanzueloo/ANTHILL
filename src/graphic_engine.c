@@ -151,26 +151,12 @@ static char pSkins[TYPEPLAYERS][TAMPLAYER + 1] = {{"    "}, {"Coo:"}, {"@_ll"}, 
 void _paint_map(Graphic_engine *ge, Game *game);
 
 /**
- * @brief Paints the initial map
+ * @brief Paints the initial, loose and win map
  * @author Alejandro García
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
  */
-void _paint_map_init(Graphic_engine *ge, Game *game);
-/**
- * @brief Paints the winning map
- * @author Alejandro Garcia
- * @param ge Pointer to graphical descriptor
- * @param game Pointer to game
- */
-void _paint_map_win(Graphic_engine *ge, Game *game);
-/**
- * @brief Paints the losing map
- * @author Alejandro Garcia
- * @param ge Pointer to graphical descriptor
- * @param game Pointer to game
- */
-void _paint_map_lose(Graphic_engine *ge, Game *game);
+void _paint_map_frame(Graphic_engine *ge, Game *game, int type);
 
 /**
  * @brief Paints the initial description
@@ -434,7 +420,7 @@ void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
     return;
 
   /* Paint in the map area */
-  _paint_map_init(ge, game);
+  _paint_map_frame(ge, game, 0);
 
   /* Paint in the description area */
   _paint_description_init(ge, game);
@@ -466,7 +452,7 @@ void graphic_engine_paint_win(Graphic_engine *ge, Game *game)
     return;
 
   /* Paint in the map area */
-  _paint_map_win(ge, game);
+  _paint_map_frame(ge, game, 1);
 
   /* Paint in the description area */
   _paint_description_end(ge, game);
@@ -496,7 +482,7 @@ void graphic_engine_paint_lose(Graphic_engine *ge, Game *game)
     return;
 
   /* Paint in the map area */
-  _paint_map_lose(ge, game);
+  _paint_map_frame(ge, game, -1);
 
   /* Paint in the description area */
   _paint_description_end(ge, game);
@@ -1033,11 +1019,11 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
     free(game_rules_dialogues);
   }
 }
-void _paint_map_init(Graphic_engine *ge, Game *game)
+void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 {
   char aux[WORD_SIZE], buffer[WORD_SIZE];
   int i, j;
-  char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
+  char ascii_map_init[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
       B_LIGHTBLUE "     ",
       B_LIGHTBLUE "     ",
       B_LIGHTBLUE "                         _______              ______  ",
@@ -1074,68 +1060,44 @@ void _paint_map_init(Graphic_engine *ge, Game *game)
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-
-  screen_area_clear(ge->map);
-
-  for (i = 0; i < MAP_HEIGHT; i++)
-    screen_area_puts(ge->map, ascii_map[i]);
-}
-
-void _paint_inventory(Graphic_engine *ge, Game *game)
-{
-  int i, f = 0, n, count[N_OBJ_TYPES];
-  char aux[WORD_SIZE] = "";
-  Id *objs;
-  Object *obj;
-
-  if (!ge || !game)
-  {
-    return;
-  }
-  objs = game_get_player_objects(game, &n);
-  for(i=0;i<N_OBJ_TYPES;i++)
-    count[i]=0;
-  for (i = 0; i < n; i++)
-  {
-    obj = game_get_object(game, objs[i]);
-
-    if (object_get_type(obj) == SPECIAL || object_get_type(obj) == NO_OTYPE)
-    {
-      f = 1;
-      fprintf(stderr,"%d %s\n",object_get_type(obj), object_get_name(obj));
-
-      sprintf(aux, "-%s ", object_get_name(obj));
-      screen_area_puts(ge->descript, aux);
-    }
-    else
-    {
-      count[object_get_type(obj)]++;
-    }
-  }
-
-  for (i = 0; i < N_OBJ_TYPES; i++)
-  {
-    if (count[i] != 0)
-    {
-      f = 1;
-      fprintf(stderr,"%d %s\n",i,object_translate_object_type_to_string(i));
-      sprintf(aux, "-%s: %d ", object_translate_object_type_to_string(i), count[i]);
-      screen_area_puts(ge->descript, aux);
-    }
-  }
-  if (f == 0)
-  {
-    sprintf(aux, " NONE");
-    screen_area_puts(ge->descript, aux);
-  }
-  free(objs);
-}
-
-void _paint_map_win(Graphic_engine *ge, Game *game)
-{
-  char buffer[WORD_SIZE];
-  int i;
-  char ascii_map[MAP_HEIGHT][MAP_WIDTH + 1] = {
+  char ascii_map_loose[MAP_HEIGHT][MAP_WIDTH + 1] = {
+      "     ",
+      "           ",
+      "       \\   /  ____               |       ____      _____   _____    ||",
+      "        \\ / //    \\\\  ||   ||    |     //    \\\\   /          |      ||",
+      "         |  ||    ||  ||   ||    |     ||    ||   \\_____     |      ||",
+      "         |  ||    ||  ||   ||    |     ||    ||        \\\\    |        ",
+      "         |  \\\\____//  \\\\___//    |____ \\\\____//   _____//    |      []",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "     ",
+      "                   |>              ",
+      "                   |               ",
+      "                  /|\\              ",
+      "                 /.| \\             ",
+      "                /^^|^^\\            ",
+      "        _______/___|___\\_mmo^__    ",
+      "~~~~~~~~\\...................../~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+  char ascii_map_win[MAP_HEIGHT][MAP_WIDTH + 1] = {
 
       "     ",
       "    \\\\   //  _____                                ____             ||",
@@ -1176,67 +1138,73 @@ void _paint_map_win(Graphic_engine *ge, Game *game)
 
   screen_area_clear(ge->map);
 
-  for (i = 0; i < MAP_HEIGHT; i++)
+  if (type == -1)
   {
-    if (i == MAP_HEIGHT - 5)
-      sprintf(buffer, "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
-    else
-      sprintf(buffer, "%s", ascii_map[i]);
-    screen_area_puts(ge->map, buffer);
+    sprintf(ascii_map_loose[MAP_HEIGHT - 5], "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
+    for (i = 0; i < MAP_HEIGHT; i++)
+      screen_area_puts(ge->map, ascii_map_loose[i]);
+  }
+  else if (type == 1)
+  {
+    sprintf(ascii_map_win[MAP_HEIGHT - 5], "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
+    for (i = 0; i < MAP_HEIGHT; i++)
+      screen_area_puts(ge->map, ascii_map_win[i]);
+  }
+  else
+  {
+    for (i = 0; i < MAP_HEIGHT; i++)
+      screen_area_puts(ge->map, ascii_map_init[i]);
   }
 }
 
-void _paint_map_lose(Graphic_engine *ge, Game *game)
+void _paint_inventory(Graphic_engine *ge, Game *game)
 {
-  char buffer[WORD_SIZE];
-  int i;
-  char ascii_map[MAP_HEIGHT][MAP_WIDTH + 1] = {
-      "     ",
-      "           ",
-      "       \\   /  ____               |       ____      _____   _____    ||",
-      "        \\ / //    \\\\  ||   ||    |     //    \\\\   /          |      ||",
-      "         |  ||    ||  ||   ||    |     ||    ||   \\_____     |      ||",
-      "         |  ||    ||  ||   ||    |     ||    ||        \\\\    |        ",
-      "         |  \\\\____//  \\\\___//    |____ \\\\____//   _____//    |      []",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "                   |>              ",
-      "                   |               ",
-      "                  /|\\              ",
-      "                 /.| \\             ",
-      "                /^^|^^\\            ",
-      "        _______/___|___\\_mmo^__    ",
-      "~~~~~~~~\\...................../~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+  int i, f = 0, n, count[N_OBJ_TYPES];
+  char aux[WORD_SIZE] = "";
+  Id *objs;
+  Object *obj;
 
-  screen_area_clear(ge->map);
-  for (i = 0; i < MAP_HEIGHT; i++)
+  if (!ge || !game)
   {
-    if (i == MAP_HEIGHT - 5)
-      sprintf(buffer, "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
-    else
-      sprintf(buffer, "%s", ascii_map[i]);
-    screen_area_puts(ge->map, buffer);
+    return;
   }
+  objs = game_get_player_objects(game, &n);
+  for (i = 0; i < N_OBJ_TYPES; i++)
+    count[i] = 0;
+  for (i = 0; i < n; i++)
+  {
+    obj = game_get_object(game, objs[i]);
+
+    if (object_get_type(obj) == SPECIAL || object_get_type(obj) == NO_OTYPE)
+    {
+      f = 1;
+      fprintf(stderr, "%d %s\n", object_get_type(obj), object_get_name(obj));
+
+      sprintf(aux, "-%s ", object_get_name(obj));
+      screen_area_puts(ge->descript, aux);
+    }
+    else
+    {
+      count[object_get_type(obj)]++;
+    }
+  }
+
+  for (i = 0; i < N_OBJ_TYPES; i++)
+  {
+    if (count[i] != 0)
+    {
+      f = 1;
+      fprintf(stderr, "%d %s\n", i, object_translate_object_type_to_string(i));
+      sprintf(aux, "-%s: %d ", object_translate_object_type_to_string(i), count[i]);
+      screen_area_puts(ge->descript, aux);
+    }
+  }
+  if (f == 0)
+  {
+    sprintf(aux, " NONE");
+    screen_area_puts(ge->descript, aux);
+  }
+  free(objs);
 }
 
 void graphic_engine_sprint_empty(char (*str_array)[MAP_WIDTH * MULTIBYTE + 1], int height, int width)
@@ -1917,7 +1885,7 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
 void _paint_minimap(Graphic_engine *ge, Game *game)
 {
   int i, j, k, m;
-  char buffer[2*WORD_SIZE], aux[WORD_SIZE], aux2[2*WORD_SIZE];
+  char buffer[2 * WORD_SIZE], aux[WORD_SIZE], aux2[2 * WORD_SIZE];
   Id Loc;
   Space *space;
 
@@ -1969,28 +1937,28 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_BROWN B_LIGHTBLUE "|H|");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
             sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
-          else if (game_space_has_object(game, space_get_id(space), STICK)||game_space_has_object(game, space_get_id(space), LEAF)||game_space_has_object(game, space_get_id(space), WALNUT))
+          else if (game_space_has_object(game, space_get_id(space), STICK) || game_space_has_object(game, space_get_id(space), LEAF) || game_space_has_object(game, space_get_id(space), WALNUT))
             sprintf(aux, F_BROWN B_LIGHTBROWN "|!|");
           else if (game_space_has_object(game, space_get_id(space), GROUND))
             sprintf(aux, F_BROWN B_LIGHTBROWN "|.|");
           else if (game_space_has_object(game, space_get_id(space), LANTERN))
             sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
-          else if (game_space_has_object(game, space_get_id(space), KEY)||game_space_has_object(game, space_get_id(space), GOLDKEY))
+          else if (game_space_has_object(game, space_get_id(space), KEY) || game_space_has_object(game, space_get_id(space), GOLDKEY))
             sprintf(aux, F_BROWN B_LIGHTBROWN "|¬|");
           else
             sprintf(aux, F_BROWN B_LIGHTBROWN "| |");
 
           sprintf(aux2, "%s", buffer);
-          snprintf(buffer, 2*WORD_SIZE, "%s%s", aux2, aux);
+          snprintf(buffer, 2 * WORD_SIZE, "%s%s", aux2, aux);
         }
         else
         {
           sprintf(aux2, "%s", buffer);
-          snprintf(buffer,2*WORD_SIZE, "%s" F_BLACK B_WHITE "   ", aux2);
+          snprintf(buffer, 2 * WORD_SIZE, "%s" F_BLACK B_WHITE "   ", aux2);
         }
       }
       sprintf(aux2, "%s", buffer);
-      snprintf(buffer,2*WORD_SIZE,"%s" F_BLACK B_WHITE "|", aux2);
+      snprintf(buffer, 2 * WORD_SIZE, "%s" F_BLACK B_WHITE "|", aux2);
       screen_area_puts(ge->minimap, buffer);
     }
     sprintf(buffer, F_BLACK B_WHITE "    +----------------------+");

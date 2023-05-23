@@ -1,9 +1,9 @@
                 GAMEDATA
-#G:0|0|
+#G:0|0.3|
 Porcentaje de espacios oscuros
 
                 PLAYER
-#p:1|Segismundo Eduardo de todos los Santos|065|60|60|0|
+#p:1|Segismundo Eduardo de todos los Santos|065|1|60|0|
 
 
                 SPACES
@@ -205,7 +205,7 @@ Porcentaje de espacios oscuros
 #o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:203|ANTBOAT|-1|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
+#o:203|ANTBOAT|-2|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
 
 
 #o:37|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
