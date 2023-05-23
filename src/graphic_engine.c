@@ -1042,6 +1042,50 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 {
   int i;
 
+  char new_ascii_map[MAP_HEIGHT][MAP_WIDTH * MULTIBYTE + 1] = {
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    /* TITLE */
+    B_LIGHTBLUE F_BLUE "             ▗█▖     ▐█▙   █▌ ▀▀▀█▛▀▀▘ █▌   ▐█ ▝▀█▛▀ ▐█     ▐█",
+    B_LIGHTBLUE F_BLUE "            ▗█▀█▖    ▐█▜▙  █▌    █▌    █▌   ▐█   █▌  ▐█     ▐█",
+    B_LIGHTBLUE F_BLUE "           ▗█▙▄▟█▖   ▐█ ▜▙ █▌    █▌    █▛▀▀▀▜█   █▌  ▐█     ▐█",
+    B_LIGHTBLUE F_BLUE "          ▗█▘   ▝█▖  ▐█  ▜▙█▌    █▌    █▌   ▐█   █▌  ▐█     ▐█",
+    B_LIGHTBLUE F_BLUE "         ▗█▘     ▝█▖ ▐█   ▜█▌    █▌    █▌   ▐█ ▗▄█▙▄ ▐█▄▄▄▄ ▐█▄▄▄▄",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE " ",
+    B_LIGHTBLUE F_BROWN "                   ▐" F_RED "▶",
+    B_LIGHTBLUE F_WHITE "                  ▟" B_WHITE F_BROWN "▐" B_LIGHTBLUE F_WHITE "▙",
+    B_LIGHTBLUE F_WHITE "                 ▟" B_WHITE F_BROWN " ▐ " B_LIGHTBLUE F_WHITE "▙",
+    B_LIGHTBLUE F_WHITE "                ▟" B_WHITE F_BROWN "  ▐  " B_LIGHTBLUE F_WHITE "▙",
+    B_LIGHTBLUE F_WHITE "               ▟" B_WHITE F_BROWN "   ▐   " B_LIGHTBLUE F_WHITE "▙",
+    B_LIGHTBLUE F_WHITE "              ▟" B_WHITE F_BROWN "    ▐    " B_LIGHTBLUE F_WHITE "▙  " F_BLACK "mmo^",
+    B_LIGHTBLUE F_BLUE "▂▃▄▅▆▆▅▄" B_BLUE F_RED "▜" B_RED F_WHITE "  ●   ●   ●   ●   ●  " B_BLUE F_RED "▛" B_LIGHTBLUE F_BLUE"▂▃▄▅▆▆▅▄▃▂▂▃▄▅▆▆▅▄▃▂▂▃▄▅▆▆▅▄▃▂▂▃▄▅▆▆▅▄▃▂▂▃▄▅▆",
+    B_BLUE F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢" F_RED "▜" B_RED F_WHITE "   ●   ●   ●   ●   " B_BLUE F_RED "▛" F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣",
+    B_BLUE F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣",
+    B_BLUE F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣",
+    B_BLUE F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣",
+  };
+
   char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
       B_LIGHTBLUE "     ",
       B_LIGHTBLUE "     ",
@@ -1075,10 +1119,11 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
       B_LIGHTBLUE "                 " B_WHITE "/.| \\" B_LIGHTBLUE "             ",
       B_LIGHTBLUE "                " B_WHITE "/^^|^^\\" B_LIGHTBLUE "            ",
       B_LIGHTBLUE "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_mmo^__    ",
-      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      F_DARKBLUE BACKGROUND(0, 150, 255) "⌢⌣⌢⌣⌢⌣⌢⌣" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+
   char ascii_map_loose[7][MAP_WIDTH + 1] = {
       "     ",
       "           ",
@@ -1115,10 +1160,10 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
   else
   {
     for (i = 0; i < 7; i++)
-      screen_area_puts(ge->map, ascii_map[i]);
+      screen_area_puts(ge->map, new_ascii_map[i]);
   }
   for (; i < MAP_HEIGHT; i++)
-    screen_area_puts(ge->map, ascii_map[i]);
+    screen_area_puts(ge->map, new_ascii_map[i]);
 }
 
 void _paint_inventory(Graphic_engine *ge, Game *game)
