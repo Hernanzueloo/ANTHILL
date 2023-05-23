@@ -208,6 +208,14 @@ STATUS game_delete_enemy(Game *game, Id enmyid);
 Id game_get_enemy_id_at(Game *game, int position);
 
 /**
+ * @brief Gets the enemy ID in a space
+ * @author Alejandro García Hernando
+ * @param game Pointer to the game
+ * @param space ID of the space
+ */
+Id game_get_enemy_id_in_space(Game *game, Id space);
+
+/**
  * @brief It gets the number of enemies the game has
  * @author Alejandro García
  * @return The number of enemies the game has, -1 in case of ERROR

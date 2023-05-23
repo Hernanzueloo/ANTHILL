@@ -785,6 +785,26 @@ Enemy *game_get_enemy(Game *game, Id id)
   return NULL;
 }
 
+Id game_get_enemy_id_in_space(Game *game, Id space)
+{
+  int i;
+  Id enemy_id = NO_ID + 1;
+  Enemy *enemy;
+
+  if (game == NULL || space == NO_ID)
+    return NO_ID;
+
+  for (i = 0; i < MAX_ENEMIES && enemy_id != NO_ID; i++)
+  {
+    enemy_id = game_get_enemy_id_at(game, i);
+    enemy = game_get_enemy(game, enemy_id);
+    if (enemy_get_location(enemy) == space)
+      return enemy_id;
+  }
+
+  return NO_ID;
+}
+
 STATUS game_add_enemy(Game *game, Enemy *enemy)
 {
   int i;
