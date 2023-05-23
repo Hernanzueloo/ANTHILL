@@ -253,6 +253,22 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game);
 void _paint_inventory(Graphic_engine *ge, Game *game);
 
 /**
+ * @brief Sets n enters
+ * @author Alejandro García Hernando
+ * @param ge Pointer to graphical descriptor
+ * @param n number of enters
+ */
+void paint_n_enters(Area *area, int n);
+
+/**
+ * @brief Gets the enemy ID in a space
+ * @author Alejandro García Hernando
+ * @param game Pointer to the game
+ * @param space ID of the space
+ */
+Id get_enemy_id_in_space(Game *game, Id space);
+
+/**
  * @brief Graphic_engine
  *
  * This struct stores all the information of the graphics engine.
@@ -535,14 +551,11 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
 
       if (((obj_loc = game_get_object_location(game, obj_id)) > 0) && object_get_hidden(game_get_object(game, obj_id)) == FALSE && object_get_movable(game_get_object(game, obj_id)) == TRUE && space_get_light(game_get_space(game, object_get_location(game_get_object(game, obj_id)))) == TRUE)
       {
-        for (j = 0; j < MAX_ENEMIES; j++)
+
+        if ((enmy_id = get_enemy_id_in_space(game, obj_loc)) != NO_ID)
         {
-          enmy_id = game_get_enemy_id_at(game, j);
-          if (enmy_id != NO_ID)
-          {
-            if (enemy_get_location(game_get_enemy(game, enmy_id)) == obj_loc && enemy_get_health(game_get_enemy(game, enmy_id)) > 0)
-              break;
-          }
+          if (enemy_get_health(game_get_enemy(game, enmy_id)) < 1)
+            enmy_id = NO_ID;
         }
 
         if (enmy_id == NO_ID || j == MAX_ENEMIES)
@@ -748,46 +761,36 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   char buffer[WORD_SIZE];
 
   screen_area_clear(ge->descript);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1);
   sprintf(buffer, "                        Pick a player");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2);
   sprintf(buffer, "     -Scorpion (1): %s", pSkins[SCORPION]);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "The Scorpion is a venomous animal therefore it deals %d more damage", EXTRASCORP);
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
+  paint_n_enters(ge->descript, 1);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "     -Snail (2): %s", pSkins[SNAIL]);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
+  paint_n_enters(ge->descript, 1);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "     -Firefly (3): %s", pSkins[FIREFLY]);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "The Firefly iluminates a room without the need of a torch");
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
+  paint_n_enters(ge->descript, 1);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "     -Ant (4): %s", pSkins[ANT]);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "The ant creates %d ground at the beggining of the game", EXTRASANT);
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
+  paint_n_enters(ge->descript, 1);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "     -Butterfly (5): %s", pSkins[BUTTERFLY]);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, "The butterfly flies vertically thanks to its light and powerful wings.");
+  paint_n_enters(ge->descript, 1);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1);
   sprintf(buffer, " - Exit (e)");
   screen_area_puts(ge->descript, buffer);
 }
@@ -797,16 +800,10 @@ void _paint_description_end(Graphic_engine *ge, Game *game)
   char buffer[WORD_SIZE];
 
   screen_area_clear(ge->descript);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2);
   sprintf(buffer, "                        Game has ended");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, " ");
-  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2);
   sprintf(buffer, "       Hope you enjoyed the game ");
   screen_area_puts(ge->descript, buffer);
 }
@@ -1023,7 +1020,8 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 {
   char aux[WORD_SIZE], buffer[WORD_SIZE];
   int i, j;
-  char ascii_map_init[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
+
+  char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
       B_LIGHTBLUE "     ",
       B_LIGHTBLUE "     ",
       B_LIGHTBLUE "                         _______              ______  ",
@@ -1060,7 +1058,7 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
       F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-  char ascii_map_loose[MAP_HEIGHT][MAP_WIDTH + 1] = {
+  char ascii_map_loose[7][MAP_WIDTH + 1] = {
       "     ",
       "           ",
       "       \\   /  ____               |       ____      _____   _____    ||",
@@ -1068,93 +1066,38 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
       "         |  ||    ||  ||   ||    |     ||    ||   \\_____     |      ||",
       "         |  ||    ||  ||   ||    |     ||    ||        \\\\    |        ",
       "         |  \\\\____//  \\\\___//    |____ \\\\____//   _____//    |      []",
+  };
+  char ascii_map_win[7][MAP_WIDTH + 1] = {
       "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "                   |>              ",
-      "                   |               ",
-      "                  /|\\              ",
-      "                 /.| \\             ",
-      "                /^^|^^\\            ",
-      "        _______/___|___\\_mmo^__    ",
-      "~~~~~~~~\\...................../~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-  char ascii_map_win[MAP_HEIGHT][MAP_WIDTH + 1] = {
-
-      "     ",
+      "           ",
       "    \\\\   //  _____                                ____             ||",
       "     \\\\ // //    \\\\  ||   ||   \\              / //    \\\\  ||\\   || ||",
       "       |   ||    ||  ||   ||    \\     /\\     /  ||    ||  || \\  || ||",
       "       |   ||    ||  ||   ||     \\   /  \\   /   ||    ||  ||  \\ ||   ",
       "       |   \\\\____//  \\\\___//      \\ /    \\ /    \\\\____//  ||   \\|| []",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "     ",
-      "                   |>              ",
-      "                   |               ",
-      "                  /|\\              ",
-      "                 /.| \\             ",
-      "                /^^|^^\\            ",
-      "        _______/___|___\\_mmo^__    ",
-      "~~~~~~~~\\...................../~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
+  };
 
   screen_area_clear(ge->map);
 
   if (type == -1)
   {
     sprintf(ascii_map_loose[MAP_HEIGHT - 5], "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
-    for (i = 0; i < MAP_HEIGHT; i++)
+    for (i = 0; i < 7; i++)
       screen_area_puts(ge->map, ascii_map_loose[i]);
   }
   else if (type == 1)
   {
-    sprintf(ascii_map_win[MAP_HEIGHT - 5], "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
-    for (i = 0; i < MAP_HEIGHT; i++)
+    sprintf(ascii_map[MAP_HEIGHT - 5], "        _______/___|___\\_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
+    for (i = 0; i < 7; i++)
       screen_area_puts(ge->map, ascii_map_win[i]);
   }
   else
   {
-    for (i = 0; i < MAP_HEIGHT; i++)
-      screen_area_puts(ge->map, ascii_map_init[i]);
+    for (i = 0; i < 7; i++)
+      screen_area_puts(ge->map, ascii_map[i]);
   }
+  for (; i < MAP_HEIGHT; i++)
+    screen_area_puts(ge->map, ascii_map[i]);
 }
 
 void _paint_inventory(Graphic_engine *ge, Game *game)
@@ -1342,12 +1285,8 @@ void _paint_map(Graphic_engine *ge, Game *game)
       if (id_west != NO_ID)
       {
         /*Looks for an enemy in the west space*/
-        for (i = 0; i < MAX_ENEMIES; i++)
-        {
-          enemy = game_get_enemy(game, game_get_enemy_id_at(game, i));
-          if (enemy == NULL || enemy_get_location(enemy) == id_west)
-            break;
-        }
+        enemy = game_get_enemy(game, get_enemy_id_in_space(game, id_west));
+
         if (enemy != NULL && enemy_get_health(enemy) > 0)
         {
           edesc = enemy_get_edesc(enemy);
@@ -1363,12 +1302,7 @@ void _paint_map(Graphic_engine *ge, Game *game)
       strcat(str, aux);
 
       /*Looks for an enemy in the centre space*/
-      for (i = 0; i < MAX_ENEMIES; i++)
-      {
-        enemy = game_get_enemy(game, game_get_enemy_id_at(game, i));
-        if (enemy == NULL || enemy_get_location(enemy) == id_centre)
-          break;
-      }
+      enemy = game_get_enemy(game, get_enemy_id_in_space(game, id_centre));
       if (enemy != NULL && enemy_get_health(enemy) > 0)
       {
         edesc = enemy_get_edesc(enemy);
@@ -1477,9 +1411,7 @@ void _paint_map(Graphic_engine *ge, Game *game)
         strcpy(str, "\0");
 
         if (id_west != NO_ID)
-        {
           sprintf(aux, "|%*c|", BOX_COLS - 2, ' ');
-        }
         else
           sprintf(aux, "%*c", BOX_COLS, ' ');
         strcat(str, aux);
@@ -1506,14 +1438,11 @@ void _paint_map(Graphic_engine *ge, Game *game)
         total_len = 0;
         strcat(str, "|");
 
-        for (i = 0; i < MAX_ENEMIES; i++)
+        enmy_id = get_enemy_id_in_space(game, space_get_id(space_west));
+        if (enmy_id != NO_ID)
         {
-          enmy_id = game_get_enemy_id_at(game, i);
-          if (enmy_id != NO_ID)
-          {
-            if (enemy_get_location(game_get_enemy(game, enmy_id)) == space_get_id(space_west) && enemy_get_health(game_get_enemy(game, enmy_id)) > 0)
-              break;
-          }
+          if (enemy_get_health(game_get_enemy(game, enmy_id)) < 1)
+            enmy_id = NO_ID;
         }
 
         if (enmy_id == NO_ID || i == MAX_ENEMIES)
@@ -1562,14 +1491,11 @@ void _paint_map(Graphic_engine *ge, Game *game)
       total_len = 0;
       strcat(str, "|");
 
-      for (j = 0; j < MAX_ENEMIES; j++)
+      enmy_id = get_enemy_id_in_space(game, space_get_id(space_centre));
+      if (enmy_id != NO_ID)
       {
-        enmy_id = game_get_enemy_id_at(game, j);
-        if (enmy_id != NO_ID)
-        {
-          if (enemy_get_location(game_get_enemy(game, enmy_id)) == space_get_id(space_centre) && enemy_get_health(game_get_enemy(game, enmy_id)) > 0)
-            break;
-        }
+        if (enemy_get_health(game_get_enemy(game, enmy_id)) < 1)
+          enmy_id = NO_ID;
       }
 
       if (enmy_id == NO_ID || j == MAX_ENEMIES)
@@ -1613,14 +1539,11 @@ void _paint_map(Graphic_engine *ge, Game *game)
         total_len = 0;
         strcat(str, "|");
 
-        for (i = 0; i < MAX_ENEMIES; i++)
+        enmy_id = get_enemy_id_in_space(game, space_get_id(space_east));
+        if (enmy_id != NO_ID)
         {
-          enmy_id = game_get_enemy_id_at(game, i);
-          if (enmy_id != NO_ID)
-          {
-            if (enemy_get_location(game_get_enemy(game, enmy_id)) == space_get_id(space_east) && enemy_get_health(game_get_enemy(game, enmy_id)) > 0)
-              break;
-          }
+          if (enemy_get_health(game_get_enemy(game, enmy_id)) < 1)
+            enmy_id = NO_ID;
         }
 
         if (enmy_id == NO_ID || i == MAX_ENEMIES)
@@ -1738,9 +1661,9 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
     if (cut_top == 0)
     {
       strcpy(str, "\0");
-      sprintf(str, "%*c", BOX_COLS, ' ');
+      sprintf(str, "%*c  +", BOX_COLS, ' ');
 
-      strcat(str, "  +");
+      strcat(str, "");
       for (i = 0; i < BOX_COLS - 2; i++)
         strcat(str, "-");
       strcat(str, "+  ");
@@ -1749,12 +1672,8 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
     }
 
     /*Enemy and space id*/
-    for (i = 0; i < MAX_ENEMIES; i++)
-    {
-      enemy = game_get_enemy(game, game_get_enemy_id_at(game, i));
-      if (enemy == NULL || enemy_get_location(enemy) == spc_dir_id)
-        break;
-    }
+
+    enemy = game_get_enemy(game, get_enemy_id_in_space(game, spc_dir_id));
     if (enemy != NULL && enemy_get_health(enemy) > 0)
     {
       edesc = enemy_get_edesc(enemy);
@@ -1815,14 +1734,11 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
     total_len = 0;
     sprintf(str, "%*c  |", BOX_COLS, ' ');
 
-    for (i = 0; i < MAX_ENEMIES; i++)
+    enmy_id = get_enemy_id_in_space(game, space_act);
+    if (enmy_id != NO_ID)
     {
-      enmy_id = game_get_enemy_id_at(game, i);
-      if (enmy_id != NO_ID)
-      {
-        if (enemy_get_location(game_get_enemy(game, enmy_id)) == space_get_id(space_act) && enemy_get_health(game_get_enemy(game, enmy_id)) > 0)
-          break;
-      }
+      if (enemy_get_health(game_get_enemy(game, enmy_id)) < 1)
+        enmy_id = NO_ID;
     }
 
     if (enmy_id == NO_ID || i == MAX_ENEMIES)
@@ -1831,7 +1747,6 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
       {
         if (space_get_light(space_act) && object_get_hidden(game_get_object(game, objs_ids[i])) == FALSE)
         {
-
           obj_name = game_get_object_name(game, objs_ids[i]);
           slen = strlen(obj_name);
           if (total_len + slen <= BOX_COLS - 2)
@@ -1900,16 +1815,10 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
 
   for (i = 2; i >= 0; i--)
   {
-    sprintf(buffer, "          ");
-    screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, " ");
-    screen_area_puts(ge->minimap, buffer);
+    paint_n_enters(ge->minimap, 2);
     sprintf(buffer, "           Floor %d", i);
     screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, "          ");
-    screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, "          ");
-    screen_area_puts(ge->minimap, buffer);
+    paint_n_enters(ge->minimap, 2);
     sprintf(buffer, "    +----------------------+");
     screen_area_puts(ge->minimap, buffer);
     for (j = 1; j < 8; j++)
@@ -1964,4 +1873,34 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
     sprintf(buffer, F_BLACK B_WHITE "    +----------------------+");
     screen_area_puts(ge->minimap, buffer);
   }
+}
+
+void paint_n_enters(Area *area, int n)
+{
+  int i;
+  if (area == NULL || n < 1)
+    return;
+
+  for (i = 0; i < n; i++)
+    screen_area_puts(area, " ");
+}
+
+Id get_enemy_id_in_space(Game *game, Id space)
+{
+  int i;
+  Id enemy_id = NO_ID + 1;
+  Enemy *enemy;
+
+  if (game == NULL || space == NO_ID)
+    return NO_ID;
+
+  for (i = 0; i < MAX_ENEMIES && enemy_id != NO_ID; i++)
+  {
+    enemy_id = game_get_enemy_id_at(game, i);
+    enemy = game_get_enemy(game, enemy_id);
+    if (enemy_get_location(enemy) == space)
+      return enemy_id;
+  }
+
+  return NO_ID;
 }
