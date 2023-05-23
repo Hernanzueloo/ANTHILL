@@ -705,7 +705,7 @@ void test1_game_get_player_location()
 {
   Game *game = NULL;
 
-  PRINT_TEST_RESULT(game_get_player_location(game) == NO_ID);
+  PRINT_TEST_RESULT(player_get_location(game_get_player(game)) == NO_ID);
 }
 
 void test2_game_get_player_location()
@@ -719,7 +719,7 @@ void test2_game_get_player_location()
   game_set_player(game, player);
   player_set_location(player, NO_ID);
 
-  PRINT_TEST_RESULT(game_get_player_location(game) == NO_ID);
+  PRINT_TEST_RESULT(player_get_location(game_get_player(game)) == NO_ID);
 
   game_destroy(game);
 }
@@ -735,7 +735,7 @@ void test3_game_get_player_location()
   game_set_player(game, player);
   player_set_location(player, ID_LOC);
 
-  PRINT_TEST_RESULT(game_get_player_location(game) == ID_LOC);
+  PRINT_TEST_RESULT(player_get_location(game_get_player(game)) == ID_LOC);
 
   game_destroy(game);
 }
@@ -763,7 +763,7 @@ void test2_game_set_player_location()
   game_set_player(game, player);
   player_set_location(player, NO_ID);
 
-  PRINT_TEST_RESULT(game_get_player_location(game) == NO_ID);
+  PRINT_TEST_RESULT(player_get_location(game_get_player(game)) == NO_ID);
 
   game_destroy(game);
 }
@@ -779,7 +779,7 @@ void test3_game_set_player_location()
   game_set_player(game, player);
   player_set_location(player, ID_LOC);
 
-  PRINT_TEST_RESULT(game_get_player_location(game) == ID_LOC);
+  PRINT_TEST_RESULT(player_get_location(game_get_player(game)) == ID_LOC);
 
   game_destroy(game);
 }

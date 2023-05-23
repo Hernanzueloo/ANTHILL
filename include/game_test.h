@@ -173,21 +173,21 @@ void test3_game_get_player_objects();
 /**
  * @test Test function for getting the player's location
  * @pre game is NULL
- * @post game_get_player_location(game) == NO_ID
+ * @post player_get_location(game_get_player(game)) == NO_ID
  */
 void test1_game_get_player_location();
 
 /**
  * @test Test function for getting the player's location
  * @pre player doesn´t have a location
- * @post game_get_player_location(game) == NO_ID
+ * @post player_get_location(game_get_player(game)) == NO_ID
  */
 void test2_game_get_player_location();
 
 /**
  * @test Test function for getting the player's location
  * @pre player location is defined
- * @post game_get_player_location(game) == ID_LOC
+ * @post player_get_location(game_get_player(game)) == ID_LOC
  */
 void test3_game_get_player_location();
 
@@ -201,14 +201,14 @@ void test1_game_set_player_location();
 /**
  * @test Test function for setting the player's location
  * @pre player location is NO_ID
- * @post game_get_player_location(game) == NO_ID
+ * @post player_get_location(game_get_player(game)) == NO_ID
  */
 void test2_game_set_player_location();
 
 /**
  * @test Test function for setting the player's location
  * @pre player location is ID_LOC
- * @post game_get_player_location(game) == ID_LOC
+ * @post player_get_location(game_get_player(game)) == ID_LOC
  */
 void test3_game_set_player_location();
 

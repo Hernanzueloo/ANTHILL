@@ -950,13 +950,13 @@ STATUS game_management_load_player(Game *game, char *filename)
         game_set_player(game, player);
         player_set_name(player, name);
 
-        if (game_set_player_location(game, location) == ERROR)
+        if (player_set_location(game_get_player(game), location) == ERROR)
         {
           fclose(file);
           return ERROR;
         }
-
-        if (game_set_player_health(game, health) == ERROR)
+        
+        if (player_set_health(game_get_player(game), health) == ERROR)
         {
           fclose(file);
           return ERROR;
@@ -987,7 +987,7 @@ STATUS game_management_load_player(Game *game, char *filename)
     status = ERROR;
   }
 
-  game_set_last_tdesc(game, space_get_tdesc(game_get_space(game, game_get_player_location(game)))); /*Sets the description of the player intitial position*/
+  game_set_last_tdesc(game, space_get_tdesc(game_get_space(game, player_get_location(game_get_player(game))))); /*Sets the description of the player intitial position*/
   fclose(file);
 
   return status;

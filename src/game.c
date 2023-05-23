@@ -587,9 +587,7 @@ STATUS game_update(Game *game)
   commands_set_status(game->last_cmd, sts);
 
   for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
-  {
     rule_set_executed(game->rules[i], FALSE);
-  }
 
   if (sts == OK && cmd != UNKNOWN)
   {
@@ -597,7 +595,7 @@ STATUS game_update(Game *game)
     game_rule_evaluate_execute_all(game);
   }
 
-  game->last_tdesc = space_get_tdesc(game_get_space(game, game_get_player_location(game)));
+  game->last_tdesc = space_get_tdesc(game_get_space(game, player_get_location(game_get_player(game))));
   if (commands_get_cmd(game->last_cmd) != INSPECT)
     game->last_idesc = NULL;
 
@@ -609,10 +607,8 @@ BOOL game_is_over(Game *game)
   if (!game)
     return TRUE;
 
-  if (game->num_executed_commands == VICTORY || game->num_executed_commands == DEFEAT || game_get_player_health(game) <= 0)
-  {
+  if (game->num_executed_commands == VICTORY || game->num_executed_commands == DEFEAT || player_get_health(game_get_player(game)) <= 0)
     return TRUE;
-  }
 
   return FALSE;
 }
@@ -628,32 +624,24 @@ STATUS game_print_data(Game *game, FILE *file)
 
   fprintf(file, "\n=> Spaces: \n");
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
     space_print(game->spaces[i], file);
-  }
 
   fprintf(file, "\n=> Objects: \n");
   for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
     object_print(game->objects[i], file);
-  }
 
   fprintf(file, "\n=> Links: \n");
   for (i = 0; i < MAX_LINKS; i++)
   {
     if (game->links[i])
-    {
       link_print(game->links[i], file);
-    }
   }
 
   fprintf(file, "\n=> Dialogues: \n");
   for (i = 0; i < MAX_DIALOGUES; i++)
   {
     if (game->dialogues[i])
-    {
       dialogue_print(game->dialogues[i], file);
-    }
   }
 
   fprintf(file, "\n");
@@ -662,9 +650,7 @@ STATUS game_print_data(Game *game, FILE *file)
   for (i = 0; i < MAX_ENEMIES; i++)
   {
     if (game->enemies[i])
-    {
       enemy_print(game->enemies[i], file);
-    }
   }
 
   fprintf(file, "\n");
@@ -696,50 +682,6 @@ Id *game_get_player_objects(Game *game, int *num)
     return NULL;
 
   return player_get_objects(game->player, num);
-}
-
-Id game_get_player_location(Game *game)
-{
-  if (game == NULL)
-    return NO_ID;
-
-  return player_get_location(game->player);
-}
-
-STATUS game_set_player_location(Game *game, Id id)
-{
-  int i;
-
-  if (game == NULL || id == NO_ID)
-  {
-    return ERROR;
-  }
-
-  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
-    if (space_get_id(game->spaces[i]) == id)
-      return player_set_location(game->player, id);
-  }
-
-  return ERROR;
-}
-
-int game_get_player_health(Game *game)
-{
-  if (game == NULL)
-    return -1;
-
-  return player_get_health(game->player);
-}
-
-STATUS game_set_player_health(Game *game, int health)
-{
-  if (game == NULL || health < 0)
-  {
-    return ERROR;
-  }
-
-  return player_set_health(game->player, health);
 }
 
 BOOL game_player_has_light(Game *game)
@@ -785,24 +727,24 @@ Enemy *game_get_enemy(Game *game, Id id)
   return NULL;
 }
 
-Id game_get_enemy_id_in_space(Game *game, Id space)
+Enemy *game_get_enemy_id_space(Game *game, Id space)
 {
   int i;
   Id enemy_id = NO_ID + 1;
   Enemy *enemy;
 
   if (game == NULL || space == NO_ID)
-    return NO_ID;
+    return NULL;
 
   for (i = 0; i < MAX_ENEMIES && enemy_id != NO_ID; i++)
   {
     enemy_id = game_get_enemy_id_at(game, i);
     enemy = game_get_enemy(game, enemy_id);
     if (enemy_get_location(enemy) == space)
-      return enemy_id;
+      return enemy;
   }
 
-  return NO_ID;
+  return NULL;
 }
 
 STATUS game_add_enemy(Game *game, Enemy *enemy)
@@ -879,17 +821,16 @@ STATUS game_delete_object(Game *game, Id objid)
 {
   int i;
   int index = -1;
+  
   if (!game || objid == NO_ID)
     return ERROR;
 
   for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
     if (object_get_id(game->objects[i]) == objid)
     {
       index = i;
       object_destroy(game->objects[i]);
     }
-  }
 
   if (index != -1)
   {
@@ -897,8 +838,8 @@ STATUS game_delete_object(Game *game, Id objid)
     game->objects[i - 1] = NULL;
     return OK;
   }
-  else
-    return ERROR;
+
+  return ERROR;
 }
 
 Object *game_get_object(Game *game, Id id)
@@ -909,12 +850,8 @@ Object *game_get_object(Game *game, Id id)
     return NULL;
 
   for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
     if (id == object_get_id(game->objects[i]))
-    {
       return game->objects[i];
-    }
-  }
 
   return NULL;
 }
@@ -926,17 +863,11 @@ STATUS game_add_object(Game *game, Object *obj)
   if (game == NULL || obj == NULL)
     return ERROR;
 
-  i = 0;
-  while (i < MAX_OBJECTS && game->objects[i] != NULL)
-  {
-    i++;
-  }
+  for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
+    ;
 
   if (i == MAX_OBJECTS)
-  {
     return ERROR;
-  }
-
   game->objects[i] = obj;
 
   return OK;
@@ -945,11 +876,34 @@ STATUS game_add_object(Game *game, Object *obj)
 Id game_get_object_id_at(Game *game, int position)
 {
   if (game == NULL || position < 0 || position >= game_get_num_objects(game))
-  {
     return NO_ID;
-  }
 
   return object_get_id(game->objects[position]);
+}
+
+Object **game_get_objects_in_space(Game *game, Id space, int *n)
+{
+  int i, j = 0;
+  Object **objects, *obj;
+
+  if (game == NULL || space == NO_ID)
+    return NULL;
+
+  if ((objects = (Object **)malloc(MAX_OBJECTS * sizeof(Object *))) == NULL)
+    return NULL;
+
+  for (i = 0; i < MAX_OBJECTS && obj != NULL; i++)
+  {
+    obj = game_get_object(game, game_get_object_id_at(game, i));
+    if (object_get_location(obj) == space)
+    {
+      objects[j] = obj;
+      j++;
+    }
+  }
+
+  *n = j;
+  return objects;
 }
 
 int game_get_num_objects(Game *game)
@@ -1002,18 +956,14 @@ STATUS game_set_object_location(Game *game, Id object_id, Id location_id)
   int i = 0;
 
   if (game == NULL || object_id == NO_ID || location_id == NO_ID)
-  {
     return ERROR;
-  }
 
   for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
     if (object_id == object_get_id(game->objects[i]))
     {
       object_set_location(game->objects[i], location_id);
       return space_add_object(game_get_space(game, location_id), object_id);
     }
-  }
 
   return ERROR;
 }
@@ -1027,11 +977,9 @@ STATUS game_delete_space(Game *game, Id spaceid)
   Id *objs;
 
   if (!game || spaceid == NO_ID)
-  {
     return ERROR;
-  }
+
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
     if (space_get_id(game->spaces[i]) == spaceid)
     {
       for (j = 0; j < N_DIR; j++)
@@ -1047,17 +995,13 @@ STATUS game_delete_space(Game *game, Id spaceid)
 
       free(objs);
 
-      /*DAVID*/
       for (j = 0; j < MAX_ENEMIES && game->enemies[j] != NULL; j++)
-      {
         if (enemy_get_location(game->enemies[i]) == spaceid)
           game_delete_enemy(game, enemy_get_id(game->enemies[i]));
-      }
 
       index = i;
       space_destroy(game->spaces[index]);
     }
-  }
 
   if (index != -1)
   {
@@ -1074,16 +1018,12 @@ Space *game_get_space(Game *game, Id id)
   int i = 0;
 
   if (game == NULL || id == NO_ID)
-  {
     return NULL;
-  }
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
   {
     if (id == space_get_id(game->spaces[i]))
-    {
       return game->spaces[i];
-    }
   }
 
   return NULL;
@@ -1094,20 +1034,13 @@ STATUS game_add_space(Game *game, Space *space)
   int i;
 
   if (game == NULL || space == NULL)
-  {
     return ERROR;
-  }
 
-  i = 0;
-  while (i < MAX_SPACES && game->spaces[i] != NULL)
-  {
-    i++;
-  }
+  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
+    ;
 
   if (i == MAX_SPACES)
-  {
     return ERROR;
-  }
 
   game->spaces[i] = space;
 
@@ -1117,9 +1050,7 @@ STATUS game_add_space(Game *game, Space *space)
 Id game_get_space_id_at(Game *game, int position)
 {
   if (game == NULL || position < 0 || position >= MAX_SPACES)
-  {
     return NO_ID;
-  }
 
   return space_get_id(game->spaces[position]);
 }
@@ -1161,22 +1092,16 @@ Id *game_get_rand_space_id(Game *game, int nids)
     return NULL;
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
     allids[i] = space_get_id(game->spaces[i]);
-  }
 
   numallids = i;
 
   if (numallids <= nids)
   {
     for (i = 0; i < numallids; i++)
-    {
       randids[i] = space_get_id(game->spaces[i]);
-    }
     for (j = i; j < nids; j++)
-    {
       randids[i] = NO_ID;
-    }
   }
   else
   {
@@ -1197,10 +1122,10 @@ BOOL game_space_has_object(Game *game, Id id, T_ObjectType type)
   int i, n;
   Id *ido;
   Space *space;
+
   if (!game || id == NO_ID || type == NO_OTYPE)
-  {
     return FALSE;
-  }
+
   space = game_get_space(game, id);
   ido = space_get_objects(space, &n);
   for (i = 0; i < n; i++)
@@ -1239,23 +1164,19 @@ STATUS game_delete_link(Game *game, Id linkid)
     game->links[i - 1] = NULL;
     return OK;
   }
-  else
-    return ERROR;
+
+  return ERROR;
 }
 
 STATUS game_add_link(Game *game, Link *link)
 {
   int i;
-  if (!link || !game)
-  {
-    return ERROR;
-  }
 
-  i = 0;
-  while (i < MAX_LINKS && game->links[i] != NULL)
-  {
-    i++;
-  }
+  if (!link || !game)
+    return ERROR;
+
+  for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
+    ;
 
   if (i == MAX_LINKS)
     return ERROR;
@@ -1275,9 +1196,7 @@ Id game_get_link_id(Game *game, Id origin, DIRECTION dir)
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
     if (link_get_origin(game->links[i]) == origin && link_get_direction(game->links[i]) == dir)
-    {
       return link_get_id(game->links[i]);
-    }
   }
 
   return NO_ID;
@@ -1288,16 +1207,12 @@ Link *game_get_link(Game *game, Id id)
   int i;
 
   if (!game)
-  {
     return NULL;
-  }
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
     if (link_get_id(game->links[i]) == id)
-    {
       return game->links[i];
-    }
   }
 
   return NULL;
@@ -1306,9 +1221,7 @@ Link *game_get_link(Game *game, Id id)
 char *game_get_link_name(Game *game, Id id)
 {
   if (!game)
-  {
     return NULL;
-  }
 
   return link_get_name(game_get_link(game, id));
 }
@@ -1326,9 +1239,7 @@ STATUS game_set_link_origin(Game *game, Id link_id, Id origin_id)
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
     if (link_get_id(game->links[i]) == link_id)
-    {
       return link_set_origin(game->links[i], origin_id);
-    }
   }
 
   return ERROR;
@@ -1347,9 +1258,7 @@ STATUS game_set_link_destination(Game *game, Id link_id, Id destination_id)
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
     if (link_get_id(game->links[i]) == link_id)
-    {
       return link_set_destination(game->links[i], destination_id);
-    }
   }
 
   return ERROR;
@@ -1364,7 +1273,6 @@ LSTATUS game_get_connection_status(Game *game, Id origin, DIRECTION dir)
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
-
     if (link_get_origin(game->links[i]) == origin && link_get_direction(game->links[i]) == dir)
       return link_get_status(game->links[i]);
   }
@@ -1381,7 +1289,6 @@ Id game_get_connection(Game *game, Id origin, DIRECTION dir)
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
-
     if (link_get_origin(game->links[i]) == origin && link_get_direction(game->links[i]) == dir)
       return link_get_destination(game->links[i]);
   }
@@ -1398,7 +1305,6 @@ Id game_get_link_from_space(Game *game, Id orig, DIRECTION dir)
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
-
     if (link_get_origin(game->links[i]) == orig && link_get_direction(game->links[i]) == dir)
       return link_get_id(game->links[i]);
   }
@@ -1415,7 +1321,6 @@ Id game_get_link_to_space(Game *game, Id dest, DIRECTION dir)
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
   {
-
     if (link_get_destination(game->links[i]) == dest && link_get_direction(game->links[i]) == dir)
       return link_get_id(game->links[i]);
   }
@@ -1429,9 +1334,7 @@ Id game_get_open_link(Game *game, Id origin, DIRECTION dir)
     return NO_ID;
 
   if (game_get_connection_status(game, origin, dir) != CLOSE)
-  {
     return game_get_connection(game, origin, dir);
-  }
 
   return NO_ID;
 }
@@ -1452,9 +1355,7 @@ int game_get_num_links(Game *game)
 Id game_get_link_id_at(Game *game, int position)
 {
   if (game == NULL || position < 0 || position >= game_get_num_links(game))
-  {
     return NO_ID;
-  }
 
   return link_get_id(game->links[position]);
 }
@@ -1475,17 +1376,15 @@ Dialogue **game_get_all_dialogues(Game *game, int *num_dialogues)
 
 BOOL game_existing_dialogue_id(Game *game, Id id)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || id == NO_ID)
     return FALSE;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == id)
       return TRUE;
-
-    i++;
   }
 
   return FALSE;
@@ -1493,20 +1392,16 @@ BOOL game_existing_dialogue_id(Game *game, Id id)
 
 STATUS game_add_dialogue(Game *game, Dialogue *dialogue)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || dialogue == NULL || game_existing_dialogue_id(game, dialogue_get_id(dialogue)) == TRUE)
     return ERROR;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
-  {
-    i++;
-  }
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
+    ;
 
   if (i == MAX_DIALOGUES)
-  {
     return ERROR;
-  }
 
   game->dialogues[i] = dialogue;
 
@@ -1515,17 +1410,15 @@ STATUS game_add_dialogue(Game *game, Dialogue *dialogue)
 
 STATUS game_add_dialogue_rule(Game *game, Id id, char *rule, DTYPE type)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || id == NO_ID || rule == NULL)
     return ERROR;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == id)
       return dialogue_set_rule(game->dialogues[i], rule, type);
-
-    i++;
   }
 
   return ERROR;
@@ -1533,17 +1426,15 @@ STATUS game_add_dialogue_rule(Game *game, Id id, char *rule, DTYPE type)
 
 int game_get_dialogue_executed(Game *game, Id id)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || id == NO_ID)
     return -1;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == id)
       return dialogue_get_executed(game->dialogues[i]);
-
-    i++;
   }
 
   return -1;
@@ -1551,17 +1442,15 @@ int game_get_dialogue_executed(Game *game, Id id)
 
 STATUS game_increase_dialogue_executed(Game *game, Id id)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || id == NO_ID)
     return ERROR;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == id)
       return dialogue_increase_executed(game->dialogues[i]);
-
-    i++;
   }
 
   return ERROR;
@@ -1569,17 +1458,15 @@ STATUS game_increase_dialogue_executed(Game *game, Id id)
 
 STATUS game_decrease_dialogue_executed(Game *game, Id id)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || id == NO_ID)
     return ERROR;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == id)
       return dialogue_decrease_executed(game->dialogues[i]);
-
-    i++;
   }
 
   return ERROR;
@@ -1587,17 +1474,15 @@ STATUS game_decrease_dialogue_executed(Game *game, Id id)
 
 char *game_get_printed_dialogue_rule(Game *game, int position, char *args, T_Command command, STATUS command_status)
 {
-  int i = 0;
+  int i;
 
   if (game == NULL || command == NO_CMD)
     return ERROR;
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == command)
       return dialogue_get_printed_rule(game->dialogues[i], position, args, command_status);
-
-    i++;
   }
 
   return NULL;
@@ -1606,19 +1491,17 @@ char *game_get_printed_dialogue_rule(Game *game, int position, char *args, T_Com
 char *game_get_printed_repeated_error_rule(Game *game, int num_times)
 {
   char arg[WORD_SIZE] = "";
-  int i = 0;
+  int i;
 
   if (game == NULL || num_times <= 0)
     return ERROR;
 
   sprintf(arg, "%d", num_times);
 
-  while (i < MAX_DIALOGUES && game->dialogues[i] != NULL)
+  for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
   {
     if (dialogue_get_id(game->dialogues[i]) == REPEATED_ERROR_ID)
       break;
-
-    i++;
   }
 
   if (i == MAX_DIALOGUES)
@@ -1657,7 +1540,7 @@ char *game_get_move_dialogue_rule(Game *game, DTYPE type)
 
     for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
     {
-      if (link_get_origin(game->links[i]) == game_get_player_location(game) && link_get_direction(game->links[i]) == commands_get_direction(cmds))
+      if (link_get_origin(game->links[i]) == player_get_location(game_get_player(game)) && link_get_direction(game->links[i]) == commands_get_direction(cmds))
         return game_get_printed_dialogue_rule(game, 1, NULL, MOVE, ERROR);
     }
 
@@ -1667,7 +1550,7 @@ char *game_get_move_dialogue_rule(Game *game, DTYPE type)
   {
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
     {
-      if (space_get_id(game->spaces[i]) == game_get_player_location(game))
+      if (space_get_id(game->spaces[i]) == player_get_location(game_get_player(game)))
       {
         space = game->spaces[i];
         break;
@@ -1718,9 +1601,7 @@ char *game_get_move_dialogue_rule(Game *game, DTYPE type)
         return game_get_printed_dialogue_rule(game, 3, args, MOVE, OK);
       }
       else
-      {
         return game_get_printed_dialogue_rule(game, 2, dir, MOVE, OK);
-      }
     }
   }
 }
@@ -1735,7 +1616,7 @@ char *game_get_attack_dialogue_rule(Game *game)
 
   for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
   {
-    if (enemy_get_location(game->enemies[i]) == game_get_player_location(game))
+    if (enemy_get_location(game->enemies[i]) == player_get_location(game_get_player(game)))
     {
       enemy = game->enemies[i];
       break;
@@ -1745,7 +1626,7 @@ char *game_get_attack_dialogue_rule(Game *game)
   if (enemy == NULL)
     return NULL;
 
-  player_health = game_get_player_health(game);
+  player_health = player_get_health(game_get_player(game));
   enemy_health = enemy_get_health(enemy);
 
   if (enemy_health == 0)
@@ -1780,7 +1661,7 @@ char *game_get_take_dialogue_rule(Game *game, DTYPE type)
   {
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
     {
-      if (space_get_id(game->spaces[i]) == game_get_player_location(game))
+      if (space_get_id(game->spaces[i]) == player_get_location(game_get_player(game)))
       {
         space = game->spaces[i];
         break;
@@ -1791,13 +1672,9 @@ char *game_get_take_dialogue_rule(Game *game, DTYPE type)
       return NULL;
 
     if (space_get_light(space) == FALSE)
-    {
       return game_get_printed_dialogue_rule(game, 2, object_name, TAKE, ERROR);
-    }
     else if (player_get_max_objects(game_get_player(game)) == player_get_num_objects(game_get_player(game)))
-    {
       return game_get_printed_dialogue_rule(game, 1, object_name, TAKE, ERROR);
-    }
     else
     {
       for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
@@ -1815,17 +1692,11 @@ char *game_get_take_dialogue_rule(Game *game, DTYPE type)
       strcpy(object_name, object_get_name(object));
 
       if (player_has_object(game_get_player(game), object_get_id(object)) == TRUE)
-      {
         return game_get_printed_dialogue_rule(game, 5, object_name, TAKE, ERROR);
-      }
       else if (object_get_location(object) != space_get_id(space))
-      {
         return game_get_printed_dialogue_rule(game, 0, object_name, TAKE, ERROR);
-      }
       else if (object_get_movable(object) == FALSE)
-      {
         return game_get_printed_dialogue_rule(game, 3, object_name, TAKE, ERROR);
-      }
       else if (player_has_object(game_get_player(game), object_get_dependency(object)) == FALSE)
       {
         strcat(args, object_name);
@@ -1845,9 +1716,7 @@ char *game_get_take_dialogue_rule(Game *game, DTYPE type)
         return game_get_printed_dialogue_rule(game, 4, args, TAKE, ERROR);
       }
       else
-      {
         return game_get_printed_dialogue_rule(game, 0, object_name, TAKE, ERROR);
-      }
     }
   }
   else
@@ -1861,9 +1730,7 @@ char *game_get_take_dialogue_rule(Game *game, DTYPE type)
       }
     }
     if (game->objects[i] == NULL)
-    {
       return game_get_printed_dialogue_rule(game, 0, object_name, TAKE, OK);
-    }
 
     return game_get_printed_dialogue_rule(game, 0, object_get_name(object), TAKE, OK);
   }
@@ -1930,7 +1797,7 @@ char *game_get_drop_dialogue_rule(Game *game, DTYPE type)
     if (strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND_NAME, strlen(GROUND_NAME)) == 0)
     {
       if (drop_ground == SUCCESS)
-        return game_get_printed_dialogue_rule(game, 3, (char *)space_get_name(game_get_space(game, game_get_player_location(game))), DROP, SUCCESS);
+        return game_get_printed_dialogue_rule(game, 3, (char *)space_get_name(game_get_space(game, player_get_location(game_get_player(game)))), DROP, SUCCESS);
       else
         return game_get_printed_dialogue_rule(game, 4, NULL, DROP, SUCCESS);
     }
@@ -1958,7 +1825,7 @@ char *game_get_drop_dialogue_rule(Game *game, DTYPE type)
     else if (cont > 1)
       return game_get_printed_dialogue_rule(game, 2, args, DROP, OK);
 
-    strcat(args, space_get_name(game_get_space(game, game_get_player_location(game))));
+    strcat(args, space_get_name(game_get_space(game, player_get_location(game_get_player(game)))));
 
     return game_get_printed_dialogue_rule(game, 0, args, DROP, OK);
   }
@@ -1983,7 +1850,7 @@ char *game_get_inspect_dialogue_rule(Game *game, DTYPE type)
   {
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
     {
-      if (space_get_id(game->spaces[i]) == game_get_player_location(game))
+      if (space_get_id(game->spaces[i]) == player_get_location(game_get_player(game)))
       {
         space = game->spaces[i];
         break;
@@ -1998,9 +1865,7 @@ char *game_get_inspect_dialogue_rule(Game *game, DTYPE type)
   }
 
   if (type == FAILURE)
-  {
     return game_get_printed_dialogue_rule(game, 0, inspect_name, INSPECT, ERROR);
-  }
   else
   {
     for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
@@ -2055,10 +1920,10 @@ char *game_get_turn_on_off_dialogue_rule(Game *game, T_Command command, DTYPE ty
 
     strcpy(object_name, object_get_name(object));
 
-    if (player_has_object(game_get_player(game), object_get_id(object)) == FALSE && object_get_location(object) != game_get_player_location(game))
+    if (player_has_object(game_get_player(game), object_get_id(object)) == FALSE && object_get_location(object) != player_get_location(game_get_player(game)))
       return game_get_printed_dialogue_rule(game, 3, object_name, command, ERROR);
 
-    if (space_get_light(game_get_space(game, game_get_player_location(game))) == FALSE && game_player_has_light(game) == FALSE)
+    if (space_get_light(game_get_space(game, player_get_location(game_get_player(game)))) == FALSE && game_player_has_light(game) == FALSE)
       return game_get_printed_dialogue_rule(game, 1, object_name, command, ERROR);
 
     return game_get_printed_dialogue_rule(game, 0, object_name, command, ERROR);
@@ -2125,7 +1990,7 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
 
     if (commands_get_direction(cmds) != NO_DIR)
     {
-      if ((link = game_get_link(game, game_get_link_id(game, game_get_player_location(game), commands_get_direction(cmds)))) == NULL)
+      if ((link = game_get_link(game, game_get_link_id(game, player_get_location(game_get_player(game)), commands_get_direction(cmds)))) == NULL)
         return game_get_printed_dialogue_rule(game, 9, NULL, command, ERROR);
     }
     else
@@ -2134,7 +1999,7 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
       {
         if (strcasecmp(link_get_name(game->links[i]), commands_get_args(cmds, 0)) == 0)
         {
-          if (link_get_origin(game->links[i]) == game_get_player_location(game))
+          if (link_get_origin(game->links[i]) == player_get_location(game_get_player(game)))
           {
             link = game->links[i];
             break;
@@ -2160,7 +2025,7 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
 
     if (player_has_object(game_get_player(game), object_get_id(object)) == FALSE)
     {
-      if (object_get_location(object) != game_get_player_location(game))
+      if (object_get_location(object) != player_get_location(game_get_player(game)))
         return game_get_printed_dialogue_rule(game, 4, object_get_name(object), command, ERROR);
     }
 
@@ -2174,7 +2039,7 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
   {
     for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
     {
-      if ((strcasecmp(link_get_name(game->links[i]), commands_get_args(cmds, 0)) == 0) || (link_get_direction(game->links[i]) == commands_get_direction(cmds) && link_get_origin(game->links[i]) == game_get_player_location(game)))
+      if ((strcasecmp(link_get_name(game->links[i]), commands_get_args(cmds, 0)) == 0) || (link_get_direction(game->links[i]) == commands_get_direction(cmds) && link_get_origin(game->links[i]) == player_get_location(game_get_player(game))))
       {
         link = game->links[i];
         break;
@@ -2201,14 +2066,10 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
     {
       if (space_get_id(game->spaces[i]) == link_get_origin(link))
-      {
         space1 = game->spaces[i];
-      }
 
       if (space_get_id(game->spaces[i]) == link_get_destination(link))
-      {
         space2 = game->spaces[i];
-      }
     }
 
     if (space1 == NULL || space2 == NULL)
@@ -2229,9 +2090,7 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
   char *dialogues[MAX_RULES], *aux = NULL, args[WORD_SIZE] = "", *argname, **retorno, cadena[WORD_SIZE] = "";
 
   if (!game || !num_dialogues)
-  {
     return NULL;
-  }
   *num_dialogues = 0;
 
   for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
@@ -2260,10 +2119,8 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
 
   if (inundation)
   {
-    if (game_get_player_health(game) == 0 /*&& game_check_harbour_sunk(game)==TRUE*/)
-    {
+    if (player_get_health(game_get_player(game)) == 0 /*&& game_check_harbour_sunk(game)==TRUE*/)
       aux = game_get_printed_dialogue_rule(game, 5, NULL, REPEATED_ERROR_ID + 1, OK);
-    }
     else
     {
       n_flooded = rule_action_get_argint(rule_get_action(game->rules[indexrule], indexact));
@@ -2306,7 +2163,6 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
             {
               if (count1 > 0)
                 strcat(args, "|");
-
               strcat(args, JustFloodedName[j]);
               strcat(args, "(");
               sprintf(cadena, "Id:%ld", JustFlooded[j]);
@@ -2382,7 +2238,6 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
   {
     for (i = 0; i < *num_dialogues; i++)
       free(dialogues[i]);
-
     return NULL;
   }
 
@@ -2395,13 +2250,16 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
 char *game_get_upgraded_name(char *name)
 {
   int i;
+
   if (!name)
     return NULL;
+
   for (i = 0; i < N_UPGRADEABLE_OBJ; i++)
   {
     if (strcasecmp(upgrades_object[i][NOT_UPGRADED], name) == 0)
       return upgrades_object[i][UPGRADED];
   }
+
   return NULL;
 }
 
@@ -2410,20 +2268,15 @@ char *game_get_upgraded_name(char *name)
 Commands *game_get_last_command(Game *game)
 {
   if (game == NULL)
-  {
     return NULL;
-  }
 
   return game->last_cmd;
 }
 
 T_Command game_get_last_command_cmd(Game *game)
 {
-
   if (game == NULL)
-  {
     return NO_CMD;
-  }
 
   return commands_get_cmd(game->last_cmd);
 }
@@ -2431,9 +2284,7 @@ T_Command game_get_last_command_cmd(Game *game)
 STATUS game_get_last_command_status(Game *game)
 {
   if (game == NULL)
-  {
     return NO_CMD;
-  }
 
   return commands_get_status(game->last_cmd);
 }
@@ -2574,11 +2425,8 @@ STATUS game_add_rule(Game *game, Rule *rule)
   if (game == NULL || rule == NULL)
     return ERROR;
 
-  i = 0;
-  while (i < MAX_RULES && game->rules[i] != NULL)
-  {
-    i++;
-  }
+  for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
+    ;
 
   if (i == MAX_RULES)
     return ERROR;
@@ -2597,13 +2445,11 @@ STATUS game_rule_evaluate_execute_all(Game *game)
     return ERROR;
 
   for (i = 0; i < MAX_RULES && game->rules != NULL; i++)
-  {
     if (game_rule_evaluate(game, game->rules[i]) == TRUE)
     {
       st = game_rule_execute(game, game->rules[i]);
       rule_set_executed(game->rules[i], TRUE);
     }
-  }
 
   return st;
 }
@@ -2617,9 +2463,8 @@ STATUS game_rule_execute(Game *game, Rule *rule)
     return ERROR;
 
   for (i = 0; i < rule_get_num_actions(rule) && st == OK; i++)
-  {
     st = game_rule_execute_action(game, rule_get_action(rule, i));
-  }
+
   return st;
 }
 
@@ -2631,9 +2476,8 @@ BOOL game_rule_evaluate(Game *game, Rule *rule)
     return FALSE;
 
   for (i = 0; i < rule_get_num_conditions(rule) && eval == TRUE; i++)
-  {
     eval = game_rule_evaluate_condition(game, rule_get_condition(rule, i));
-  }
+
   return eval;
 }
 
@@ -2645,9 +2489,7 @@ BOOL game_check_harbour_sunk(Game *game)
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL && eval == TRUE; i++)
     {
       if (strcasecmp(space_get_name(game->spaces[i]), HARBOUR) == 0)
-      {
         eval = FALSE;
-      }
     }
   return eval;
 }
@@ -2674,9 +2516,9 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
   switch (tcond)
   {
   case IN_SPACE:
-    if (game_get_player_location(game) == argsId[0])
+    if (player_get_location(game_get_player(game)) == argsId[0])
       eval = TRUE;
-    if (strcasecmp(space_get_name(game_get_space(game, game_get_player_location(game))), argname) == 0)
+    if (strcasecmp(space_get_name(game_get_space(game, player_get_location(game_get_player(game)))), argname) == 0)
       eval = TRUE;
     break;
 
@@ -2687,7 +2529,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     break;
 
   case HEALTH_POINTS_P:
-    if (game_get_player_health(game) == argint)
+    if (player_get_health(game_get_player(game)) == argint)
       eval = TRUE;
     break;
 
@@ -2695,14 +2537,11 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     eval = FALSE;
     for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
     {
-
-      if (enemy_get_location(game->enemies[i]) == game_get_player_location(game))
+      if (enemy_get_location(game->enemies[i]) == player_get_location(game_get_player(game)))
       {
         eval = TRUE;
         if (enemy_get_health(game->enemies[i]) > argint)
-        {
           eval = FALSE;
-        }
       }
     }
     break;
@@ -2714,20 +2553,17 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
   case DROP_OBJ:
 
     if (commands_get_cmd(game_get_last_command(game)) == DROP && strcasecmp(commands_get_args(game_get_last_command(game), 0), BOAT) == 0)
-    {
       eval = TRUE;
-    }
     else if (commands_get_cmd(game_get_last_command(game)) == DROP && strncasecmp(commands_get_args(game_get_last_command(game), 0), GROUND_NAME, strlen(GROUND_NAME)) == 0 && space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) == FLOODED)
     {
       eval = TRUE;
-      objs = space_get_objects(game_get_space(game, game_get_player_location(game)), &n_objs);
+      objs = space_get_objects(game_get_space(game, player_get_location(game_get_player(game))), &n_objs);
 
       for (i = 0; i < n_objs; i++)
       {
         if (strcasecmp(object_get_name(game_get_object(game, objs[i])), commands_get_args(game_get_last_command(game), 0)) == 0)
         {
-
-          space_remove_object(game_get_space(game, game_get_player_location(game)), objs[i]);
+          space_remove_object(game_get_space(game, player_get_location(game_get_player(game))), objs[i]);
           game_delete_object(game, objs[i]);
           break;
         }
@@ -2747,9 +2583,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
           for (i = 0, count = 0; i < n_objs && count < argint; i++)
           {
             if (strncasecmp(object_get_name(game_get_object(game, objs[i])), argname, len) == 0)
-            {
               count++;
-            }
           }
           if (count == argint)
             eval = TRUE;
@@ -2767,9 +2601,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL && eval == TRUE; i++)
     {
       if (strcasecmp(space_get_name(game->spaces[i]), argname) == 0)
-      {
         eval = FALSE;
-      }
     }
     break;
   default:
@@ -2781,7 +2613,6 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
 
 STATUS game_rule_execute_action(Game *game, Action *action)
 {
-
   int i, numId, argint, len, n_objs = 0, indexs[MAX_OBJECTS], count;
   Id *argsId, *objs;
   STATUS st = OK;
@@ -2811,30 +2642,22 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 
   case ATTACK_E:
     for (i = 0; i < numId && st == OK; i++)
-    {
       st = enemy_set_health(game_get_enemy(game, argsId[i]), enemy_get_health(game_get_enemy(game, argsId[i])) - argint);
-    }
     break;
 
   case HEAL_E:
     for (i = 0; i < numId && st == OK; i++)
-    {
       st = enemy_set_health(game_get_enemy(game, argsId[i]), enemy_get_health(game_get_enemy(game, argsId[i])) + argint);
-    }
     break;
 
   case OPEN_LINK:
     for (i = 0; i < numId && st == OK; i++)
-    {
       st = link_set_status(game_get_link(game, argsId[i]), OPEN);
-    }
     break;
 
   case CLOSE_LINK:
     for (i = 0; i < numId && st == OK; i++)
-    {
       st = link_set_status(game_get_link(game, argsId[i]), CLOSE);
-    }
     break;
 
   case INUNDATION:
@@ -2854,10 +2677,8 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 
       if (space_get_flooded(game_get_space(game, idsflood[i])) == SUNK)
       {
-        if (game_get_player_location(game) == idsflood[i])
-        {
-          game_set_player_health(game, 0);
-        }
+        if (player_get_location(game_get_player(game)) == idsflood[i])
+          player_set_health(game_get_player(game), 0);
 
         game_delete_space(game, idsflood[i]);
       }
@@ -2873,14 +2694,11 @@ STATUS game_rule_execute_action(Game *game, Action *action)
       st = space_set_flooded(game_get_space(game, player_get_location(game_get_player(game))), (SSTATUS)(space_get_flooded(game_get_space(game, player_get_location(game_get_player(game)))) - 1));
     }
     else
-    {
       drop_ground = FAILURE;
-    }
     break;
 
   case SPAWN_GROUND:
     st = game_rule_spawn_ground(game, argint);
-
     break;
 
   case COMBINE:
@@ -2907,7 +2725,6 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     {
       if (strcasecmp(object_get_name(game->objects[i]), game_get_upgraded_name(argname)) == 0)
       {
-
         (void)object_set_location(game->objects[i], ON_PLAYER);
         (void)player_add_object(game_get_player(game), object_get_id(game->objects[i]));
 
@@ -2917,14 +2734,12 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     free(objs);
     break;
   case SET_MOVABLE:
-    objs = space_get_objects(game_get_space(game, game_get_player_location(game)), &n_objs);
+    objs = space_get_objects(game_get_space(game, player_get_location(game_get_player(game))), &n_objs);
 
     if (objs)
     {
       for (i = 0; i < n_objs; i++)
-      {
         object_set_movable(game_get_object(game, objs[i]), (BOOL)argint);
-      }
     }
     free(objs);
     break;
@@ -2946,7 +2761,6 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 STATUS game_rule_spawn_ground(Game *game, int argint)
 {
   int i, ant = 0;
-  STATUS st = OK;
   Id *idsspace;
   Object *obj;
 
@@ -2962,18 +2776,15 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
       obj = object_create(game_get_unique_object_id(game));
       number_of_grounds++;
 
-      st = game_add_object(game, obj);
-      if (st == ERROR)
+      if (game_add_object(game, obj) == ERROR)
       {
         object_destroy(obj);
         free(idsspace);
         return ERROR;
       }
 
-      st = object_set_name(obj, GROUND_NAME);
-      if (st == ERROR)
+      if (object_set_name(obj, GROUND_NAME) == ERROR)
       {
-
         object_destroy(obj);
         free(idsspace);
         return ERROR;
@@ -2987,8 +2798,7 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
       object_set_illuminate(obj, FALSE);
       object_set_turnedon(obj, FALSE);
 
-      st = space_add_object(game_get_space(game, idsspace[i]), object_get_id(obj));
-      if (st == ERROR)
+      if (space_add_object(game_get_space(game, idsspace[i]), object_get_id(obj)) == ERROR)
       {
         object_destroy(obj);
         free(idsspace);
@@ -2999,7 +2809,7 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
     free(idsspace);
   }
 
-  return st;
+  return OK;
 }
 
 /**
@@ -3030,23 +2840,21 @@ STATUS game_command_move(Game *game, DIRECTION direction)
   if (game == NULL)
     return ERROR;
 
-  space_id = game_get_player_location(game);
+  space_id = player_get_location(game_get_player(game));
   if (space_id == NO_ID)
     return ERROR;
 
   if (player_get_type(game_get_player(game)) == BUTTERFLY)
   {
-
     if ((direction == UP) && ((moveto_id = space_get_id(game_get_space(game, space_id + 100))) != NO_ID))
     {
-
-      game_set_player_location(game, moveto_id);
+      player_set_location(game_get_player(game), moveto_id);
       return OK;
     }
 
     if ((direction == DOWN) && ((moveto_id = space_get_id(game_get_space(game, space_id - 100))) != NO_ID))
     {
-      game_set_player_location(game, moveto_id);
+      player_set_location(game_get_player(game), moveto_id);
       return OK;
     }
   }
@@ -3055,7 +2863,7 @@ STATUS game_command_move(Game *game, DIRECTION direction)
 
   if (moveto_id != NO_ID)
   {
-    game_set_player_location(game, moveto_id);
+    player_set_location(game_get_player(game), moveto_id);
     return OK;
   }
   else
@@ -3073,10 +2881,8 @@ STATUS game_command_attack(Game *game)
   for (i = 0; i < MAX_ENEMIES && game_get_enemy_id_at(game, i); i++)
   {
     enemy = game_get_enemy(game, game_get_enemy_id_at(game, i));
-    if (enemy_get_location(enemy) == game_get_player_location(game))
-    {
+    if (enemy_get_location(enemy) == player_get_location(game_get_player(game)))
       break;
-    }
   }
 
   if (enemy != NULL)
@@ -3126,7 +2932,7 @@ STATUS game_command_take(Game *game, Commands *cmds)
   if (game == NULL || cmds == NULL)
     return ERROR;
 
-  if ((commands_get_num_args(cmds) == 0) || ((space_id = game_get_player_location(game)) == NO_ID))
+  if ((commands_get_num_args(cmds) == 0) || ((space_id = player_get_location(game_get_player(game))) == NO_ID))
     return ERROR;
 
   strcpy(obj_name, commands_get_args(cmds, 0));
@@ -3172,8 +2978,8 @@ STATUS game_command_take(Game *game, Commands *cmds)
       }
     }
   }
-
   free(objs_id);
+
   return ERROR;
 }
 
@@ -3195,7 +3001,6 @@ STATUS _drop_rec(Game *game, Id *objs_id, int nobj, Space *space, Id space_id, c
 
     if ((strcasecmp(object_get_name(obj), obj_name) == 0))
     {
-
       space_add_object(space, objs_id[i]);
       player_remove_object(game->player, objs_id[i]);
       object_set_location(obj, space_id);
@@ -3229,7 +3034,7 @@ STATUS game_command_drop(Game *game, Commands *cmds)
   if (game == NULL || cmds == NULL)
     return ERROR;
 
-  if ((commands_get_num_args(cmds) == 0) || ((space_id = game_get_player_location(game)) == NO_ID))
+  if ((commands_get_num_args(cmds) == 0) || ((space_id = player_get_location(game_get_player(game))) == NO_ID))
     return ERROR;
 
   strcpy(obj_name, commands_get_args(cmds, 0));
@@ -3264,7 +3069,7 @@ STATUS game_command_inspect(Game *game, Commands *cmds)
 
   strcpy(insp_name, commands_get_args(cmds, 0));
 
-  if ((space_id = game_get_player_location(game)) == NO_ID)
+  if ((space_id = player_get_location(game_get_player(game))) == NO_ID)
     return ERROR;
 
   if ((space = game_get_space(game, space_id)) == NULL)
@@ -3295,10 +3100,8 @@ STATUS game_command_inspect(Game *game, Commands *cmds)
     desc = space_get_idesc(space);
     game_set_last_idesc(game, desc);
 
-    for (i = 0; i < spc_nobj; i++)
-    { /*Making visible all the hidden objects*/
+    for (i = 0; i < spc_nobj; i++) /*Making visible all the hidden objects*/
       (void)object_set_hidden(game_get_object(game, spc_objs_id[i]), FALSE);
-    }
 
     free(ply_objs_id);
     free(spc_objs_id);
@@ -3373,16 +3176,11 @@ STATUS game_command_turn_on_off(Game *game, Commands *cmds, BOOL on_off)
 
   strcpy(obj_name, commands_get_args(cmds, 0));
 
-  if ((space_id = game_get_player_location(game)) == NO_ID)
+  if ((space_id = player_get_location(game_get_player(game))) == NO_ID)
     return ERROR;
 
   if ((space = game_get_space(game, space_id)) == NULL)
     return ERROR;
-
-  /*if (space_get_light(space) == FALSE && game_player_has_light(game) == FALSE)
-  {
-    return ERROR;
-  }*/
 
   spc_objs_id = space_get_objects(space, &spc_nobj);
   ply_objs_id = player_get_objects(game->player, &ply_nobj);
@@ -3427,7 +3225,6 @@ STATUS game_command_turn_on_off(Game *game, Commands *cmds, BOOL on_off)
       {
         if (object_get_illuminate(obj) == TRUE)
         {
-
           object_set_turnedon(obj, on_off);
 
           free(ply_objs_id);
@@ -3467,7 +3264,7 @@ STATUS game_command_open_close(Game *game, Commands *cmds, LSTATUS opn_cls)
 
   strcpy(obj_name, commands_get_args(cmds, 2));
 
-  if ((space_id = game_get_player_location(game)) == NO_ID)
+  if ((space_id = player_get_location(game_get_player(game))) == NO_ID)
     return ERROR;
 
   if ((space = game_get_space(game, space_id)) == NULL)
@@ -3528,7 +3325,6 @@ STATUS game_command_open_close(Game *game, Commands *cmds, LSTATUS opn_cls)
 
   if (ply_objs_id != NULL)
   {
-
     for (i = 0; i < ply_nobj; i++)
     {
       if ((obj = game_get_object(game, ply_objs_id[i])) == NULL)
@@ -3540,11 +3336,9 @@ STATUS game_command_open_close(Game *game, Commands *cmds, LSTATUS opn_cls)
 
       if (strcasecmp(object_get_name(obj), obj_name) == 0)
       {
-
         if (object_get_open(obj) == link_get_id(link) &&
             object_get_hidden(obj) == FALSE)
         {
-
           link_set_status(link, opn_cls);
           free(ply_objs_id);
           free(spc_objs_id);
@@ -3620,3 +3414,4 @@ STATUS game_command_info(Game *game)
   game_print_data(game, stdout);
   return OK;
 }
+/*3643*/

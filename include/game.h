@@ -127,40 +127,6 @@ STATUS game_set_player(Game *game, Player *ply);
 Id *game_get_player_objects(Game *game, int *num);
 
 /**
- * @brief It gets the player's location
- * @author David Brenchley
- * @param game Pointer to the game
- * @return The Id of space where the player is located or NO_ID if error
- */
-Id game_get_player_location(Game *game);
-
-/**
- * @brief It sets the player's location
- * @author David Brenchley
- * @param game Pointer to the game
- * @param id The id of the space where the player will be set
- * @return OK, if everything goes well or ERROR if there was some mistake
- */
-STATUS game_set_player_location(Game *game, Id id);
-
-/**
- * @brief It gets the player's health
- * @author David Brenchley
- * @param game Pointer to the game
- * @return Returns player's health or -1 if error
- */
-int game_get_player_health(Game *game);
-
-/**
- * @brief It sets the player's health
- * @author David Brenchley
- * @param game Pointer to the game
- * @param health number of life points to be set
- * @return OK, if everything goes well or ERROR if there was some mistake
- */
-STATUS game_set_player_health(Game *game, int health);
-
-/**
  * @brief Function to know if the player has an object that lights up the space
  * @author Alejandro García
  * @param game Pointer to the game
@@ -212,8 +178,9 @@ Id game_get_enemy_id_at(Game *game, int position);
  * @author Alejandro García Hernando
  * @param game Pointer to the game
  * @param space ID of the space
+ * @return the enemy in the space
  */
-Id game_get_enemy_id_in_space(Game *game, Id space);
+Enemy *game_get_enemy_id_space(Game *game, Id space);
 
 /**
  * @brief It gets the number of enemies the game has
@@ -261,6 +228,16 @@ STATUS game_delete_object(Game *game, Id objid);
  * @return The object's Id or NO_ID in case of error
  */
 Id game_get_object_id_at(Game *game, int position);
+
+/**
+ * @brief It gets the object's in a space
+ * @author Alejandro García Hernando
+ * @param game Pointer to the game
+ * @param space ID of the space
+ * @param n number of the objects in the space
+ * @return The object's or NULL in case of error
+ */
+Object **game_get_objects_in_space(Game *game, Id space, int *n);
 
 /**
  * @brief It gets the number of objects in the game
