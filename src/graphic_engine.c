@@ -15,7 +15,7 @@
 /*To change the map's sizes you only need to modify COLUMNS, ROWS,  BOX_COLS, BOX_ROWS, MAP_WIDTH,MAP_HEIGHT and MINIMAP_WIDTH accordingly and in unison*/
 
 #define COLUMNS 172 /*!< Number of screen colums for the game*/
-#define ROWS 47     /*!< Number of screen rows for the game*/
+#define ROWS 51     /*!< Number of screen rows for the game*/
 
 #define BOX_COLS 23 /*!< Number of columns for each representation of a space*/
 #define BOX_ROWS 12 /*!< Number of rows for each representation of a space*/
@@ -34,7 +34,7 @@
 #define MAP_X AREA_WALL_V /*!<x coordinates of the upper left part of the map area*/
 #define MAP_Y AREA_WALL_H /*!<y coordinates of the upper left part of the map area*/
 #define MAP_WIDTH 76      /*!<Width of the map area*/
-#define MAP_HEIGHT 36     /*!<Hight of the map area*/
+#define MAP_HEIGHT 40     /*!<Hight of the map area*/
 
 #define DESCRIPT_X (MAP_X + MAP_WIDTH + 2 * AREA_WALL_V)                       /*!<x coordinates of the upper left part of the descript area*/
 #define DESCRIPT_Y (MAP_Y)                                                     /*!<y coordinates of the upper left part of the descript area*/
@@ -65,9 +65,10 @@
 #define MULTIBYTE 16
 #define SPACES_TO_PRINT 20
 #define TAMENEMY 6
+#define TAMCOLOR 22
 
 #define LINK_WIDTH                2     /*!< Width (in characters) of a link frame */
-#define LINK_HEIGHT               2     /*!< Height (in characters) of a link frame */
+#define LINK_HEIGHT               1     /*!< Height (in characters) of a link frame */
 #define VLINK_WIDTH               5     /*!< Width (in characters) of a vertical (north and south) link */
 #define H_LINK_HEIGHT             3     /*!< Width (in characters) of a horizontal (east and west) link */
 
@@ -279,7 +280,7 @@ void graphic_engine_sprint_space_not_illuminated(Game *game, Id space_id, char (
 
 void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int offset, BOOL north, BOOL south, BOOL east, BOOL west);
 
-void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y);
+void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y, Space *space);
 
 void graphic_engine_space_frame_put(Area *area, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int height);
 
@@ -394,8 +395,8 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
     return;
 
   /* Paint in the map area */
-  _paint_map(ge, game);
-  /*_paint_map_new(ge, game);*/
+  /*_paint_map(ge, game);*/
+  _paint_map_new(ge, game);
 
   /* Paint in the description area */
   screen_area_clear(ge->descript);
@@ -1224,7 +1225,7 @@ void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str) {
   int i;
 
   /* Error control */
-  if (game == NULL || str == NULL || space_loc == NO_ID || i < 0) {
+  if (game == NULL || str == NULL || space_loc == NO_ID) {
     #ifdef DEBUG
       fprintf(stderr, "Error graphic engine sprint enemy: invalid parameters\n");
     #endif
@@ -1238,6 +1239,7 @@ void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str) {
       break;
     }
   }
+
   if (enemy != NULL && enemy_get_health(enemy) > 0){
     /* Prints enemy */
     sprintf(str, "%s", enemy_get_edesc(enemy));
@@ -1290,15 +1292,15 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
 
   /* Top border */
   if (north)
-    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
   else
     sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), UP_R_CORNER "%.*s" UP_L_CORNER, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
 
   /* Player, enemy and id line */
   if (game_get_player_location(game) == space_id){
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%s %s%.*s%.3ld" V_LINE, pSkins[(int)player_get_type(game_get_player(game))], str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%s %s%.*s%.3ld" V_LINE, pSkins[(int)player_get_type(game_get_player(game))], str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER - 3, BLANK, space_id);
   } else {
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%.*s %s%.*s%.3ld", TAMPLAYER, BLANK, str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), V_LINE "%.*s %s%.*s%.3ld" V_LINE, TAMPLAYER, BLANK, str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER - 3, BLANK, space_id);
   }
 
   /* Blank line */
@@ -1306,11 +1308,11 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
   
   /* Space Gdesc lines */
   for (i = 0; i < GRAPHIC_ROWS; i++){
-    if (west && i >= 2 && i <= 4)
+    if (west && i >= 1 && i <= 3)
       west_link_picker++;
     else 
       west_link_picker = 0;
-    if (east && i >= 2 && i <= 4)
+    if (east && i >= 1 && i <= 3)
       east_link_picker++;
     else 
       east_link_picker = 0;  
@@ -1321,7 +1323,7 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
   sprintf(space_frame[2 + GRAPHIC_ROWS + 1] + screen_multibyte_move(space_frame[2 + GRAPHIC_ROWS + 1], offset), V_LINE "%.*s" V_LINE, BOX_COLS - 2, BLANK);
 
   /* Objects line */
-  sprintf(space_frame[2 + GRAPHIC_ROWS + 1] + screen_multibyte_move(space_frame[2 + GRAPHIC_ROWS + 1], offset), V_LINE "%s", str_objects);
+  sprintf(space_frame[3 + GRAPHIC_ROWS + 1] + screen_multibyte_move(space_frame[2 + GRAPHIC_ROWS + 1], offset), V_LINE "%s" V_LINE, str_objects);
 
   /* Bottom border */
   if (south)
@@ -1349,7 +1351,7 @@ void graphic_engine_sprint_space_not_illuminated(Game *game, Id space_id, char (
 
   /* Top border */
   if (north)
-    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), B_BLACK F_WHITE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), B_BLACK F_WHITE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
   else
     sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), B_BLACK F_WHITE UP_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
 
@@ -1357,7 +1359,7 @@ void graphic_engine_sprint_space_not_illuminated(Game *game, Id space_id, char (
   if (game_get_player_location(game) == space_id){
     sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_BLACK F_WHITE V_LINE "%s %.*s %.3ld" V_LINE F_BLACK B_WHITE, pSkins[(int)player_get_type(game_get_player(game))], BOX_COLS - 2 - TAMPLAYER - 3 - 2, Q_MARK, space_id);
   } else {
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_BLACK F_WHITE V_LINE "%.*s %.*s %.3ld" V_LINE F_BLACK B_WHITE, TAMPLAYER, BLANK, BOX_COLS - 2 - TAMPLAYER - 3 - 2,Q_MARK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_BLACK F_WHITE V_LINE "%.*s %.3ld" V_LINE F_BLACK B_WHITE, BOX_COLS - 6, Q_MARK, space_id);
   }
 
   /* In Between lines */
@@ -1399,15 +1401,15 @@ void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_f
 
   /* Top border */
   if (north)
-    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), F_BLACK B_BLUE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
+    sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), F_BLACK B_BLUE UP_R_CORNER "%.*s" DW_L_CORNER ONE_BLANK ONE_BLANK ONE_BLANK DW_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE, screen_multibyte_move(H_LINE, (BOX_COLS - 2 - VLINK_WIDTH)/2), H_LINE);
   else
     sprintf(space_frame[0] + screen_multibyte_move(space_frame[0], offset), F_BLACK B_BLUE UP_R_CORNER "%.*s" UP_L_CORNER F_BLACK B_WHITE, screen_multibyte_move(H_LINE, BOX_COLS - 2), H_LINE);
 
   /* Player and id line */
   if (game_get_player_location(game) == space_id){
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE F_LIGHTBLUE "%s %.*s" F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE, pSkins[(int)player_get_type(game_get_player(game))], BOX_COLS - 2 - TAMPLAYER - 3 - 2, Q_MARK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE "%s " F_LIGHTBLUE "%.*s" F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE, pSkins[(int)player_get_type(game_get_player(game))], BOX_COLS - 2 - TAMPLAYER - 3 - 2, WAVE, space_id);
   } else {
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE F_LIGHTBLUE "%.*s %.*s " F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE, TAMPLAYER, BLANK, BOX_COLS - 2 - TAMPLAYER - 3 - 2,Q_MARK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), F_BLACK B_BLUE V_LINE F_LIGHTBLUE "%.*s" F_BLACK " %.3ld" V_LINE F_BLACK B_WHITE,BOX_COLS - 6, WAVE, space_id);
   }
 
   /* In Between lines */
@@ -1420,7 +1422,7 @@ void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_f
       east_link_picker++;
     else 
       east_link_picker = 0;  
-    sprintf(space_frame[2 + i] + screen_multibyte_move(space_frame[2 + i], offset),F_BLACK B_BLUE "%s" F_LIGHTBLUE "%.*s" F_BLACK "%s" F_BLACK B_WHITE, west_link[west_link_picker], BOX_COLS - 2, Q_MARK, east_link[east_link_picker]);
+    sprintf(space_frame[2 + i] + screen_multibyte_move(space_frame[2 + i], offset),F_BLACK B_BLUE "%s" F_LIGHTBLUE "%.*s" F_BLACK "%s" F_BLACK B_WHITE, west_link[west_link_picker], BOX_COLS - 2, WAVE, east_link[east_link_picker]);
   }
 
   /* Bottom border */
@@ -1434,7 +1436,8 @@ void graphic_engine_sprint_space_flooded(Game *game, Id space_id, char (*space_f
   }
 }
 
-void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y) {
+void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_frame)[MAP_WIDTH * MULTIBYTE + 1], int x, int y, Space *space) {
+  char str_color_beggining[2 * TAMCOLOR], str_color_end[2 * TAMCOLOR];
 
   /* Error control */
   if (dir == NO_DIR || space_frame == NULL ||x < 0 ||y < 0) {
@@ -1444,22 +1447,36 @@ void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_fram
     return;
   }
 
+  /* Chooses color of link */
+  if (space_get_flooded(space) == FLOODED){ /* Flooded */
+      sprintf(str_color_beggining, B_BLUE);
+      sprintf(str_color_end, B_WHITE);
+    } else {
+      if (space_get_light(space)){ /* Illuminated */
+        sprintf(str_color_beggining, B_WHITE);
+        sprintf(str_color_end, B_WHITE);
+      } else {  /* Not illuminated */
+        sprintf(str_color_beggining, B_BLACK F_WHITE);
+        sprintf(str_color_end, B_WHITE F_BLACK);
+      }
+    }
+
   if (dir == NORTH || dir == SOUTH) {
     if (status == OPEN) {
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), V_LINE ONE_BLANK ONE_BLANK ONE_BLANK V_LINE);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), "%s" V_LINE ONE_BLANK ONE_BLANK ONE_BLANK V_LINE "%s", str_color_beggining, str_color_end);
     } else {
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), RG_T ONE_H_LINE ONE_H_LINE ONE_H_LINE LF_T);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x),"%s" RG_T ONE_H_LINE ONE_H_LINE ONE_H_LINE LF_T "%s", str_color_beggining, str_color_end);
     }
     
   } else {
     if (status == OPEN) {
-      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), ONE_H_LINE);
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), ONE_BLANK);
-      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), ONE_H_LINE);
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x),"%s" ONE_H_LINE ONE_H_LINE "%s", str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x),"%s" ONE_BLANK ONE_BLANK "%s", str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x),"%s" ONE_H_LINE ONE_H_LINE "%s", str_color_beggining, str_color_end);
     } else {
-      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), DW_T);
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), V_LINE);
-      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), UP_T);
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x),"%s" DW_T DW_T "%s", str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x),"%s" V_LINE V_LINE "%s", str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x),"%s" UP_T UP_T "%s", str_color_beggining, str_color_end);
     }
   }
 
@@ -1507,7 +1524,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
   int i;
   char space_frame[BOX_ROWS][MAP_WIDTH * MULTIBYTE + 1];
   Id id_centre = NO_ID, id_north = NO_ID, id_south = NO_ID, id_east = NO_ID, id_west = NO_ID;
-  Space *space;
+  Space *space, *space_centre;
 
   /* Error control */
   if (ge == NULL || game == NULL) {
@@ -1522,8 +1539,13 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
     fprintf(stdout, "\n");
   }
 
-  /* Gets the space where the player is */
+  /* Gets the space id where the player is */
   if ((id_centre = game_get_player_location(game)) == NO_ID) {
+    return;
+  }
+
+  /* Gets the space where the player is */
+  if ((space_centre = game_get_space(game, id_centre)) == NULL) {
     return;
   }
 
@@ -1557,7 +1579,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
 
     /* Prints north link */
     graphic_engine_sprint_empty( space_frame, LINK_HEIGHT, MAP_WIDTH * MULTIBYTE + 1);
-    graphic_engine_sprint_link(NORTH, game_get_connection_status(game, id_centre, NORTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0);
+    graphic_engine_sprint_link(NORTH, game_get_connection_status(game, id_centre, NORTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0, space_centre);
     graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT); 
 
   } else {
@@ -1571,7 +1593,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
 
   if (id_west != NO_ID) {
     /* Prints west space */
-
+    fprintf(stderr, "%ld\n", id_west);
     /* Gets west space */
     space = game_get_space(game, id_west);
     if (space_get_flooded(space) == FLOODED){
@@ -1585,36 +1607,35 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
     }
 
     /* Prints west link */
-    graphic_engine_sprint_link(WEST, game_get_connection_status(game, id_centre, WEST), space_frame, 1 + BOX_COLS, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1);
+    graphic_engine_sprint_link(WEST, game_get_connection_status(game, id_centre, WEST), space_frame, 1 + BOX_COLS, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1, space_centre);
   }
 
   /* Prints central space */
-  space = game_get_space(game, id_centre);
-  if (space_get_flooded(space) == FLOODED){
-    graphic_engine_sprint_space_flooded(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+  if (space_get_flooded(space_centre) == FLOODED){
+    graphic_engine_sprint_space_flooded(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_east != NO_ID, id_west != NO_ID);
   } else {
-    if (space_get_light(space)){
-      graphic_engine_sprint_space_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+    if (space_get_light(space_centre)){
+      graphic_engine_sprint_space_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_east != NO_ID, id_west != NO_ID);
     } else {
-      graphic_engine_sprint_space_not_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_west != NO_ID, id_east != NO_ID);
+      graphic_engine_sprint_space_not_illuminated(game, id_centre, space_frame, 1 + BOX_COLS + LINK_WIDTH, id_north != NO_ID, id_south != NO_ID, id_east != NO_ID, id_west != NO_ID);
     }
   }
 
   if (id_east != NO_ID) {
     /* Prints east link */
-    graphic_engine_sprint_link(EAST, game_get_connection_status(game, id_centre, EAST), space_frame, 2 + 2 * BOX_COLS, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1);
+    graphic_engine_sprint_link(EAST, game_get_connection_status(game, id_centre, EAST), space_frame, 1 + 2 * BOX_COLS + LINK_WIDTH, (BOX_ROWS - H_LINK_HEIGHT)/2 + 1, space_centre);
 
     /* Prints east space */
 
     /* Gets east space */
     space = game_get_space(game, id_east);
     if (space_get_flooded(space) == FLOODED){
-      graphic_engine_sprint_space_flooded(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+      graphic_engine_sprint_space_flooded(game, id_east, space_frame, 1 + 2 * BOX_COLS + 2 * LINK_WIDTH, FALSE, FALSE, FALSE, TRUE);
     } else {
       if (space_get_light(space)){
-        graphic_engine_sprint_space_illuminated(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+        graphic_engine_sprint_space_illuminated(game, id_east, space_frame, 1 + 2 * BOX_COLS + 2 * LINK_WIDTH, FALSE, FALSE, FALSE, TRUE);
       } else {
-        graphic_engine_sprint_space_not_illuminated(game, id_east, space_frame, 1, FALSE, FALSE, FALSE, TRUE);
+        graphic_engine_sprint_space_not_illuminated(game, id_east, space_frame, 1 + 2 * BOX_COLS + 2 * LINK_WIDTH, FALSE, FALSE, FALSE, TRUE);
       }
     }
   }
@@ -1628,9 +1649,9 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
   if (id_south != NO_ID) {
 
     /* Prints south link */
-    graphic_engine_sprint_empty(space_frame, LINK_HEIGHT, MAP_WIDTH * MULTIBYTE + 1);
-    graphic_engine_sprint_link(SOUTH, game_get_connection_status(game, id_centre, SOUTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0);
+    graphic_engine_sprint_link(SOUTH, game_get_connection_status(game, id_centre, SOUTH), space_frame, BOX_COLS + 1 + LINK_WIDTH + (BOX_COLS - VLINK_WIDTH) / 2, 0, space_centre);
     graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT); 
+    graphic_engine_sprint_empty(space_frame, LINK_HEIGHT, MAP_WIDTH * MULTIBYTE + 1);
 
     /* Prints south space */
 
@@ -1639,7 +1660,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game){
     if (space_get_flooded(space) == FLOODED){
       graphic_engine_sprint_space_flooded(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
     } else {
-      if (space_get_light(space)){
+      if (space_get_light(space) || game_player_has_light(game)){
         graphic_engine_sprint_space_illuminated(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
       } else {
         graphic_engine_sprint_space_not_illuminated(game, id_south, space_frame, 1 + BOX_COLS + LINK_WIDTH, TRUE, FALSE, FALSE, FALSE);
