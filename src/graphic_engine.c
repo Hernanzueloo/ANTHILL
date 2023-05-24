@@ -122,8 +122,8 @@
 /*Browns*/
 #define B_BROWN BACKGROUND(79, 36, 2)
 #define F_BROWN FOREGROUND(79, 36, 2)
-#define B_LIGHTBROWN BACKGROUND(157, 83, 23)
-#define F_LIGHTBROWN FOREGROUND(157, 83, 23)
+#define B_LIGHTBROWN BACKGROUND(195, 113, 47)
+#define F_LIGHTBROWN FOREGROUND(195, 113, 47)
 /*Purple*/
 #define B_PURPLE BACKGROUND(74, 0, 55)
 #define F_PURPLE FOREGROUND(74, 0, 55)
@@ -1173,7 +1173,7 @@ void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str)
   /* Gets enemy */
   enemy = game_get_enemy_in_space(game, space_loc);
   if (enemy_get_health(enemy) > 0) /* Prints enemy */
-    sprintf(str, B_LIGHTBROWN F_BROWN "%s", enemy_get_edesc(enemy));
+    sprintf(str, B_LIGHTBROWN F_RED "%s"F_BROWN, enemy_get_edesc(enemy));
   else /* prints blank */
     sprintf(str, B_LIGHTBROWN F_BROWN "%.*s", TAMENEMY, BLANK);
 }
@@ -1214,9 +1214,9 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
 
   /* Player, enemy and id line */
   if (player_get_location(game_get_player(game)) == space_id)
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%s %s%.*s%.3ld" V_LINE B_MAP F_BLACK, pSkins[(int)player_get_type(game_get_player(game))],str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER - 3, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%s%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, pSkins[(int)player_get_type(game_get_player(game))],(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2,BLANK,str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)%2, BLANK, space_id);
   else
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s %s%.*s%.3ld" V_LINE B_MAP F_BLACK, TAMPLAYER, BLANK, str_enemy, BOX_COLS - 3 - TAMENEMY - TAMPLAYER - 3, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, TAMPLAYER+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2, BLANK, str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)%2, BLANK, space_id);
 
   /* Blank line */
   sprintf(space_frame[2] + screen_multibyte_move(space_frame[2], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s" V_LINE B_MAP F_BLACK, BOX_COLS - 2, BLANK);
