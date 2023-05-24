@@ -44,6 +44,8 @@
 
 #define GROUND_NAME "Ground"  /*!< Name of the objects that represent gorund*/
 
+#define GROUND_DESCRIPTION "It allows you to secure a flooded space"  /*!< Textual description of the objects that represent gorund*/
+
 #define N_UPGRADES 2 /*!< Number of upgrades a object can have*/
 
 #define NOT_UPGRADED 0 /*!< Number that indicates that an object has not been upgraded*/
@@ -60,7 +62,7 @@
 
 #define PROB_VICT_ATACK 6 /*!<Probability of attacking an enemy succesfully (1 to 10)*/
 
-#define MAX_GROUND 10  /*!<Maximum number of grounds to be spawned*/
+#define MAX_GROUND 70  /*!<Maximum number of grounds to be spawned*/
 
 #define VICTORY -100 /*!<Victory number*/
 

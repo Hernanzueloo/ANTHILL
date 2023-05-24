@@ -2722,6 +2722,7 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
       object_set_open(obj, NO_ID);
       object_set_illuminate(obj, FALSE);
       object_set_turnedon(obj, FALSE);
+      object_set_tdesc(obj,GROUND_DESCRIPTION);
 
       if (space_add_object(game_get_space(game, idsspace[i]), object_get_id(obj)) == ERROR)
       {

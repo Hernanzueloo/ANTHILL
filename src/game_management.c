@@ -185,7 +185,6 @@ STATUS game_management_save_game_rules(Game *game, FILE *file);
  */
 STATUS game_management_load(Game *game, char *filename)
 {
-  srand(time(NULL));
   if (game == NULL || filename == NULL)
     return ERROR;
 
