@@ -1553,7 +1553,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
               sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
             else if (game_space_has_object(game, space_get_id(space), STICK))
-              sprintf(aux, F_BROWN B_LIGHTBROWN "|║|");
+              sprintf(aux, F_BROWN B_LIGHTBROWN "|ᛅ|");
             else if (game_space_has_object(game, space_get_id(space), LEAF))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|♠|");
             else if (game_space_has_object(game, space_get_id(space), WALNUT))
