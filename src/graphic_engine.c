@@ -533,7 +533,9 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
               {
                 if ((screen_multibyte_strlen(str) + 2) <= DESCRIPT_WIDTH)
                 {
-                  strcat(str, B_DESCRIPT ",");
+  
+                   bytes += sprintf(str + bytes, B_DESCRIPT ",");
+
                   sprintf(aux, B_DESCRIPT "  %ld", obj_loc);
                 }
                 screen_area_puts(ge->descript, str);
