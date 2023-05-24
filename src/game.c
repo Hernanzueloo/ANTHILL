@@ -349,34 +349,22 @@ STATUS game_init(Game *game)
   commands_set_status(game->last_cmd, OK);
 
   for (i = 0; i < MAX_ENEMIES; i++)
-  {
     game->enemies[i] = NULL;
-  }
 
   for (i = 0; i < MAX_OBJECTS; i++)
-  {
     game->objects[i] = NULL;
-  }
 
   for (i = 0; i < MAX_SPACES; i++)
-  {
     game->spaces[i] = NULL;
-  }
 
   for (i = 0; i < MAX_LINKS; i++)
-  {
     game->links[i] = NULL;
-  }
 
   for (i = 0; i < MAX_RULES; i++)
-  {
     game->rules[i] = NULL;
-  }
 
   for (i = 0; i < MAX_DIALOGUES; i++)
-  {
     game->dialogues[i] = NULL;
-  }
 
   game->player = NULL;
 
@@ -398,34 +386,22 @@ STATUS game_copy(Game *dest_game, Game *org_game)
   commands_set_status(dest_game->last_cmd, commands_get_status(org_game->last_cmd));
 
   for (i = 0; i < MAX_SPACES; i++)
-  {
     dest_game->spaces[i] = org_game->spaces[i];
-  }
 
   for (i = 0; i < MAX_OBJECTS; i++)
-  {
     dest_game->objects[i] = org_game->objects[i];
-  }
 
   for (i = 0; i < MAX_LINKS; i++)
-  {
     dest_game->links[i] = org_game->links[i];
-  }
 
   for (i = 0; i < MAX_ENEMIES; i++)
-  {
     dest_game->enemies[i] = org_game->enemies[i];
-  }
 
   for (i = 0; i < MAX_RULES; i++)
-  {
     dest_game->rules[i] = org_game->rules[i];
-  }
 
   for (i = 0; i < MAX_DIALOGUES; i++)
-  {
     dest_game->dialogues[i] = org_game->dialogues[i];
-  }
 
   dest_game->player = org_game->player;
 
@@ -446,34 +422,22 @@ void game_destroy(Game *game)
     commands_destroy(game->last_cmd);
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
     space_destroy(game->spaces[i]);
-  }
 
   for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
     object_destroy(game->objects[i]);
-  }
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
-  {
     link_destroy(game->links[i]);
-  }
 
   for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
-  {
     enemy_destroy(game->enemies[i]);
-  }
 
   for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
-  {
     rule_destroy(game->rules[i]);
-  }
 
   for (i = 0; i < MAX_DIALOGUES && game->dialogues[i] != NULL; i++)
-  {
     dialogue_destroy(game->dialogues[i]);
-  }
 
   if (game->player)
     player_destroy(game->player);
@@ -697,13 +661,11 @@ BOOL game_player_has_light(Game *game)
 
   objs = player_get_objects(game_get_player(game), &num);
   for (i = 0; i < num; i++)
-  {
     if (object_get_illuminate(game_get_object(game, objs[i])) && object_get_turnedon(game_get_object(game, objs[i])))
     {
       free(objs);
       return TRUE;
     }
-  }
 
   free(objs);
   return FALSE;
@@ -719,15 +681,13 @@ Enemy *game_get_enemy(Game *game, Id id)
     return NULL;
 
   for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
-  {
     if (id == enemy_get_id(game->enemies[i]))
       return game->enemies[i];
-  }
 
   return NULL;
 }
 
-Enemy *game_get_enemy_id_space(Game *game, Id space)
+Enemy *game_get_enemy_in_space(Game *game, Id space)
 {
   int i;
   Id enemy_id = NO_ID + 1;
@@ -754,11 +714,8 @@ STATUS game_add_enemy(Game *game, Enemy *enemy)
   if (game == NULL || enemy == NULL)
     return ERROR;
 
-  i = 0;
-  while (i < MAX_ENEMIES && game->enemies[i] != NULL)
-  {
-    i++;
-  }
+  for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
+    ;
 
   if (i == MAX_ENEMIES)
     return ERROR;
@@ -776,13 +733,11 @@ STATUS game_delete_enemy(Game *game, Id enmyid)
     return ERROR;
 
   for (i = 0; i < MAX_ENEMIES && game->enemies[i] != NULL; i++)
-  {
     if (enemy_get_id(game->enemies[i]) == enmyid)
     {
       index = i;
       enemy_destroy(game->enemies[i]);
     }
-  }
 
   if (index != -1)
   {
@@ -821,7 +776,7 @@ STATUS game_delete_object(Game *game, Id objid)
 {
   int i;
   int index = -1;
-  
+
   if (!game || objid == NO_ID)
     return ERROR;
 
@@ -933,22 +888,6 @@ char *game_get_object_name(Game *game, Id id)
   }
 
   return NULL;
-}
-
-Id game_get_object_location(Game *game, Id id)
-{
-  int i = 0;
-
-  if (game == NULL || id == NO_ID)
-    return NO_ID;
-
-  for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-  {
-    if (id == object_get_id(game->objects[i]))
-      return object_get_location(game->objects[i]);
-  }
-
-  return NO_ID;
 }
 
 STATUS game_set_object_location(Game *game, Id object_id, Id location_id)
@@ -1194,10 +1133,8 @@ Id game_get_link_id(Game *game, Id origin, DIRECTION dir)
     return NO_ID;
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
-  {
     if (link_get_origin(game->links[i]) == origin && link_get_direction(game->links[i]) == dir)
       return link_get_id(game->links[i]);
-  }
 
   return NO_ID;
 }
@@ -1216,14 +1153,6 @@ Link *game_get_link(Game *game, Id id)
   }
 
   return NULL;
-}
-
-char *game_get_link_name(Game *game, Id id)
-{
-  if (!game)
-    return NULL;
-
-  return link_get_name(game_get_link(game, id));
 }
 
 STATUS game_set_link_origin(Game *game, Id link_id, Id origin_id)
@@ -1256,10 +1185,8 @@ STATUS game_set_link_destination(Game *game, Id link_id, Id destination_id)
     return ERROR;
 
   for (i = 0; i < MAX_LINKS && game->links[i] != NULL; i++)
-  {
     if (link_get_id(game->links[i]) == link_id)
       return link_set_destination(game->links[i], destination_id);
-  }
 
   return ERROR;
 }
@@ -1907,13 +1834,11 @@ char *game_get_turn_on_off_dialogue_rule(Game *game, T_Command command, DTYPE ty
       return game_get_printed_dialogue_rule(game, 4, NULL, command, ERROR);
 
     for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-    {
       if (strcasecmp(object_get_name(game->objects[i]), object_name) == 0)
       {
         object = game->objects[i];
         break;
       }
-    }
 
     if (object == NULL)
       return game_get_printed_dialogue_rule(game, 2, NULL, command, ERROR);
@@ -2959,7 +2884,6 @@ STATUS game_command_take(Game *game, Commands *cmds)
 
     if (strcasecmp(object_get_name(obj), obj_name) == 0)
     {
-
       if (object_get_movable(obj) &&
           player_has_object(game_get_player(game), object_get_dependency(obj)) &&
           object_get_hidden(obj) == FALSE)
@@ -3414,4 +3338,3 @@ STATUS game_command_info(Game *game)
   game_print_data(game, stdout);
   return OK;
 }
-/*3643*/

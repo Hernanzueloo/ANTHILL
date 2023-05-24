@@ -97,7 +97,6 @@ STATUS game_print_data(Game *game, FILE *file);
 
 
 
-
 /*GAME PLAYER FUNCTIONS*/
 
 /**
@@ -180,7 +179,7 @@ Id game_get_enemy_id_at(Game *game, int position);
  * @param space ID of the space
  * @return the enemy in the space
  */
-Enemy *game_get_enemy_id_space(Game *game, Id space);
+Enemy *game_get_enemy_in_space(Game *game, Id space);
 
 /**
  * @brief It gets the number of enemies the game has
@@ -255,15 +254,6 @@ int game_get_num_objects(Game *game);
  * @return The name of the objector NULL in case of error
  */
 char* game_get_object_name(Game *game, Id id);
-
-/**
- * @brief It gets the object's location
- * @author David Brenchley
- * @param game Pointer to the game
- * @param id Id of the object of which location we want to know
- * @return The Id of space where the object is located or NO_ID in case of error
- */
-Id game_get_object_location(Game *game, Id id);
 
 /**
  * @brief It sets the object's location
@@ -384,16 +374,6 @@ Id game_get_link_id_at(Game *game, int position);
 
 
 /**
- * @brief It gets a links name
- * @author Javier San Andrés
- * @param game Pointer to the game
- * @param id Id of the link
- * @return Name of the link
- */
-char *game_get_link_name(Game *game, Id id);
-
-
-/**
  * @brief It sets the link's origin for a link in the game
  * @author Javier San Andrés
  * @param game Pointer to the game
@@ -450,8 +430,6 @@ Id game_get_open_link(Game *game, Id origin, DIRECTION dir);
  * @return The number of links the game has, or -1 if something goes wrong
  */
 int game_get_num_links(Game *game);
-
-
 
 
 /*DIALOGUE FUNCTIONS*/

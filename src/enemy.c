@@ -137,9 +137,8 @@ STATUS enemy_set_health(Enemy *enemy, int health)
 int enemy_get_health(Enemy *enemy)
 {
   if (!enemy)
-  {
     return -1;
-  }
+  
   return enemy->health;
 }
 
