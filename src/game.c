@@ -3085,9 +3085,8 @@ STATUS game_command_inspect(Game *game, Commands *cmds)
 
 STATUS game_command_turn_on_off(Game *game, Commands *cmds, BOOL on_off)
 {
-  int i, spc_nobj, ply_nobj;
-  Id *spc_objs_id, *ply_objs_id;
-  Id space_id = NO_ID;
+  int i, ply_nobj;
+  Id *ply_objs_id;
   Object *obj;
   Space *space = NULL;
   char obj_name[WORD_SIZE + 1];
@@ -3100,50 +3099,15 @@ STATUS game_command_turn_on_off(Game *game, Commands *cmds, BOOL on_off)
 
   strcpy(obj_name, commands_get_args(cmds, 0));
 
-  if ((space_id = player_get_location(game_get_player(game))) == NO_ID)
+  if ((space = game_get_space(game, player_get_location(game_get_player(game)))) == NULL)
     return ERROR;
 
-  if ((space = game_get_space(game, space_id)) == NULL)
-    return ERROR;
-
-  spc_objs_id = space_get_objects(space, &spc_nobj);
-  ply_objs_id = player_get_objects(game->player, &ply_nobj);
-
-  if (spc_objs_id != NULL)
-  {
-    for (i = 0; i < spc_nobj; i++)
-    {
-      if ((obj = game_get_object(game, spc_objs_id[i])) == NULL)
-      {
-        free(ply_objs_id);
-        free(spc_objs_id);
-        return ERROR;
-      }
-
-      if (strcasecmp(object_get_name(obj), obj_name) == 0)
-      {
-        if (object_get_illuminate(obj) == TRUE &&
-            object_get_hidden(obj) == FALSE && (space_get_light(space) == TRUE || game_player_has_light(game) == TRUE))
-        {
-          object_set_turnedon(obj, on_off);
-          free(ply_objs_id);
-          free(spc_objs_id);
-          return OK;
-        }
-      }
-    }
-  }
-
-  if (ply_objs_id != NULL)
+  if ((ply_objs_id = player_get_objects(game->player, &ply_nobj)) != NULL)
   {
     for (i = 0; i < ply_nobj; i++)
     {
       if ((obj = game_get_object(game, ply_objs_id[i])) == NULL)
-      {
-        free(ply_objs_id);
-        free(spc_objs_id);
-        return ERROR;
-      }
+        break;
 
       if (strcasecmp(object_get_name(obj), obj_name) == 0)
       {
@@ -3152,14 +3116,12 @@ STATUS game_command_turn_on_off(Game *game, Commands *cmds, BOOL on_off)
           object_set_turnedon(obj, on_off);
 
           free(ply_objs_id);
-          free(spc_objs_id);
           return OK;
         }
       }
     }
   }
 
-  free(spc_objs_id);
   free(ply_objs_id);
   return ERROR;
 }

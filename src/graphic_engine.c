@@ -495,46 +495,31 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
 {
   Id obj_id = NO_ID, obj_loc = NO_ID;
   int i;
-  char *obj_name;
   char str[WORD_SIZE], aux[WORD_SIZE];
-  Enemy *enemy;
 
   paint_n_enters(ge->descript, 1);
-
-  sprintf(str, " - Objects location:");
-  screen_area_puts(ge->descript, str);
-
+  screen_area_puts(ge->descript, " - Objects location:");
   strcpy(str, "\0");
-  if (game_get_num_objects(game) > 0)
+
+  for (i = 0; i < game_get_num_objects(game); i++)
   {
-    for (i = 0; i < game_get_num_objects(game); i++)
+    obj_id = game_get_object_id_at(game, i);
+    if (((obj_loc = object_get_location(game_get_object(game, obj_id))) > 0) && object_get_hidden(game_get_object(game, obj_id)) == FALSE && object_get_movable(game_get_object(game, obj_id)) == TRUE && space_get_light(game_get_space(game, object_get_location(game_get_object(game, obj_id)))) == TRUE)
     {
-      obj_id = game_get_object_id_at(game, i);
-
-      if (((obj_loc = object_get_location(game_get_object(game, obj_id))) > 0) && object_get_hidden(game_get_object(game, obj_id)) == FALSE && object_get_movable(game_get_object(game, obj_id)) == TRUE && space_get_light(game_get_space(game, object_get_location(game_get_object(game, obj_id)))) == TRUE)
+      if (enemy_get_health(game_get_enemy_in_space(game, obj_loc)) < 1)
       {
-        if ((enemy = game_get_enemy_in_space(game, obj_loc)) != NULL)
+        sprintf(aux, "  %s:%ld", game_get_object_name(game, obj_id), obj_loc);
+        if ((strlen(str) + strlen(aux) + 2) > DESCRIPT_WIDTH)
         {
-          if (enemy_get_health(enemy) < 1)
-            enemy = NULL;
+          screen_area_puts(ge->descript, str);
+          strcpy(str, aux);
         }
-
-        if (enemy == NULL)
-        {
-          obj_name = game_get_object_name(game, obj_id);
-          sprintf(aux, "  %s:%ld", obj_name, obj_loc);
-          if ((strlen(str) + strlen(aux) + 2) > DESCRIPT_WIDTH)
-          {
-            screen_area_puts(ge->descript, str);
-            strcpy(str, aux);
-          }
-          else
-            strcat(str, aux);
-        }
+        else
+          strcat(str, aux);
       }
     }
-    screen_area_puts(ge->descript, str);
   }
+  screen_area_puts(ge->descript, str);
 }
 
 void _paint_links_description(Graphic_engine *ge, Game *game)
@@ -609,7 +594,7 @@ void _paint_enemy_description(Graphic_engine *ge, Game *game)
   char str[WORD_SIZE], aux[WORD_SIZE];
   Enemy *enemy;
 
- paint_n_enters(ge->descript, 1);
+  paint_n_enters(ge->descript, 1);
 
   for (i = 0; i < MAX_ENEMIES; i++)
   {
@@ -1092,34 +1077,34 @@ void graphic_engine_sprint_objects(Game *game, Space *space, char *str)
   /* Gets the objects from the space*/
   object_ids = space_get_objects(space, &n_objects);
 
-  /* if there are objects, it prints them in the string*/
-  if (n_objects > 0)
+  if ((n_objects < 1) || (enemy_get_health(game_get_enemy_in_space(game, space_get_id(space))) > 0)) /* No object or enemy in space case*/
   {
-    for (i_objects = 0, bytes = 0, j_c_len = 0; i_objects < n_objects; i_objects++)
-    {
-      /* Gets the object */
-      object = game_get_object(game, object_ids[i_objects]);
-      if (object == NULL)
-        return;
-
-      /* Checks that is not hidden */
-      if (object_get_hidden(object) == TRUE)
-        continue;
-
-      c_len = screen_multibyte_strlen(object_get_name(object));
-      if (j_c_len + c_len + 1 <= BOX_COLS - 2)
-      {
-        bytes += sprintf(str + bytes, " %s", object_get_name(object));
-        j_c_len += c_len + 1;
-      }
-      else
-        break;
-    }
-    /* Fills the remaining space */
-    sprintf(str + bytes, "%.*s", BOX_COLS - 2 - j_c_len, BLANK);
-  }
-  else /* No object case */
     sprintf(str, "%.*s", BOX_COLS - 2, BLANK);
+    return;
+  }
+
+  /* if there are objects, it prints them in the string*/
+  for (i_objects = 0, bytes = 0, j_c_len = 0; i_objects < n_objects; i_objects++)
+  {
+    /* Gets the object */
+    if ((object = game_get_object(game, object_ids[i_objects])) == NULL)
+      return;
+
+    /* Checks that is not hidden */
+    if (object_get_hidden(object) == TRUE)
+      continue;
+
+    c_len = screen_multibyte_strlen(object_get_name(object));
+    if (j_c_len + c_len + 1 <= BOX_COLS - 2)
+    {
+      bytes += sprintf(str + bytes, " %s", object_get_name(object));
+      j_c_len += c_len + 1;
+    }
+    else
+      break;
+  }
+  /* Fills the remaining space */
+  sprintf(str + bytes, "%.*s", BOX_COLS - 2 - j_c_len, BLANK);
 }
 
 void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str)
@@ -1132,7 +1117,6 @@ void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str)
 
   /* Gets enemy */
   enemy = game_get_enemy_in_space(game, space_loc);
-
   if (enemy_get_health(enemy) > 0) /* Prints enemy */
     sprintf(str, "%s", enemy_get_edesc(enemy));
   else /* prints blank */
@@ -1158,7 +1142,7 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
     return;
 
   /* Gets space graphic description */
-  if ((space_gdesc = space_get_gdesc(space)) == NULL)
+  if ((space_gdesc = space_get_gdesc(game_get_space(game, space_id))) == NULL)
     return;
 
   /* Gets enemy gdesc */
@@ -1524,7 +1508,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game)
 
 void _paint_minimap(Graphic_engine *ge, Game *game)
 {
-  int i, j, k, m, bytes = 0, nObjs;
+  int i, j, k, bytes = 0;
   char buffer[2 * WORD_SIZE], aux[WORD_SIZE];
   Id Loc;
   Space *space;
@@ -1542,20 +1526,15 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
     sprintf(buffer, "           Floor %d", i);
     screen_area_puts(ge->minimap, buffer);
     paint_n_enters(ge->minimap, 2);
-    sprintf(buffer, "    +----------------------+");
-    screen_area_puts(ge->minimap, buffer);
+    screen_area_puts(ge->minimap, "    +----------------------+");
     for (j = 1; j < 8; j++)
     {
       bytes += sprintf(buffer, "    | ");
       for (k = 1; k < 8; k++)
       {
-        for (m = 0; m < game_get_num_enemies(game); m++)
-          if ((enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, m))) == (Id)i * 100 + k * 10 + j) && enemy_get_health(game_get_enemy(game, game_get_enemy_id_at(game, m))) > 0)
-            break;
-
-        if ((space = game_get_space(game, (Id)i * 100 + k * 10 + j)) != NULL)
+        if ((space = game_get_space(game, (Id)(i * 100 + k * 10 + j))) != NULL)
         {
-          if (Loc == i * 100 + k * 10 + j)
+          if (Loc == (Id)(i * 100 + k * 10 + j))
             sprintf(aux, F_LIGHTGREEN B_GREEN " O ");
           else if (space_get_flooded(space) == SUNK)
             sprintf(aux, "  ");
@@ -1563,18 +1542,15 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_PURPLE B_GREY "|?|");
           else if (space_get_flooded(space) == FLOODED)
             sprintf(aux, F_LIGHTBLUE B_BLUE " ~ ");
-          else if (m != game_get_num_enemies(game))
+          else if (enemy_get_health(game_get_enemy_in_space(game, (Id)(i * 100 + k * 10 + j))) > 1)
             sprintf(aux, F_LIGHTRED B_RED "|X|");
           else if (!strcmp(HARBOUR, space_get_name(space)))
             sprintf(aux, F_BROWN B_LIGHTBLUE "|H|");
           else if (!strcmp(WORKSHOP, space_get_name(space)))
             sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
-          else
+          else /*Objects*/
           {
-            (void)game_get_objects_in_space(game, i * 100 + k * 10 + j, &nObjs);
-            if (nObjs < 1)
-              sprintf(aux, F_BROWN B_LIGHTBROWN "| |");
-            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) > 1)
+            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
               sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
             else if (game_space_has_object(game, space_get_id(space), STICK))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|║|");
@@ -1588,6 +1564,8 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
               sprintf(aux, F_BROWN B_LIGHTBROWN "|L|");
             else if (game_space_has_object(game, space_get_id(space), KEY) || game_space_has_object(game, space_get_id(space), GOLDKEY))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|¬|");
+            else
+              sprintf(aux, F_BROWN B_LIGHTBROWN "| |");
           }
           bytes += sprintf(buffer + bytes, "%s", aux);
         }
