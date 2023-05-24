@@ -140,6 +140,11 @@
 #define B_LIGHTORANGE BACKGROUND(255, 126, 67)
 #define F_LIGHTORANGE FOREGROUND(255, 126, 67)
 
+/*MINIMAP*/
+#define B_MINIMAP BACKGROUND(62, 95, 138)
+/*DESCRIPTION*/
+#define B_DESCRIPT BACKGROUND(209, 177, 183)
+
 static char pSkins[TYPEPLAYERS][TAMPLAYER + 1] = {{"    "}, {"Coo:"}, {"@_ll"}, {"cBo^"}, {"mmo^"}, {"}H{ "}};
 
 /*Private functions*/
@@ -577,10 +582,6 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
       strcat(str, aux);
     }
 
-    sprintf(aux, ", Max_objects: %d", player_get_max_objects(game_get_player(game)));
-    strcat(str, aux);
-    screen_area_puts(ge->descript, str);
-
     _paint_inventory(ge, game);
   }
 
@@ -656,40 +657,78 @@ void _paint_inspection_description(Graphic_engine *ge, Game *game)
 
 void _paint_description_init(Graphic_engine *ge, Game *game)
 {
+  int i;
   char buffer[WORD_SIZE];
+  char ascii_art[12][30] = {
+"       /\\   /\\",
+"         \\_/",
+"    __   / \\   __",
+"  -'  `. \\_/ .'  `-",
+"        \\/ \\/",
+"   _.---(   )---._",
+"_.'   _.-\\_/-._   `._",
+"     /   /_\\   \\",
+"    /   /___\\   \\",
+"   /   |_____|   \\",
+"_.'    | ___ |    `._",
+"        \\___/"};
 
   screen_area_clear(ge->descript);
-  paint_n_enters(ge->descript, 1);
-  sprintf(buffer, "                        Pick a player");
+  sprintf(buffer, B_DESCRIPT" ");
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 2);
-  sprintf(buffer, "     -Scorpion (1): %s", pSkins[SCORPION]);
+  sprintf(buffer, B_DESCRIPT"                        Pick a player");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, "The Scorpion is a venomous animal therefore it deals %d more damage", EXTRASCORP);
+  sprintf(buffer, B_DESCRIPT" ");
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 1);
-  sprintf(buffer, "     -Snail (2): %s", pSkins[SNAIL]);
+  sprintf(buffer, B_DESCRIPT" ");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, "The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
+  sprintf(buffer, B_DESCRIPT"     -Scorpion (1): %s", pSkins[SCORPION]);
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 1);
-  sprintf(buffer, "     -Firefly (3): %s", pSkins[FIREFLY]);
+  sprintf(buffer, B_DESCRIPT"The Scorpion is a venomous animal therefore it deals %d", EXTRASCORP);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, "The Firefly iluminates a room without the need of a torch");
+  sprintf(buffer, B_DESCRIPT" more damage");
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 1);
-  sprintf(buffer, "     -Ant (4): %s", pSkins[ANT]);
+  sprintf(buffer, B_DESCRIPT" ");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, "The ant creates %d ground at the beggining of the game", EXTRASANT);
+  sprintf(buffer, B_DESCRIPT"    -Snail (2): %s", pSkins[SNAIL]);
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 1);
-  sprintf(buffer, "     -Butterfly (5): %s", pSkins[BUTTERFLY]);
+  sprintf(buffer, B_DESCRIPT"The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, "The butterfly flies vertically thanks to its light and powerful wings.");
+  sprintf(buffer, B_DESCRIPT" ");
   screen_area_puts(ge->descript, buffer);
-  paint_n_enters(ge->descript, 2);
-  sprintf(buffer, " - Exit (e)");
+  sprintf(buffer, B_DESCRIPT"    -Firefly (3): %s", pSkins[FIREFLY]);
   screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"The Firefly iluminates a room without the need of a torch");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT" ");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"    -Ant (4): %s", pSkins[ANT]);
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"The ant creates %d ground at the beggining of the game", EXTRASANT);
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT" ");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"    -Butterfly (5): %s", pSkins[BUTTERFLY]);
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"The butterfly flies vertically thanks to its light and");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"powerful wings.");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT" ");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT"- Exit (e)");
+  screen_area_puts(ge->descript, buffer);
+
+  sprintf(buffer, B_DESCRIPT" ");
+  screen_area_puts(ge->descript, buffer);
+  for (i=0; i<12; i++){
+    sprintf(buffer, B_DESCRIPT"                %s", ascii_art[i]);
+  screen_area_puts(ge->descript, buffer);
+  }
+  for (i=0; i<5; i++){
+    sprintf(buffer, B_DESCRIPT"              ");
+  screen_area_puts(ge->descript, buffer);
+  }
 }
 
 void _paint_description_end(Graphic_engine *ge, Game *game)
@@ -893,7 +932,7 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 {
   int i;
 
-  char new_ascii_map[MAP_HEIGHT][MAP_WIDTH * MULTIBYTE + 1] = {
+  char ascii_map[MAP_HEIGHT][MAP_WIDTH * MULTIBYTE + 1] = {
       B_LIGHTBLUE " ",
       B_LIGHTBLUE " ",
       /* TITLE */
@@ -937,60 +976,22 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
       B_BLUE F_LIGHTBLUE "⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣⌢⌣",
   };
 
-  char ascii_map[MAP_HEIGHT][(MAP_WIDTH)*3 + 1] = {
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "                         _______              ______  ",
-      B_LIGHTBLUE "       //\\\\   ||\\\\  ||     ||      ||    ||     ||    ||      ||",
-      B_LIGHTBLUE "      //__\\\\  || \\\\ ||     ||      ||____||     ||    ||      ||",
-      B_LIGHTBLUE "     //    \\\\ ||  \\\\||     ||      ||    ||   __||__  ||____  ||___",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "     ",
-      B_LIGHTBLUE "                   |>              ",
-      B_LIGHTBLUE "                   |               ",
-      B_LIGHTBLUE "                  " B_WHITE "/|\\" B_LIGHTBLUE "              ",
-      B_LIGHTBLUE "                 " B_WHITE "/.| \\" B_LIGHTBLUE "             ",
-      B_LIGHTBLUE "                " B_WHITE "/^^|^^\\" B_LIGHTBLUE "            ",
-      B_LIGHTBLUE "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_mmo^__    ",
-      F_DARKBLUE BACKGROUND(0, 150, 255) "⌢⌣⌢⌣⌢⌣⌢⌣" FOREGROUND(0, 0, 0) BACKGROUND(200, 0, 0) "\\...................../" F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-      F_DARKBLUE BACKGROUND(0, 150, 255) "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-
   char ascii_map_loose[7][MAP_WIDTH * MULTIBYTE + 1] = {
       B_LIGHTBLUE " ",
       B_LIGHTBLUE " ",
-      B_LIGHTBLUE F_BLUE "▜▙  ▗█▘▟▛▀▀▀▜▙ █▌   ▐█    ▐█     ▟▛▀▀▀▜▙ ▟▛▀▀▀▜▙ ▀▀▀█▛▀▀▘",
-      B_LIGHTBLUE F_BLUE " ▜▙▗█▘ █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█ ▜▙▖        █▌",
-      B_LIGHTBLUE F_BLUE "  ▜█▘  █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█  ▝▀█▄▖     █▌",
-      B_LIGHTBLUE F_BLUE "  ▐█   █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█     ▝▜▙    █▌",
-      B_LIGHTBLUE F_BLUE "  ▐█   ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛    ▐█▄▄▄▄ ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛    █▌"};
+      B_LIGHTBLUE F_BLUE "        ▜▙  ▗█▘▟▛▀▀▀▜▙ █▌   ▐█    ▐█     ▟▛▀▀▀▜▙ ▟▛▀▀▀▜▙ ▀▀▀█▛▀▀▘",
+      B_LIGHTBLUE F_BLUE "         ▜▙▗█▘ █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█ ▜▙▖        █▌",
+      B_LIGHTBLUE F_BLUE "          ▜█▘  █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█  ▝▀█▄▖     █▌",
+      B_LIGHTBLUE F_BLUE "          ▐█   █▌   ▐█ █▌   ▐█    ▐█     █▌   ▐█     ▝▜▙    █▌",
+      B_LIGHTBLUE F_BLUE "          ▐█   ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛    ▐█▄▄▄▄ ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛    █▌"};
   char ascii_map_win[7][MAP_WIDTH * MULTIBYTE + 1] = {
       B_LIGHTBLUE " ",
       B_LIGHTBLUE " ",
-      B_LIGHTBLUE F_BLUE "▜▙  ▗█▘▟▛▀▀▀▜▙ █▌   ▐█    ▐█   ██   █▌ ▟▛▀▀▀▜▙ ▐█▙   █▌",
-      B_LIGHTBLUE F_BLUE " ▜▙▗█▘ █▌   ▐█ █▌   ▐█     █▌ ▐██▌ ▐█  █▌   ▐█ ▐█▜▙  █▌ ",
-      B_LIGHTBLUE F_BLUE "  ▜█▘  █▌   ▐█ █▌   ▐█     ▐█ █▌▐█ █▌  █▌   ▐█ ▐█ ▜▙ █▌",
-      B_LIGHTBLUE F_BLUE "  ▐█   █▌   ▐█ █▌   ▐█      ███  ███   █▌   ▐█ ▐█  ▜▙█▌",
-      B_LIGHTBLUE F_BLUE "  ▐█   ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛      ▐█▌  ▐█▌   ▜▙▄▄▄▟▛ ▐█   ▜█▌"
+      B_LIGHTBLUE F_BLUE "        ▜▙  ▗█▘▟▛▀▀▀▜▙ █▌   ▐█    ▐█   ██   █▌ ▟▛▀▀▀▜▙ ▐█▙   █▌",
+      B_LIGHTBLUE F_BLUE "         ▜▙▗█▘ █▌   ▐█ █▌   ▐█     █▌ ▐██▌ ▐█  █▌   ▐█ ▐█▜▙  █▌ ",
+      B_LIGHTBLUE F_BLUE "          ▜█▘  █▌   ▐█ █▌   ▐█     ▐█ █▌▐█ █▌  █▌   ▐█ ▐█ ▜▙ █▌",
+      B_LIGHTBLUE F_BLUE "          ▐█   █▌   ▐█ █▌   ▐█      ███  ███   █▌   ▐█ ▐█  ▜▙█▌",
+      B_LIGHTBLUE F_BLUE "          ▐█   ▜▙▄▄▄▟▛ ▜▙▄▄▄▟▛      ▐█▌  ▐█▌   ▜▙▄▄▄▟▛ ▐█   ▜█▌"
 
   };
 
@@ -998,28 +999,27 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
 
   if (type == -1)
   {
-    sprintf(ascii_map[MAP_HEIGHT - 5], B_LIGHTBLUE F_WHITE "              ▟" B_WHITE F_BROWN "    ▐    " B_LIGHTBLUE F_WHITE "▙  " F_BLACK "%.4s", pSkins[player_get_type(game_get_player(game))]);
+    sprintf(ascii_map[MAP_HEIGHT - 6], B_LIGHTBLUE F_WHITE "              ▟" B_WHITE F_BROWN "    ▐    " B_LIGHTBLUE F_WHITE "▙  " F_BLACK "%.4s", pSkins[player_get_type(game_get_player(game))]);
     for (i = 0; i < 7; i++)
       screen_area_puts(ge->map, ascii_map_loose[i]);
   }
   else if (type == 1)
   {
-    sprintf(ascii_map[MAP_HEIGHT - 5], "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
+    sprintf(ascii_map[MAP_HEIGHT - 6], B_LIGHTBLUE "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
     for (i = 0; i < 7; i++)
       screen_area_puts(ge->map, ascii_map_win[i]);
   }
   else
-  {
     for (i = 0; i < 7; i++)
-      screen_area_puts(ge->map, new_ascii_map[i]);
-  }
+      screen_area_puts(ge->map, ascii_map[i]);
+
   for (; i < MAP_HEIGHT; i++)
-    screen_area_puts(ge->map, new_ascii_map[i]);
+    screen_area_puts(ge->map, ascii_map[i]);
 }
 
 void _paint_inventory(Graphic_engine *ge, Game *game)
 {
-  int i, f = 0, n, count[N_OBJ_TYPES];
+  int i, n, count[N_OBJ_TYPES];
   char aux[WORD_SIZE] = "";
   Id *objs;
   Object *obj;
@@ -1027,10 +1027,11 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
   if (!ge || !game)
     return;
 
-  sprintf(aux, " - Player objects:");
+  objs = game_get_player_objects(game, &n);
+
+  sprintf(aux, " - Player objects (%d/%d):", n, player_get_max_objects(game_get_player(game)));
   screen_area_puts(ge->descript, aux);
 
-  objs = game_get_player_objects(game, &n);
   for (i = 0; i < N_OBJ_TYPES; i++)
     count[i] = 0;
   for (i = 0; i < n; i++)
@@ -1039,8 +1040,7 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
 
     if (object_get_type(obj) == SPECIAL || object_get_type(obj) == NO_OTYPE)
     {
-      f = 1;
-      sprintf(aux, "-%s ", object_get_name(obj));
+      sprintf(aux, "    -%s ", object_get_name(obj));
       screen_area_puts(ge->descript, aux);
     }
     else
@@ -1050,14 +1050,13 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
   for (i = 0; i < N_OBJ_TYPES; i++)
     if (count[i] != 0)
     {
-      f = 1;
-      sprintf(aux, "-%s: %d ", object_translate_object_type_to_string(i), count[i]);
+      sprintf(aux, "    -%s: %d ", object_translate_object_type_to_string(i), count[i]);
       screen_area_puts(ge->descript, aux);
     }
 
-  if (f == 0)
+  if (n < 1)
   {
-    sprintf(aux, " NONE");
+    sprintf(aux, "    NONE");
     screen_area_puts(ge->descript, aux);
   }
 
@@ -1518,18 +1517,25 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
 
   Loc = player_get_location(game_get_player(game));
   screen_area_clear(ge->minimap);
-  screen_area_puts(ge->minimap, "            MINIMAP  ");
+  sprintf(buffer, B_MINIMAP "    ");
+  screen_area_puts(ge->minimap, buffer);
+  sprintf(buffer, B_MINIMAP "            MINIMAP  ");
+  screen_area_puts(ge->minimap, buffer);
 
   for (i = 2; i >= 0; i--)
   {
-    paint_n_enters(ge->minimap, 2);
-    sprintf(buffer, "           Floor %d", i);
+    sprintf(buffer, B_MINIMAP "    ");
     screen_area_puts(ge->minimap, buffer);
-    paint_n_enters(ge->minimap, 2);
-    screen_area_puts(ge->minimap, "    +----------------------+");
-    for (j = 1; j < 8; j++)
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, B_MINIMAP "           Floor %d", i);
+    screen_area_puts(ge->minimap, buffer);
+    sprintf(buffer, B_MINIMAP "    ");
+    screen_area_puts(ge->minimap, buffer);
+    screen_area_puts(ge->minimap, buffer);
+    screen_area_puts(ge->minimap, B_MINIMAP "    +----------------------+");
+    for (j = 1; j < 9; j++)
     {
-      bytes += sprintf(buffer, "    | ");
+      bytes += sprintf(buffer, B_MINIMAP "    | ");
       for (k = 1; k < 8; k++)
       {
         if ((space = game_get_space(game, (Id)(i * 100 + k * 10 + j))) != NULL)
@@ -1537,7 +1543,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
           if (Loc == (Id)(i * 100 + k * 10 + j))
             sprintf(aux, F_LIGHTGREEN B_GREEN " O ");
           else if (space_get_flooded(space) == SUNK)
-            sprintf(aux, "  ");
+            sprintf(aux, B_MINIMAP "  ");
           else if (space_get_light(space) == FALSE)
             sprintf(aux, F_PURPLE B_GREY "|?|");
           else if (space_get_flooded(space) == FLOODED)
@@ -1570,15 +1576,18 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
           bytes += sprintf(buffer + bytes, "%s", aux);
         }
         else
-          bytes += sprintf(buffer + bytes, F_BLACK B_WHITE "   ");
+          bytes += sprintf(buffer + bytes, F_BLACK B_MINIMAP "   ");
       }
-      bytes += sprintf(buffer + bytes, F_BLACK B_WHITE "|");
+      bytes += sprintf(buffer + bytes, F_BLACK B_MINIMAP "|");
       screen_area_puts(ge->minimap, buffer);
       bytes = 0;
     }
-    sprintf(buffer, F_BLACK B_WHITE "    +----------------------+");
+    sprintf(buffer, F_BLACK B_MINIMAP "    +----------------------+");
     screen_area_puts(ge->minimap, buffer);
   }
+  sprintf(buffer, B_MINIMAP "    ");
+  for (i = 0; i < 2; i++)
+    screen_area_puts(ge->minimap, buffer);
 }
 
 void paint_n_enters(Area *area, int n)
