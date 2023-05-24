@@ -13,6 +13,7 @@
 #include <string.h>
 #include <strings.h>
 #include <time.h>
+#include <sys/time.h>
 #include "game.h"
 #include "game_management.h"
 
@@ -1023,6 +1024,10 @@ Id *game_get_rand_space_id(Game *game, int nids)
 {
   int i = 0, j = 0, r, numallids;
   Id *randids, allids[MAX_SPACES];
+  struct timeval currentTime;
+
+  gettimeofday(&currentTime, NULL);
+  srand((unsigned)currentTime.tv_usec);
 
   if (game == NULL || nids < 1)
     return NULL;
@@ -2869,7 +2874,7 @@ STATUS game_command_take(Game *game, Commands *cmds)
   if ((objs_id = space_get_objects(space, &nobj)) == NULL)
     return ERROR;
 
-  if (space_get_light(space) == FALSE && game_player_has_light(game) == FALSE) /*If the space has no light*/
+  if ((space_get_light(space) == FALSE && game_player_has_light(game) == FALSE)||space_get_flooded(space)!=SAFE) /*If the space is available*/
   {
     free(objs_id);
     return ERROR;

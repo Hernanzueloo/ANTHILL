@@ -368,7 +368,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   for (i = 0; i < f; i++)
     bytes += sprintf(aux + bytes, "~");
   for (; i < DESCRIPT_WIDTH - 3; i++)
-    bytes += sprintf(aux + bytes, " ");
+    bytes += sprintf(aux + bytes, B_DESCRIPT " ");
   bytes += sprintf(aux + bytes, B_DESCRIPT " ");
   screen_area_puts(ge->descript, aux);
 
@@ -377,7 +377,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   _paint_objects_description(ge, game);
   _paint_links_description(ge, game);
   _paint_space_description(ge, game);
-  _paint_inspection_description(ge, game);
+  /*_paint_inspection_description(ge, game);*/
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
 
   /* Paint in the banner area */
@@ -387,7 +387,9 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   screen_area_clear(ge->help);
   sprintf(str, " The commands you can use are:");
   screen_area_puts(ge->help, str);
-  sprintf(str, " attack or a, take or t, drop or d, move or m, inspect or i, turnon or to, turnoff or tf, op or open with, cl or close with, l or load, s or save, info or y, exit or e");
+  sprintf(str, " Attack or a, take or t, drop or d, move or m, inspect or i, turnon or to, turnoff or tf, op or open with, cl or close with, l or load,");
+  screen_area_puts(ge->help, str);
+  sprintf(str, " s or save, info or y, exit or e");
   screen_area_puts(ge->help, str);
 
   _paint_feedback_dialogue(ge, game);
@@ -507,6 +509,8 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
   char str[WORD_SIZE] = "\0", aux[WORD_SIZE] = "\0";
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  sprintf(aux, B_DESCRIPT "                        OBJECTS ");
+  screen_area_puts(ge->descript, aux);
   screen_area_puts(ge->descript, B_DESCRIPT " - Objects location:");
   n = game_get_num_objects(game);
   for (i = NO_OTYPE; i < N_OBJ_TYPES; i++)
@@ -528,21 +532,19 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
             }
             else
             {
-              sprintf(aux, B_DESCRIPT " ,%ld", obj_loc);
+              sprintf(aux, B_DESCRIPT ", %ld", obj_loc);
               if ((screen_multibyte_strlen(str) + screen_multibyte_strlen(aux) + 2) > DESCRIPT_WIDTH)
               {
                 if ((screen_multibyte_strlen(str) + 2) <= DESCRIPT_WIDTH)
                 {
-  
-                   bytes += sprintf(str + bytes, B_DESCRIPT ",");
-
+                  bytes += sprintf(str + bytes, B_DESCRIPT ",");
                   sprintf(aux, B_DESCRIPT "  %ld", obj_loc);
                 }
                 screen_area_puts(ge->descript, str);
                 memcpy(str, aux, WORD_SIZE);
               }
               else
-                bytes += sprintf(str + bytes, "%s",aux);
+                bytes += sprintf(str + bytes, "%s", aux);
             }
           }
         }
@@ -587,7 +589,8 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
   char *dir_to_str[N_DIR] = {"north", "south", "east", "west", "up", "down"};
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
-
+sprintf(str, B_DESCRIPT "                         LINKS ");
+  screen_area_puts(ge->descript, str);
   sprintf(str, B_DESCRIPT " - Links:");
   screen_area_puts(ge->descript, str);
 
@@ -616,27 +619,30 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
   Id ply_loc = NO_ID;
   char str[WORD_SIZE], aux[WORD_SIZE];
 
-  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  sprintf(aux, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, aux);
+  sprintf(aux, B_DESCRIPT "                        PLAYER ");
+  screen_area_puts(ge->descript, aux);
 
   if ((ply_loc = player_get_location(game_get_player(game))) != NO_ID)
   {
-    sprintf(str, B_DESCRIPT " - Player location: %ld", ply_loc);
+    sprintf(str, B_DESCRIPT "    Location        Type        Health        Actions");
+    screen_area_puts(ge->descript, str);
 
-    sprintf(aux, B_DESCRIPT ", Type: %d", player_get_type(game_get_player(game)));
-    strcat(str, aux);
+    sprintf(str, B_DESCRIPT "      %.3ld             %d", ply_loc, player_get_type(game_get_player(game)));
 
     if (player_get_health(game_get_player(game)) == 0)
-      strcat(str, B_DESCRIPT ", Health: DEAD");
+      strcat(str, B_DESCRIPT "         DEAD");
     else
     {
-      sprintf(aux, B_DESCRIPT ", Health: %d", player_get_health(game_get_player(game)));
+      sprintf(aux, B_DESCRIPT "           %.2d", player_get_health(game_get_player(game)));
       strcat(str, aux);
     }
-
+    sprintf(aux, B_DESCRIPT "           %.4d", game_get_num_executed_commands(game));
+    strcat(str, aux);
+    screen_area_puts(ge->descript, str);
     _paint_inventory(ge, game);
   }
-
-  paint_n_enters(ge->descript, 1, B_DESCRIPT);
 }
 
 void _paint_enemy_description(Graphic_engine *ge, Game *game)
@@ -647,10 +653,12 @@ void _paint_enemy_description(Graphic_engine *ge, Game *game)
   Enemy *enemy;
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  sprintf(aux, B_DESCRIPT "                        ENEMIES ");
+  screen_area_puts(ge->descript, aux);
 
   for (i = 0; i < MAX_ENEMIES; i++)
   {
-    if ((enmy_loc = enemy_get_location((enemy = game_get_enemy(game, game_get_enemy_id_at(game, i))))) != NO_ID)
+    if ((enmy_loc = enemy_get_location(enemy = game_get_enemy(game, game_get_enemy_id_at(game, i)))) != NO_ID)
     {
       if (space_get_flooded(game_get_space(game, enmy_loc)) != SUNK)
       {
@@ -786,11 +794,34 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
 
 void _paint_description_end(Graphic_engine *ge, Game *game)
 {
+  int i;
+  char buffer[WORD_SIZE], ascii_art[12][30] = {
+      "       /\\   /\\",
+      "         \\_/",
+      "    __   / \\   __",
+      "  -'  `. \\_/ .'  `-",
+      "        \\/ \\/",
+      "   _.---(   )---._",
+      "_.'   _.-\\_/-._   `._",
+      "     /   /_\\   \\",
+      "    /   /___\\   \\",
+      "   /   |_____|   \\",
+      "_.'    | ___ |    `._",
+      "        \\___/"};
+
   screen_area_clear(ge->descript);
-  paint_n_enters(ge->descript, 2, B_DESCRIPT);
-  screen_area_puts(ge->descript, "                        Game has ended");
-  paint_n_enters(ge->descript, 2, B_DESCRIPT);
-  screen_area_puts(ge->descript, "       Hope you enjoyed the game ");
+  paint_n_enters(ge->descript, 4, B_DESCRIPT);
+  screen_area_puts(ge->descript, B_DESCRIPT"                     Game has ended");
+  paint_n_enters(ge->descript, 3, B_DESCRIPT);
+  screen_area_puts(ge->descript, B_DESCRIPT"               Hope you enjoyed the game ");
+
+  paint_n_enters(ge->descript, 10, B_DESCRIPT);
+  for (i = 0; i < 12; i++)
+  {
+    sprintf(buffer, B_DESCRIPT "                %s", ascii_art[i]);
+    screen_area_puts(ge->descript, buffer);
+  }
+  paint_n_enters(ge->descript, 10, B_DESCRIPT);
 }
 
 void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
@@ -1058,7 +1089,7 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
   }
   else if (type == 1)
   {
-    sprintf(ascii_map[MAP_HEIGHT - 6], B_LIGHTBLUE "        _______" B_WHITE "/___|___\\" B_LIGHTBLUE "_%.4s__    ", pSkins[player_get_type(game_get_player(game))]);
+    sprintf(ascii_map[MAP_HEIGHT - 6], B_LIGHTBLUE F_WHITE "              ▟" B_WHITE F_BROWN "    ▐    " B_LIGHTBLUE F_WHITE "▙  " F_BLACK "%.4s", pSkins[player_get_type(game_get_player(game))]);
     for (i = 0; i < 7; i++)
       screen_area_puts(ge->map, ascii_map_win[i]);
   }
@@ -1081,8 +1112,18 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     return;
 
   objs = game_get_player_objects(game, &n);
+  sprintf(aux, B_DESCRIPT "  ");
+  screen_area_puts(ge->descript, aux);
 
-  sprintf(aux, B_DESCRIPT " - Player objects (%d/%d):", n, player_get_max_objects(game_get_player(game)));
+  sprintf(aux, B_DESCRIPT " - Inventory (%d/%d):", n, player_get_max_objects(game_get_player(game)));
+
+  if (n < 1)
+  {
+    free(objs);
+    strcat(aux, B_DESCRIPT " NONE");
+    screen_area_puts(ge->descript, aux);
+    return;
+  }
   screen_area_puts(ge->descript, aux);
 
   for (i = 0; i < N_OBJ_TYPES; i++)
@@ -1106,12 +1147,6 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
       sprintf(aux, B_DESCRIPT "    -%s: %d ", object_translate_object_type_to_string(i), count[i]);
       screen_area_puts(ge->descript, aux);
     }
-
-  if (n < 1)
-  {
-    sprintf(aux, B_DESCRIPT "    NONE");
-    screen_area_puts(ge->descript, aux);
-  }
 
   free(objs);
 }
@@ -1175,7 +1210,7 @@ void graphic_engine_sprint_enemy(Game *game, Id space_loc, char *str)
   /* Gets enemy */
   enemy = game_get_enemy_in_space(game, space_loc);
   if (enemy_get_health(enemy) > 0) /* Prints enemy */
-    sprintf(str, B_LIGHTBROWN F_RED "%s"F_BROWN, enemy_get_edesc(enemy));
+    sprintf(str, B_LIGHTBROWN F_RED "%s" F_BROWN, enemy_get_edesc(enemy));
   else /* prints blank */
     sprintf(str, B_LIGHTBROWN F_BROWN "%.*s", TAMENEMY, BLANK);
 }
@@ -1216,9 +1251,9 @@ void graphic_engine_sprint_space_illuminated(Game *game, Id space_id, char (*spa
 
   /* Player, enemy and id line */
   if (player_get_location(game_get_player(game)) == space_id)
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%s%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, pSkins[(int)player_get_type(game_get_player(game))],(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2,BLANK,str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)%2, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%s%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, pSkins[(int)player_get_type(game_get_player(game))], (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) / 2, BLANK, str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) / 2 + (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) % 2, BLANK, space_id);
   else
-    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, TAMPLAYER+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2, BLANK, str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)/2+(BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3)%2, BLANK, space_id);
+    sprintf(space_frame[1] + screen_multibyte_move(space_frame[1], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s%s%.*s%.3ld" V_LINE B_MAP F_BLACK, TAMPLAYER + (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) / 2, BLANK, str_enemy, (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) / 2 + (BOX_COLS - 2 - TAMENEMY - TAMPLAYER - 3) % 2, BLANK, space_id);
 
   /* Blank line */
   sprintf(space_frame[2] + screen_multibyte_move(space_frame[2], offset), B_LIGHTBROWN F_BROWN V_LINE "%.*s" V_LINE B_MAP F_BLACK, BOX_COLS - 2, BLANK);
@@ -1376,25 +1411,25 @@ void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_fram
   if (dir == NORTH || dir == SOUTH)
   {
     if (status == OPEN)
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" V_LINE ONE_BLANK ONE_BLANK ONE_BLANK V_LINE "%s" , str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" V_LINE ONE_BLANK ONE_BLANK ONE_BLANK V_LINE "%s", str_color_beggining, str_color_end);
     else
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" RG_T ONE_H_LINE ONE_H_LINE ONE_H_LINE LF_T "%s"B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" RG_T ONE_H_LINE ONE_H_LINE ONE_H_LINE LF_T "%s" B_MAP, str_color_beggining, str_color_end);
   }
   else
   {
     if (status == OPEN)
     {
-      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), B_BROWN "%s" ONE_H_LINE ONE_H_LINE "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" ONE_BLANK ONE_BLANK "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), B_BROWN "%s" ONE_BLANK ONE_BLANK "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y + 2] + screen_multibyte_move(space_frame[y + 2], x), B_BROWN "%s" ONE_H_LINE ONE_H_LINE "%s"B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), B_BROWN "%s" ONE_H_LINE ONE_H_LINE "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" ONE_BLANK ONE_BLANK "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), B_BROWN "%s" ONE_BLANK ONE_BLANK "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 2] + screen_multibyte_move(space_frame[y + 2], x), B_BROWN "%s" ONE_H_LINE ONE_H_LINE "%s" B_MAP, str_color_beggining, str_color_end);
     }
     else
     {
-      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), B_BROWN "%s" DW_T DW_T "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" V_LINE V_LINE "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), B_BROWN "%s" V_LINE V_LINE "%s"B_MAP, str_color_beggining, str_color_end);
-      sprintf(space_frame[y + 2] + screen_multibyte_move(space_frame[y + 2], x), B_BROWN "%s" UP_T UP_T "%s"B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y - 1] + screen_multibyte_move(space_frame[y - 1], x), B_BROWN "%s" DW_T DW_T "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y] + screen_multibyte_move(space_frame[y], x), B_BROWN "%s" V_LINE V_LINE "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 1] + screen_multibyte_move(space_frame[y + 1], x), B_BROWN "%s" V_LINE V_LINE "%s" B_MAP, str_color_beggining, str_color_end);
+      sprintf(space_frame[y + 2] + screen_multibyte_move(space_frame[y + 2], x), B_BROWN "%s" UP_T UP_T "%s" B_MAP, str_color_beggining, str_color_end);
     }
   }
 }

@@ -25,7 +25,7 @@ struct _Player
     Id location;              /*!< Id of the player's location */
     Inventory *inv;           /*!< Id to the player's inventory*/
     int health;               /*!< Number of life points of a player*/
-    T_PlayerType type;         /*!< The type of player*/
+    T_PlayerType type;        /*!< The type of player*/
 };
 
 Player *player_create(Id id)
