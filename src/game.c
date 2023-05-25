@@ -516,6 +516,7 @@ STATUS game_update(Game *game)
 
   case INSPECT:
     sts = game_command_inspect(game, game->last_cmd);
+    game->last_tdesc = space_get_tdesc(game_get_space(game, player_get_location(game_get_player(game))));
     break;
 
   case TURNON:
@@ -556,13 +557,13 @@ STATUS game_update(Game *game)
 
   if (sts == OK && cmd != UNKNOWN)
   {
-    game->num_executed_commands++;
+    if (commands_get_cmd(game->last_cmd) != INSPECT)
+    {
+      game->last_idesc = NULL;
+      game->num_executed_commands++;
+    }
     game_rule_evaluate_execute_all(game);
   }
-
-  game->last_tdesc = space_get_tdesc(game_get_space(game, player_get_location(game_get_player(game))));
-  if (commands_get_cmd(game->last_cmd) != INSPECT)
-    game->last_idesc = NULL;
 
   return OK;
 }
@@ -2727,7 +2728,7 @@ STATUS game_rule_spawn_ground(Game *game, int argint)
       object_set_open(obj, NO_ID);
       object_set_illuminate(obj, FALSE);
       object_set_turnedon(obj, FALSE);
-      object_set_tdesc(obj,GROUND_DESCRIPTION);
+      object_set_tdesc(obj, GROUND_DESCRIPTION);
 
       if (space_add_object(game_get_space(game, idsspace[i]), object_get_id(obj)) == ERROR)
       {
@@ -2874,7 +2875,7 @@ STATUS game_command_take(Game *game, Commands *cmds)
   if ((objs_id = space_get_objects(space, &nobj)) == NULL)
     return ERROR;
 
-  if ((space_get_light(space) == FALSE && game_player_has_light(game) == FALSE)||space_get_flooded(space)!=SAFE) /*If the space is available*/
+  if ((space_get_light(space) == FALSE && game_player_has_light(game) == FALSE) || space_get_flooded(space) != SAFE) /*If the space is available*/
   {
     free(objs_id);
     return ERROR;

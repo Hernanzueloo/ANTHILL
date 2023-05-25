@@ -302,6 +302,8 @@ struct _Graphic_engine
       *minimap;  /*!< Minimap pointer*/
 };
 
+int num_commands_ex;
+
 Graphic_engine *graphic_engine_create()
 {
   static Graphic_engine *ge = NULL;
@@ -399,6 +401,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Dump to the terminal */
   screen_paint();
+  num_commands_ex=game_get_num_executed_commands(game);
   printf(B_BLACK F_WHITE "Write a command:> ");
 }
 
@@ -589,7 +592,7 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
   char *dir_to_str[N_DIR] = {"north", "south", "east", "west", "up", "down"};
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
-sprintf(str, B_DESCRIPT "                         LINKS ");
+  sprintf(str, B_DESCRIPT "                         LINKS ");
   screen_area_puts(ge->descript, str);
   sprintf(str, B_DESCRIPT " - Links:");
   screen_area_puts(ge->descript, str);
@@ -794,34 +797,53 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
 
 void _paint_description_end(Graphic_engine *ge, Game *game)
 {
-  int i;
+  int i, cont;
+  Id space;
   char buffer[WORD_SIZE], ascii_art[12][30] = {
-      "       /\\   /\\",
-      "         \\_/",
-      "    __   / \\   __",
-      "  -'  `. \\_/ .'  `-",
-      "        \\/ \\/",
-      "   _.---(   )---._",
-      "_.'   _.-\\_/-._   `._",
-      "     /   /_\\   \\",
-      "    /   /___\\   \\",
-      "   /   |_____|   \\",
-      "_.'    | ___ |    `._",
-      "        \\___/"};
+                              "       /\\   /\\",
+                              "         \\_/",
+                              "    __   / \\   __",
+                              "  -'  `. \\_/ .'  `-",
+                              "        \\/ \\/",
+                              "   _.---(   )---._",
+                              "_.'   _.-\\_/-._   `._",
+                              "     /   /_\\   \\",
+                              "    /   /___\\   \\",
+                              "   /   |_____|   \\",
+                              "_.'    | ___ |    `._",
+                              "        \\___/"};
 
   screen_area_clear(ge->descript);
   paint_n_enters(ge->descript, 4, B_DESCRIPT);
-  screen_area_puts(ge->descript, B_DESCRIPT"                     Game has ended");
+  screen_area_puts(ge->descript, B_DESCRIPT "                     GAME HAS ENDED");
   paint_n_enters(ge->descript, 3, B_DESCRIPT);
-  screen_area_puts(ge->descript, B_DESCRIPT"               Hope you enjoyed the game ");
+  screen_area_puts(ge->descript, B_DESCRIPT "               Hope you enjoyed the game ");
+  paint_n_enters(ge->descript, 3, B_DESCRIPT);
 
-  paint_n_enters(ge->descript, 10, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "         Character you chose: %s (%d)", pSkins[player_get_type(game_get_player(game))], player_get_type(game_get_player(game)));
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "         Number of commands executed: %.4d", num_commands_ex);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "         Health player: %d", player_get_health(game_get_player(game)));
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  
+  for (i = 0, cont = 0; (i < MAX_SPACES) && ((space=game_get_space_id_at(game, i))!=NO_ID); i++)
+    if (space_get_flooded(game_get_space(game, space)) == SUNK)
+      cont++;
+  sprintf(buffer, B_DESCRIPT "         Spaces sunk: %d / %d", cont, i);
+  screen_area_puts(ge->descript, buffer);
+
+  paint_n_enters(ge->descript, 5, B_DESCRIPT);
   for (i = 0; i < 12; i++)
   {
     sprintf(buffer, B_DESCRIPT "                %s", ascii_art[i]);
     screen_area_puts(ge->descript, buffer);
   }
-  paint_n_enters(ge->descript, 10, B_DESCRIPT);
+
+  paint_n_enters(ge->descript, 4, B_DESCRIPT);
 }
 
 void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
@@ -1641,7 +1663,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_LIGHTBLUE B_BLUE " ~ ");
           else if (space_get_light(space) == FALSE)
             sprintf(aux, F_PURPLE B_GREY "|?|");
-          else if (enemy_get_health(game_get_enemy_in_space(game, (Id)(i * 100 + k * 10 + j))) > 1)
+          else if (enemy_get_health(game_get_enemy_in_space(game, (Id)(i * 100 + k * 10 + j))) > 0)
             sprintf(aux, F_LIGHTRED B_RED "|X|");
           else if (!strcmp(HARBOUR, space_get_name(space)))
             sprintf(aux, F_BROWN B_LIGHTBLUE "|H|");
@@ -1649,7 +1671,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
           else /*Objects*/
           {
-            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
+            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
               sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
             else if (game_space_has_object(game, space_get_id(space), STICK))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|ᛅ|");

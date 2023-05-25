@@ -2,7 +2,7 @@
 #G:0|0.25|
 
                 PLAYER
-#p:1|Segismundo Eduardo de todos los Santos|065|6|6|0|
+#p:1|Segismundo Eduardo de todos los Santos|233|6|6|0|
 
 
                 SPACES
@@ -174,14 +174,6 @@
 
 #l:065233|magical_path|065|233|4|0|
 
-
-        TUNNELS
-#l:025044|Secret_passage|025|044|3|0|
-#l:044025|Secret_passage|044|025|0|1|
-
-#l:124143|Hidden_staircase_close|124|143|3|0|
-#l:143124|Hidden_staircase|143|124|0|1|
-
                  OBJECTS
 #o:21|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|0|
 #o:22|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
@@ -204,14 +196,11 @@
 #o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:203|ANTBOAT|-1|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
+#o:203|ANTBOAT|-2|The boat that will carry you ant the ants to freedom |0|1|-1|-1|0|0|
 
 
 #o:37|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
 #o:38|Lantern|-3|The lantern makes the darkness disappear|0|1|-1|-1|1|0|
-
-#o:40|Key|135|This key opens the door between 124 and 143|0|1|-1|124143|0|0|
-#o:41|Key|024|This key opens the door between 025 and 044|0|1|-1|025044|0|0|
 
 #o:51|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
 #o:52|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
