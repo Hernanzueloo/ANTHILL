@@ -798,7 +798,7 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
 void _paint_description_end(Graphic_engine *ge, Game *game)
 {
   int i, cont;
-  Id space;
+  Id space, enemy;
   char buffer[WORD_SIZE], ascii_art[12][30] = {
                               "       /\\   /\\",
                               "         \\_/",
@@ -826,7 +826,7 @@ void _paint_description_end(Graphic_engine *ge, Game *game)
   sprintf(buffer, B_DESCRIPT "         Number of commands executed: %.4d", num_commands_ex);
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
-  sprintf(buffer, B_DESCRIPT "         Health player: %d", player_get_health(game_get_player(game)));
+  sprintf(buffer, B_DESCRIPT "         Player health: %d", player_get_health(game_get_player(game)));
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
   
@@ -835,8 +835,15 @@ void _paint_description_end(Graphic_engine *ge, Game *game)
       cont++;
   sprintf(buffer, B_DESCRIPT "         Spaces sunk: %d / %d", cont, i);
   screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  
+  for (i = 0, cont = 0; (i < MAX_ENEMIES) && ((enemy=game_get_enemy_id_at(game, i))!=NO_ID); i++)
+    if (enemy_get_health(game_get_enemy(game, enemy)))
+      cont++;
+  sprintf(buffer, B_DESCRIPT "         Enemies killed: %d / %d", i-cont, i);
+  screen_area_puts(ge->descript, buffer);
 
-  paint_n_enters(ge->descript, 5, B_DESCRIPT);
+  paint_n_enters(ge->descript, 3, B_DESCRIPT);
   for (i = 0; i < 12; i++)
   {
     sprintf(buffer, B_DESCRIPT "                %s", ascii_art[i]);
