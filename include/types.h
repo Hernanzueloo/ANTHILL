@@ -51,8 +51,6 @@
 #define NOT_UPGRADED 0 /*!< Number that indicates that an object has not been upgraded*/
 
 #define UPGRADED 1  /*!< Number that indicates that an object has been upgraded*/
-
-#define N_UPGRADEABLE_OBJ 5 /*!<Number of upgradeable objects*/
  
 #define WORKSHOP "The Workshop"  /*!<Name of the workshop*/
 

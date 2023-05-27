@@ -13,9 +13,7 @@
 #include <string.h>
 #include <strings.h>
 
-
 #include "rule.h"
-
 
 /**
  * @brief Action
@@ -24,11 +22,11 @@
  */
 struct _Action
 {
-    T_ACTION Taction;        /*!<Type of action*/
-    int num_id_args;         /*!<Number of id arguments*/
-    Id ids[MAX_ARGS];        /*!<Array of Ids arguments for an action*/
-    int argint;              /*!<Integer argument for an action*/
-    char name[WORD_SIZE];    /*!<String argument for an action*/
+    T_ACTION Taction;     /*!<Type of action*/
+    int num_id_args;      /*!<Number of id arguments*/
+    Id ids[MAX_ARGS];     /*!<Array of Ids arguments for an action*/
+    int argint;           /*!<Integer argument for an action*/
+    char name[WORD_SIZE]; /*!<String argument for an action*/
 };
 
 /**
@@ -38,11 +36,11 @@ struct _Action
  */
 struct _Condition
 {
-    T_CONDITION Tcond;               /*!<Type of condition*/
-    int n_id_args;                    /*!<Number of id arguments*/
-    Id ids[MAX_ARGS];           /*!<Array of Ids arguments for an condition*/
-    int argint;                 /*!<Integer argument for an condition*/
-    char name[WORD_SIZE];        /*!<String argument for an condition*/
+    T_CONDITION Tcond;    /*!<Type of condition*/
+    int n_id_args;        /*!<Number of id arguments*/
+    Id ids[MAX_ARGS];     /*!<Array of Ids arguments for an condition*/
+    int argint;           /*!<Integer argument for an condition*/
+    char name[WORD_SIZE]; /*!<String argument for an condition*/
 };
 
 /**
@@ -52,15 +50,13 @@ struct _Condition
  */
 struct _Rule
 {
-    Id id;                                    /*!< The id of the Rule*/
-    BOOL executed;                             /*!< Just executed */
-    int n_actions;                            /*!< The number of the actions in the rule*/
-    int n_conditions;                         /*!<  The number of conditions in the rule*/
-    Action act[MAX_ACTIONS];                  /*!< An array of actions of the rule*/
-    Condition condi[MAX_CONDITIONS];          /*!< An array of conditions of the rule*/
+    Id id;                           /*!< The id of the Rule*/
+    BOOL executed;                   /*!< Just executed */
+    int n_actions;                   /*!< The number of the actions in the rule*/
+    int n_conditions;                /*!<  The number of conditions in the rule*/
+    Action act[MAX_ACTIONS];         /*!< An array of actions of the rule*/
+    Condition condi[MAX_CONDITIONS]; /*!< An array of conditions of the rule*/
 };
-
-
 
 /**
  * @brief Array of the posible actions that the rule have
@@ -92,8 +88,9 @@ char *condition_to_str[N_CONDITIONS] = {"no condition",
                                         "drop object",
                                         "same object",
                                         "player type",
-                                        "has sunk"};
-
+                                        "has sunk",
+                                        "no path to object",
+                                        "no path to space"};
 
 /**
  * @brief It initializes an action
@@ -109,23 +106,37 @@ STATUS action_init(Action *act);
  * @return The name of the upgraded object
  */
 STATUS condition_init(Condition *cond);
+/**
+ * @brief It prints a condition
+ * @author Diego Rodríguez Ortiz
+ * @param cond Pointer to the condition
+ * @param file The file where is printed
+ */
+void rule_condition_print(Condition *cond, FILE *file);
+/**
+ * @brief It prints  an action
+ * @author Diego Rodríguez Ortiz
+ * @param cond Pointer to the condition
+ * @param file The file where is printed
+ */
+void rule_action_print(Action *act, FILE *file);
 
 
 STATUS action_init(Action *act)
 {
     int i;
 
-    if(act==NULL)
+    if (act == NULL)
         return ERROR;
-    
-    act->argint=0;
-    act->num_id_args=0;
-    act->Taction=NO_ACTION;
-    act->name[0]='\0';
 
-    for(i=0; i<MAX_ARGS; i++)
+    act->argint = 0;
+    act->num_id_args = 0;
+    act->Taction = NO_ACTION;
+    act->name[0] = '\0';
+
+    for (i = 0; i < MAX_ARGS; i++)
     {
-        act->ids[i]=NO_ID;
+        act->ids[i] = NO_ID;
     }
 
     return OK;
@@ -135,17 +146,17 @@ STATUS condition_init(Condition *cond)
 {
     int i;
 
-    if(cond==NULL)
+    if (cond == NULL)
         return ERROR;
-    
-    cond->argint=0;
-    cond->n_id_args=0;
-    cond->Tcond=NO_CONDITION;
-    cond->name[0]='\0';
 
-    for(i=0; i<MAX_ARGS; i++)
+    cond->argint = 0;
+    cond->n_id_args = 0;
+    cond->Tcond = NO_CONDITION;
+    cond->name[0] = '\0';
+
+    for (i = 0; i < MAX_ARGS; i++)
     {
-        cond->ids[i]=NO_ID;
+        cond->ids[i] = NO_ID;
     }
 
     return OK;
@@ -155,7 +166,7 @@ Rule *rule_create(Id id)
 {
     Rule *rule;
     int i;
-    if(id == NO_ID)
+    if (id == NO_ID)
         return NULL;
     rule = (Rule *)malloc(sizeof(Rule));
     if (!rule)
@@ -165,11 +176,11 @@ Rule *rule_create(Id id)
     rule->n_conditions = 0;
     rule->id = id;
     rule->executed = FALSE;
-    
-    for(i=0; i<MAX_ACTIONS; i++)
+
+    for (i = 0; i < MAX_ACTIONS; i++)
         action_init(&(rule->act[i]));
 
-    for(i=0; i<MAX_CONDITIONS; i++)
+    for (i = 0; i < MAX_CONDITIONS; i++)
         condition_init(&(rule->condi[i]));
 
     return rule;
@@ -189,7 +200,6 @@ Id rule_get_id(Rule *rule)
     return rule->id;
 }
 
-
 BOOL rule_get_executed(Rule *rule)
 {
     if (!rule)
@@ -203,18 +213,20 @@ STATUS rule_set_executed(Rule *rule, BOOL val)
     if (!rule)
         return ERROR;
 
-     rule->executed = val;
+    rule->executed = val;
     return OK;
 }
 
-int rule_get_num_actions(Rule* rule){
-    if(!rule)
+int rule_get_num_actions(Rule *rule)
+{
+    if (!rule)
         return -1;
     return rule->n_actions;
 }
 
-int rule_get_num_conditions(Rule* rule){
-    if(!rule)
+int rule_get_num_conditions(Rule *rule)
+{
+    if (!rule)
         return -1;
     return rule->n_conditions;
 }
@@ -226,16 +238,15 @@ Action *rule_get_action(Rule *rule, int index)
 
     if (rule->n_actions <= index)
         return NULL;
-        
+
     return &rule->act[index];
 }
-
 
 Id *rule_action_get_argsId(Action *act)
 {
     if (!act)
         return NULL;
-        
+
     return act->ids;
 }
 
@@ -246,28 +257,31 @@ int rule_action_get_numId(Action *act)
     return act->num_id_args;
 }
 
-int rule_action_get_argint(Action *act){
-    if(!act)
+int rule_action_get_argint(Action *act)
+{
+    if (!act)
         return -1;
 
     return act->argint;
 }
 
-char * rule_action_get_argname(Action *act){
-    if(!act)
+char *rule_action_get_argname(Action *act)
+{
+    if (!act)
         return NULL;
 
     return act->name;
 }
 
-T_ACTION rule_action_get_type(Action *act){
-    if(!act)
+T_ACTION rule_action_get_type(Action *act)
+{
+    if (!act)
         return NO_ACTION;
-    
+
     return act->Taction;
 }
 
-Condition * rule_get_condition(Rule *rule, int index)
+Condition *rule_get_condition(Rule *rule, int index)
 {
     if (!rule || index < 0)
         return NULL;
@@ -284,40 +298,47 @@ Id *rule_condition_get_argsId(Condition *cond)
     return cond->ids;
 }
 
-int rule_condition_get_numId(Condition *cond){
-    if(!cond)
+int rule_condition_get_numId(Condition *cond)
+{
+    if (!cond)
         return -1;
-    
+
     return cond->n_id_args;
 }
 
-T_CONDITION rule_condition_get_type(Condition *cond){
-    if(!cond)
+T_CONDITION rule_condition_get_type(Condition *cond)
+{
+    if (!cond)
         return NO_CONDITION;
-    
+
     return cond->Tcond;
 }
 
-int rule_condition_get_argint(Condition *condi){
-    if(!condi)
+int rule_condition_get_argint(Condition *condi)
+{
+    if (!condi)
         return -1;
 
     return condi->argint;
 }
 
-char * rule_condition_get_argname(Condition *cond){
-    if(!cond)
+char *rule_condition_get_argname(Condition *cond)
+{
+    if (!cond)
         return NULL;
 
     return cond->name;
 }
 
-STATUS rule_add_action(Rule* rule, T_ACTION act,Id *ids, int n_ids, int agrint, char * name){
+STATUS rule_add_action(Rule *rule, T_ACTION act, Id *ids, int n_ids, int agrint, char *name)
+{
     int i;
-    if(!rule|| !ids || n_ids < 0|| !name || act == NO_ACTION){
+    if (!rule || !ids || n_ids < 0 || !name || act == NO_ACTION)
+    {
         return ERROR;
     }
-    for(i=0;i<n_ids;i++){
+    for (i = 0; i < n_ids; i++)
+    {
         rule->act[rule->n_actions].ids[i] = ids[i];
     }
     rule->act[rule->n_actions].num_id_args = n_ids;
@@ -329,12 +350,15 @@ STATUS rule_add_action(Rule* rule, T_ACTION act,Id *ids, int n_ids, int agrint, 
     return OK;
 }
 
-STATUS rule_add_condition(Rule* rule, T_CONDITION cond,Id *ids, int n_ids, int agrint, char * name){
+STATUS rule_add_condition(Rule *rule, T_CONDITION cond, Id *ids, int n_ids, int agrint, char *name)
+{
     int i;
-    if(!rule|| !ids || n_ids < 0|| !name|| cond == NO_CONDITION){
+    if (!rule || !ids || n_ids < 0 || !name || cond == NO_CONDITION)
+    {
         return ERROR;
     }
-    for(i=0;i<n_ids;i++){
+    for (i = 0; i < n_ids; i++)
+    {
         rule->condi[rule->n_conditions].ids[i] = ids[i];
     }
     rule->condi[rule->n_conditions].n_id_args = n_ids;
@@ -345,7 +369,6 @@ STATUS rule_add_condition(Rule* rule, T_CONDITION cond,Id *ids, int n_ids, int a
 
     return OK;
 }
-
 
 T_ACTION rule_translate_action(char *action)
 {
@@ -376,14 +399,62 @@ T_CONDITION rule_translate_condition(char *condition)
     return cond;
 }
 
-char * rule_translate_Taction(T_ACTION action){
-    if(action==NO_ACTION)
-     return NULL;
-    return action_to_str[action-NO_ACTION];
+char *rule_translate_Taction(T_ACTION action)
+{
+    if (action == NO_ACTION)
+        return NULL;
+    return action_to_str[action - NO_ACTION];
 }
 
-char* rule_translate_Tcondition(T_CONDITION condition){
-    if(condition==NO_CONDITION)
-     return NULL;
-    return condition_to_str[condition-NO_CONDITION];
+char *rule_translate_Tcondition(T_CONDITION condition)
+{
+    if (condition == NO_CONDITION)
+        return NULL;
+    return condition_to_str[condition - NO_CONDITION];
+}
+
+
+void rule_print(Rule *rule, FILE *file)
+{
+    int i;
+    if (!rule || !file)
+        return;
+
+    fprintf(file, "Rule(Id:%ld): Executed: %d\n", rule->id, rule->executed);
+    fprintf(file, "Number of actions: %d\n", rule->n_actions);
+    for (i = 0; i < rule->n_actions; i++)
+    {
+        rule_action_print(&rule->act[i],file);
+    }
+    fprintf(file, "Number of conditions: %d\n", rule->n_conditions);
+    for (i = 0; i < rule->n_conditions; i++)
+    {
+        rule_condition_print(&rule->condi[i], file);
+    }
+}
+
+void rule_condition_print(Condition *cond, FILE *file)
+{
+    int i;
+    if (!cond)
+        return;
+    fprintf(file, "Condition: %s Ids:", rule_translate_Tcondition(cond->Tcond));
+    for (i = 0; i < cond->n_id_args; i++){
+        fprintf(file,"%ld ",cond->ids[i]);
+    }
+    fprintf(file," argint: %d argname: %s\n",cond->argint, cond->name);
+
+}
+
+void rule_action_print(Action *act, FILE *file)
+{
+    int i;
+    if (!act)
+        return;
+    fprintf(file, "Condition: %s Ids:", rule_translate_Taction(act->Taction));
+    for (i = 0; i < act->num_id_args; i++){
+        fprintf(file,"%ld ",act->ids[i]);
+    }
+    fprintf(file," argint: %d argname: %s\n",act->argint, act->name);
+
 }

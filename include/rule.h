@@ -30,7 +30,7 @@ typedef struct _Action Action;
  */
 typedef struct _Condition Condition;
 
-#define N_CONDITIONS 10 /*!<Number of posible conditions*/
+#define N_CONDITIONS 12 /*!<Number of posible conditions*/
 #define N_ACTIONS 14   /*!<Number of possible actions*/
 
 #define MAX_ACTIONS N_ACTIONS       /*!<Max number of actions in a rule*/
@@ -52,7 +52,9 @@ typedef enum
   DROP_OBJ,            /*!< It evlauates if the last comand was droping a object*/
   SAME_OBJECT,     /*!< It evaluates if the player has N objects with the same first n letters*/
   PLAYER_TYPE,      /*!< It evaluates if the player is of a given type */
-  HAS_SUNK           /*!< It evaluates if a space has sunk i*/
+  HAS_SUNK,           /*!< It evaluates if a space has sunk i*/
+  NO_PATH_TO_N_OBJ,     /*!< It evaluates if there is no path to N objects of a type*/
+  NO_PATH_TO_NAME     /*!< It evaluates if there is no path to an space*/
 } T_CONDITION;
 
 /**
@@ -285,4 +287,13 @@ char * rule_translate_Taction(T_ACTION action);
  * @return a string with the condition or NULL
  */
 char* rule_translate_Tcondition(T_CONDITION condition);
+
+/**
+ * @brief It prints  a rule
+ * @author Diego Rodríguez Ortiz
+ * @param rule Pointer to the rule
+ * @param file The file where is printed
+ */
+void rule_print(Rule *rule, FILE *file);
+
 #endif

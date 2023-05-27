@@ -259,7 +259,46 @@ STATUS _drop_rec(Game *game, Id *objs_id, int nobj, Space *space, Id space_id, c
  * @return True if the harbour has sunk and False otherwise
  */
 BOOL game_check_harbour_sunk(Game *game);
+/**
+ * @brief  It evaluates if there is a path between 2 spaces
+ * @author Diego Rodríguez Ortiz
+ * @param game  Pointer to a game
+ * @param orig id of origin space
+ * @param dest id of the destination
+ * @return True if there is a path and False otherwise
+ */
+BOOL game_get_path_rec(Game *game, Id orig, Id dest);
+/**
+ * @brief  It evaluates if there is a path between 2 spaces
+ * @author Diego Rodríguez Ortiz
+ * @param game  Pointer to a game
+ * @param orig id of origin space
+ * @param dest id of the destination
+ * @return True if there is a path and False otherwise
+ */
+BOOL game_get_path(Game *game, Id orig, Id dest);
 
+/**
+ * @brief  It evaluates if there is a number of accesible object of a given type
+ * @author Diego Rodríguez Ortiz
+ * @param game  Pointer to a game
+ * @param orig id of origin space
+ * @param type type of the object to evaluate
+ * @param num the number of objects accesibles
+ * @return True if there is a path and False otherwise
+ */
+BOOL game_rule_get_path_to_type_of_object(Game *game, Id orig, T_ObjectType type, int num);
+
+
+/**
+ * @brief  It evaluates if there is a path to the space with a given name
+ * @author Diego Rodríguez Ortiz
+ * @param game  Pointer to a game
+ * @param orig id of origin space
+ * @param space_name the name of the space to evaluate
+ * @return True if there is a path and False otherwise
+ */
+BOOL game_rule_get_path_to_space_by_name(Game *game, Id orig, char *space_name);
 /**
  * @brief Value with the effect of an attacked command
  */
@@ -273,11 +312,15 @@ int number_of_grounds = 0;
 /**
  * @brief Array of the different objects and the result of their upgrade
  */
-char *upgrades_object[N_UPGRADEABLE_OBJ][N_UPGRADES] = {{"Stick", "Boat_Mast"},
-                                                        {"Leaf", "Boat_Sail"},
-                                                        {"Walnut", "Boat_Hull"},
-                                                        {"Boat", "ANTBOAT"},
-                                                        {"Goldkey", "Magicalkey"}};
+char *upgrades_object[N_OBJ_TYPES][N_UPGRADES] ={{"Stick", "Boat_Mast"},
+                                                 {"Leaf", "Boat_Sail"},
+                                                 {"Walnut", "Boat_Hull"},
+                                                 {"Key",""},
+                                                 {"Goldkey", "Magicalkey"},
+                                                 {"Lantern",""},
+                                                 {"Ground",""},
+                                                 {"Boat", "ANTBOAT"},
+                                                };
 /**
  * @brief Array of ids of spaces that hast just recently been flooded
  *
@@ -617,6 +660,11 @@ STATUS game_print_data(Game *game, FILE *file)
   {
     if (game->enemies[i])
       enemy_print(game->enemies[i], file);
+  }
+ for (i = 0; i < MAX_RULES; i++)
+  {
+    if (game->rules[i])
+      rule_print(game->rules[i], file);
   }
 
   fprintf(file, "\n");
@@ -2185,7 +2233,7 @@ char *game_get_upgraded_name(char *name)
   if (!name)
     return NULL;
 
-  for (i = 0; i < N_UPGRADEABLE_OBJ; i++)
+  for (i = 0; i < N_OBJ_TYPES; i++)
   {
     if (strcasecmp(upgrades_object[i][NOT_UPGRADED], name) == 0)
       return upgrades_object[i][UPGRADED];
@@ -2535,6 +2583,28 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
         eval = FALSE;
     }
     break;
+  case NO_PATH_TO_N_OBJ:
+    eval=FALSE;
+        for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
+    {
+      if (strncasecmp(object_get_name(game->objects[i]), upgrades_object[argint][NOT_UPGRADED],strlen(upgrades_object[argint][NOT_UPGRADED])) == 0)
+      {
+        if(object_get_location(game->objects[i])!=-1 && argsId != NULL)
+        eval = eval || !game_rule_get_path_to_type_of_object(game,player_get_location(game_get_player(game)),(T_ObjectType)argint,(int)argsId[0]);/*Para esta rule el numero se codifica en el primer Id*/
+        break;
+      }
+    }
+    break;
+  case NO_PATH_TO_NAME:
+        for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
+    {
+      if (strncasecmp(space_get_name(game->spaces[i]), argname,strlen(argname)) == 0)
+      {
+        eval = !game_rule_get_path_to_space_by_name(game,player_get_location(game_get_player(game)),argname);
+        break;
+      }
+    }
+  break;  
   default:
     break;
   }
@@ -2687,6 +2757,67 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     break;
   }
   return st;
+}
+
+BOOL game_rule_get_path_to_type_of_object(Game *game, Id orig, T_ObjectType type, int num)
+{
+  int i, count = 0;
+  if (!game || orig == NO_ID || type == NO_OTYPE)
+    return TRUE;
+
+  for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL && count < num; i++)
+  {
+    if (object_get_type(game->objects[i]) == type)
+    {
+      count += game_get_path(game, orig, object_get_location(game->objects[i]));
+    }
+  }
+  return count >= num;
+}
+
+BOOL game_rule_get_path_to_space_by_name(Game *game, Id orig, char *space_name)
+{
+
+  int i;
+  BOOL b = FALSE;
+  if (!game || orig == NO_ID || !space_name)
+    return TRUE;
+
+  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL && b == FALSE; i++)
+  {
+    if (!strcasecmp(space_get_name(game->spaces[i]), space_name))
+    {
+      game_get_path(game, orig, space_get_id(game->spaces[i]));
+      b = TRUE;
+    }
+  }
+  return b;
+}
+
+BOOL game_get_path_rec(Game *game, Id orig, Id dest)
+{
+  int i;
+  Id id;
+  BOOL b = FALSE;
+  if (orig == dest)
+    return TRUE;
+
+  for (i = 0; i < N_DIR && b == FALSE; i++)
+  {
+    id = game_get_connection(game, orig, i);
+    if (id != NO_ID)
+      b=game_get_path_rec(game, id, dest);
+  }
+  return b;
+}
+
+BOOL game_get_path(Game *game, Id orig, Id dest)
+{
+  if (!game || orig == NO_ID || dest == NO_ID)
+  {
+    return FALSE;
+  }
+  return game_get_path_rec(game, orig, dest);
 }
 
 STATUS game_rule_spawn_ground(Game *game, int argint)
