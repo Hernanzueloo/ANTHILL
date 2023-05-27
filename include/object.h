@@ -252,4 +252,11 @@ STATUS object_print(Object *obj, FILE *file);
  */
 char* object_translate_object_type_to_string(T_ObjectType obj);
 
+/**
+ * @brief It yranslates a sting into a object type
+ * @author Diego Rodríguez
+ * @param object_name a string to the object type name
+ * @return The object type
+ */
+T_ObjectType object_translate_object_type(char *object_name);
 #endif

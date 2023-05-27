@@ -48,13 +48,7 @@ char *object_type_to_str[N_OBJ_TYPES-NO_OTYPE] = {"no object type",
                                   "Ground",
                                   "Special"};
 
-/**
- * @brief It yranslates a sting into a object type
- * @author Diego Rodríguez
- * @param object_name a string to the object type name
- * @return The object type
- */
-T_ObjectType object_translate_object_type(char *object_name);
+
 
 Object *object_create(Id id)
 {

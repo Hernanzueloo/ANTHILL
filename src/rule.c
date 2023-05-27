@@ -89,8 +89,9 @@ char *condition_to_str[N_CONDITIONS] = {"no condition",
                                         "same object",
                                         "player type",
                                         "has sunk",
-                                        "no path to object",
-                                        "no path to space"};
+                                        "no path to n object",
+                                        "no path to space",
+                                        "object not built or not accesible"};
 
 /**
  * @brief It initializes an action

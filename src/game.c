@@ -2584,27 +2584,20 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     }
     break;
   case NO_PATH_TO_N_OBJ:
-    eval=FALSE;
-        for (i = 0; i < MAX_OBJECTS && game->objects[i] != NULL; i++)
-    {
-      if (strncasecmp(object_get_name(game->objects[i]), upgrades_object[argint][NOT_UPGRADED],strlen(upgrades_object[argint][NOT_UPGRADED])) == 0)
-      {
-        if(object_get_location(game->objects[i])!=-1 && argsId != NULL)
-        eval = eval || !game_rule_get_path_to_type_of_object(game,player_get_location(game_get_player(game)),(T_ObjectType)argint,(int)argsId[0]);/*Para esta rule el numero se codifica en el primer Id*/
-        break;
-      }
-    }
+     eval =  !game_rule_get_path_to_type_of_object(game,player_get_location(game_get_player(game)),object_translate_object_type(argname),argint);
     break;
   case NO_PATH_TO_NAME:
-        for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-    {
-      if (strncasecmp(space_get_name(game->spaces[i]), argname,strlen(argname)) == 0)
-      {
         eval = !game_rule_get_path_to_space_by_name(game,player_get_location(game_get_player(game)),argname);
-        break;
+  break;  
+  case OBJECT_NOT_BUILT_OR_NOT_ACCESIBLE:
+    eval = FALSE;
+    for(i=0;i<MAX_OBJECTS && game->objects[i]!=NULL && eval == FALSE;i++){
+      if(!strcasecmp(object_get_name( game->objects[i]),argname)){
+        if(object_get_location(game->objects[i])==NO_ID ||!game_get_path(game,player_get_location(game_get_player(game)),object_get_location(game->objects[i])==NO_ID))
+        eval = TRUE;
       }
     }
-  break;  
+  break;
   default:
     break;
   }
@@ -2762,6 +2755,7 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 BOOL game_rule_get_path_to_type_of_object(Game *game, Id orig, T_ObjectType type, int num)
 {
   int i, count = 0;
+  
   if (!game || orig == NO_ID || type == NO_OTYPE)
     return TRUE;
 
@@ -2813,10 +2807,11 @@ BOOL game_get_path_rec(Game *game, Id orig, Id dest)
 
 BOOL game_get_path(Game *game, Id orig, Id dest)
 {
-  if (!game || orig == NO_ID || dest == NO_ID)
-  {
+  if (!game || orig == NO_ID)
     return FALSE;
-  }
+  if(dest == NO_ID|| dest == ON_PLAYER)
+    return TRUE;
+
   return game_get_path_rec(game, orig, dest);
 }
 

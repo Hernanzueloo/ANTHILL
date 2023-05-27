@@ -30,7 +30,7 @@ typedef struct _Action Action;
  */
 typedef struct _Condition Condition;
 
-#define N_CONDITIONS 12 /*!<Number of posible conditions*/
+#define N_CONDITIONS 13 /*!<Number of posible conditions*/
 #define N_ACTIONS 14   /*!<Number of possible actions*/
 
 #define MAX_ACTIONS N_ACTIONS       /*!<Max number of actions in a rule*/
@@ -54,7 +54,8 @@ typedef enum
   PLAYER_TYPE,      /*!< It evaluates if the player is of a given type */
   HAS_SUNK,           /*!< It evaluates if a space has sunk i*/
   NO_PATH_TO_N_OBJ,     /*!< It evaluates if there is no path to N objects of a type*/
-  NO_PATH_TO_NAME     /*!< It evaluates if there is no path to an space*/
+  NO_PATH_TO_NAME ,    /*!< It evaluates if there is no path to an space*/
+  OBJECT_NOT_BUILT_OR_NOT_ACCESIBLE     /*!<If the an object named like argname is not accesible or not built (if needed)*/
 } T_CONDITION;
 
 /**
