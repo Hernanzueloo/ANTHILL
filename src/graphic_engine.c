@@ -1637,23 +1637,19 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
   if (ge == NULL || game == NULL)
     return;
 
-  Loc = player_get_location(game_get_player(game));
   screen_area_clear(ge->minimap);
-  sprintf(buffer, B_MINIMAP "    ");
-  screen_area_puts(ge->minimap, buffer);
+  paint_n_enters(ge->minimap, 1, B_MINIMAP);
   sprintf(buffer, B_MINIMAP "            MINIMAP  ");
   screen_area_puts(ge->minimap, buffer);
 
+  Loc = player_get_location(game_get_player(game));
+
   for (i = 2; i >= 0; i--)
   {
-    sprintf(buffer, B_MINIMAP "    ");
-    screen_area_puts(ge->minimap, buffer);
-    screen_area_puts(ge->minimap, buffer);
+    paint_n_enters(ge->minimap, 2, B_MINIMAP);
     sprintf(buffer, B_MINIMAP "           Floor %d", i);
     screen_area_puts(ge->minimap, buffer);
-    sprintf(buffer, B_MINIMAP "    ");
-    screen_area_puts(ge->minimap, buffer);
-    screen_area_puts(ge->minimap, buffer);
+    paint_n_enters(ge->minimap, 2, B_MINIMAP);
     screen_area_puts(ge->minimap, B_MINIMAP "    +----------------------+");
     for (j = 1; j < 9; j++)
     {
@@ -1707,9 +1703,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
     sprintf(buffer, F_BLACK B_MINIMAP "    +----------------------+");
     screen_area_puts(ge->minimap, buffer);
   }
-  sprintf(buffer, B_MINIMAP "    ");
-  for (i = 0; i < 2; i++)
-    screen_area_puts(ge->minimap, buffer);
+  paint_n_enters(ge->minimap, 2, B_MINIMAP);
 }
 
 void paint_n_enters(Area *area, int n, char *c)

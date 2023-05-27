@@ -595,6 +595,8 @@ STATUS game_management_set_random_enemies(Game *game)
     }
 
     sprintf(name, "%s", enemy_get_name(game_get_enemy(game, game_get_enemy_id_at(game, i))));
+
+    object_set_illuminate(obj, FALSE);
     if (strstr(name, "walnut") != NULL)
     {
       object_set_name(obj, "Walnut");
@@ -614,6 +616,7 @@ STATUS game_management_set_random_enemies(Game *game)
     {
       object_set_name(obj, "Lantern");
       object_set_tdesc(obj,"The lantern makes the darkness disappear");
+      object_set_illuminate(obj, TRUE);
     }
 
     object_set_location(obj, spacesIds[i]);
@@ -621,10 +624,6 @@ STATUS game_management_set_random_enemies(Game *game)
     object_set_movable(obj, TRUE);
     object_set_dependency(obj, NO_ID);
     object_set_open(obj, NO_ID);
-    if (strcmp(name, "LanternE") == 0)
-      object_set_illuminate(obj, TRUE);
-    else
-      object_set_illuminate(obj, FALSE);
     object_set_turnedon(obj, FALSE);
 
     if (space_add_object(game_get_space(game, spacesIds[i]), object_get_id(obj)) == ERROR)
