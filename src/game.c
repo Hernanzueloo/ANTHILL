@@ -265,9 +265,10 @@ BOOL game_check_harbour_sunk(Game *game);
  * @param game  Pointer to a game
  * @param orig id of origin space
  * @param dest id of the destination
+ * @param array a boolean array to check if visited
  * @return True if there is a path and False otherwise
  */
-BOOL game_get_path_rec(Game *game, Id orig, Id dest);
+BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array);
 /**
  * @brief  It evaluates if there is a path between 2 spaces
  * @author Diego Rodríguez Ortiz
@@ -2788,31 +2789,43 @@ BOOL game_rule_get_path_to_space_by_name(Game *game, Id orig, char *space_name)
   return b;
 }
 
-BOOL game_get_path_rec(Game *game, Id orig, Id dest)
+BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array)
 {
   int i;
   Id id;
   BOOL b = FALSE;
   if (orig == dest)
     return TRUE;
-
+  if(array[orig] == TRUE)
+    return FALSE;
+  array[orig]=TRUE;
   for (i = 0; i < N_DIR && b == FALSE; i++)
   {
     id = game_get_connection(game, orig, i);
     if (id != NO_ID)
-      b=game_get_path_rec(game, id, dest);
+      b=game_get_path_rec(game, id, dest,array);
   }
+  if(b == FALSE && orig>=100 && player_get_type(game_get_player(game))==BUTTERFLY)
+      b=game_get_path_rec(game, orig-100, dest,array);
+  if(b == FALSE && orig<200 && player_get_type(game_get_player(game))==BUTTERFLY)
+      b=game_get_path_rec(game, orig+100, dest,array);
   return b;
 }
 
 BOOL game_get_path(Game *game, Id orig, Id dest)
 {
+  BOOL *array;
+  BOOL b;
   if (!game || orig == NO_ID)
     return FALSE;
   if(dest == NO_ID|| dest == ON_PLAYER)
     return TRUE;
-
-  return game_get_path_rec(game, orig, dest);
+  array =(BOOL*) calloc(1000,sizeof(BOOL));
+    if(!array)
+     return TRUE;
+  b= game_get_path_rec(game, orig, dest,array);
+  free(array);
+  return b;
 }
 
 STATUS game_rule_spawn_ground(Game *game, int argint)
