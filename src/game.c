@@ -3046,6 +3046,7 @@ STATUS _drop_rec(Game *game, Id *objs_id, int nobj, Space *space, Id space_id, c
   char *dependency;
   Object *obj;
   STATUS st = ERROR;
+  BOOL is_first=TRUE;
 
   for (i = 0; i < nobj; i++)
   {
@@ -3056,7 +3057,7 @@ STATUS _drop_rec(Game *game, Id *objs_id, int nobj, Space *space, Id space_id, c
     if (dependency == NULL)
       dependency = "";
 
-    if ((strcasecmp(object_get_name(obj), obj_name) == 0))
+    if ((strcasecmp(object_get_name(obj), obj_name) == 0) && is_first==TRUE)
     {
       space_add_object(space, objs_id[i]);
       player_remove_object(game->player, objs_id[i]);
@@ -3065,11 +3066,12 @@ STATUS _drop_rec(Game *game, Id *objs_id, int nobj, Space *space, Id space_id, c
       DroppedObjects[(*count)] = object_get_id(obj);
       (*count)++;
 
+      is_first=FALSE;
       st = OK;
     }
     else if (strcasecmp(dependency, obj_name) == 0)
     {
-      if (_drop_rec(game, objs_id, nobj, space, space_id, object_get_name(game_get_object(game, objs_id[i])), count) == ERROR)
+      if (_drop_rec(game, objs_id, nobj, space, space_id, object_get_name(obj), count) == ERROR)
         return ERROR;
     }
   }
