@@ -380,7 +380,7 @@ STATUS game_management_load_spaces(Game *game, char *filename)
 
       space = space_create(id);
       if (space != NULL)
-      {                                    /*Uploads the readen information in the game structure*/
+      {                                    /*Uploads the information that was read into the game structure*/
         (void)space_set_name(space, name); /* They could fail but we do not consider that as a global error that should finish execution*/
         (void)space_set_light(space, light);
         (void)space_set_flooded(space, flooded);
@@ -431,7 +431,7 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename)
   FILE *file = NULL;
   char line[WORD_SIZE] = "";
   char *toks = NULL;
-  int nSpaces, i;
+  int nSpaces, i=-1;
   float propSpaces;
   Id *spacesIds;
 
@@ -453,7 +453,7 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename)
     {
       /*Proportion of dark spaces*/
       toks = strtok(line + 3, "|");
-      if (!(toks = strtok(NULL, "|")))
+      if ((toks = strtok(NULL, "|")) == NULL)
         return OK;
       break;
     }
@@ -471,7 +471,6 @@ STATUS game_management_set_dark_spaces(Game *game, char *filename)
 
   free(spacesIds);
   fclose(file);
-
   return OK;
 }
 
@@ -577,10 +576,14 @@ STATUS game_management_set_random_enemies(Game *game)
 
   spacesIds = game_get_rand_space_id(game, nEn);
 
+  
   for (i = 0; i < nEn; i++)
   {
+
     if (enemy_get_location(game_get_enemy(game, game_get_enemy_id_at(game, i))) == RANDLOC)
       (void)enemy_set_location(game_get_enemy(game, game_get_enemy_id_at(game, i)), spacesIds[i]);
+    else  /*If they enemy location isn't RANDLOC then you would be loading from a prexisting game*/
+      return OK; 
 
     obj = object_create(game_get_unique_object_id(game));
 
@@ -590,25 +593,35 @@ STATUS game_management_set_random_enemies(Game *game)
       free(spacesIds);
       return ERROR;
     }
-    
+
     sprintf(name, "%s", enemy_get_name(game_get_enemy(game, game_get_enemy_id_at(game, i))));
-    if(strstr(name, "walnut") != NULL)
-      strcpy(name, "Walnut");
-    if(strstr(name, "leaf") != NULL)
-      strcpy(name, "Leaf");
-    if(strstr(name, "stick") != NULL)
-      strcpy(name, "Stick");
-    if(strstr(name, "lantern") != NULL)
-      strcpy(name, "Lantern");
-    
-    (void)object_set_name(obj, name);
-    
+    if (strstr(name, "walnut") != NULL)
+    {
+      object_set_name(obj, "Walnut");
+      object_set_tdesc(obj,"Walnut shells can float.");
+    }
+    if (strstr(name, "leaf") != NULL)
+    {
+      object_set_name(obj, "Leaf");
+      object_set_tdesc(obj,"Leaves can be used to propel yourself through the water.");
+    }
+    if (strstr(name, "stick") != NULL)
+    {
+      object_set_name(obj, "Stick");
+      object_set_tdesc(obj,"Sticks are useful for building ship masts.");
+    }
+    if (strstr(name, "lantern") != NULL)
+    {
+      object_set_name(obj, "Lantern");
+      object_set_tdesc(obj,"The lantern makes the darkness disappear");
+    }
+
     object_set_location(obj, spacesIds[i]);
     object_set_hidden(obj, FALSE);
     object_set_movable(obj, TRUE);
     object_set_dependency(obj, NO_ID);
     object_set_open(obj, NO_ID);
-    if(strcmp(name, "LanternE")==0)
+    if (strcmp(name, "LanternE") == 0)
       object_set_illuminate(obj, TRUE);
     else
       object_set_illuminate(obj, FALSE);
@@ -616,7 +629,7 @@ STATUS game_management_set_random_enemies(Game *game)
 
     if (space_add_object(game_get_space(game, spacesIds[i]), object_get_id(obj)) == ERROR)
     {
-      object_destroy(obj);
+      game_delete_object(game,object_get_id(obj));
       free(spacesIds);
       return ERROR;
     }
@@ -744,8 +757,11 @@ STATUS game_management_load_objects(Game *game, char *filename)
       }
 
       if (location_id >= 0)
+      {
         if (!strncmp(space_get_tdesc(game_get_space(game, location_id)), SUSPICIOUS, strlen(SUSPICIOUS) - 1))
           hidden = TRUE;
+
+      }
 
 #ifdef DEBUG /*Prints all the information readen if the game is being executed in debug mode*/
       if (toks != NULL)
@@ -780,6 +796,7 @@ STATUS game_management_load_objects(Game *game, char *filename)
         (void)object_set_open(object, open);
         (void)object_set_illuminate(object, illuminate);
         (void)object_set_turnedon(object, turnedon);
+        
       }
       else
       {
@@ -954,7 +971,7 @@ STATUS game_management_load_player(Game *game, char *filename)
           fclose(file);
           return ERROR;
         }
-        
+
         if (player_set_health(game_get_player(game), health) == ERROR)
         {
           fclose(file);

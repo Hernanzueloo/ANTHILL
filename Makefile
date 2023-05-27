@@ -52,12 +52,9 @@ Executives = $(GAME_NAME)
 OBJECTS = game_loop.o game_management.o graphic_engine.o game.o rule.o object.o player.o enemy.o space.o command.o set.o inventory.o link.o dialogue.o
 DIR_OBJECTS= $(patsubst %.o,$(OBJ_PATH)/%.o, $(OBJECTS))
 
-Tests = game_test space_test set_test enemy_test inventory_test player_test object_test link_test command_test game_management_test rule_test dialogue_test
+Tests = space_test set_test enemy_test inventory_test player_test object_test link_test command_test game_management_test rule_test dialogue_test
 dir_Tests=$(patsubst %,$(BIN_PATH)/%, $(Tests))
 TEST_OBJECTS = space_test.o set_tests.o enemy_test.o inventory_test.o link_test.o player_test.o object_test.o game_test.o command_test.o game_management_test.o dialogue_test.o
-
-game_test_objs = game_test.o game.o game_management.o object.o player.o enemy.o space.o command.o set.o inventory.o link.o dialogue.o rule.o
-dir_game_test_objs= $(patsubst %.o,$(OBJ_PATH)/%.o, $(game_test_objs))
 
 game_management_test_objs = game_management_test.o game_management.o game.o object.o player.o enemy.o space.o inventory.o set.o dialogue.o command.o link.o rule.o
 dir_game_management_test_objs= $(patsubst %.o,$(OBJ_PATH)/%.o, $(game_management_test_objs))
@@ -91,11 +88,7 @@ libscreen.a: libscreen.c libscreen.h
 
 
 #--TESTS--
-game_test: $(game_test_objs)
-	@echo
-	@echo ---------CREATING game_test--------------
-	$(CC) -o $(BIN_PATH)/$@ $(dir_game_test_objs) 
-	@echo -----------------------------------------
+
 space_test: space_test.o space.o set.o
 	@echo
 	@echo ---------CREATING space_test--------------
@@ -206,9 +199,6 @@ dialogue.o: dialogue.c dialogue.h types.h
 	
 #----TEST MODULES-----
 
-game_test.o: game_test.c game_test.h game.h game_management.h object.h player.h space.h command.h set.h dialogue.h types.h test.h
-	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $(OBJ_PATH)/$@
-
 space_test.o: space_test.c space_test.h test.h space.h set.h types.h
 	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $(OBJ_PATH)/$@
 
@@ -275,13 +265,11 @@ runv_log:
 
 
 #TESTS
-run_tests: run_game_test run_space_test run_set_test run_enemy_test run_inventory_test run_player_test run_object_test run_link_test run_command_test run_game_management_test run_rule_test dialogue_test
+run_tests: run_space_test run_set_test run_enemy_test run_inventory_test run_player_test run_object_test run_link_test run_command_test run_game_management_test run_rule_test run_dialogue_test
 
-run_testsv: run_game_testv run_space_testv run_set_testv run_enemy_testv run_inventory_testv run_player_testv run_object_testv run_link_testv run_command_testv run_game_management_testv run_rule_testv dialogue_testv
+run_testsv: run_space_testv run_set_testv run_enemy_testv run_inventory_testv run_player_testv run_object_testv run_link_testv run_command_testv run_game_management_testv run_rule_testv run_dialogue_testv
 
-run_game_test:
-	$(BIN_PATH)/game_test
-	
+
 run_game_testv:
 	valgrind --leak-check=full $(BIN_PATH)/game_test
 

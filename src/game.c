@@ -599,7 +599,7 @@ STATUS game_update(Game *game)
   for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
     rule_set_executed(game->rules[i], FALSE);
 
-  if (sts == OK && cmd != UNKNOWN)
+  if (sts == OK && cmd != UNKNOWN && cmd != SAVE && cmd != LOAD)
   {
     if (commands_get_cmd(game->last_cmd) != INSPECT)
     {
@@ -3436,7 +3436,6 @@ STATUS game_command_save(Game *game, Commands *cmds)
   sprintf(real_file, "saved_games/");
   strcat(real_file, save_file);
 
-  game->num_executed_commands--;
   return game_management_save(game, real_file);
 }
 

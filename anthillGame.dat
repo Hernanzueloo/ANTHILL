@@ -2,7 +2,7 @@
 #G:0|0.25|
 
                 PLAYER
-#p:1|Segismundo Eduardo de todos los Santos|065|1|6|0|
+#p:1|Segismundo Eduardo de todos los Santos|065|3|6|0|
 
 
                 SPACES
@@ -182,17 +182,17 @@
 #o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:26|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:27|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:28|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
-#o:29|Leaf|-3|leafs can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:26|Leaf|-3|Leaves can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:27|Leaf|-3|Leaves can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:28|Leaf|-3|Leaves can be used to propel yourself through the water.|0|1|-1|-1|0|0|
+#o:29|Leaf|-3|Leaves can be used to propel yourself through the water.|0|1|-1|-1|0|0|
 #o:201|Boat_Sail|-1|Sails are essential for building ships!|0|1|-1|-1|0|0|
 
 
-#o:31|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:32|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:33|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
-#o:34|Walnut|-3|Walnut shells can float!|0|1|-1|-1|0|0|
+#o:31|Walnut|-3|Walnut shells can float.|0|1|-1|-1|0|0|
+#o:32|Walnut|-3|Walnut shells can float.|0|1|-1|-1|0|0|
+#o:33|Walnut|-3|Walnut shells can float.|0|1|-1|-1|0|0|
+#o:34|Walnut|-3|Walnut shells can float.|0|1|-1|-1|0|0|
 #o:202|Boat_Hull|-1|Hulls are essential for building ships!|0|1|-1|-1|0|0|
 
 
@@ -329,23 +329,3 @@
 #d:15|1|You are in a space that has sunk. That's a game over|
 #d:16|1|You have combined <int> <argname> into one <upgradedname>|
 
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
-m w
-m e
