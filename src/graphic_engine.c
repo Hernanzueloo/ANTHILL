@@ -1426,7 +1426,7 @@ void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_fram
   }
   else if (space_get_light(space) || game_player_has_light(game))
   { /* Illuminated */
-    sprintf(str_color_beggining, B_MAP);
+    sprintf(str_color_beggining, B_LIGHTBROWN);
     sprintf(str_color_end, B_MAP);
   }
   else
@@ -1623,6 +1623,7 @@ void _paint_map_new(Graphic_engine *ge, Game *game)
     graphic_engine_space_frame_put(ge->map, space_frame, BOX_ROWS);
     graphic_engine_space_frame_put(ge->map, space_frame, LINK_HEIGHT);
   }
+  screen_area_puts(ge->map, B_MAP " ");
 }
 
 void _paint_minimap(Graphic_engine *ge, Game *game)
