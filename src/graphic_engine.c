@@ -361,7 +361,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
   if (game_get_num_commands_till_flood(game) != -1)
   {
-    sprintf(aux, B_DESCRIPT " - Commands until next flood: %d", game_get_num_commands_till_flood(game));
+    sprintf(aux, B_DESCRIPT " - Commands until next flood: %d/%d", game_get_num_commands_till_flood(game), game_get_num_commands_per_flood(game));
     screen_area_puts(ge->descript, aux);
   }
 
@@ -401,7 +401,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Dump to the terminal */
   screen_paint();
-  num_commands_ex=game_get_num_executed_commands(game);
+  num_commands_ex = game_get_num_executed_commands(game);
   printf(B_BLACK F_WHITE "Write a command:> ");
 }
 
@@ -829,18 +829,16 @@ void _paint_description_end(Graphic_engine *ge, Game *game)
   sprintf(buffer, B_DESCRIPT "         Player health: %d", player_get_health(game_get_player(game)));
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
-  
-  for (i = 0, cont = 0; (i < MAX_SPACES) && ((space=game_get_space_id_at(game, i))!=NO_ID); i++)
-    if (space_get_flooded(game_get_space(game, space)) == SUNK)
-      cont++;
-  sprintf(buffer, B_DESCRIPT "         Spaces sunk: %d / %d", cont, i);
+
+  for (i = 0; (i < MAX_SPACES) && ((space = game_get_space_id_at(game, i)) != NO_ID); i++);
+  sprintf(buffer, B_DESCRIPT "         Spaces left: %d", i);
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
-  
-  for (i = 0, cont = 0; (i < MAX_ENEMIES) && ((enemy=game_get_enemy_id_at(game, i))!=NO_ID); i++)
+
+  for (i = 0, cont = 0; (i < MAX_ENEMIES) && ((enemy = game_get_enemy_id_at(game, i)) != NO_ID); i++)
     if (enemy_get_health(game_get_enemy(game, enemy)))
       cont++;
-  sprintf(buffer, B_DESCRIPT "         Enemies killed: %d / %d", i-cont, i);
+  sprintf(buffer, B_DESCRIPT "         Enemies killed: %d / %d", i - cont, i);
   screen_area_puts(ge->descript, buffer);
 
   paint_n_enters(ge->descript, 3, B_DESCRIPT);
@@ -1658,10 +1656,10 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
       {
         if ((space = game_get_space(game, (Id)(i * 100 + k * 10 + j))) != NULL)
         {
-          if (Loc == (Id)(i * 100 + k * 10 + j))
-            sprintf(aux, F_LIGHTGREEN B_GREEN " O ");
-          else if (space_get_flooded(space) == SUNK)
+          if (space_get_flooded(space) == SUNK)
             sprintf(aux, B_MINIMAP "   ");
+          else if (Loc == (Id)(i * 100 + k * 10 + j))
+            sprintf(aux, F_LIGHTGREEN B_GREEN " O ");
           else if (space_get_flooded(space) == FLOODED)
             sprintf(aux, F_LIGHTBLUE B_BLUE " ~ ");
           else if (space_get_light(space) == FALSE)

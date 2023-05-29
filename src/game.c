@@ -2577,8 +2577,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
     eval = player_get_type(game_get_player(game)) == (T_PlayerType)argint;
     break;
   case HAS_SUNK:
-    eval = TRUE;
-    for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL && eval == TRUE; i++)
+    for (i = 0, eval = TRUE; i < MAX_SPACES && game->spaces[i] != NULL && eval == TRUE; i++)
     {
       if (strcasecmp(space_get_name(game->spaces[i]), argname) == 0)
         eval = FALSE;
