@@ -117,6 +117,9 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
   STATUS st;
   int playerType = -1;
   char op[3], garbage;
+        /*DIEGO: Pruebas game_get_path Inicializacion*/
+      Id orig= 233, dest = 65;   
+            /*DIEGO: Fin Inicializacion*/
 
   srand((unsigned)time(NULL));
 
@@ -166,6 +169,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
   {
     if (game_is_over(game) == TRUE)
     {
+    
       if(game_get_num_executed_commands(game)==VICTORY)
         graphic_engine_paint_win(gengine, game);
       else
@@ -175,7 +179,11 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
     }
     else
     {
+        /*DIEGO: Pruebas game_get_path*/
 
+    (void)game_get_path(game,orig,dest);
+
+      /*FIN  de la ejecucion*/
       graphic_engine_paint_game(gengine, game);
 
       command = commands_get_user_input(game_get_last_command(game), stdin);

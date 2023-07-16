@@ -753,4 +753,17 @@ Id game_get_unique_object_id(Game *game);
 STATUS game_rule_spawn_ground(Game * game, int argint);
 
 
+/*DIEGO: ESTO VA AL GAME.C HAY UN HUECO PARA ELLO BUSCA DIEGO: */
+
+/**
+ * @brief  It evaluates if there is a path between 2 spaces
+ * @author Diego Rodríguez Ortiz
+ * @param game  Pointer to a game
+ * @param orig id of origin space
+ * @param dest id of the destination
+ * @return True if there is a path and False otherwise
+ */
+BOOL game_get_path(Game *game, Id orig, Id dest);
+
+
 #endif

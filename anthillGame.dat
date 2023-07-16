@@ -1,5 +1,5 @@
                 GAMEDATA
-#G:0|0.25|
+#G:0|0|
 
                 PLAYER
 #p:1|Segismundo Eduardo de todos los Santos|065|5|6|0|
@@ -215,7 +215,7 @@
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
 #r:9|1|victory act|0|0|-|2|Drop object|0|0|ANTBOAT|in space|0|0|Harbour|
 #r:10|1|save space|0|0|-|1|Drop object|0|0|Ground|
-#r:11|1|inundation|0|3|-|1|N comands|0|8|-|
+#r:11|1|inundation|0|3|-|1|N comands|0|1|-|
 #r:12|1|spawn ground|0|2|-|1|N comands|0|10|-|
 #r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
 #r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|
@@ -224,13 +224,14 @@
 #r:17|1|combine|0|2|Goldkey|1|same object|0|2|Goldkey|
 #r:18|1|set movable|0|0|-|1|health enemy|0|10000|-|
 #r:19|1|set movable|0|1|-|1|health enemy|0|0|-|
+
 /*RULES A AÑADIR
-#r:20|1|defeat act|0|0|-|1|no path to n object|0|3|Stick|
-#r:21|1|defeat act|0|0|-|1|no path to n object|0|3|Leaf|
-#r:22|1|defeat act|0|0|-|1|no path to n object|0|3|Walnut|
-#r:23|1|defeat act|0|0|-|1|no path to n object|0|3|Boat|
-#r:24|1|defeat act|0|0|-|1|no path to space|0|0|Harbour|
-#r:25|1|defeat act|0|0|-|2|no path to space|0|0|The Workshop|object not built or not accesible|0|0|ANTBOAT|
+r:20|1|defeat act|0|0|-|1|no path to n object|0|3|Stick|
+r:21|1|defeat act|0|0|-|1|no path to n object|0|3|Leaf|
+r:22|1|defeat act|0|0|-|1|no path to n object|0|3|Walnut|
+r:23|1|defeat act|0|0|-|1|no path to n object|0|3|Boat|
+r:24|1|defeat act|0|0|-|1|no path to space|0|0|Harbour|
+r:25|1|defeat act|0|0|-|2|no path to space|0|0|The Workshop|object not built or not accesible|0|0|ANTBOAT|
 
 
 

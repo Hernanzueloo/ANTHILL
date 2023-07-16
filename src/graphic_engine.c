@@ -1680,7 +1680,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             else if (game_space_has_object(game, space_get_id(space), LEAF))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|♠|");
             else if (game_space_has_object(game, space_get_id(space), WALNUT))
-              sprintf(aux, F_BROWN B_LIGHTBROWN "|○|");
+              sprintf(aux, F_BROWN B_LIGHTBROWN "|w|");
             else if (game_space_has_object(game, space_get_id(space), GROUND))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|G|");
             else if (game_space_has_object(game, space_get_id(space), LANTERN))

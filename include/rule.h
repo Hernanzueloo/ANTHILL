@@ -55,7 +55,7 @@ typedef enum
   HAS_SUNK,           /*!< It evaluates if a space has sunk i*/
   NO_PATH_TO_N_OBJ,     /*!< It evaluates if there is no path to N objects of a type*/
   NO_PATH_TO_NAME ,    /*!< It evaluates if there is no path to an space*/
-  OBJECT_NOT_BUILT_OR_NOT_ACCESIBLE     /*!<If the an object named like argname is not accesible or not built (if needed)*/
+  OBJECT_NOT_BUILT_OR_NOT_ACCESIBLE     /*!<If the object named like argname is not accesible or not built (if needed)*/
 } T_CONDITION;
 
 /**

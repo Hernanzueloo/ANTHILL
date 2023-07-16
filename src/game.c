@@ -267,18 +267,10 @@ BOOL game_check_harbour_sunk(Game *game);
  * @param dest id of the destination
  * @param array a boolean array to check if visited
  * @return True if there is a path and False otherwise
- */
-BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array);
-/**
- * @brief  It evaluates if there is a path between 2 spaces
- * @author Diego Rodríguez Ortiz
- * @param game  Pointer to a game
- * @param orig id of origin space
- * @param dest id of the destination
- * @return True if there is a path and False otherwise
- */
-BOOL game_get_path(Game *game, Id orig, Id dest);
+ */                                                               /*HAY que borrar este argumento*/
+BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array, FILE *F);
 
+/*DIEGO: AQUI VA LA DESCRIPCION DE GAME_GET_PATH QUE AHORA ESTA EN GAME.H*/
 /**
  * @brief  It evaluates if there is a number of accesible object of a given type
  * @author Diego Rodríguez Ortiz
@@ -2359,7 +2351,11 @@ STATUS game_set_last_idesc(Game *game, char *idesc)
   return OK;
 }
 
-/*rule functions*/
+
+
+/***************************************************************rule functions*********************************************************************/
+
+
 
 Rule *game_get_rule(Game *game, Id id)
 {
@@ -2788,42 +2784,65 @@ BOOL game_rule_get_path_to_space_by_name(Game *game, Id orig, char *space_name)
   return b;
 }
 
-BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array)
+BOOL game_get_path_rec(Game *game, Id orig, Id dest, BOOL *array, FILE *fpath)
 {
   int i;
   Id id;
   BOOL b = FALSE;
   if (orig == dest)
     return TRUE;
-  if(array[orig] == TRUE)
-    return FALSE;
-  array[orig]=TRUE;
+  if(array[(int)orig] == TRUE){
+    return FALSE; 
+  } 
+fprintf(fpath,"\n\n\nInfo del paso: O:%d D:%d B[O]:%d: \n",orig,dest,array[(int)orig]);
+
+  array[(int)orig]=TRUE;
   for (i = 0; i < N_DIR && b == FALSE; i++)
   {
+
     id = game_get_connection(game, orig, i);
+    fprintf(fpath,"- Dierccion: DIR:%d  O:%d D:%d -> NEW_SPACE: %d \n",i,orig,dest, id);
+
     if (id != NO_ID)
-      b=game_get_path_rec(game, id, dest,array);
+      b=game_get_path_rec(game, id, dest,array,fpath);
   }
   if(b == FALSE && orig>=100 && player_get_type(game_get_player(game))==BUTTERFLY)
-      b=game_get_path_rec(game, orig-100, dest,array);
+      b=game_get_path_rec(game, orig-100, dest,array,fpath);
   if(b == FALSE && orig<200 && player_get_type(game_get_player(game))==BUTTERFLY)
-      b=game_get_path_rec(game, orig+100, dest,array);
+      b=game_get_path_rec(game, orig+100, dest,array,fpath);
   return b;
 }
 
 BOOL game_get_path(Game *game, Id orig, Id dest)
 {
+  int i;
   BOOL *array;
   BOOL b;
+  /*DIEGO:*/
+  FILE *fpath;
   if (!game || orig == NO_ID)
     return FALSE;
   if(dest == NO_ID|| dest == ON_PLAYER)
     return TRUE;
   array =(BOOL*) calloc(1000,sizeof(BOOL));
+  for(i= 0 ; i< 1000; i++){
+    array[i] = FALSE;
+  }
     if(!array)
      return TRUE;
-  b= game_get_path_rec(game, orig, dest,array);
+  /*DIEGO PRUEBAS PATH*/
+  fpath= fopen("path.log", "a");
+      fprintf(fpath,"\nBUSCAMOS : %d->%d",orig,dest);
+
+    /*DIEGO FIN PRUEBAS PATH*/
+
+  b = game_get_path_rec(game, orig, dest,array,fpath);
+    fprintf(fpath,"BOOL : %d",b);
+
   free(array);
+  /*DIEGO PRUEBAS PATH*/
+  fclose(fpath);
+    /*DIEGO FIN PRUEBAS PATH*/
   return b;
 }
 

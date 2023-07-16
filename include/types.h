@@ -44,7 +44,7 @@
 
 #define GROUND_NAME "Ground"  /*!< Name of the objects that represent gorund*/
 
-#define GROUND_DESCRIPTION "It allows you to secure a flooded space"  /*!< Textual description of the objects that represent gorund*/
+#define GROUND_DESCRIPTION "It allows you to secure a flooded space"  /*!< Textual description of the objects that represent ground*/
 
 #define N_UPGRADES 2 /*!< Number of upgrades a object can have*/
 
