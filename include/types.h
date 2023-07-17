@@ -62,9 +62,7 @@
 
 #define MAX_GROUND 70  /*!<Maximum number of grounds to be spawned*/
 
-#define VICTORY -100 /*!<Victory number*/
-
-#define DEFEAT -200 /*!<Defeat number*/
+#define NUM_FINISHES 8   /*Number of diferent finishes for the game*/
 
 #define RANDLOC -3 /*!<The object will be assigned a random location*/
 
@@ -125,6 +123,22 @@ typedef enum
   SUCCESS        /*!< Value for a success dialogue rule */
 
 } DTYPE;
+
+/**
+ * @brief Status data type SUCCESS-FAILURE
+ */
+typedef enum
+{
+  VICTORY = -200,       /*!< Value for a Victory finish*/
+  DEATH,                /*!< Value for a DEATH finish*/
+  STICK_NO_ACC,         /*!< Value for a STICKS NO ACCESIBLE therefore defeat*/
+  LEAF_NO_ACC,          /*!< Value for a LEAFS NO ACCESIBLE therefore defeat*/
+  WALNUT_NO_ACC,        /*!< Value for a WALNUTS NO ACCESIBLE therefore defeat*/
+  BOAT_NO_ACC,          /*!< Value for a BOAT_PARTS NO ACCESIBLE therefore defeat*/
+  HARBOUR_NO_ACC,        /*!< Value for a HARBOUR NO ACCESIBLE therefore defeat*/
+  WORKSHOP_NO_ACC,       /*!< Value for a WHORKSHOP NO ACCESIBLE and Boat not build therefore defeat*/
+
+} END_TYPE;
 
 /**
  * @brief Cardinality directions N,S,E,W,U,D

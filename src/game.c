@@ -617,7 +617,7 @@ BOOL game_is_over(Game *game)
   if (!game)
     return TRUE;
 
-  if (game->num_executed_commands == VICTORY || game->num_executed_commands == DEFEAT || player_get_health(game_get_player(game)) <= 0)
+  if (game->num_executed_commands == VICTORY || (game->num_executed_commands > VICTORY && game->num_executed_commands < 0) || player_get_health(game_get_player(game)) <= 0)
     return TRUE;
 
   return FALSE;
@@ -2063,6 +2063,47 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
   }
 }
 
+char *game_get_dialogue_of_defeat(Game *game){
+  char args[100];
+  if(!game)
+    return NULL;
+  
+  switch (game->num_executed_commands)
+  {
+  case VICTORY:
+    break;
+  case DEATH:
+    break;
+  case STICK_NO_ACC:
+
+    strncpy(args,"Sticks", 6);
+    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    break;
+
+  case LEAF_NO_ACC:
+    strncpy(args,"Leafs",5);
+    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    break;
+  case WALNUT_NO_ACC:
+    strncpy(args,"Walnuts",7);
+    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    break;
+  case BOAT_NO_ACC:
+
+  game_get_printed_dialogue_rule(game, 1, args, REPEATED_ERROR_ID+3, OK);
+    break;
+  case HARBOUR_NO_ACC:
+  game_get_printed_dialogue_rule(game, 2, args,REPEATED_ERROR_ID+3, OK);
+    break;
+  case WORKSHOP_NO_ACC:
+  game_get_printed_dialogue_rule(game, 3, args, REPEATED_ERROR_ID+3, OK);
+    break;
+  default:
+    break;
+  }
+
+}
+
 char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
 {
   int i, j, count1 = 0, count2 = 0, n_act, indexrule, indexact, n_flooded, indexcombine[MAX_RULES], indexesact[MAX_RULES], n_indexes = 0, argint;
@@ -2243,7 +2284,7 @@ char *game_get_upgraded_name(char *name)
   return NULL;
 }
 
-/* Command functions */
+/*************************************************************** Command functions******************************************************************* */
 
 Commands *game_get_last_command(Game *game)
 {
@@ -2747,7 +2788,7 @@ STATUS game_rule_execute_action(Game *game, Action *action)
       game->num_executed_commands = VICTORY;
     break;
   case DEFEAT_ACT:
-    game->num_executed_commands = DEFEAT;
+    game->num_executed_commands = VICTORY + argint; /*En el Argint esta codificado que fin de partida se da*/
     break;
   default:
     st = ERROR;
