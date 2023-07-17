@@ -215,7 +215,7 @@
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
 #r:9|1|victory act|0|0|-|2|Drop object|0|0|ANTBOAT|in space|0|0|Harbour|
 #r:10|1|save space|0|0|-|1|Drop object|0|0|Ground|
-#r:11|1|inundation|0|3|-|1|N comands|0|1|-|
+#r:11|1|inundation|0|3|-|1|N comands|0|10|-|
 #r:12|1|spawn ground|0|2|-|1|N comands|0|10|-|
 #r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
 #r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|
@@ -327,7 +327,7 @@ r:25|1|defeat act|0|7|-|2|no path to space|0|0|The Workshop|object not built or 
 #d:15|1|The spaces <spaces_name, id> has flooded and <space_name, id> have sunk|
 #d:15|1|The spaces <space_name, id> have flooded and <space_name, id> has sunk|
 #d:15|1|The spaces <spaces_name, id> have sunk|
-#d:15|1|You are in a space that has sunk. That's a game over|
+#d:15|1|You are in a space <Id> that has sunk. That's a game over|
 #d:16|1|You have combined <int> <argname> into one <upgradedname>|
 #d:17|1|There is no path to get the needed <argname> therefore you lost|
 #d:17|1|There is no path to get the needed different boat parts therefore you lost|

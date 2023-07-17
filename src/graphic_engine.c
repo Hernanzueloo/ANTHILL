@@ -491,8 +491,7 @@ void graphic_engine_paint_lose(Graphic_engine *ge, Game *game)
   if (player_get_health(game_get_player(game)) > 0)
   {
     screen_area_clear(ge->feedback);
-    sprintf(str, "The Harbour has sunk, you cannot escape that's a game over");
-    screen_area_puts(ge->feedback, str);
+        _paint_feedback_dialogue(ge, game);
   }
   else
     _paint_feedback_dialogue(ge, game);
@@ -859,7 +858,13 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
 
   /* Paint in the feedback area */
   last_cmd = game_get_last_command_cmd(game);
-
+  dialogue_rule = game_get_dialogue_of_defeat(game);
+  if (dialogue_rule != NULL)
+  {
+    screen_area_puts(ge->feedback, dialogue_rule);
+    free(dialogue_rule);
+    return;
+  }
   if (game_get_last_command_status(game) == ERROR)
   {
     if ((num_executed = game_get_dialogue_executed(game, last_cmd)) > 0)
@@ -1024,9 +1029,10 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
   if (dialogue_rule != NULL)
   {
     screen_area_puts(ge->feedback, dialogue_rule);
-    free(dialogue_rule);
-  }
+      free(dialogue_rule);
 
+  }
+  
   if ((game_rules_dialogues = game_get_dialogue_of_game_rule(game, &num_dialogues)) != NULL)
   {
     for (i = 0; i < num_dialogues; i++)
@@ -1680,7 +1686,7 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             else if (game_space_has_object(game, space_get_id(space), LEAF))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|♠|");
             else if (game_space_has_object(game, space_get_id(space), WALNUT))
-              sprintf(aux, F_BROWN B_LIGHTBROWN "|w|");
+              sprintf(aux, F_BROWN B_LIGHTBROWN "|U|");
             else if (game_space_has_object(game, space_get_id(space), GROUND))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|G|");
             else if (game_space_has_object(game, space_get_id(space), LANTERN))

@@ -2064,43 +2064,43 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
 }
 
 char *game_get_dialogue_of_defeat(Game *game){
-  char args[100];
+  char args[100], *dialogue= NULL;
   if(!game)
     return NULL;
   
   switch (game->num_executed_commands)
   {
   case VICTORY:
-    break;
+    return NULL;
   case DEATH:
-    break;
+      return NULL;
   case STICK_NO_ACC:
 
-    strncpy(args,"Sticks", 6);
-    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    strncpy(args,"Sticks", 7);
+    dialogue=game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
     break;
 
   case LEAF_NO_ACC:
-    strncpy(args,"Leafs",5);
-    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    strncpy(args,"Leafs",6);
+    dialogue=game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
     break;
   case WALNUT_NO_ACC:
-    strncpy(args,"Walnuts",7);
-    game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
+    strncpy(args,"Walnuts",8);
+    dialogue=game_get_printed_dialogue_rule(game, 0, args, REPEATED_ERROR_ID+3, OK);
     break;
   case BOAT_NO_ACC:
-
-  game_get_printed_dialogue_rule(game, 1, args, REPEATED_ERROR_ID+3, OK);
+    dialogue=game_get_printed_dialogue_rule(game, 1, args, REPEATED_ERROR_ID+3, OK);
     break;
   case HARBOUR_NO_ACC:
-  game_get_printed_dialogue_rule(game, 2, args,REPEATED_ERROR_ID+3, OK);
+    dialogue=game_get_printed_dialogue_rule(game, 2, args,REPEATED_ERROR_ID+3, OK);
     break;
   case WORKSHOP_NO_ACC:
-  game_get_printed_dialogue_rule(game, 3, args, REPEATED_ERROR_ID+3, OK);
+    dialogue=game_get_printed_dialogue_rule(game, 3, args, REPEATED_ERROR_ID+3, OK);
     break;
   default:
-    break;
+  break;
   }
+  return dialogue;
 
 }
 
@@ -2140,8 +2140,10 @@ char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues)
 
   if (inundation)
   {
-    if (player_get_health(game_get_player(game)) == 0 /*&& game_check_harbour_sunk(game)==TRUE*/)
-      aux = game_get_printed_dialogue_rule(game, 5, NULL, REPEATED_ERROR_ID + 1, OK);
+    if (player_get_health(game_get_player(game)) == 0 /*&& game_check_harbour_sunk(game)==TRUE*/){
+      sprintf(cadena,"%ld",player_get_location(game_get_player(game)));
+      aux = game_get_printed_dialogue_rule(game, 5,cadena, REPEATED_ERROR_ID + 1, OK);
+    }
     else
     {
       n_flooded = rule_action_get_argint(rule_get_action(game->rules[indexrule], indexact));
@@ -2789,6 +2791,10 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     break;
   case DEFEAT_ACT:
     game->num_executed_commands = VICTORY + argint; /*En el Argint esta codificado que fin de partida se da*/
+    FILE *f;
+    f = fopen("path.log", "a");
+    fprintf(f,"NUM: %d %d",game->num_executed_commands, argint);
+    fclose(f);
     break;
   default:
     st = ERROR;

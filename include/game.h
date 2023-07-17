@@ -594,6 +594,15 @@ char *game_get_open_close_link_dialogue_rule(Game *game, T_Command command, DTYP
  */
 char **game_get_dialogue_of_game_rule(Game *game, int *num_dialogues);
 
+/**
+ * @brief It gets all the dialogues of the event of a defeat
+ * @author Diego Rodríguez Ortiz
+ * @param game Pointer to the game
+ * @return An string with the diferent dialogues rules or NULL in case of error
+ */
+char *game_get_dialogue_of_defeat(Game *game);
+
+
 /*GAME COMMAND FUNCTIONS*/
 
 /**
