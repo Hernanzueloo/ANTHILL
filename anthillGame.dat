@@ -2,7 +2,7 @@
 #G:0|0|
 
                 PLAYER
-#p:1|Segismundo Eduardo de todos los Santos|065|5|6|0|
+#p:1|Segismundo Eduardo de todos los Santos|054|5|6|0|
 
 
                 SPACES
@@ -16,10 +16,10 @@
 #s:045|Stone Quarry|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Massive rock excavation|The stone quarry is a massive excavation site where large quantities of stone are extracted, leaving behind impressive rock formations and deep pits.|
 #s:046|Cave of Embers|1|0| ____________ |/            \|l a  o       l|l bc  __  o  l|l de [ ]  o8 l|\____________/  |Glowing, fiery cave|The Cave of Embers is a mysterious cavern filled with a warm, fiery glow from flickering embers, providing an enchanting yet dangerous atmosphere. |
 #s:054|The Crossroads|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Central intersection point|The Crossroads is a central intersection where multiple paths converge, offering travelers choices that may lead to various destinations. |
-#s:055|Cave of Shadows|1|0| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
+#s:055|Cave of Shadows|1|1| ____________ |/  ___    o  \|l /_  \  o   l|l   _)  /___ l|l_/__/ / o8  l|\____________/|Dark, shadow-filled cave|The Cave of Shadows is a hidden, dark cavern filled with lurking shadows, where explorers must tread|
 #s:065|The Workshop|1|0|  __________  | /     o    \  |/____________\|l  __        l|l l  l  [ ]  l|l_l__l_______l|A place for crafting and creation|The workshop is a spacious and well-lit area designed for artisans to create and repair a variety of tools, equipment, and other objects. |
 
-#s:123|Dunes of Deception|1|2|             _|   up     __[ |       __[    |    __[       | __[          |[              |Suspicious and shifting, misleading dunes|The Dunes of Deception are vast, seemingly endless sand dunes that shift and change, making navigation and finding the way out a challenging endeavor.|
+#s:123|Dunes of Deception|1|0|             _|   up     __[ |       __[    |    __[       | __[          |[              |Suspicious and shifting, misleading dunes|The Dunes of Deception are vast, seemingly endless sand dunes that shift and change, making navigation and finding the way out a challenging endeavor.|
 #s:124|Haze Gardens|1|0|             _|          __[ |       __[    |    __[       | __[     down |[              |Misty, mysterious garden|The Haze Gardens is an ethereal, mist-filled garden where plants thrive in the damp environment, and the ever-present haze creates an air of mystery.|
 #s:133|Black Tree|1|0| ____________ |l  ______  __l|l_/  lo \/o  l|l__/ l___\_  l|l  ________/ l|\____________/|Dark, imposing tree|The Black Tree is an enigmatic and towering tree with dark bark, which seems to absorb all light around it, giving off an eerie and ominous presence.|
 #s:134|Phantom Rock|1|0| ____________ |/  ______  __\|l /  lo8 \/  l|l/___l___\_  l|l  ________/ l|l /  o    \  l|Ghostly, shifting rock|Phantom Rock is an elusive and ghostly rock formation that seems to appear and disappear, creating a sense of unease and mystery in those who encounter it.|
@@ -215,7 +215,7 @@
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
 #r:9|1|victory act|0|0|-|2|Drop object|0|0|ANTBOAT|in space|0|0|Harbour|
 #r:10|1|save space|0|0|-|1|Drop object|0|0|Ground|
-#r:11|1|inundation|0|3|-|1|N comands|0|10|-|
+#r:11|1|inundation|0|3|-|1|N comands|0|1|-|
 #r:12|1|spawn ground|0|2|-|1|N comands|0|10|-|
 #r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
 #r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|
@@ -225,13 +225,12 @@
 #r:18|1|set movable|0|0|-|1|health enemy|0|10000|-|
 #r:19|1|set movable|0|1|-|1|health enemy|0|0|-|
 
-/*RULES A AÑADIR
-r:20|1|defeat act|0|2|-|1|no path to n object|0|3|Stick|
-r:21|1|defeat act|0|3|-|1|no path to n object|0|3|Leaf|
-r:22|1|defeat act|0|4|-|1|no path to n object|0|3|Walnut|
-r:23|1|defeat act|0|5|-|1|no path to n object|0|3|Boat|
+#r:20|1|defeat act|0|2|-|1|no path to n object|0|3|Stick|
+#r:21|1|defeat act|0|3|-|1|no path to n object|0|3|Leaf|
+#r:22|1|defeat act|0|4|-|1|no path to n object|0|3|Walnut|
+#r:23|1|defeat act|0|5|-|1|no path to n object|0|3|Boat|
 #r:24|1|defeat act|0|6|-|1|no path to space|0|0|Harbour|
-r:25|1|defeat act|0|7|-|2|no path to space|0|0|The Workshop|object not built or not accesible|0|0|ANTBOAT|
+#r:25|1|defeat act|0|7|-|2|no path to space|0|0|The Workshop|object not built or not accesible|0|0|ANTBOAT|
 
 
 
@@ -331,7 +330,7 @@ r:25|1|defeat act|0|7|-|2|no path to space|0|0|The Workshop|object not built or 
 #d:16|1|You have combined <int> <argname> into one <upgradedname>|
 #d:17|1|There is no path to get the needed <argname> therefore you lost|
 #d:17|1|There is no path to get the needed different boat parts therefore you lost|
-#d:17|1|There is no path to get to the Harbour. You cannot escape|
-#d:17|1|There is no path to get to the Whorkshop and the Boat is not build. That's a game over|
+#d:17|1|There is no path to the Harbour. You can't escape.|
+#d:17|1|There is no path to the Whorkshop and the Boat is not build. That's a game over|
 
 

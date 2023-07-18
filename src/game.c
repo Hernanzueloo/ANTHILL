@@ -986,8 +986,8 @@ STATUS game_delete_space(Game *game, Id spaceid)
       free(objs);
 
       for (j = 0; j < MAX_ENEMIES && game->enemies[j] != NULL; j++)
-        if (enemy_get_location(game->enemies[i]) == spaceid)
-          game_delete_enemy(game, enemy_get_id(game->enemies[i]));
+        if (enemy_get_location(game->enemies[j]) == spaceid)
+          game_delete_enemy(game, enemy_get_id(game->enemies[j]));
 
       index = i;
       space_destroy(game->spaces[index]);
@@ -2497,14 +2497,22 @@ STATUS game_rule_execute(Game *game, Rule *rule)
 
 BOOL game_rule_evaluate(Game *game, Rule *rule)
 {
-  int i;
+  int i, n;
   BOOL eval = TRUE;
   if (!game || !rule)
     return FALSE;
+FILE *f;
+    f = fopen("error.log", "a");
+    n = rule_get_num_conditions(rule);
+        fprintf(f,"   N   : %d\n",n);
 
-  for (i = 0; i < rule_get_num_conditions(rule) && eval == TRUE; i++)
+  for (i = 0; i < n && eval == TRUE; i++){
+    
     eval = game_rule_evaluate_condition(game, rule_get_condition(rule, i));
+      fprintf(f,"Info   : %d %s %d \n",rule_condition_get_type(rule_get_condition(rule,i)),rule_condition_get_argname(rule_get_condition(rule,i)), eval);
 
+  }
+    fclose(f);
   return eval;
 }
 
@@ -2595,7 +2603,6 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
           break;
         }
       }
-      free(objs);
     }
     break;
   case SAME_OBJECT:
@@ -2638,17 +2645,21 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
   break;  
   case OBJECT_NOT_BUILT_OR_NOT_ACCESIBLE:
     eval = FALSE;
+    
     for(i=0;i<MAX_OBJECTS && game->objects[i]!=NULL && eval == FALSE;i++){
       if(!strcasecmp(object_get_name( game->objects[i]),argname)){
-        if(object_get_location(game->objects[i])==NO_ID ||!game_get_path(game,player_get_location(game_get_player(game)),object_get_location(game->objects[i])==NO_ID))
-        eval = TRUE;
+        if(object_get_location(game->objects[i])==NO_ID ||!(game_get_path(game,player_get_location(game_get_player(game)),object_get_location(game->objects[i])))){
+          eval = TRUE;
+    
+        }
+        
+
       }
     }
   break;
   default:
     break;
   }
-
   return eval;
 }
 
@@ -2806,7 +2817,6 @@ STATUS game_rule_execute_action(Game *game, Action *action)
 BOOL game_rule_get_path_to_type_of_object(Game *game, Id orig, T_ObjectType type, int num)
 {
   int i, count = 0;
-  
   if (!game || orig == NO_ID || type == NO_OTYPE)
     return TRUE;
 
@@ -2886,7 +2896,7 @@ BOOL game_get_path(Game *game, Id orig, Id dest)
      return TRUE;
   /*DIEGO PRUEBAS PATH*/
   fpath= fopen("path.log", "a");
-      fprintf(fpath,"\nBUSCAMOS : %d->%d",orig,dest);
+      fprintf(fpath,"\nBUSCAMOS : %ld->%ld",orig,dest);
 
     /*DIEGO FIN PRUEBAS PATH*/
 
