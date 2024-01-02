@@ -205,27 +205,31 @@ void _paint_player_description(Graphic_engine *ge, Game *game);
  * @author David Brenchley
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @param auxlines Number of lines written
  */
-void _paint_enemy_description(Graphic_engine *ge, Game *game);
+void _paint_enemy_description(Graphic_engine *ge, Game *game, int *auxlines);
 /**
  * @brief Paints the objects' description
  * @author David Brenchley
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @param auxlines Number of lines written
  */
-void _paint_objects_description(Graphic_engine *ge, Game *game);
+void _paint_objects_description(Graphic_engine *ge, Game *game, int *auxlines);
 /**
  * @brief Paints the objects' description
  * @author David Brenchley
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @param auxlines Number of lines written
  */
-void _paint_links_description(Graphic_engine *ge, Game *game);
+void _paint_links_description(Graphic_engine *ge, Game *game, int *auxlines);
 /**
  * @brief Paints the description of the space
  * @author Alejandro García
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @param auxlines Number of lines written
  */
 void _paint_space_description(Graphic_engine *ge, Game *game);
 /**
@@ -344,7 +348,7 @@ void graphic_engine_destroy(Graphic_engine *ge)
 
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 {
-  int i, bytes = 0, f = game_get_num_commands_till_flood(game), n = game_get_num_commands_per_flood(game);
+  int i, bytes = 0, f = game_get_num_commands_till_flood(game), n = game_get_num_commands_per_flood(game), nlines=0;
   char aux[WORD_SIZE];
   char str[WORD_SIZE];
 
@@ -357,12 +361,17 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Paint in the description area */
   screen_area_clear(ge->descript);
-  screen_area_puts(ge->descript, B_DESCRIPT "                 DESCRIPTION  ");
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  nlines++;
+  screen_area_puts(ge->descript, B_DESCRIPT "                 DESCRIPTION  ");
+  nlines++;
+  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  nlines++;
   if (game_get_num_commands_till_flood(game) != -1)
   {
     sprintf(aux, B_DESCRIPT " - Commands until next flood: %d/%d", game_get_num_commands_till_flood(game), game_get_num_commands_per_flood(game));
     screen_area_puts(ge->descript, aux);
+    nlines++;
   }
 
   f = DESCRIPT_WIDTH - f * DESCRIPT_WIDTH / n;
@@ -373,14 +382,27 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
     bytes += sprintf(aux + bytes, B_DESCRIPT " ");
   bytes += sprintf(aux + bytes, B_DESCRIPT " ");
   screen_area_puts(ge->descript, aux);
+  nlines++;
 
   _paint_player_description(ge, game);
-  _paint_enemy_description(ge, game);
-  _paint_objects_description(ge, game);
-  _paint_links_description(ge, game);
-  _paint_space_description(ge, game);
+  nlines+=6;
+  printf("player %d\n", nlines);
+  int auxlines=0;
+  _paint_enemy_description(ge, game, &auxlines);
+  printf("_paint_enemy_description %d\n", auxlines);
+  nlines+=auxlines;
+  _paint_objects_description(ge, game, &auxlines);
+  printf("_paint_objects_description %d\n", auxlines);
+  nlines+=auxlines;
+  _paint_links_description(ge, game, &auxlines);
+  printf("_paint_links_description %d\n", auxlines);
+  nlines+=auxlines;
+  /*_paint_space_description(ge, game);
+  nlines+=auxlines;*/
   /*_paint_inspection_description(ge, game);*/
-  paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  paint_n_enters(ge->descript, DESCRIPT_HEIGHT-nlines, B_DESCRIPT);
+  printf("asfasdsadwadwqdw %d", DESCRIPT_HEIGHT-nlines);
+  nlines++;
 
   /* Paint in the banner area */
   screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
@@ -391,7 +413,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->help, str);
   sprintf(str, " Attack or a, take or t, drop or d, move or m, inspect or i, turnon or to, turnoff or tf, op or open with, cl or close with, l or load,");
   screen_area_puts(ge->help, str);
-  sprintf(str, " s or save, info or y, exit or e");
+  sprintf(str, " s or save, info or y, exit or e. You can move east o e, west or w, north or n, south or s.");
   screen_area_puts(ge->help, str);
 
   _paint_feedback_dialogue(ge, game);
@@ -491,7 +513,8 @@ void graphic_engine_paint_lose(Graphic_engine *ge, Game *game)
   if (player_get_health(game_get_player(game)) > 0)
   {
     screen_area_clear(ge->feedback);
-    _paint_feedback_dialogue(ge, game);
+    sprintf(str, "The Harbour has sunk, you cannot escape that's a game over");
+    screen_area_puts(ge->feedback, str);
   }
   else
     _paint_feedback_dialogue(ge, game);
@@ -503,7 +526,7 @@ void graphic_engine_paint_lose(Graphic_engine *ge, Game *game)
   screen_paint();
 }
 
-void _paint_objects_description(Graphic_engine *ge, Game *game)
+void _paint_objects_description(Graphic_engine *ge, Game *game, int *auxlines)
 {
   Id obj_loc = NO_ID;
   int i, j, n, first, bytes = 0;
@@ -511,9 +534,12 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
   char str[WORD_SIZE] = "\0", aux[WORD_SIZE] = "\0";
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  *auxlines=1;
   sprintf(aux, B_DESCRIPT "                        OBJECTS ");
   screen_area_puts(ge->descript, aux);
+  *auxlines=*auxlines+1;
   screen_area_puts(ge->descript, B_DESCRIPT " - Objects location:");
+  *auxlines=*auxlines+1;
   n = game_get_num_objects(game);
   for (i = NO_OTYPE; i < N_OBJ_TYPES; i++)
   {
@@ -543,6 +569,7 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
                   sprintf(aux, B_DESCRIPT "  %ld", obj_loc);
                 }
                 screen_area_puts(ge->descript, str);
+                *auxlines=*auxlines+1;
                 memcpy(str, aux, WORD_SIZE);
               }
               else
@@ -552,8 +579,10 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
         }
       }
     }
-    if (first)
+    if (first){
       screen_area_puts(ge->descript, str);
+      *auxlines=*auxlines+1;
+    }
 
     strcpy(str, "\0");
   }
@@ -582,7 +611,7 @@ void _paint_objects_description(Graphic_engine *ge, Game *game)
   }
 }
 
-void _paint_links_description(Graphic_engine *ge, Game *game)
+void _paint_links_description(Graphic_engine *ge, Game *game, int *auxlines)
 {
   Id id_centre = NO_ID, link_id = NO_ID;
   int i;
@@ -591,10 +620,13 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
   char *dir_to_str[N_DIR] = {"north", "south", "east", "west", "up", "down"};
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  *auxlines=1;
   sprintf(str, B_DESCRIPT "                         LINKS ");
   screen_area_puts(ge->descript, str);
+  *auxlines=*auxlines+1;
   sprintf(str, B_DESCRIPT " - Links:");
   screen_area_puts(ge->descript, str);
+  *auxlines=*auxlines+1;
 
   strcpy(str, "\0");
   if ((id_centre = player_get_location(game_get_player(game))) != NO_ID)
@@ -611,6 +643,7 @@ void _paint_links_description(Graphic_engine *ge, Game *game)
           sprintf(str, B_DESCRIPT "  Link %s (%s)= CLOSED", dir_to_str[i], link_get_name(game_get_link(game, link_id)));
 
         screen_area_puts(ge->descript, str);
+        *auxlines=*auxlines+1;
       }
     }
   }
@@ -647,7 +680,7 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
   }
 }
 
-void _paint_enemy_description(Graphic_engine *ge, Game *game)
+void _paint_enemy_description(Graphic_engine *ge, Game *game, int *auxlines)
 {
   Id enmy_loc = NO_ID;
   int i;
@@ -655,8 +688,10 @@ void _paint_enemy_description(Graphic_engine *ge, Game *game)
   Enemy *enemy;
 
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
+  *auxlines=1;
   sprintf(aux, B_DESCRIPT "                        ENEMIES ");
   screen_area_puts(ge->descript, aux);
+  *auxlines=*auxlines+1;
 
   for (i = 0; i < MAX_ENEMIES; i++)
   {
@@ -673,6 +708,7 @@ void _paint_enemy_description(Graphic_engine *ge, Game *game)
 
         strcat(str, aux);
         screen_area_puts(ge->descript, str);
+        *auxlines=*auxlines+1;
       }
     }
   }
@@ -737,47 +773,50 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   screen_area_clear(ge->descript);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "                        Pick a player");
+  sprintf(buffer, B_DESCRIPT "                        PICK A PLAYER");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, buffer);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "     -Scorpion (1): %s", pSkins[SCORPION]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "The Scorpion is a venomous animal therefore it deals %d", EXTRASCORP);
+  sprintf(buffer, B_DESCRIPT "  The Scorpion is a venomous animal therefore it deals %d", EXTRASCORP);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT " more damage");
+  sprintf(buffer, B_DESCRIPT "  more damage");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Snail (2): %s", pSkins[SNAIL]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
+  sprintf(buffer, B_DESCRIPT "  The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Firefly (3): %s", pSkins[FIREFLY]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "The Firefly iluminates a room without the need of a torch");
+  sprintf(buffer, B_DESCRIPT "  The Firefly iluminates a room without the need of a");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT "  torch");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Ant (4): %s", pSkins[ANT]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "The ant creates %d ground at the beggining of the game", EXTRASANT);
+  sprintf(buffer, B_DESCRIPT "  The ant creates %d ground at the beggining of the game", EXTRASANT);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Butterfly (5): %s", pSkins[BUTTERFLY]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "The butterfly flies vertically thanks to its light and");
+  sprintf(buffer, B_DESCRIPT "  The butterfly flies vertically thanks to its light and");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "powerful wings.");
+  sprintf(buffer, B_DESCRIPT "  powerful wings.");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "- Exit (e)");
+  sprintf(buffer, B_DESCRIPT "    - Exit (e)");
   screen_area_puts(ge->descript, buffer);
 
   sprintf(buffer, B_DESCRIPT " ");
@@ -787,7 +826,7 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
     sprintf(buffer, B_DESCRIPT "                %s", ascii_art[i]);
     screen_area_puts(ge->descript, buffer);
   }
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < 3; i++)
   {
     sprintf(buffer, B_DESCRIPT "              ");
     screen_area_puts(ge->descript, buffer);
@@ -829,8 +868,7 @@ void _paint_description_end(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
 
-  for (i = 0; (i < MAX_SPACES) && ((space = game_get_space_id_at(game, i)) != NO_ID); i++)
-    ;
+  for (i = 0; (i < MAX_SPACES) && ((space = game_get_space_id_at(game, i)) != NO_ID); i++);
   sprintf(buffer, B_DESCRIPT "         Spaces left: %d", i);
   screen_area_puts(ge->descript, buffer);
   paint_n_enters(ge->descript, 1, B_DESCRIPT);
@@ -1036,14 +1074,6 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game)
     }
 
     free(game_rules_dialogues);
-  }
-
-  dialogue_rule = game_get_dialogue_of_defeat(game);
-  if (dialogue_rule != NULL)
-  {
-    screen_area_puts(ge->feedback, dialogue_rule);
-    free(dialogue_rule);
-    return;
   }
 }
 
@@ -1430,7 +1460,7 @@ void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_fram
   if (space_get_flooded(space) == FLOODED && dir != NORTH)
   { /* Flooded */
     sprintf(str_color_beggining, B_BLUE);
-    sprintf(str_color_end, B_WHITE);
+    sprintf(str_color_end, B_MAP);
   }
   else if (space_get_light(space) || game_player_has_light(game))
   { /* Illuminated */
@@ -1440,7 +1470,7 @@ void graphic_engine_sprint_link(DIRECTION dir, LSTATUS status, char (*space_fram
   else
   { /* Not illuminated */
     sprintf(str_color_beggining, B_BLACK F_WHITE);
-    sprintf(str_color_end, B_BLACK F_BLACK);
+    sprintf(str_color_end, B_MAP F_BLACK);
   }
 
   if (dir == NORTH || dir == SOUTH)
@@ -1663,10 +1693,8 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
       bytes += sprintf(buffer, B_MINIMAP "    | ");
       for (k = 1; k < 8; k++)
       {
-        space = game_get_space(game, (Id)(i * 100 + k * 10 + j));
-        if (space != NULL)
+        if ((space = game_get_space(game, (Id)(i * 100 + k * 10 + j))) != NULL)
         {
-
           if (space_get_flooded(space) == SUNK)
             sprintf(aux, B_MINIMAP "   ");
           else if (Loc == (Id)(i * 100 + k * 10 + j))
@@ -1683,14 +1711,14 @@ void _paint_minimap(Graphic_engine *ge, Game *game)
             sprintf(aux, F_BROWN B_LIGHTORANGE "|W|");
           else /*Objects*/
           {
-            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
+            if (game_space_has_object(game, space_get_id(space), STICK) + game_space_has_object(game, space_get_id(space), LEAF) + game_space_has_object(game, space_get_id(space), WALNUT) + game_space_has_object(game, space_get_id(space), GROUND) + game_space_has_object(game, space_get_id(space), KEY) + game_space_has_object(game, space_get_id(space), LANTERN) + game_space_has_object(game, space_get_id(space), GOLDKEY) > 1)
               sprintf(aux, F_BROWN B_LIGHTBROWN "|*|");
             else if (game_space_has_object(game, space_get_id(space), STICK))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|ᛅ|");
             else if (game_space_has_object(game, space_get_id(space), LEAF))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|♠|");
             else if (game_space_has_object(game, space_get_id(space), WALNUT))
-              sprintf(aux, F_BROWN B_LIGHTBROWN "|U|");
+              sprintf(aux, F_BROWN B_LIGHTBROWN "|○|");
             else if (game_space_has_object(game, space_get_id(space), GROUND))
               sprintf(aux, F_BROWN B_LIGHTBROWN "|G|");
             else if (game_space_has_object(game, space_get_id(space), LANTERN))
@@ -1722,11 +1750,12 @@ void paint_n_enters(Area *area, int n, char *c)
   if (area == NULL || n < 1)
     return;
 
-  for (i = 0; i < n; i++)
-  {
-    sprintf(str, "%s"
+  sprintf(str, "%s"
                  " ",
             c);
+
+  for (i = 0; i < n; i++)
+  {
     screen_area_puts(area, str);
   }
 }
