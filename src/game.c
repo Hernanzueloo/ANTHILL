@@ -617,9 +617,6 @@ BOOL game_is_over(Game *game)
   if (!game)
     return TRUE;
 
-  printf("game->num_executed_commands == VICTORY %d\n", game->num_executed_commands == VICTORY);
-  printf("(game->num_executed_commands > VICTORY && game->num_executed_commands < 0) %d\n", (game->num_executed_commands > VICTORY && game->num_executed_commands < 0));
-  printf("player_get_health(game_get_player(game)) <= 0 %d\n", player_get_health(game_get_player(game)) <= 0);
   if (game->num_executed_commands == VICTORY || (game->num_executed_commands > VICTORY && game->num_executed_commands < 0) || player_get_health(game_get_player(game)) <= 0)
     return TRUE;
 
