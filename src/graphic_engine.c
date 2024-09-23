@@ -387,22 +387,17 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   nlines++;
 
   nlines+=_paint_player_description(ge, game);
-    printf("player %d\n", nlines);
   int auxlines=0;
   _paint_enemy_description(ge, game, &auxlines);
-  printf("_paint_enemy_description %d\n", auxlines);
   nlines+=auxlines;
   _paint_objects_description(ge, game, &auxlines);
-  printf("_paint_objects_description %d\n", auxlines);
   nlines+=auxlines;
   _paint_links_description(ge, game, &auxlines);
-  printf("_paint_links_description %d\n", auxlines);
   nlines+=auxlines;
   /*_paint_space_description(ge, game);
   nlines+=auxlines;*/
   /*_paint_inspection_description(ge, game);*/
   paint_n_enters(ge->descript, DESCRIPT_HEIGHT-nlines, B_DESCRIPT);
-  printf("asfasdsadwadwqdw %d", DESCRIPT_HEIGHT-nlines);
   nlines++;
 
   /* Paint in the banner area */
