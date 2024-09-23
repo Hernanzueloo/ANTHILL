@@ -617,6 +617,9 @@ BOOL game_is_over(Game *game)
   if (!game)
     return TRUE;
 
+  printf("game->num_executed_commands == VICTORY %d\n", game->num_executed_commands == VICTORY);
+  printf("(game->num_executed_commands > VICTORY && game->num_executed_commands < 0) %d\n", (game->num_executed_commands > VICTORY && game->num_executed_commands < 0));
+  printf("player_get_health(game_get_player(game)) <= 0 %d\n", player_get_health(game_get_player(game)) <= 0);
   if (game->num_executed_commands == VICTORY || (game->num_executed_commands > VICTORY && game->num_executed_commands < 0) || player_get_health(game_get_player(game)) <= 0)
     return TRUE;
 
@@ -2754,7 +2757,7 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     break;
 
   case COMBINE:
-
+    printf("kjbcsdajbsbdaujvasdujvasduvjsda4 action %s\n\n", rule_action_get_argname(action));
     objs = player_get_objects(game_get_player(game), &n_objs);
     len = strlen(argname);
 
@@ -2786,6 +2789,7 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     free(objs);
     break;
   case SET_MOVABLE:
+  printf("kjbcsdajbsbdaujvasdujvasduvjsda3\n\n");
     objs = space_get_objects(game_get_space(game, player_get_location(game_get_player(game))), &n_objs);
 
     if (objs)
@@ -2797,10 +2801,12 @@ STATUS game_rule_execute_action(Game *game, Action *action)
     break;
 
   case VICTORY_ACT:
+    printf("kjbcsdajbsbdaujvasdujvasduvjsda2\n\n");
     if (commands_get_cmd(game_get_last_command(game)) == DROP && strcasecmp(commands_get_args(game_get_last_command(game), 0), BOAT) == 0)
       game->num_executed_commands = VICTORY;
     break;
   case DEFEAT_ACT:
+    printf("kjbcsdajbsbdaujvasdujvasduvjsda1\n\n");
     game->num_executed_commands = VICTORY + argint; /*En el Argint esta codificado que fin de partida se da*/
     FILE *f;
     f = fopen("path.log", "a");
