@@ -175,9 +175,9 @@
 #l:065233|magical_path|065|233|4|0|
 
                  OBJECTS
-#o:21|Stick|-2|Sticks are useful for building ship masts.|0|1|-1|0|
-#o:22|Stick|-2|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
-#o:23|Stick|-2|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:21|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|0|
+#o:22|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
+#o:23|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:24|Stick|-3|Sticks are useful for building ship masts.|0|1|-1|-1|0|0|
 #o:200|Boat_Mast|-1|Masts are essential for building ships!|0|1|-1|-1|0|0|
 
