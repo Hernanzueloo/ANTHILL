@@ -647,6 +647,13 @@ int game_get_num_executed_commands(Game *game);
 STATUS game_set_num_executed_commands(Game *game, int num);
 
 /**
+ * @brief It sets the number of  commands per flod
+ * @author Alejandro García
+ * @param int Numberof commands per flod
+ */
+void game_set_num_commands_per_flood(int num_commands);
+
+/**
  * @brief It gets the number of  commands per flood if there is a rule with such action
  * @author Alejandro García
  * @param game Pointer to the game

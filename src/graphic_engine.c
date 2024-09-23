@@ -175,6 +175,14 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type);
 void _paint_description_init(Graphic_engine *ge, Game *game);
 
 /**
+ * @brief Paints the initial description
+ * @author Alejandro García
+ * @param ge Pointer to graphical descriptor
+ * @param game Pointer to game
+ */
+void _paint_description_init_difficulty(Graphic_engine *ge, Game *game);
+
+/**
  * @brief Paints the final exiting description
  * @author David Brenchley
  * @param ge Pointer to graphical descriptor
@@ -444,6 +452,38 @@ void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
   sprintf(str, " Choose your player:");
   screen_area_puts(ge->help, str);
   sprintf(str, " Introduce a number between 1 and %d to choose a player. Type exit or e to leave the game", TYPEPLAYERS - 1);
+  screen_area_puts(ge->help, str);
+
+  /*Paint in the minimap area*/
+  _paint_minimap(ge, game);
+
+  /* Dump to the terminal */
+  screen_paint();
+
+  printf("\033[0;37mIntroduce the number:> ");
+}
+
+void graphic_engine_paint_init_difficulty(Graphic_engine *ge, Game *game)
+{
+  char str[WORD_SIZE];
+
+  if (ge == NULL || game == NULL)
+    return;
+
+  /* Paint in the map area */
+  _paint_map_frame(ge, game, 0);
+
+  /* Paint in the description area */
+  _paint_description_init_difficulty(ge, game);
+
+  /* Paint in the banner area */
+  screen_area_puts(ge->banner, "        THE ANTHILL GAME ");
+
+  /* Paint in the help area */
+  screen_area_clear(ge->help);
+  sprintf(str, " Choose the difficulty level:");
+  screen_area_puts(ge->help, str);
+  sprintf(str, " Introduce a number between 1 and 5 to the difficulty. Type exit or e to leave the game");
   screen_area_puts(ge->help, str);
 
   /*Paint in the minimap area*/
@@ -815,6 +855,69 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT "    - Exit (e)");
+  screen_area_puts(ge->descript, buffer);
+
+  sprintf(buffer, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, buffer);
+  for (i = 0; i < 12; i++)
+  {
+    sprintf(buffer, B_DESCRIPT "                %s", ascii_art[i]);
+    screen_area_puts(ge->descript, buffer);
+  }
+  for (i = 0; i < 3; i++)
+  {
+    sprintf(buffer, B_DESCRIPT "              ");
+    screen_area_puts(ge->descript, buffer);
+  }
+}
+
+void _paint_description_init_difficulty(Graphic_engine *ge, Game *game)
+{
+  int i;
+  char buffer[WORD_SIZE];
+  char ascii_art[12][30] = {
+      "       /\\   /\\",
+      "         \\_/",
+      "    __   / \\   __",
+      "  -'  `. \\_/ .'  `-",
+      "        \\/ \\/",
+      "   _.---(   )---._",
+      "_.'   _.-\\_/-._   `._",
+      "     /   /_\\   \\",
+      "    /   /___\\   \\",
+      "   /   |_____|   \\",
+      "_.'    | ___ |    `._",
+      "        \\___/"};
+
+  screen_area_clear(ge->descript);
+  sprintf(buffer, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT "                        SELECT A DIFFICULTY");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, buffer);
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT " ");
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT "     -Begginer (1): %d commands until flod", difficulty_levels[0]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "     -Easy (2): %d commands until flod", difficulty_levels[1]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "     -Normal (3): %d commands until flod", difficulty_levels[2]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "     -Hard (4): %d commands until flod", difficulty_levels[3]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "     -Expert (5): %d commands until flod", difficulty_levels[4]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
+  sprintf(buffer, B_DESCRIPT "     -Legendary (6): %d commands until flod", difficulty_levels[5]);
+  screen_area_puts(ge->descript, buffer);
+  paint_n_enters(ge->descript, 2, B_DESCRIPT);
   sprintf(buffer, B_DESCRIPT "    - Exit (e)");
   screen_area_puts(ge->descript, buffer);
 

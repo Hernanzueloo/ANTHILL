@@ -123,6 +123,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
   if (game == NULL || gengine == NULL)
     return;
 
+  // Player selection
   if (player_get_type(game_get_player(game)) == UNDEFPLY)
   {
     do
@@ -135,7 +136,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
         while ((garbage = (char)getchar()) != '\n' && (int)garbage != EOF)
           ;
 
-    } while ((op[0] != 'e' || op[1] != '\n') && (op[1] != '\n' || (atoi(op) < UNDEFPLY + 1 || atoi(op) > TYPEPLAYERS - 1)));
+    } while ((op[0] != 'e' || op[1] != '\n') && (op[1] != '\n' || (atoi(op) < UNDEFPLY + 1 || atoi(op) > 5)));
 
     if (op[0] != 'e')
     {
@@ -143,11 +144,35 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
 
       if (player_set_type(game_get_player(game), (T_PlayerType)playerType) == ERROR)
         return;
+
+      // Dificulty selection
+      do
+      {
+        graphic_engine_paint_init_difficulty(gengine, game);
+
+        fgets(op, 3, stdin);
+
+        if (strlen(op) > 1 && op[1] != '\n')
+          while ((garbage = (char)getchar()) != '\n' && (int)garbage != EOF)
+            ;
+
+      } while ((op[0] != 'e' || op[1] != '\n') && (op[1] != '\n' || (atoi(op) <= 0 || atoi(op) > N_DIFFICULTY_LEVELS)));
+
+      if (op[0] != 'e')
+      {
+        game_set_num_commands_per_flood(difficulty_levels[atoi(op)-1]);
+      }
+      else
+      {
+        command = EXIT;
+      }
     }
     else
     {
       command = EXIT;
     }
+
+    
   }
 
   switch (player_get_type(game_get_player(game)))

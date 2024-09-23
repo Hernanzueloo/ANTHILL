@@ -37,6 +37,8 @@ struct _Game
   int num_executed_commands;          /*!< Number of executed commands*/
 };
 
+int num_commands_per_flood=-1; //Number of commands per flod, unitilialized
+
 /*PRIVATE COMMAND FUNCTIONS*/
 /**
  * @brief Executes the unknown command
@@ -2330,11 +2332,20 @@ STATUS game_set_num_executed_commands(Game *game, int num)
   return OK;
 }
 
+void game_set_num_commands_per_flood(int num_commands){
+  if (num_commands>0)
+    num_commands_per_flood=num_commands;
+}
+
 int game_get_num_commands_per_flood(Game *game)
 {
   int i, j, k, n_cond, n_act;
+
   if (!game)
     return -1;
+
+  if(num_commands_per_flood>0)
+    return num_commands_per_flood;
 
   for (i = 0; i < MAX_RULES && game->rules[i] != NULL; i++)
   {

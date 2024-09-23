@@ -18,6 +18,8 @@
 
 #include "libscreen.h"
 
+#define N_DIFFICULTY_LEVELS 6
+static int difficulty_levels[N_DIFFICULTY_LEVELS] = {20, 16, 14, 12, 10, 8};
 /**
  * @brief Graphic_engine struct
  */
@@ -53,6 +55,13 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game);
  */
 void graphic_engine_paint_init(Graphic_engine *ge, Game *game);
 
+/**
+ * @brief  Paints the screen to select the difficulty
+ * @author Alejandro García
+ * @param ge Pointer to the grahics engine
+ * @param game Pointer to the game
+ */
+void graphic_engine_paint_init_difficulty(Graphic_engine *ge, Game *game);
 
 /**
  * @brief  Paints the game to the screen
