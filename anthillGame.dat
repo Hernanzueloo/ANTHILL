@@ -215,7 +215,7 @@
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
 #r:9|1|victory act|0|0|-|2|Drop object|0|0|ANTBOAT|in space|0|0|Harbour|
 #r:10|1|save space|0|0|-|1|Drop object|0|0|Ground|
-#r:11|1|inundation|0|3|-|1|N comands|0|1|-|
+#r:11|1|inundation|0|3|-|1|N comands|0|10|-|
 #r:12|1|spawn ground|0|2|-|1|N comands|0|10|-|
 #r:13|1|combine|0|3|Stick|1|same object|0|3|Stick|
 #r:14|1|combine|0|3|Leaf|1|same object|0|3|Leaf|

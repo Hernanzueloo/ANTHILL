@@ -198,8 +198,9 @@ void _paint_single_space(Graphic_engine *ge, Game *game, Id id_centre, Id spc_di
  * @author David Brenchley
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @return number of lines printed
  */
-void _paint_player_description(Graphic_engine *ge, Game *game);
+int _paint_player_description(Graphic_engine *ge, Game *game);
 /**
  * @brief Paints the enemy's description
  * @author David Brenchley
@@ -261,8 +262,9 @@ void _paint_feedback_dialogue(Graphic_engine *ge, Game *game);
  * @author Diego Rodriguez
  * @param ge Pointer to graphical descriptor
  * @param game Pointer to game
+ * @return number of lines printed
  */
-void _paint_inventory(Graphic_engine *ge, Game *game);
+int _paint_inventory(Graphic_engine *ge, Game *game);
 
 /**
  * @brief Sets n enters
@@ -384,9 +386,8 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, aux);
   nlines++;
 
-  _paint_player_description(ge, game);
-  nlines+=6;
-  printf("player %d\n", nlines);
+  nlines+=_paint_player_description(ge, game);
+    printf("player %d\n", nlines);
   int auxlines=0;
   _paint_enemy_description(ge, game, &auxlines);
   printf("_paint_enemy_description %d\n", auxlines);
@@ -649,10 +650,11 @@ void _paint_links_description(Graphic_engine *ge, Game *game, int *auxlines)
   }
 }
 
-void _paint_player_description(Graphic_engine *ge, Game *game)
+int _paint_player_description(Graphic_engine *ge, Game *game)
 {
   Id ply_loc = NO_ID;
   char str[WORD_SIZE], aux[WORD_SIZE];
+  int inventoryLines=0;
 
   sprintf(aux, B_DESCRIPT " ");
   screen_area_puts(ge->descript, aux);
@@ -676,8 +678,10 @@ void _paint_player_description(Graphic_engine *ge, Game *game)
     sprintf(aux, B_DESCRIPT "           %.4d", game_get_num_executed_commands(game));
     strcat(str, aux);
     screen_area_puts(ge->descript, str);
-    _paint_inventory(ge, game);
+    inventoryLines=_paint_inventory(ge, game);
   }
+
+  return 4+inventoryLines;
 }
 
 void _paint_enemy_description(Graphic_engine *ge, Game *game, int *auxlines)
@@ -1166,19 +1170,20 @@ void _paint_map_frame(Graphic_engine *ge, Game *game, int type)
     screen_area_puts(ge->map, ascii_map[i]);
 }
 
-void _paint_inventory(Graphic_engine *ge, Game *game)
+int _paint_inventory(Graphic_engine *ge, Game *game)
 {
-  int i, n, count[N_OBJ_TYPES];
+  int i, n, count[N_OBJ_TYPES], linesPrinted=0;
   char aux[WORD_SIZE] = "";
   Id *objs;
   Object *obj;
 
   if (!ge || !game)
-    return;
+    return linesPrinted;
 
   objs = game_get_player_objects(game, &n);
   sprintf(aux, B_DESCRIPT "  ");
   screen_area_puts(ge->descript, aux);
+  linesPrinted++;
 
   sprintf(aux, B_DESCRIPT " - Inventory (%d/%d):", n, player_get_max_objects(game_get_player(game)));
 
@@ -1187,9 +1192,11 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     free(objs);
     strcat(aux, B_DESCRIPT " NONE");
     screen_area_puts(ge->descript, aux);
-    return;
+    linesPrinted++;
+    return linesPrinted;
   }
   screen_area_puts(ge->descript, aux);
+  linesPrinted++;
 
   for (i = 0; i < N_OBJ_TYPES; i++)
     count[i] = 0;
@@ -1201,6 +1208,7 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     {
       sprintf(aux, B_DESCRIPT "    -%s ", object_get_name(obj));
       screen_area_puts(ge->descript, aux);
+      linesPrinted++;
     }
     else
       count[object_get_type(obj)]++;
@@ -1211,9 +1219,11 @@ void _paint_inventory(Graphic_engine *ge, Game *game)
     {
       sprintf(aux, B_DESCRIPT "    -%s: %d ", object_translate_object_type_to_string(i), count[i]);
       screen_area_puts(ge->descript, aux);
+      linesPrinted++;
     }
 
   free(objs);
+  return linesPrinted;
 }
 
 void graphic_engine_sprint_objects(Game *game, Space *space, char *str)
