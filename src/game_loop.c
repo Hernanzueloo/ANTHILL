@@ -146,7 +146,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
         return;
 
       // Dificulty selection
-      do
+      /*do
       {
         graphic_engine_paint_init_difficulty(gengine, game);
 
@@ -165,7 +165,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
       else
       {
         command = EXIT;
-      }
+      }*/
     }
     else
     {
