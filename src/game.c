@@ -2812,6 +2812,8 @@ STATUS game_rule_execute_action(Game *game, Action *action)
       game->num_executed_commands = VICTORY;
     break;
   case DEFEAT_ACT:
+    if(argint==0)
+      argint=HARBOUR_NO_ACC-VICTORY;
     game->num_executed_commands = VICTORY + argint; /*En el Argint esta codificado que fin de partida se da*/
     FILE *f;
     f = fopen("path.log", "a");
