@@ -2614,6 +2614,7 @@ BOOL game_rule_evaluate_condition(Game *game, Condition *condition)
           break;
         }
       }
+      free(objs);
     }
     break;
   case SAME_OBJECT:
