@@ -383,7 +383,7 @@ void screen_paint(){
 }
 
 void screen_area_puts(Area *area, char *str){
-  int n_char, i, n_lines, j, move;
+  int n_char, i, n_lines, j, move, auxSize;
   char *text, *realloc_string;
 
   /* Error control */
@@ -404,10 +404,13 @@ void screen_area_puts(Area *area, char *str){
     /* If the area is full of strings moves all area strings up one */
     if (area->cursor == area->height){
       text = area->string_array[0];
+      auxSize = area->string_len[0];
       for (j = 0; j < area->height - 1; j++){
         area->string_array[j] = area->string_array[j + 1];
+        area->string_len[j]=area->string_len[j+1];
       }
       area->string_array[area->height - 1] = text;
+      area->string_len[area->height - 1] = auxSize;
       area->cursor--;
     }
 
