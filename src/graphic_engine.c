@@ -622,29 +622,6 @@ void _paint_objects_description(Graphic_engine *ge, Game *game, int *auxlines)
 
     strcpy(str, "\0");
   }
-  for (j = 0; j < n; j++)
-  {
-    object = game_get_object(game, game_get_object_id_at(game, j));
-    if (object_get_type(object) == SPECIAL)
-    {
-      if (((obj_loc = object_get_location(object)) >= 0) && object_get_hidden(object) == FALSE && object_get_movable(object) == TRUE && space_get_light(game_get_space(game, object_get_location(object))) == TRUE)
-      {
-        if (enemy_get_health(game_get_enemy_in_space(game, obj_loc)) < 1)
-        {
-          first = 1;
-          sprintf(aux, B_DESCRIPT " -%s: %ld", object_get_name(object), obj_loc);
-          if ((strlen(str) + strlen(aux) + 2) > DESCRIPT_WIDTH)
-          {
-            screen_area_puts(ge->descript, str);
-            strcpy(str, aux);
-          }
-          else
-            strcat(str, aux);
-        }
-      }
-      screen_area_puts(ge->descript, str);
-    }
-  }
 }
 
 void _paint_links_description(Graphic_engine *ge, Game *game, int *auxlines)
