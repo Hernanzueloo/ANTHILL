@@ -179,6 +179,7 @@ void game_loop_run(Game *game, Graphic_engine *gengine, FILE *file_log)
   {
   case SNAIL:
     player_set_max_objects(game_get_player(game), player_get_max_objects(game_get_player(game)) + EXTRASNAIL);
+    player_set_health(game_get_player(game), player_get_health(game_get_player(game))-2);
     break;
   case ANT:
     game_rule_spawn_ground(game, EXTRASANT);
