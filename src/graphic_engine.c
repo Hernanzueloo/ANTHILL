@@ -451,7 +451,7 @@ void graphic_engine_paint_init(Graphic_engine *ge, Game *game)
   screen_area_clear(ge->help);
   sprintf(str, " Choose your player:");
   screen_area_puts(ge->help, str);
-  sprintf(str, " Introduce a number between 1 and %d to choose a player. Type exit or e to leave the game", TYPEPLAYERS - 1);
+  sprintf(str, " Introduce a number between 1 and %d to choose a player. Type e to leave the game", TYPEPLAYERS - 1);
   screen_area_puts(ge->help, str);
 
   /*Paint in the minimap area*/
@@ -483,7 +483,7 @@ void graphic_engine_paint_init_difficulty(Graphic_engine *ge, Game *game)
   screen_area_clear(ge->help);
   sprintf(str, " Choose the difficulty level:");
   screen_area_puts(ge->help, str);
-  sprintf(str, " Introduce a number between 1 and 5 to the difficulty. Type exit or e to leave the game");
+  sprintf(str, " Introduce a number between 1 and 5 to the difficulty. Type e to leave the game");
   screen_area_puts(ge->help, str);
 
   /*Paint in the minimap area*/
