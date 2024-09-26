@@ -989,7 +989,7 @@ STATUS game_delete_space(Game *game, Id spaceid)
 
       for (j = 0; j < MAX_ENEMIES && game->enemies[j] != NULL; j++)
         if (enemy_get_location(game->enemies[j]) == spaceid)
-          game_delete_enemy(game, enemy_get_id(game->enemies[j]));
+          enemy_set_location(game_get_enemy(game, enemy_get_id(game->enemies[j])), -1);
 
       index = i;
       space_destroy(game->spaces[index]);
