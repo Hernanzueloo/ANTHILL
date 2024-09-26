@@ -574,7 +574,7 @@ void _paint_objects_description(Graphic_engine *ge, Game *game, int *auxlines)
   sprintf(aux, B_DESCRIPT "                        OBJECTS ");
   screen_area_puts(ge->descript, aux);
   *auxlines=*auxlines+1;
-  screen_area_puts(ge->descript, B_DESCRIPT " - Objects location:");
+  screen_area_puts(ge->descript, B_DESCRIPT " -Objects location:");
   *auxlines=*auxlines+1;
   n = game_get_num_objects(game);
   for (i = NO_OTYPE; i < N_OBJ_TYPES; i++)
@@ -592,7 +592,7 @@ void _paint_objects_description(Graphic_engine *ge, Game *game, int *auxlines)
             if (!first)
             {
               first = 1;
-              bytes = sprintf(str, B_DESCRIPT " -%s: %ld", object_get_name(object), obj_loc);
+              bytes = sprintf(str, B_DESCRIPT " - %s: %ld", object_get_name(object), obj_loc);
             }
             else
             {
@@ -793,7 +793,6 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
-  screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "     -Scorpion (1): %s", pSkins[SCORPION]);
@@ -806,7 +805,9 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Snail (2): %s", pSkins[SNAIL]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "  The snail can hold %d more objects due to its big shell.", EXTRASNAIL);
+  sprintf(buffer, B_DESCRIPT "  The Snail can hold %d more objects but has 2 health", EXTRASNAIL);
+  screen_area_puts(ge->descript, buffer);
+  sprintf(buffer, B_DESCRIPT "  points less.");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
@@ -820,13 +821,13 @@ void _paint_description_init(Graphic_engine *ge, Game *game)
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Ant (4): %s", pSkins[ANT]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "  The ant creates %d ground at the beggining of the game", EXTRASANT);
+  sprintf(buffer, B_DESCRIPT "  The Ant creates %d ground at the beggining of the game", EXTRASANT);
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT " ");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "    -Butterfly (5): %s", pSkins[BUTTERFLY]);
   screen_area_puts(ge->descript, buffer);
-  sprintf(buffer, B_DESCRIPT "  The butterfly flies vertically thanks to its light and");
+  sprintf(buffer, B_DESCRIPT "  The Butterfly flies vertically thanks to its light and");
   screen_area_puts(ge->descript, buffer);
   sprintf(buffer, B_DESCRIPT "  powerful wings.");
   screen_area_puts(ge->descript, buffer);
