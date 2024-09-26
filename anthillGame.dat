@@ -207,9 +207,9 @@
 #o:53|Goldkey|-3|Goldkeys can be combined to get the a magical key.|0|1|-1|-1|0|0|
 #o:204|Magicalkey|-1|The Magicalkey opens the magical entrance between the Workshop and the Harbour!|0|1|-1|065233|0|0|
 
-#o:60|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
-#o:61|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
-#o:62|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
+o:60|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
+o:61|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
+o:62|Rock|-3|An unmovable object|0|0|-1|-1|1|0|
 
                 RULES
 #r:8|1|defeat act|0|0|-|1|has sunk|0|0|Harbour|
